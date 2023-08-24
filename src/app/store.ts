@@ -9,6 +9,9 @@ export const store = configureStore({
     reducer: rootReducer
 })
 
+export type AppRootStateType = ReturnType<typeof store.getState>
+
+
 // This lets me look at the project's state
 // @ts-ignore
 window.store = store;
