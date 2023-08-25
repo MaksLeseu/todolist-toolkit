@@ -1,8 +1,9 @@
-import {combineReducers} from "redux";
-import {configureStore} from "@reduxjs/toolkit";
+import {AnyAction, combineReducers} from "redux";
+import {configureStore, ThunkDispatch} from "@reduxjs/toolkit";
+import {todolistsReducer} from "../features/TodolistsList/todolists-reducer";
 
 const rootReducer = combineReducers({
-
+    todolists: todolistsReducer
 })
 
 export const store = configureStore({
@@ -10,6 +11,9 @@ export const store = configureStore({
 })
 
 export type AppRootStateType = ReturnType<typeof store.getState>
+
+// export type AppDispatch = typeof store.dispatch
+export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>
 
 
 // This lets me look at the project's state

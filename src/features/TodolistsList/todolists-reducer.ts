@@ -7,20 +7,27 @@ const initialState: TodolistsType[] = []
 const slice = createSlice({
     name: 'todolists',
     initialState,
-    reducers: {}
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(getTodolists.fulfilled, (state, action) => {
+                action.payload.todolists.forEach(tl => state.push(tl))
+            })
+    }
 })
 
 //thunk
-export const getTodolists = createAppAsyncThunk<
-    any,
-    TodolistsType[]>
+export const getTodolists = createAppAsyncThunk<{ todolists: TodolistsType[] }>
 ('todolists/getTodolists', async (arg, thunkAPI) => {
-    const { dispatch, rejectWithValue } = thunkAPI
+    const { rejectWithValue } = thunkAPI
 
     try {
         const res = await todolistsApi.getTodolists()
-        console.log(res.data)
+        return { todolists: res.data }
     } catch (error) {
         return rejectWithValue(null)
     }
 })
+
+export const todolistsReducer = slice.reducer
+export const todolistsThunk = { getTodolists }
