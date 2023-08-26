@@ -1,8 +1,9 @@
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType, store} from "../../app/store";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../app/store";
 import {todolistsThunk} from "./todolists-reducer";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
+import {Todolist} from "./Todolist/Todolist";
 
 export const TodolistsList = () => {
     const dispatch = useAppDispatch()
@@ -15,13 +16,11 @@ export const TodolistsList = () => {
         <div>
             {
                 todos ?
-                    todos.map(tl => {
-                        return (
-                            <div>
-                                {tl.title}
-                            </div>
-                        )
-                    })
+                    todos.map(tl => (
+                        <Todolist
+                            key={tl.id}
+                            title={tl.title}
+                        />))
                     :
                     <div>Sorry</div>
             }
