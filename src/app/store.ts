@@ -1,9 +1,11 @@
 import {AnyAction, combineReducers} from "redux";
 import {configureStore, ThunkDispatch} from "@reduxjs/toolkit";
 import {todolistsReducer} from "../features/TodolistsList/todolists-reducer";
+import {tasksReducer} from "../features/TodolistsList/tasks-reducer";
 
 const rootReducer = combineReducers({
-    todolists: todolistsReducer
+    todolists: todolistsReducer,
+    tasks: tasksReducer
 })
 
 export const store = configureStore({
