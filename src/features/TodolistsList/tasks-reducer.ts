@@ -10,6 +10,9 @@ const slice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            .addCase(getTasks.fulfilled, (state, action) => {
+                action.payload.tasks.forEach(ts => state.push(ts))
+            })
     }
 })
 
