@@ -16,7 +16,7 @@ export const todolistsApi = {
 
 export const tasksApi = {
     getTasks(todolistId: string) {
-        return instance.get<{ items: TasksType[] }>(`todo-lists/${todolistId}/tasks`)
+        return instance.get<{ items: TasksType }>(`todo-lists/${todolistId}/tasks`)
     }
 }
 
