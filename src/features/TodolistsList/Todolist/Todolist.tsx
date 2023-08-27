@@ -14,12 +14,16 @@ export const Todolist: FC<TodolistType> = (props) => {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const addTask = (title: string) => {
+        alert(title)
+    }
     return (
         <div className={s.todolist}>
             <h2>{props.title}</h2>
             <Task todolistId={props.todolistId} />
             <ButtonAddTask onClick={handleOpen} />
-            <ModalWindow open={open} onClick={handleClose} />
+            <ModalWindow open={open} onClick={handleClose} addTask={addTask} />
         </div>
     )
 }

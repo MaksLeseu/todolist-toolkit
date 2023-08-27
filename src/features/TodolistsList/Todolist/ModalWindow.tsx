@@ -1,17 +1,17 @@
-import React, {FC} from "react";
+import React, {ChangeEvent, ChangeEventHandler, FC, useState} from "react";
 import Modal from '@mui/material/Modal';
 import {Box, IconButton, Typography} from "@mui/material";
 import TextField from '@mui/material/TextField';
-import DoneIcon from '@mui/icons-material/Done';
+import CancelIcon from '@mui/icons-material/Cancel';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 type ModalWindowPropsType = {
     open: boolean
     onClick: () => void
+    addTask: (title: string) => void
 }
 
 export const ModalWindow: FC<ModalWindowPropsType> = (props) => {
-
     const style = {
         position: 'absolute' as 'absolute',
         top: '50%',
@@ -24,6 +24,12 @@ export const ModalWindow: FC<ModalWindowPropsType> = (props) => {
         p: 4,
         borderRadius: 3,
     };
+    const [title, setTitle] = useState('')
+
+    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
+
     return (
         <>
             <Modal
@@ -36,15 +42,28 @@ export const ModalWindow: FC<ModalWindowPropsType> = (props) => {
                     </Typography>
                     <TextField
                         label={"Title"}
-                        sx={{ mt: 2 }}
+                        sx={{mt: 2}}
                         size={'small'}
+                        value={title}
+                        onChange={changeTitle}
                     />
                     <IconButton
-                        color={"secondary"}
+                        id={'add-task'}
+                        color={"success"}
                         sx={{marginTop: '15px', marginLeft: '6px'}}
+                        onClick={() => props.addTask(title)}
                     >
-                        <ArrowCircleRightIcon />
+                        <ArrowCircleRightIcon/>
                     </IconButton>
+                    <IconButton
+                        id={'close-model'}
+                        color={"error"}
+                        sx={{marginTop: '15px', marginLeft: '3px'}}
+                        onClick={props.onClick}
+                    >
+                        <CancelIcon/>
+                    </IconButton>
+
                 </Box>
             </Modal>
         </>
