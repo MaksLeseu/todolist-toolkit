@@ -1,7 +1,8 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import s from './Todolist.module.css'
 import {Task} from "./Task/Task";
-import {AddTask} from "./AddTask";
+import {ButtonAddTask} from "./ButtonAddTask";
+import {ModalWindow} from "./ModalWindow";
 
 type TodolistType = {
     todolistId: string
@@ -9,11 +10,16 @@ type TodolistType = {
 }
 
 export const Todolist: FC<TodolistType> = (props) => {
+    const [open, setOpen] = useState<boolean>(false)
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     return (
         <div className={s.todolist}>
             <h2>{props.title}</h2>
             <Task todolistId={props.todolistId} />
-            <AddTask />
+            <ButtonAddTask onClick={handleOpen} />
+            <ModalWindow open={open} onClick={handleClose} />
         </div>
     )
 }

@@ -17,13 +17,29 @@ const slice = createSlice({
 })
 
 //thunk
-export const getTasks = createAppAsyncThunk<{ tasks: TasksType, todolistId: string }, { todolistId: string }>
+export const getTasks = createAppAsyncThunk<
+    { tasks: TasksType, todolistId: string },
+    { todolistId: string }>
 ('tasks/getTasks', async (arg, thunkAPI) => {
     const { rejectWithValue } = thunkAPI
 
     try {
         const res = await tasksApi.getTasks(arg.todolistId)
         return { tasks: res.data.items, todolistId: arg.todolistId }
+
+    } catch (error) {
+        return rejectWithValue(null)
+    }
+})
+
+export const addTask = createAppAsyncThunk<
+    any,
+    { todolistId: string, title: string }>
+('tasks/addTask', async (arg, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI
+
+    try {
+        const res = tasksApi.createTask({todolistId: arg.todolistId, title: arg.title})
 
     } catch (error) {
         return rejectWithValue(null)
