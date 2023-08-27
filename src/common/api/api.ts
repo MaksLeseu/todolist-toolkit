@@ -17,6 +17,9 @@ export const todolistsApi = {
 export const tasksApi = {
     getTasks(todolistId: string) {
         return instance.get<{ items: TasksType }>(`todo-lists/${todolistId}/tasks`)
+    },
+    createTask(arg: AddTaskArgType) {
+        return instance.post(`todo-lists/${arg.todolistId}/tasks`, {title: arg.title})
     }
 }
 
@@ -39,4 +42,9 @@ export type TasksType = {
     todoListId: string
     order: number
     addedDate: string
+}
+
+type AddTaskArgType = {
+    todolistId: string
+    title: string
 }
