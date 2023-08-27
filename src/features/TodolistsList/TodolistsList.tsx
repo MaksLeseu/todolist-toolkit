@@ -6,6 +6,7 @@ import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {Todolist} from "./Todolist/Todolist";
 
 export const TodolistsList = () => {
+    console.log('TodolistsList')
     const dispatch = useAppDispatch()
 
     useEffect(() => {
