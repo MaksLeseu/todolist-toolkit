@@ -1,6 +1,9 @@
 import React, {FC} from "react";
 import Modal from '@mui/material/Modal';
-import {Box, Typography} from "@mui/material";
+import {Box, IconButton, Typography} from "@mui/material";
+import TextField from '@mui/material/TextField';
+import DoneIcon from '@mui/icons-material/Done';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 type ModalWindowPropsType = {
     open: boolean
@@ -29,11 +32,19 @@ export const ModalWindow: FC<ModalWindowPropsType> = (props) => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
+                        Enter a title for the task
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
+                    <TextField
+                        label={"Title"}
+                        sx={{ mt: 2 }}
+                        size={'small'}
+                    />
+                    <IconButton
+                        color={"secondary"}
+                        sx={{marginTop: '15px', marginLeft: '6px'}}
+                    >
+                        <ArrowCircleRightIcon />
+                    </IconButton>
                 </Box>
             </Modal>
         </>
