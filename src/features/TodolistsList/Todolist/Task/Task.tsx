@@ -2,6 +2,7 @@ import React, {FC} from "react";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../app/store";
 import {TasksType} from "../../../../common/api/api";
+import s from './Task.module.css'
 
 type TaskPropsType = {
     todolistId: string
@@ -13,10 +14,10 @@ export const Task: FC<TaskPropsType> = (props) => {
 
     return task && task.length > 0 ?
         task.map((ts: TasksType) => (
-            <div key={ts.id}>
-                {ts.title}
+            <div key={ts.id} className={s.task}>
+                <div className={s.text}>{ts.title}</div>
             </div>
         ))
         :
-        <div>Todolist is empty!</div>
+        <div className={s.empty}>Todolist is empty!</div>
 }

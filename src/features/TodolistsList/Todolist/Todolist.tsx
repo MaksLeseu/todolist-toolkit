@@ -9,7 +9,7 @@ type TodolistType = {
 
 export const Todolist: FC<TodolistType> = (props) => {
     return (
-        <div className={s.container}>
+        <div className={s.todolist}>
             <h2>{props.title}</h2>
             <Task todolistId={props.todolistId} />
         </div>
