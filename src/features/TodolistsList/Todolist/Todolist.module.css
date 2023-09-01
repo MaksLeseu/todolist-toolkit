@@ -1,7 +1,7 @@
 .todolist {
     width: 300px;
     height: 100%;
-    background-color: #6151b6;
+    background-color: rgba(235, 236, 240, 1.00);
     margin-bottom: 30px;
     border-radius: 5px;
     box-shadow: 1px 1px 5px black;
@@ -14,8 +14,9 @@
 }
 
 .titleContainer h2 {
-    color: white;
+    color: #2a3b5a;
     margin-left: 5px;
+    font-size: 16px;
 }
 
 

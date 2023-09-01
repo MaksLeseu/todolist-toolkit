@@ -1,8 +1,9 @@
 .task {
     width: 100%;
-    background-color: #F4F2FF;
+    background-color: #ffffff;
     border-radius: 5px;
     margin-bottom: 10px;
+    box-shadow: 1px 1px 3px black;
 }
 
 .container {
@@ -19,4 +20,13 @@
 .empty {
     font-size: 18px;
     font-weight: 500;
+}
+.btnAddTask {
+    transition: 0.5s;
+    border-radius: 4px;
+}
+
+.btnAddTask:hover {
+    background-color: #7f8b9d80;
+    transition: 0.5s;
 }
