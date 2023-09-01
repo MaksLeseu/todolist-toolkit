@@ -20,6 +20,9 @@ export const tasksApi = {
     },
     createTask(arg: AddTaskArgType) {
         return instance.post(`todo-lists/${arg.todolistId}/tasks`, {title: arg.title})
+    },
+    removeTask(todolistId: string, taskId: string) {
+        return instance.delete(`/todo-lists/${todolistId}/tasks/${taskId}`)
     }
 }
 

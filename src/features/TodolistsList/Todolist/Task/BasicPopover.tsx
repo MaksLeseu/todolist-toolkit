@@ -5,20 +5,28 @@ import IconButton from '@mui/material/IconButton';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 type BasicPopoverPropsType = {
+    taskId: string
     anchorEl: HTMLButtonElement | null
-    handleClose: () => void
+    handleClosePopover: () => void
+    removeTask: (taskId: string) => void
 }
 
 export const BasicPopover: FC<BasicPopoverPropsType> = (props) => {
     const open = Boolean(props.anchorEl);
     const id = open ? 'simple-popover' : undefined;
+
+    const handleOnClick = () => {
+        props.removeTask(props.taskId)
+        props.handleClosePopover()
+    }
+
     return (
         <>
             <Popover
                 id={id}
                 open={open}
                 anchorEl={props.anchorEl}
-                onClose={props.handleClose}
+                onClose={props.handleClosePopover}
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'left',
@@ -33,6 +41,7 @@ export const BasicPopover: FC<BasicPopoverPropsType> = (props) => {
                             <IconButton
                                 size={'small'}
                                 color={"inherit"}
+                                onClick={handleOnClick}
                             >
                                 <DeleteForeverIcon />
                             </IconButton>
