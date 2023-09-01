@@ -1,6 +1,8 @@
 import React, {FC} from "react";
 import Popover from '@mui/material/Popover';
-import {Typography} from "@mui/material";
+import {FormControlLabel, FormGroup, Typography} from "@mui/material";
+import IconButton from '@mui/material/IconButton';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 type BasicPopoverPropsType = {
     anchorEl: HTMLButtonElement | null
@@ -22,7 +24,21 @@ export const BasicPopover: FC<BasicPopoverPropsType> = (props) => {
                     horizontal: 'left',
                 }}
             >
-                <Typography sx={{ p: 2 }}>Delete task</Typography>
+                <FormGroup
+                    sx={{ p: 2 }}
+                >
+                    <FormControlLabel
+                        label={'Remove task'}
+                        control={
+                            <IconButton
+                                size={'small'}
+                                color={"inherit"}
+                            >
+                                <DeleteForeverIcon />
+                            </IconButton>
+                        }
+                    />
+                </FormGroup>
             </Popover>
         </>
     )
