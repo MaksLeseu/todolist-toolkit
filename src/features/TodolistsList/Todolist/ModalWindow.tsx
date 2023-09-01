@@ -6,7 +6,9 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 type ModalWindowPropsType = {
+    title: string
     open: boolean
+    changeTitle: (e: ChangeEvent<HTMLInputElement>) => void
     onClick: () => void
     addTask: (title: string) => void
 }
@@ -24,11 +26,6 @@ export const ModalWindow: FC<ModalWindowPropsType> = (props) => {
         p: 4,
         borderRadius: 3,
     };
-    const [title, setTitle] = useState('')
-
-    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
 
     return (
         <>
@@ -44,14 +41,14 @@ export const ModalWindow: FC<ModalWindowPropsType> = (props) => {
                         label={"Title"}
                         sx={{mt: 2}}
                         size={'small'}
-                        value={title}
-                        onChange={changeTitle}
+                        value={props.title}
+                        onChange={props.changeTitle}
                     />
                     <IconButton
                         id={'add-task'}
                         color={"success"}
                         sx={{marginTop: '15px', marginLeft: '6px'}}
-                        onClick={() => props.addTask(title)}
+                        onClick={() => props.addTask(props.title)}
                     >
                         <ArrowCircleRightIcon/>
                     </IconButton>
