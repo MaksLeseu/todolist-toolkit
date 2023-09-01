@@ -3,6 +3,8 @@ import s from './Todolist.module.css'
 import {Task} from "./Task/Task";
 import {ButtonAddTask} from "./ButtonAddTask";
 import {ModalWindow} from "./ModalWindow";
+import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
+import {tasksThunk} from "../tasks-reducer";
 
 type TodolistType = {
     todolistId: string
@@ -10,13 +12,14 @@ type TodolistType = {
 }
 
 export const Todolist: FC<TodolistType> = (props) => {
+    const dispatch = useAppDispatch()
     const [open, setOpen] = useState<boolean>(false)
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const addTask = (title: string) => {
-        alert(title)
+        dispatch(tasksThunk.addTask({todolistId: props.todolistId, title}))
     }
     return (
         <div className={s.todolist}>

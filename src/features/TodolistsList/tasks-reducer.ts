@@ -13,6 +13,10 @@ const slice = createSlice({
             .addCase(getTasks.fulfilled, (state, action) => {
                 state[action.payload.todolistId] = action.payload.tasks
             })
+            .addCase(addTask.fulfilled, (state, action) => {
+                const task: any = state[action.payload.todolistId]
+                task.unshift(action.payload.task)
+            })
     }
 })
 
@@ -33,14 +37,14 @@ export const getTasks = createAppAsyncThunk<
 })
 
 export const addTask = createAppAsyncThunk<
-    any,
+    { todolistId: string, task: TasksType },
     { todolistId: string, title: string }>
 ('tasks/addTask', async (arg, thunkAPI) => {
     const { rejectWithValue } = thunkAPI
 
     try {
-        const res = tasksApi.createTask({todolistId: arg.todolistId, title: arg.title})
-
+        const res = await tasksApi.createTask({todolistId: arg.todolistId, title: arg.title})
+        return {todolistId: arg.todolistId, task: res.data.data.item}
     } catch (error) {
         return rejectWithValue(null)
     }
@@ -52,4 +56,4 @@ type StateTaskType = {
 
 
 export const tasksReducer = slice.reducer
-export const tasksThunk = { getTasks }
+export const tasksThunk = { getTasks, addTask }
