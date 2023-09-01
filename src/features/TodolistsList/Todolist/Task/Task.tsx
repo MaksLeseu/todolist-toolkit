@@ -15,7 +15,9 @@ export const Task: FC<TaskPropsType> = (props) => {
     return task && task.length > 0 ?
         task.map((ts: TasksType) => (
             <div key={ts.id} className={s.task}>
-                <div className={s.text}>{ts.title}</div>
+                <div className={s.container}>
+                    <div className={s.text}>{ts.title}</div>
+                </div>
             </div>
         ))
         :
