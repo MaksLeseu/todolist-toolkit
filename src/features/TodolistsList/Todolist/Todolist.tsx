@@ -19,6 +19,7 @@ export const Todolist: FC<TodolistType> = (props) => {
     const handleClose = () => setOpen(false);
 
     const addTask = (title: string) => {
+        setOpen(false)
         dispatch(tasksThunk.addTask({todolistId: props.todolistId, title}))
     }
     return (
