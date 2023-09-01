@@ -5,6 +5,7 @@ import {ButtonAddTask} from "./ButtonAddTask";
 import {ModalWindow} from "./ModalWindow";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {tasksThunk} from "../tasks-reducer";
+import DescriptionIcon from '@mui/icons-material/Description';
 
 type TodolistType = {
     todolistId: string
@@ -33,7 +34,10 @@ export const Todolist: FC<TodolistType> = (props) => {
     }
     return (
         <div className={s.todolist}>
-            <h2>{props.title}</h2>
+            <div className={s.titleContainer}>
+                <DescriptionIcon color={'info'} />
+                <h2>{props.title}</h2>
+            </div>
             <Task todolistId={props.todolistId} />
             <ButtonAddTask onClick={handleOpen} />
             <ModalWindow
