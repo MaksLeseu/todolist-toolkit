@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {TodolistsList} from "./features/TodolistsList/TodolistsList";
 import {
@@ -7,8 +7,14 @@ import {
     Typography,
 } from "@mui/material";
 import {Menu} from "@mui/icons-material";
+import {useAppDispatch} from "./common/hooks/useAppDispatch";
+import {authThunk} from "./features/Auth/auth-slice";
 
 export const App = () => {
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(authThunk.authMe({}))
+    }, [])
   return (
     <div className="App">
       <div className="container">

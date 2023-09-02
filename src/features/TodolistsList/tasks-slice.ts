@@ -63,7 +63,6 @@ export const removeTask = createAppAsyncThunk<
 
     try {
         const res = await tasksApi.removeTask(arg.todolistId, arg.taskId)
-        console.log(res)
         return { todolistId: arg.todolistId, taskId: arg.taskId }
     } catch (error) {
         return rejectWithValue(null)

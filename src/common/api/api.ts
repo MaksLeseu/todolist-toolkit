@@ -28,7 +28,7 @@ export const tasksApi = {
 
 export const authApi = {
     me() {
-      return instance.get(`/auth/me`)
+      return instance.get<MeType>(`/auth/me`)
     },
     login() {
         return instance.post(`/auth/login`)
@@ -62,4 +62,17 @@ export type TasksType = {
 type AddTaskArgType = {
     todolistId: string
     title: string
+}
+
+type MeType = {
+    data: MeDataType
+    messages: []
+    fieldsErrors: []
+    resultCode: number
+}
+
+type MeDataType = {
+    id: number
+    login: string
+    email: string
 }
