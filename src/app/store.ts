@@ -1,11 +1,11 @@
 import {AnyAction, combineReducers} from "redux";
 import {configureStore, ThunkDispatch} from "@reduxjs/toolkit";
-import {todolistsReducer} from "../features/TodolistsList/todolists-reducer";
-import {tasksReducer} from "../features/TodolistsList/tasks-reducer";
+import {todolistsSlice} from "../features/TodolistsList/todolists-slice";
+import {tasksSlice} from "../features/TodolistsList/tasks-slice";
 
 const rootReducer = combineReducers({
-    todolists: todolistsReducer,
-    tasks: tasksReducer
+    todolists: todolistsSlice,
+    tasks: tasksSlice
 })
 
 export const store = configureStore({

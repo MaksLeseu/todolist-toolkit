@@ -5,7 +5,7 @@ import {TasksType} from "../../../../common/api/api";
 import s from './Task.module.css'
 import {MoreHoriz} from "./MoreHoriz";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
-import {tasksThunk} from "../../tasks-reducer";
+import {tasksThunk} from "../../tasks-slice";
 
 type TaskPropsType = {
     todolistId: string

@@ -4,7 +4,7 @@ import {Task} from "./Task/Task";
 import {ButtonAddTask} from "./ButtonAddTask";
 import {ModalWindow} from "./ModalWindow";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {tasksThunk} from "../tasks-reducer";
+import {tasksThunk} from "../tasks-slice";
 import DescriptionIcon from '@mui/icons-material/Description';
 
 type TodolistType = {

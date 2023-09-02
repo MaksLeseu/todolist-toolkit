@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/store";
-import {todolistsThunk} from "./todolists-reducer";
+import {todolistsThunk} from "./todolists-slice";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {Todolist} from "./Todolist/Todolist";
 

@@ -75,5 +75,5 @@ type StateTaskType = {
 }
 
 
-export const tasksReducer = slice.reducer
+export const tasksSlice = slice.reducer
 export const tasksThunk = { getTasks, addTask, removeTask }
