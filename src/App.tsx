@@ -2,14 +2,11 @@ import React from 'react';
 import './App.css';
 import {TodolistsList} from "./features/TodolistsList/TodolistsList";
 import {
-    AppBar,
-    Container,
-    CssBaseline, FormControlLabel,
-    FormGroup,
-    Grid, IconButton,
+    AppBar, Button, IconButton,
     Toolbar,
     Typography,
 } from "@mui/material";
+import {Menu} from "@mui/icons-material";
 
 export const App = () => {
   return (
@@ -17,6 +14,15 @@ export const App = () => {
       <div className="container">
           <AppBar position={'static'} sx={{marginBottom: '40px'}}>
               <Toolbar>
+                  <IconButton
+                      size={'large'}
+                      edge={'start'}
+                      color={'inherit'}
+                      aria-label={'menu'}
+                      sx={{mr: 2}}
+                  >
+                      <Menu />
+                  </IconButton>
                   <Typography
                       variant={'h6'}
                       component={'div'}
@@ -24,6 +30,7 @@ export const App = () => {
                   >
                       Todolist
                   </Typography>
+                  <Button color={'inherit'}>Login</Button>
               </Toolbar>
           </AppBar>
         <TodolistsList />
