@@ -30,8 +30,8 @@ export const authApi = {
     me() {
       return instance.get<MeType>(`/auth/me`)
     },
-    login() {
-        return instance.post(`/auth/login`)
+    login(data: LoginDataType) {
+        return instance.post(`/auth/login`, data)
     },
     logout() {
         return instance.delete(`/auth/login`)
@@ -75,4 +75,10 @@ type MeDataType = {
     id: number
     login: string
     email: string
+}
+
+export type LoginDataType = {
+    email: string
+    password: string
+    rememberMe: boolean
 }

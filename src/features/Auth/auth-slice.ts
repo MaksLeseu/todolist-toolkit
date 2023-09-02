@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {createAppAsyncThunk} from "../../common/utils/create-app-async-thunk";
-import {authApi} from "../../common/api/api";
+import {authApi, LoginDataType} from "../../common/api/api";
 
 const initialState = {
     isLoggedIn: false
@@ -33,5 +33,18 @@ export const authMe = createAppAsyncThunk<
     }
 })
 
+export const login = createAppAsyncThunk<
+    void,
+    { data: LoginDataType }>
+('auth/login', async (arg, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI
+    try {
+        const res = await authApi.login(arg.data)
+        console.log(res)
+    } catch (error) {
+        return rejectWithValue(null)
+    }
+})
+
 export const authSlice = slice.reducer
-export const authThunk = { authMe }
+export const authThunk = { authMe, login }

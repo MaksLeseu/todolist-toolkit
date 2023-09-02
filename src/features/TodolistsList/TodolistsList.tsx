@@ -4,15 +4,21 @@ import {AppRootStateType} from "../../app/store";
 import {todolistsThunk} from "./todolists-slice";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {Todolist} from "./Todolist/Todolist";
+import {Navigate} from "react-router-dom";
 
 export const TodolistsList = () => {
-    console.log('TodolistsList')
+    const todos = useSelector((state: AppRootStateType) => state.todolists)
+    const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(todolistsThunk.getTodolists())
     }, [])
-    const todos = useSelector((state: AppRootStateType) => state.todolists)
+
+    if (!isLoggedIn) {
+        return <Navigate to={"/login"} />
+    }
+
     return  (
         <div>
             {

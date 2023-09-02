@@ -2,9 +2,14 @@ import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, G
 import TextField from "@mui/material/TextField";
 import {useFormik} from "formik";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
+import {authThunk} from "./auth-slice";
+import {useSelector} from "react-redux";
+import {Navigate} from "react-router-dom";
+import {AppRootStateType} from "../../app/store";
 
 export const Login = () => {
     const dispatch = useAppDispatch()
+    const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
 
     const formik = useFormik( {
         validate: (values) => {
@@ -17,9 +22,13 @@ export const Login = () => {
             rememberMe: false
         },
         onSubmit: values => {
-            alert(JSON.stringify(values))
+            dispatch(authThunk.login({data: values}))
         },
     })
+
+    if (isLoggedIn) {
+        return <Navigate to={"/"} />
+    }
 
     return <Grid container justifyContent="center">
         <Grid item xs={4}>
