@@ -1,11 +1,16 @@
-import React from "react";
+import React, {FC} from "react";
 import {IconButton} from "@mui/material";
 import BackspaceIcon from '@mui/icons-material/Backspace';
 
-export const ButtonRemoveTodo = () => {
+type ButtonRemoveTodoPropsType = {
+    onClick: () => void
+}
+
+export const ButtonRemoveTodo: FC<ButtonRemoveTodoPropsType> = (props) => {
     return (
         <IconButton
             size={'small'}
+            onClick={props.onClick}
         >
             <BackspaceIcon />
         </IconButton>

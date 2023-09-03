@@ -7,6 +7,7 @@ import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {tasksThunk} from "../tasks-slice";
 import DescriptionIcon from '@mui/icons-material/Description';
 import {ButtonRemoveTodo} from "./ButtonRemoveTodo";
+import {todolistsThunk} from "../todolists-slice";
 
 type TodolistType = {
     todolistId: string
@@ -33,6 +34,10 @@ export const Todolist: FC<TodolistType> = (props) => {
         setTitle('')
         dispatch(tasksThunk.addTask({todolistId: props.todolistId, title}))
     }
+
+    const removeTodolist = () => {
+        dispatch(todolistsThunk.removeTodolist(props.todolistId))
+    }
     return (
         <div className={s.todolist}>
             <div className={s.todoContainer}>
@@ -40,7 +45,7 @@ export const Todolist: FC<TodolistType> = (props) => {
                     <DescriptionIcon color={'info'} />
                     <h2>{props.title}</h2>
                 </div>
-                <ButtonRemoveTodo />
+                <ButtonRemoveTodo onClick={removeTodolist} />
             </div>
             <Task todolistId={props.todolistId} />
             <ButtonAddTask onClick={handleOpen} />
