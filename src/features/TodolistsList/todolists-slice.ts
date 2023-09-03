@@ -14,6 +14,9 @@ const slice = createSlice({
             .addCase(getTodolists.fulfilled, (state, action) => {
                 action.payload.todolists.forEach(tl => state.push(tl))
             })
+            .addCase(removeTodolist.fulfilled, (state, action) => {
+
+            })
     }
 })
 
