@@ -8,6 +8,12 @@
     padding: 10px;
 }
 
+.todoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .titleContainer {
     display: flex;
     align-items: center;
