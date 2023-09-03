@@ -39,12 +39,23 @@ export const login = createAppAsyncThunk<
 ('auth/login', async (arg, thunkAPI) => {
     const { rejectWithValue } = thunkAPI
     try {
-        const res = await authApi.login(arg.data)
-        console.log(res)
+        await authApi.login(arg.data)
+    } catch (error) {
+        return rejectWithValue(null)
+    }
+})
+
+export const logout = createAppAsyncThunk<
+    void,
+    {}>
+('auth/logout', async (arg, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI
+    try {
+        await authApi.logout()
     } catch (error) {
         return rejectWithValue(null)
     }
 })
 
 export const authSlice = slice.reducer
-export const authThunk = { authMe, login }
+export const authThunk = { authMe, login, logout }

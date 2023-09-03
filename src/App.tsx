@@ -17,38 +17,46 @@ export const App = () => {
     useEffect(() => {
         dispatch(authThunk.authMe({}))
     }, [])
-  return (
-      <BrowserRouter>
-          <div className="App">
-              <div className="container">
-                  <AppBar position={'static'} sx={{marginBottom: '40px'}}>
-                      <Toolbar>
-                          <IconButton
-                              size={'large'}
-                              edge={'start'}
-                              color={'inherit'}
-                              aria-label={'menu'}
-                              sx={{mr: 2}}
-                          >
-                              <Menu />
-                          </IconButton>
-                          <Typography
-                              variant={'h6'}
-                              component={'div'}
-                              sx={{flexGrow: 1}}
-                          >
-                              Todolist
-                          </Typography>
-                          <Button color={'inherit'}>Login</Button>
-                      </Toolbar>
-                  </AppBar>
-                  <Routes>
-                      <Route path={'/'} element={<TodolistsList/>}/>
-                      <Route path={'/login'} element={<Login />} />
-                  </Routes>
-              </div>
-          </div>
-      </BrowserRouter>
-  );
+
+    const handlerLogout = () => dispatch(authThunk.logout({}))
+
+    return (
+        <BrowserRouter>
+            <div className="App">
+                <div className="container">
+                    <AppBar position={'static'} sx={{marginBottom: '40px'}}>
+                        <Toolbar>
+                            <IconButton
+                                size={'large'}
+                                edge={'start'}
+                                color={'inherit'}
+                                aria-label={'menu'}
+                                sx={{mr: 2}}
+                            >
+                                <Menu/>
+                            </IconButton>
+                            <Typography
+                                variant={'h6'}
+                                component={'div'}
+                                sx={{flexGrow: 1}}
+                            >
+                                Todolist
+                            </Typography>
+                            <Button
+                                color={'inherit'}
+                                onClick={handlerLogout}
+                            >
+                                Log out
+                            </Button>
+                        </Toolbar>
+                    </AppBar>
+                    <Routes>
+                        <Route path={'/'} element={<TodolistsList/>}/>
+                        <Route path={'/login'} element={<Login/>}/>
+                    </Routes>
+                </div>
+            </div>
+        </BrowserRouter>
+    );
 }
 
