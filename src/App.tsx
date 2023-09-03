@@ -17,6 +17,7 @@ import {AppRootStateType} from "./app/store";
 export const App = () => {
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
+
     useEffect(() => {
         dispatch(authThunk.authMe({}))
     }, [])

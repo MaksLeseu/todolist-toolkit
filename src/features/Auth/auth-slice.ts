@@ -36,9 +36,10 @@ export const login = createAppAsyncThunk<
     void,
     { data: LoginDataType }>
 ('auth/login', async (arg, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI
+    const { dispatch, rejectWithValue } = thunkAPI
     try {
-        await authApi.login(arg.data)
+        const res = await authApi.login(arg.data)
+        if (res.data.resultCode === 0) dispatch(authThunk.authMe({}))
     } catch (error) {
         return rejectWithValue(null)
     }
@@ -48,9 +49,10 @@ export const logout = createAppAsyncThunk<
     void,
     {}>
 ('auth/logout', async (arg, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI
+    const { dispatch, rejectWithValue } = thunkAPI
     try {
-        await authApi.logout()
+        const res = await authApi.logout()
+        if (res.data.resultCode === 0) dispatch(authThunk.authMe({}))
     } catch (error) {
         return rejectWithValue(null)
     }
