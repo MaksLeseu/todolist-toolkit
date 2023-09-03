@@ -14,7 +14,6 @@ const slice = createSlice({
         builder
             .addCase(authMe.fulfilled, (state, action) => {
                 state.isLoggedIn = action.payload.isLoggedIn
-                console.log(state.isLoggedIn)
             })
     }
 })
