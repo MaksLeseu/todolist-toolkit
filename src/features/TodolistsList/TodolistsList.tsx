@@ -12,7 +12,9 @@ export const TodolistsList = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(todolistsThunk.getTodolists())
+        if (todos.length === 0) {
+            dispatch(todolistsThunk.getTodolists())
+        }
     }, [])
 
     if (!isLoggedIn) {

@@ -20,13 +20,13 @@ const slice = createSlice({
 
 //thunk
 export const authMe = createAppAsyncThunk<
-    any,
-    any>
+    { isLoggedIn: boolean },
+    {}>
 ('auth/authMe', async (arg, thunkAPI) => {
     const { rejectWithValue } = thunkAPI
     try {
         const res = await authApi.me()
-        return  res.data.resultCode === 0 ? {isLoggedIn: true} : {}
+        return  res.data.resultCode === 0 ? {isLoggedIn: true} : {isLoggedIn: false}
     } catch (error) {
         return rejectWithValue(null)
     }
