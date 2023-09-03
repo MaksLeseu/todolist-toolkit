@@ -11,6 +11,9 @@ export const instance = axios.create({
 export const todolistsApi = {
     getTodolists() {
         return instance.get<TodolistsType[]>(`todo-lists`)
+    },
+    removeTodolist(todolistId: string) {
+        return instance.delete(`/todo-lists/${todolistId}`)
     }
 }
 

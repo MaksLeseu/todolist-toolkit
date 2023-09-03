@@ -31,5 +31,24 @@ export const getTodolists = createAppAsyncThunk<{ todolists: TodolistsType[] }>
     }
 })
 
+export const removeTodolist = createAppAsyncThunk<
+    { todolistId: string },
+    string>
+('todolists/removeTodolist', async (todolistId, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI
+
+    try {
+        const res = await todolistsApi.removeTodolist(todolistId)
+
+        if (res.data.resultCode === 0) {
+            return { todolistId }
+        } else {
+            return rejectWithValue(null)
+        }
+    } catch (error) {
+        return rejectWithValue(null)
+    }
+})
+
 export const todolistsSlice = slice.reducer
-export const todolistsThunk = { getTodolists }
+export const todolistsThunk = { getTodolists, removeTodolist }
