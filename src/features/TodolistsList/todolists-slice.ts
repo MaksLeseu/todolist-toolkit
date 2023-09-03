@@ -15,7 +15,8 @@ const slice = createSlice({
                 action.payload.todolists.forEach(tl => state.push(tl))
             })
             .addCase(removeTodolist.fulfilled, (state, action) => {
-
+                const index = state.findIndex((td) => td.id === action.payload.todolistId)
+                if (index !== -1) state.splice(index, 1)
             })
     }
 })
@@ -42,7 +43,6 @@ export const removeTodolist = createAppAsyncThunk<
 
     try {
         const res = await todolistsApi.removeTodolist(todolistId)
-
         if (res.data.resultCode === 0) {
             return { todolistId }
         } else {
