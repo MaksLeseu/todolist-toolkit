@@ -1,38 +1,77 @@
-import React, {useEffect} from "react";
+import React, {FC, useEffect} from "react";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/store";
 import {todolistsThunk} from "./todolists-slice";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {Todolist} from "./Todolist/Todolist";
-import {Navigate} from "react-router-dom";
+import {Navigate, useLocation, useParams} from "react-router-dom";
 
-export const TodolistsList = () => {
-    const todos = useSelector((state: AppRootStateType) => state.todolists)
+type TodolistsListPropsType = {
+    url?: boolean
+}
+
+export const TodolistsList: FC<TodolistsListPropsType> = (props) => {
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
+    const todos = useSelector((state: AppRootStateType) => state.todolists)
+   /* const todos = useSelector((state: AppRootStateType) => state.todolists)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         if (todos.length === 0) {
             dispatch(todolistsThunk.getTodolists())
         }
-    }, [])
+    }, [])*/
 
     if (!isLoggedIn) {
         return <Navigate to={"/login"} />
     }
 
-    return  (
-        <div>
-            {
-                todos ?
-                    todos.map(tl => (
+    const location = useLocation();
+    const currentUrl = location.pathname;
+    const regex = /\/todo\/\w+\/([a-f0-9-]+)/;
+    const match = currentUrl.match(regex);
+    const todoId = match ? match[1] : null
+
+    const allTodos = () => (
+        todos ?
+            todos.map(tl => (
+                <Todolist
+                    key={tl.id}
+                    todolistId={tl.id}
+                    title={tl.title}
+                />))
+            :
+            <div>Sorry</div>
+    )
+
+    const onlyOneTodo = () => (
+        todos ?
+            todos.map(tl => {
+                if (tl.id === todoId) {
+                    return (
                         <Todolist
                             key={tl.id}
                             todolistId={tl.id}
                             title={tl.title}
-                        />))
+                        />
+                    )
+                } else {
+                    return null
+                }
+            })
+            :
+            <div>Sorry</div>
+    )
+
+
+    return  (
+        <div>
+            {
+                props.url
+                    ?
+                    onlyOneTodo()
                     :
-                    <div>Sorry</div>
+                    allTodos()
             }
         </div>
     )

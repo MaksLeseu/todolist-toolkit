@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import {TodolistsList} from "./features/TodolistsList/TodolistsList";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useParams} from "react-router-dom";
 import {Login} from "./features/Auth/Login";
 import {BaseMenu} from "./app/BaseMenu";
 import {useAppDispatch} from "./common/hooks/useAppDispatch";
@@ -15,13 +15,15 @@ export const App = () => {
         dispatch(authThunk.authMe({}))
     }, [])
 
+
     return (
         <BrowserRouter>
             <div className="container">
                 <BaseMenu />
                 <Routes>
-                    <Route path={'/'} element={<TodolistsList/>}/>
+                    <Route path={'/'} element={<TodolistsList />}/>
                     <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/todo/*'} element={<TodolistsList url={true} />}/>
                 </Routes>
             </div>
         </BrowserRouter>

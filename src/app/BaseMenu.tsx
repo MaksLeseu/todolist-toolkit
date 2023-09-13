@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -24,6 +24,9 @@ import {useAppDispatch} from "../common/hooks/useAppDispatch";
 import {authThunk} from "../features/Auth/auth-slice";
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import {todolistsThunk} from "../features/TodolistsList/todolists-slice";
+import {NavLink} from "react-router-dom";
+import {open} from "fs";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -100,6 +103,14 @@ export const BaseMenu = () => {
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
     const handlerLogout = () => dispatch(authThunk.logout({}))
+
+    const todos = useSelector((state: AppRootStateType) => state.todolists)
+
+    useEffect(() => {
+        if (todos.length === 0) {
+            dispatch(todolistsThunk.getTodolists())
+        }
+    }, [])
 
 
     const theme = useTheme();
@@ -194,27 +205,29 @@ export const BaseMenu = () => {
                         </List>
                         <Divider />
                         <List>
-                            {['To-do 1', 'To-do 2', 'To-do 3'].map((text, index) => (
-                                <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                                    <ListItemButton
-                                        sx={{
-                                            minHeight: 48,
-                                            justifyContent: open ? 'initial' : 'center',
-                                            px: 2.5,
-                                        }}
-                                    >
-                                        <ListItemIcon
+                            {todos.map((todo, index) => (
+                                <NavLink to={`/todo/${todo.title}/${todo.id}`}>
+                                    <ListItem key={todo.id} disablePadding sx={{ display: 'block' }}>
+                                        <ListItemButton
                                             sx={{
-                                                minWidth: 0,
-                                                mr: open ? 3 : 'auto',
-                                                justifyContent: 'center',
+                                                minHeight: 48,
+                                                justifyContent: open ? 'initial' : 'center',
+                                                px: 2.5,
                                             }}
                                         >
-                                            {<InsertDriveFileIcon />}
-                                        </ListItemIcon>
-                                        <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                                    </ListItemButton>
-                                </ListItem>
+                                            <ListItemIcon
+                                                sx={{
+                                                    minWidth: 0,
+                                                    mr: open ? 3 : 'auto',
+                                                    justifyContent: 'center',
+                                                }}
+                                            >
+                                                {<InsertDriveFileIcon />}
+                                            </ListItemIcon>
+                                            <ListItemText primary={todo.title} sx={{ opacity: open ? 1 : 0 }} />
+                                        </ListItemButton>
+                                    </ListItem>
+                                </NavLink>
                             ))}
                         </List>
                     </Drawer>
