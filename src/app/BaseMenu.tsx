@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -22,6 +22,8 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
 import {useAppDispatch} from "../common/hooks/useAppDispatch";
 import {authThunk} from "../features/Auth/auth-slice";
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -114,7 +116,7 @@ export const BaseMenu = () => {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open} sx={{marginBottom: '40px'}}>
+            <AppBar position="fixed" open={open}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -168,32 +170,31 @@ export const BaseMenu = () => {
                         </DrawerHeader>
                         <Divider />
                         <List>
-                            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                                <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                                    <ListItemButton
+                            <ListItem disablePadding sx={{ display: 'block' }}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5,
+                                    }}
+                                >
+                                    <ListItemIcon
                                         sx={{
-                                            minHeight: 48,
-                                            justifyContent: open ? 'initial' : 'center',
-                                            px: 2.5,
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
                                         }}
                                     >
-                                        <ListItemIcon
-                                            sx={{
-                                                minWidth: 0,
-                                                mr: open ? 3 : 'auto',
-                                                justifyContent: 'center',
-                                            }}
-                                        >
-                                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                        </ListItemIcon>
-                                        <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                                    </ListItemButton>
-                                </ListItem>
-                            ))}
+                                        {<NoteAddIcon />}
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Create To-do list'} sx={{ opacity: open ? 1 : 0 }} />
+                                </ListItemButton>
+                            </ListItem>
+
                         </List>
                         <Divider />
                         <List>
-                            {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                            {['To-do 1', 'To-do 2', 'To-do 3'].map((text, index) => (
                                 <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                                     <ListItemButton
                                         sx={{
@@ -209,7 +210,7 @@ export const BaseMenu = () => {
                                                 justifyContent: 'center',
                                             }}
                                         >
-                                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                            {<InsertDriveFileIcon />}
                                         </ListItemIcon>
                                         <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
                                     </ListItemButton>
