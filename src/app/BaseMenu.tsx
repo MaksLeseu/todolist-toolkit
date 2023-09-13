@@ -114,7 +114,7 @@ export const BaseMenu = () => {
     };
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', marginBottom: '120px' }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
                 <Toolbar>
