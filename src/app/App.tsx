@@ -6,6 +6,7 @@ import {BaseMenu} from "../common/components/BaseMenu/BaseMenu";
 import {useAppDispatch} from "../common/hooks/useAppDispatch";
 import {authThunk} from "../features/Auth/auth-slice";
 import s from './App.module.css'
+import {Todolist} from "../features/Todolists/Todolist/Todolist";
 
 
 export const App = () => {
@@ -17,14 +18,16 @@ export const App = () => {
     }, [])
 
 
+
+
     return (
         <BrowserRouter>
             <div className={s.container}>
                 <BaseMenu />
                 <Routes>
-                    <Route path={'/'} element={<Todolists />}/>
+                    <Route path={'/'} element={<Todolists onClickLink={false} />}/>
                     <Route path={'/login'} element={<Login/>}/>
-                    <Route path={'/todo/*'} element={<Todolists />}/>
+                    <Route path={'/todo/*'} element={<Todolists onClickLink={true} />}/>
                 </Routes>
             </div>
         </BrowserRouter>

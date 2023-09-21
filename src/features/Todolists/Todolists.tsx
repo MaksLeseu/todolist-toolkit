@@ -4,12 +4,13 @@ import {AppRootStateType} from "../../store/store";
 import {Navigate, NavLink} from "react-router-dom";
 import {TodolistsList} from "./TodolistsList/TodolistsList";
 import s from './Todolists.module.css'
+import {Todolist} from "./Todolist/Todolist";
 
 type Props = {
-
+    onClickLink: boolean
 }
 
-export const Todolists: FC<Props> = ({}) => {
+export const Todolists: FC<Props> = ({ onClickLink }) => {
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
     const todos = useSelector((state: AppRootStateType) => state.todolists)
 
@@ -17,18 +18,37 @@ export const Todolists: FC<Props> = ({}) => {
         return <Navigate to={"/login"} />
     }
 
+    const returnTodos = (componentName: string): JSX.Element[] => {
+        return (
+            todos.map(td => {
+                return componentName === 'todo'
+                    ?
+                    <Todolist todolistId={td.id} title={td.title} />
+                    :
+                    <NavLink to={`/todo/${td.title}/${td.id}`} className={s.todo}>
+                        <TodolistsList todoTitle={td.title} />
+                    </NavLink>
+            })
+        )
+    }
+
     return  (
         <>
-            <p className={s.title}>To-do lists</p>
+            {onClickLink || <p className={s.title}>To-do lists</p>}
             <div className={s.todosList}>
                 {
-                    todos.map(td => (
-                        <NavLink to={`/todo/${td.title}/${td.id}`} className={s.todo}>
-                            <TodolistsList todoTitle={td.title} />
-                        </NavLink>
-                    ))
+                    onClickLink ? returnTodos('todo') : returnTodos('todoList')
                 }
             </div>
         </>
     )
 }
+
+/*
+{
+    todos.map(td => (
+        <NavLink to={`/todo/${td.title}/${td.id}`} className={s.todo}>
+            <TodolistsList todoTitle={td.title} />
+        </NavLink>
+    ))
+}*/
