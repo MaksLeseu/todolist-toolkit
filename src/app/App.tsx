@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {TodolistsList} from "../features/TodolistsList/TodolistsList";
+import {Todolists} from "../features/Todolists/Todolists";
 import {BrowserRouter, Route, Routes, useParams} from "react-router-dom";
 import {Login} from "../features/Auth/Login";
 import {BaseMenu} from "./BaseMenu";
@@ -22,9 +22,9 @@ export const App = () => {
             <div className={s.container}>
                 <BaseMenu />
                 <Routes>
-                    <Route path={'/'} element={<TodolistsList />}/>
+                    <Route path={'/'} element={<Todolists />}/>
                     <Route path={'/login'} element={<Login/>}/>
-                    <Route path={'/todo/*'} element={<TodolistsList />}/>
+                    <Route path={'/todo/*'} element={<Todolists />}/>
                 </Routes>
             </div>
         </BrowserRouter>

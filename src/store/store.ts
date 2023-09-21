@@ -1,7 +1,7 @@
 import {AnyAction, combineReducers} from "redux";
 import {configureStore, ThunkDispatch} from "@reduxjs/toolkit";
-import {todolistsSlice} from "../features/TodolistsList/Todolist/todolists.slice";
-import {tasksSlice} from "../features/TodolistsList/Tasks/tasks.slice";
+import {todolistsSlice} from "../features/Todolists/Todolist/todolists.slice";
+import {tasksSlice} from "../features/Todolists/Tasks/tasks.slice";
 import {authSlice} from "../features/Auth/auth-slice";
 
 const rootReducer = combineReducers({

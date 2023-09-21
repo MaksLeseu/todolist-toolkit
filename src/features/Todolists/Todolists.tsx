@@ -7,7 +7,7 @@ type Props = {
 
 }
 
-export const TodolistsList: FC<Props> = ({}) => {
+export const Todolists: FC<Props> = ({}) => {
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
     const todos = useSelector((state: AppRootStateType) => state.todolists)
 
