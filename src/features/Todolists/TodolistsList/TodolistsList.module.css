@@ -9,4 +9,20 @@
     box-shadow: 1px 1px 5px black;
     padding: 10px;
     font-weight: 700;
+    color: black;
+    transition: 0.5s;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    margin-left: 5px;
+}
+
+.todo:hover {
+    transition: 0.5s;
+    background-color: rgb(213, 214, 218);
 }

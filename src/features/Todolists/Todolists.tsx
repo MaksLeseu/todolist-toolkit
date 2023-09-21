@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
-import {Navigate} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import {TodolistsList} from "./TodolistsList/TodolistsList";
 import s from './Todolists.module.css'
 
@@ -18,12 +18,17 @@ export const Todolists: FC<Props> = ({}) => {
     }
 
     return  (
-        <div className={s.todosList}>
-            {
-                todos.map(td =>
-                    <TodolistsList todoTitle={td.title} />
-                )
-            }
-        </div>
+        <>
+            <p className={s.title}>To-do lists</p>
+            <div className={s.todosList}>
+                {
+                    todos.map(td => (
+                        <NavLink to={`/todo/${td.title}/${td.id}`} className={s.todo}>
+                            <TodolistsList todoTitle={td.title} />
+                        </NavLink>
+                    ))
+                }
+            </div>
+        </>
     )
 }

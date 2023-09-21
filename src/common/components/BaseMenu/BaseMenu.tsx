@@ -15,19 +15,17 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import {Button, Typography} from "@mui/material";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../store/store";
-import {useAppDispatch} from "../common/hooks/useAppDispatch";
-import {authThunk} from "../features/Auth/auth-slice";
+import {AppRootStateType} from "../../../store/store";
+import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {authThunk} from "../../../features/Auth/auth-slice";
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import {todolistsThunk} from "../features/Todolists/Todolist/todolists.slice";
+import {todolistsThunk} from "../../../features/Todolists/Todolist/todolists.slice";
 import {NavLink} from "react-router-dom";
 import Tooltip from '@mui/material/Tooltip';
-import {open} from "fs";
+import s from './BaseMenu.module.css'
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -209,7 +207,7 @@ export const BaseMenu = () => {
                         <Divider />
                         <List>
                             {todos.map((todo, index) => (
-                                <NavLink to={`/todo/${todo.title}/${todo.id}`}>
+                                <NavLink to={`/todo/${todo.title}/${todo.id}`} className={s.todo}>
                                     <Tooltip title={todo.title} placement="right-start" arrow>
                                         <ListItem key={todo.id} disablePadding sx={{ display: 'block' }}>
                                             <ListItemButton

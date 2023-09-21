@@ -1,5 +1,6 @@
 import {FC} from "react";
 import s from './TodolistsList.module.css'
+import DescriptionIcon from '@mui/icons-material/Description';
 
 type Props = {
     todoTitle: string
@@ -8,7 +9,10 @@ type Props = {
 export const TodolistsList: FC<Props> = ({todoTitle}) => {
     return (
         <div className={s.todo}>
-            {todoTitle}
+            <div className={s.container}>
+                <DescriptionIcon color={'info'} />
+                <div className={s.title}>{todoTitle}</div>
+            </div>
         </div>
     )
 }
