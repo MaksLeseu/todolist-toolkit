@@ -24,7 +24,7 @@ import {useAppDispatch} from "../common/hooks/useAppDispatch";
 import {authThunk} from "../features/Auth/auth-slice";
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import {todolistsThunk} from "../features/TodolistsList/todolists-slice";
+import {todolistsThunk} from "../features/TodolistsList/Todolist/todolists.slice";
 import {NavLink} from "react-router-dom";
 import Tooltip from '@mui/material/Tooltip';
 import {open} from "fs";

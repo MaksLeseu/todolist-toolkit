@@ -1,13 +1,13 @@
 import React, {ChangeEvent, FC, useState} from "react";
 import s from './Todolist.module.css'
-import {Task} from "./Task/Task";
-import {ButtonAddTask} from "./ButtonAddTask";
+import {Task} from "../Tasks/Task";
+import {ButtonAddTask} from "../Tasks/ButtonAddTask";
 import {ModalWindow} from "./ModalWindow";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {tasksThunk} from "../tasks-slice";
+import {tasksThunk} from "../Tasks/tasks.slice";
 import DescriptionIcon from '@mui/icons-material/Description';
 import {ButtonRemoveTodo} from "./ButtonRemoveTodo";
-import {todolistsThunk} from "../todolists-slice";
+import {todolistsThunk} from "./todolists.slice";
 
 type TodolistType = {
     todolistId: string

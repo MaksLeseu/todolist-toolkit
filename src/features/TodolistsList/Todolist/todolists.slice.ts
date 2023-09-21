@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {todolistsApi, TodolistsType} from "../../common/api/api";
-import {createAppAsyncThunk} from "../../common/utils/create-app-async-thunk";
-import {tasksThunk} from "./tasks-slice";
+import {todolistsApi, TodolistsType} from "../../../common/api/api";
+import {createAppAsyncThunk} from "../../../common/utils/create-app-async-thunk";
+import {tasksThunk} from "../Tasks/tasks.slice";
 
 const initialState: TodolistsType[] = []
 

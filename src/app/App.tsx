@@ -24,7 +24,7 @@ export const App = () => {
                 <Routes>
                     <Route path={'/'} element={<TodolistsList />}/>
                     <Route path={'/login'} element={<Login/>}/>
-                    <Route path={'/todo/*'} element={<TodolistsList url={true} />}/>
+                    <Route path={'/todo/*'} element={<TodolistsList />}/>
                 </Routes>
             </div>
         </BrowserRouter>

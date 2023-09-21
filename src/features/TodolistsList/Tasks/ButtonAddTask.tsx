@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import {FormControlLabel, FormGroup} from "@mui/material";
-import s from './Task/Task.module.css'
+import s from './Task.module.css'
 
 type ButtonAddTaskPropsType = {
     onClick: () => void

@@ -1,6 +1,6 @@
-import {tasksApi, TasksType} from "../../common/api/api";
+import {tasksApi, TasksType} from "../../../common/api/api";
 import {createSlice} from "@reduxjs/toolkit";
-import {createAppAsyncThunk} from "../../common/utils/create-app-async-thunk";
+import {createAppAsyncThunk} from "../../../common/utils/create-app-async-thunk";
 
 const initialState: StateTaskType = {}
 
