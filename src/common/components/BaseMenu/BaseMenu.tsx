@@ -207,7 +207,7 @@ export const BaseMenu = () => {
                         <Divider />
                         <List>
                             {todos.map((todo, index) => (
-                                <NavLink to={`/todo/${todo.title}/${todo.id}`} className={s.todo}>
+                                <NavLink to={`/todo/${todo.id}`} className={s.todo}>
                                     <Tooltip title={todo.title} placement="right-start" arrow>
                                         <ListItem key={todo.id} disablePadding sx={{ display: 'block' }}>
                                             <ListItemButton
