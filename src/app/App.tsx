@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
-import './App.css';
-import {TodolistsList} from "./features/TodolistsList/TodolistsList";
+import {TodolistsList} from "../features/TodolistsList/TodolistsList";
 import {BrowserRouter, Route, Routes, useParams} from "react-router-dom";
-import {Login} from "./features/Auth/Login";
-import {BaseMenu} from "./app/BaseMenu";
-import {useAppDispatch} from "./common/hooks/useAppDispatch";
-import {authThunk} from "./features/Auth/auth-slice";
+import {Login} from "../features/Auth/Login";
+import {BaseMenu} from "./BaseMenu";
+import {useAppDispatch} from "../common/hooks/useAppDispatch";
+import {authThunk} from "../features/Auth/auth-slice";
+import s from './App.module.css'
+
 
 export const App = () => {
 
@@ -18,7 +19,7 @@ export const App = () => {
 
     return (
         <BrowserRouter>
-            <div className="container">
+            <div className={s.container}>
                 <BaseMenu />
                 <Routes>
                     <Route path={'/'} element={<TodolistsList />}/>

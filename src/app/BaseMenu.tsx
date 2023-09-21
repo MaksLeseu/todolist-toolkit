@@ -19,13 +19,14 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import {Button, Typography} from "@mui/material";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "./store";
+import {AppRootStateType} from "../store/store";
 import {useAppDispatch} from "../common/hooks/useAppDispatch";
 import {authThunk} from "../features/Auth/auth-slice";
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import {todolistsThunk} from "../features/TodolistsList/todolists-slice";
 import {NavLink} from "react-router-dom";
+import Tooltip from '@mui/material/Tooltip';
 import {open} from "fs";
 
 interface AppBarProps extends MuiAppBarProps {
@@ -181,52 +182,56 @@ export const BaseMenu = () => {
                         </DrawerHeader>
                         <Divider />
                         <List>
-                            <ListItem disablePadding sx={{ display: 'block' }}>
-                                <ListItemButton
-                                    sx={{
-                                        minHeight: 48,
-                                        justifyContent: open ? 'initial' : 'center',
-                                        px: 2.5,
-                                    }}
-                                >
-                                    <ListItemIcon
+                            <Tooltip title={'Create to-do list'} placement="right-start" arrow>
+                                <ListItem disablePadding sx={{ display: 'block' }}>
+                                    <ListItemButton
                                         sx={{
-                                            minWidth: 0,
-                                            mr: open ? 3 : 'auto',
-                                            justifyContent: 'center',
+                                            minHeight: 48,
+                                            justifyContent: open ? 'initial' : 'center',
+                                            px: 2.5,
                                         }}
                                     >
-                                        {<NoteAddIcon />}
-                                    </ListItemIcon>
-                                    <ListItemText primary={'Create To-do list'} sx={{ opacity: open ? 1 : 0 }} />
-                                </ListItemButton>
-                            </ListItem>
+                                        <ListItemIcon
+                                            sx={{
+                                                minWidth: 0,
+                                                mr: open ? 3 : 'auto',
+                                                justifyContent: 'center',
+                                            }}
+                                        >
+                                            {<NoteAddIcon />}
+                                        </ListItemIcon>
+                                        <ListItemText primary={'Create To-do list'} sx={{ opacity: open ? 1 : 0 }} />
+                                    </ListItemButton>
+                                </ListItem>
+                            </Tooltip>
 
                         </List>
                         <Divider />
                         <List>
                             {todos.map((todo, index) => (
                                 <NavLink to={`/todo/${todo.title}/${todo.id}`}>
-                                    <ListItem key={todo.id} disablePadding sx={{ display: 'block' }}>
-                                        <ListItemButton
-                                            sx={{
-                                                minHeight: 48,
-                                                justifyContent: open ? 'initial' : 'center',
-                                                px: 2.5,
-                                            }}
-                                        >
-                                            <ListItemIcon
+                                    <Tooltip title={todo.title} placement="right-start" arrow>
+                                        <ListItem key={todo.id} disablePadding sx={{ display: 'block' }}>
+                                            <ListItemButton
                                                 sx={{
-                                                    minWidth: 0,
-                                                    mr: open ? 3 : 'auto',
-                                                    justifyContent: 'center',
+                                                    minHeight: 48,
+                                                    justifyContent: open ? 'initial' : 'center',
+                                                    px: 2.5,
                                                 }}
                                             >
-                                                {<InsertDriveFileIcon />}
-                                            </ListItemIcon>
-                                            <ListItemText primary={todo.title} sx={{ opacity: open ? 1 : 0 }} />
-                                        </ListItemButton>
-                                    </ListItem>
+                                                <ListItemIcon
+                                                    sx={{
+                                                        minWidth: 0,
+                                                        mr: open ? 3 : 'auto',
+                                                        justifyContent: 'center',
+                                                    }}
+                                                >
+                                                    {<InsertDriveFileIcon />}
+                                                </ListItemIcon>
+                                                <ListItemText primary={todo.title} sx={{ opacity: open ? 1 : 0 }} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </Tooltip>
                                 </NavLink>
                             ))}
                         </List>

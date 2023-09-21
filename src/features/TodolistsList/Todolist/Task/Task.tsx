@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../../app/store";
+import {AppRootStateType} from "../../../../store/store";
 import {TasksType} from "../../../../common/api/api";
 import s from './Task.module.css'
 import {MoreHoriz} from "./MoreHoriz";

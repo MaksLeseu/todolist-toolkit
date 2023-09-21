@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from "react";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../app/store";
+import {AppRootStateType} from "../../store/store";
 import {todolistsThunk} from "./todolists-slice";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {Todolist} from "./Todolist/Todolist";
@@ -13,24 +13,16 @@ type TodolistsListPropsType = {
 export const TodolistsList: FC<TodolistsListPropsType> = (props) => {
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
     const todos = useSelector((state: AppRootStateType) => state.todolists)
-   /* const todos = useSelector((state: AppRootStateType) => state.todolists)
-    const dispatch = useAppDispatch()
-
-    useEffect(() => {
-        if (todos.length === 0) {
-            dispatch(todolistsThunk.getTodolists())
-        }
-    }, [])*/
 
     if (!isLoggedIn) {
         return <Navigate to={"/login"} />
     }
 
-    const location = useLocation();
+    /*const location = useLocation();
     const currentUrl = location.pathname;
     const regex = /\/todo\/\w+\/([a-f0-9-]+)/;
     const match = currentUrl.match(regex);
-    const todoId = match ? match[1] : null
+    const todoId = match ? match[1] : null*/
 
     const allTodos = () => (
         todos ?
@@ -47,7 +39,7 @@ export const TodolistsList: FC<TodolistsListPropsType> = (props) => {
     const onlyOneTodo = () => (
         todos ?
             todos.map(tl => {
-                if (tl.id === todoId) {
+                if (tl.id === '1') {
                     return (
                         <Todolist
                             key={tl.id}

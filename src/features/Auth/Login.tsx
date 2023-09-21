@@ -5,7 +5,7 @@ import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {authThunk} from "./auth-slice";
 import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
-import {AppRootStateType} from "../../app/store";
+import {AppRootStateType} from "../../store/store";
 
 export const Login = () => {
     const dispatch = useAppDispatch()
