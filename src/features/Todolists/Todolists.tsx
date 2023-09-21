@@ -3,6 +3,7 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
 import {Navigate} from "react-router-dom";
 import {TodolistsList} from "./TodolistsList/TodolistsList";
+import s from './Todolists.module.css'
 
 type Props = {
 
@@ -17,7 +18,7 @@ export const Todolists: FC<Props> = ({}) => {
     }
 
     return  (
-        <div>
+        <div className={s.todosList}>
             {
                 todos.map(td =>
                     <TodolistsList todoTitle={td.title} />
