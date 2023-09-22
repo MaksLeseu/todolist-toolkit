@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {Button} from "@mui/material";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../store/store";
+import {AppRootStateType} from "../../../../store/store";
 
 type Props = {
     handlerLogout: () => void

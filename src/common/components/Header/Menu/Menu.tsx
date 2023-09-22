@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../store/store";
+import {AppRootStateType} from "../../../../store/store";
 
 type Props = {
     open: boolean
