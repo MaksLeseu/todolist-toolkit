@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, useState} from "react";
 import s from './Todolist.module.css'
 import {Task} from "../Tasks/Task";
-import {ButtonAddTask} from "../Tasks/ButtonAddTask";
+import {ButtonAddTask} from "../Tasks/ButtonAddTask/ButtonAddTask";
 import {ModalWindow} from "./ModalWindow";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {tasksThunk} from "../Tasks/tasks.slice";
@@ -46,7 +46,11 @@ export const Todolist: FC<TodolistType> = (props) => {
             </div>
             <div className={s.todolist}>
                 <Task todolistId={props.todolistId} />
-                <ButtonAddTask onClick={handleOpen} />
+                <ButtonAddTask
+                    label={'Add a task'}
+                    className={'addTask'}
+                    onClick={handleOpen}
+                />
                 <ModalWindow
                     title={title}
                     open={open}

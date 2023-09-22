@@ -3,12 +3,15 @@ import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import {FormControlLabel, FormGroup} from "@mui/material";
 import s from './ButtonAddTask.module.css'
+import {addDescription} from "../tasks.slice";
 
-type ButtonAddTaskPropsType = {
+type Props = {
+    label: string
+    className: string
     onClick: () => void
 }
 
-export const ButtonAddTask: FC<ButtonAddTaskPropsType> = (props) => {
+export const ButtonAddTask: FC<Props> = ({ label, className, onClick }) => {
     return (
         <>
             <FormGroup
@@ -20,14 +23,14 @@ export const ButtonAddTask: FC<ButtonAddTaskPropsType> = (props) => {
                             color={"default"}
                             size={'small'}
                             aria-label={'Add task'}
-                            onClick={props.onClick}
+                            onClick={onClick}
                             disableRipple={true}
                         >
                             <AddIcon/>
                         </IconButton>
                     }
-                    label={'Add a task'}
-                    className={s.btnAddTask}
+                    label={label}
+                    className={className === 'addTask' ? s.btnAddTask : s.btnAddDescription}
                 />
             </FormGroup>
         </>

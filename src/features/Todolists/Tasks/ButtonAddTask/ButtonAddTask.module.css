@@ -10,3 +10,13 @@
     background-color: #7f8b9d80;
     transition: 0.5s;
 }
+
+.btnAddDescription {
+    transition: 0.5s;
+    border-radius: 4px;
+}
+
+.btnAddDescription:hover {
+    background-color: #7f8b9d80;
+    transition: 0.5s;
+}
