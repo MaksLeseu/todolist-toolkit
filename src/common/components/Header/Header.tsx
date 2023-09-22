@@ -25,7 +25,7 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import {todolistsThunk} from "../../../features/Todolists/Todolist/todolists.slice";
 import {NavLink} from "react-router-dom";
 import Tooltip from '@mui/material/Tooltip';
-import s from './BaseMenu.module.css'
+import s from './Header.module.css'
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -98,7 +98,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export const BaseMenu = () => {
+export const Header = () => {
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
     const handlerLogout = () => dispatch(authThunk.logout({}))
@@ -151,9 +151,16 @@ export const BaseMenu = () => {
                         component={'div'}
                         sx={{flexGrow: 1}}
                     >
-                        Todolist
+                        <NavLink to={'/'}>
+                            <Typography
+                                variant={'h6'}
+                                component={'div'}
+                                sx={{flexGrow: 1, color: 'white', textDecoration: 'none'}}
+                            >
+                                To-do list
+                            </Typography>
+                        </NavLink>
                     </Typography>
-
                     {
                         isLoggedIn
                             ?
