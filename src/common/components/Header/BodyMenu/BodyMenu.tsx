@@ -18,6 +18,7 @@ import {AppRootStateType} from "../../../../store/store";
 import {CSSObject, styled, Theme, useTheme} from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import {CreateTodoButton} from "./CreateTodoButton/CreateTodoButton";
+import {TodosList} from "./TodosList/TodosList";
 
 const drawerWidth = 240;
 
@@ -76,7 +77,6 @@ type Porps = {
 
 export const BodyMenu: FC<Porps> = ({ open, handleDrawerClose }) => {
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
-    const todos = useSelector((state: AppRootStateType) => state.todolists)
 
     const theme = useTheme();
 
@@ -94,39 +94,18 @@ export const BodyMenu: FC<Porps> = ({ open, handleDrawerClose }) => {
                         <Divider />
                         <List>
 
-                            <CreateTodoButton open={open} />
+                            <CreateTodoButton
+                                open={open}
+                            />
 
                         </List>
                         <Divider />
                         <List>
-                            {
-                                todos.map((todo, index) => (
-                                    <NavLink to={`/todo/${todo.id}`} className={s.todo}>
-                                        <Tooltip key={index} title={todo.title} placement="right-start" arrow>
-                                            <ListItem key={todo.id} disablePadding sx={{display: 'block'}}>
-                                                <ListItemButton
-                                                    sx={{
-                                                        minHeight: 48,
-                                                        justifyContent: open ? 'initial' : 'center',
-                                                        px: 2.5,
-                                                    }}
-                                                >
-                                                    <ListItemIcon
-                                                        sx={{
-                                                            minWidth: 0,
-                                                            mr: open ? 3 : 'auto',
-                                                            justifyContent: 'center',
-                                                        }}
-                                                    >
-                                                        {<InsertDriveFileIcon/>}
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={todo.title} sx={{opacity: open ? 1 : 0}}/>
-                                                </ListItemButton>
-                                            </ListItem>
-                                        </Tooltip>
-                                    </NavLink>
-                                ))
-                            }
+
+                            <TodosList
+                                open={open}
+                            />
+
                         </List>
                     </Drawer>
                     :
