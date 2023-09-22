@@ -31,12 +31,3 @@
     font-size: 18px;
     font-weight: 500;
 }
-.btnAddTask {
-    transition: 0.5s;
-    border-radius: 4px;
-}
-
-.btnAddTask:hover {
-    background-color: #7f8b9d80;
-    transition: 0.5s;
-}

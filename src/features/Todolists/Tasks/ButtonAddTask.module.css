@@ -1,0 +1,12 @@
+.btnAddTask {
+    width: 200px;
+    height: 50px;
+    background-color: rgba(180, 192, 204, 0.5);
+    transition: 0.5s;
+    border-radius: 4px;
+}
+
+.btnAddTask:hover {
+    background-color: #7f8b9d80;
+    transition: 0.5s;
+}
