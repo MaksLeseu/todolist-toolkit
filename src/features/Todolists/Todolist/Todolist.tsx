@@ -39,23 +39,22 @@ export const Todolist: FC<TodolistType> = (props) => {
         dispatch(todolistsThunk.removeTodolist(props.todolistId))
     }
     return (
-        <div className={s.todolist}>
-            <div className={s.todoContainer}>
-                <div className={s.titleContainer}>
-                    <DescriptionIcon color={'info'} />
-                    <h2>{props.title}</h2>
-                </div>
-                <ButtonRemoveTodo onClick={removeTodolist} />
+        <div>
+            <div className={s.titleContainer}>
+                <DescriptionIcon color={'info'} />
+                <h2>{props.title}</h2>
             </div>
-            <Task todolistId={props.todolistId} />
-            <ButtonAddTask onClick={handleOpen} />
-            <ModalWindow
-                title={title}
-                open={open}
-                changeTitle={changeTitle}
-                onClick={handleClose}
-                addTask={addTask}
-            />
+            <div className={s.todolist}>
+                <Task todolistId={props.todolistId} />
+                <ButtonAddTask onClick={handleOpen} />
+                <ModalWindow
+                    title={title}
+                    open={open}
+                    changeTitle={changeTitle}
+                    onClick={handleClose}
+                    addTask={addTask}
+                />
+            </div>
         </div>
     )
 }
