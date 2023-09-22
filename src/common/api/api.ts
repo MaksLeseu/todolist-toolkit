@@ -26,6 +26,9 @@ export const tasksApi = {
     },
     removeTask(todolistId: string, taskId: string) {
         return instance.delete(`/todo-lists/${todolistId}/tasks/${taskId}`)
+    },
+    addDescription(arg: AddDescriptionArgType) {
+        return instance.put(`/todo-lists/${arg.todolistId}/tasks/${arg.taskId}`, {description: arg.description})
     }
 }
 
@@ -65,6 +68,12 @@ export type TasksType = {
 type AddTaskArgType = {
     todolistId: string
     title: string
+}
+
+type AddDescriptionArgType = {
+    todolistId: string
+    taskId: string
+    description: string
 }
 
 type MeType = {

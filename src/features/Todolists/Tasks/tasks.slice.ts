@@ -58,12 +58,26 @@ export const addTask = createAppAsyncThunk<
 export const removeTask = createAppAsyncThunk<
     any,
     { todolistId: string, taskId: string }>
-('tasks,removeTask', async (arg, thunkAPI) => {
+('tasks/removeTask', async (arg, thunkAPI) => {
     const { rejectWithValue } = thunkAPI
 
     try {
         const res = await tasksApi.removeTask(arg.todolistId, arg.taskId)
         return { todolistId: arg.todolistId, taskId: arg.taskId }
+    } catch (error) {
+        return rejectWithValue(null)
+    }
+})
+
+export const addDescription = createAppAsyncThunk<
+    any,
+    { todolistId: string, taskId: string, description: string }>
+('tasks/addDescription', async (arg, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI
+
+    try {
+        const res = await tasksApi.addDescription({todolistId: arg.todolistId, taskId: arg.taskId, description: arg.description })
+        console.log(res)
     } catch (error) {
         return rejectWithValue(null)
     }
