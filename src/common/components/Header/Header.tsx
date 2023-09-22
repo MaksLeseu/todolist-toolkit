@@ -26,6 +26,7 @@ import {todolistsThunk} from "../../../features/Todolists/Todolist/todolists.sli
 import {NavLink} from "react-router-dom";
 import Tooltip from '@mui/material/Tooltip';
 import s from './Header.module.css'
+import {Menu} from "../Menu/Menu";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -128,24 +129,9 @@ export const Header = () => {
             <CssBaseline />
             <AppBar position="fixed" open={open}>
                 <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{
-                            marginRight: 5,
-                            ...(open && { display: 'none' }),
-                        }}
-                    >
-                        {
-                            isLoggedIn
-                                ?
-                                <MenuIcon/>
-                                :
-                                null
-                        }
-                    </IconButton>
+
+                    <Menu open={open} handleDrawerOpen={handleDrawerOpen} />
+
                     <Typography
                         variant={'h6'}
                         component={'div'}
