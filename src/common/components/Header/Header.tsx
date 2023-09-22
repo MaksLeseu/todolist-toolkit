@@ -27,6 +27,7 @@ import {NavLink} from "react-router-dom";
 import Tooltip from '@mui/material/Tooltip';
 import s from './Header.module.css'
 import {Menu} from "../Menu/Menu";
+import {LogOutButton} from "../LogOutButton/LogOutButton";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -130,7 +131,10 @@ export const Header = () => {
             <AppBar position="fixed" open={open}>
                 <Toolbar>
 
-                    <Menu open={open} handleDrawerOpen={handleDrawerOpen} />
+                    <Menu
+                        open={open}
+                        handleDrawerOpen={handleDrawerOpen}
+                    />
 
                     <Typography
                         variant={'h6'}
@@ -147,18 +151,11 @@ export const Header = () => {
                             </Typography>
                         </NavLink>
                     </Typography>
-                    {
-                        isLoggedIn
-                            ?
-                            <Button
-                                color={'inherit'}
-                                onClick={handlerLogout}
-                            >
-                                Log out
-                            </Button>
-                            :
-                            null
-                    }
+
+                    <LogOutButton
+                        handlerLogout={handlerLogout}
+                    />
+
                 </Toolbar>
             </AppBar>
 
