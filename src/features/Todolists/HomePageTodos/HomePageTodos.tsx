@@ -8,10 +8,12 @@ type Props = {
 
 export const HomePageTodos: FC<Props> = ({todoTitle}) => {
     return (
-        <div className={s.todo}>
-            <div className={s.container}>
-                <DescriptionIcon color={'info'}/>
-                <div className={s.title}>{todoTitle}</div>
+        <div className={s.todoContainer}>
+            <div className={s.todo}>
+                <div className={s.container}>
+                    <DescriptionIcon color={'info'}/>
+                    <div className={s.title}>{todoTitle}</div>
+                </div>
             </div>
         </div>
     )

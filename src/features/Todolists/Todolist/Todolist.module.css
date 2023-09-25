@@ -7,8 +7,11 @@
     box-shadow: 1px 1px 5px black;
     padding: 10px;
 }
+
 .todolist {
     display: flex;
+    flex-direction: column;
+    width: 800px;
 }
 
 .todoContainer {

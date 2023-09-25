@@ -6,11 +6,6 @@ import s from './Task.module.css'
 import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {tasksThunk} from "./tasks.slice";
-import {ButtonAddTask} from "./ButtonAddTask/ButtonAddTask";
-import TextField from "@mui/material/TextField";
-import {Button} from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from '@mui/icons-material/Close';
 
 type Props = {
     todolistId: string
@@ -46,41 +41,44 @@ export const Task: FC<Props> = (props) => {
                         removeTask={removeTask}
                     />
                 </div>
-                {
-                    description
-                        ?
-                        <div>
-                            <TextField
-                                label="Enter text"
-                                variant="outlined"
-                                sx={{marginBottom: '10px'}}
-                            />
-                            <Button
-                                variant="contained"
-                                size={'small'}
-                                sx={{marginRight: '5px'}}
-                            >
-                                Add a description
-                            </Button>
-                            <IconButton
-                                color={"default"}
-                                size={'small'}
-                                onClick={closeDescription}
-                                disableRipple={false}
-                            >
-                                <CloseIcon/>
-                            </IconButton>
-                        </div>
-                        :
-                        <ButtonAddTask
-                            label={'Add a description'}
-                            className={'add Description'}
-                            taskId={ts.id}
-                            onClick={openDescription}
-                        />
-                }
             </div>
         ))
         :
         <div className={s.empty}></div>
 }
+
+
+/*
+{
+    description
+        ?
+        <div>
+            <TextField
+                label="Enter text"
+                variant="outlined"
+                sx={{marginBottom: '10px'}}
+            />
+            <Button
+                variant="contained"
+                size={'small'}
+                sx={{marginRight: '5px'}}
+            >
+                Add a description
+            </Button>
+            <IconButton
+                color={"default"}
+                size={'small'}
+                onClick={closeDescription}
+                disableRipple={false}
+            >
+                <CloseIcon/>
+            </IconButton>
+        </div>
+        :
+        <ButtonAddTask
+            label={'Add a description'}
+            className={'add Description'}
+            taskId={ts.id}
+            onClick={openDescription}
+        />
+}*/

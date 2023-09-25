@@ -1,5 +1,6 @@
 .todosList {
     display: flex;
+    justify-content: center;
 }
 
 .title {

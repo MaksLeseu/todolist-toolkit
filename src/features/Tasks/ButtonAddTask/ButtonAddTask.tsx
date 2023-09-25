@@ -12,7 +12,6 @@ type Props = {
 }
 
 export const ButtonAddTask: FC<Props> = ({label, className, onClick, taskId}) => {
-    console.log('Button')
     return (
         <>
             <FormGroup
