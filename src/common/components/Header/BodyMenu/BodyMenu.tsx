@@ -4,15 +4,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
-import Tooltip from "@mui/material/Tooltip";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import ListItemText from "@mui/material/ListItemText";
-import {NavLink} from "react-router-dom";
-import s from "../Header.module.css";
-import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../store/store";
 import {CSSObject, styled, Theme, useTheme} from "@mui/material/styles";
@@ -43,8 +34,8 @@ const closedMixin = (theme: Theme): CSSObject => ({
     },
 });
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
+const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
+    ({theme, open}) => ({
         width: drawerWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
@@ -60,7 +51,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-const DrawerHeader = styled('div')(({ theme }) => ({
+const DrawerHeader = styled('div')(({theme}) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -75,7 +66,7 @@ type Porps = {
     handleDrawerClose: () => void
 }
 
-export const BodyMenu: FC<Porps> = ({ open, handleDrawerClose }) => {
+export const BodyMenu: FC<Porps> = ({open, handleDrawerClose}) => {
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
 
     const theme = useTheme();
@@ -88,10 +79,10 @@ export const BodyMenu: FC<Porps> = ({ open, handleDrawerClose }) => {
                     <Drawer variant="permanent" open={open}>
                         <DrawerHeader>
                             <IconButton onClick={handleDrawerClose}>
-                                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                                {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
                             </IconButton>
                         </DrawerHeader>
-                        <Divider />
+                        <Divider/>
                         <List>
 
                             <CreateTodoButton
@@ -99,7 +90,7 @@ export const BodyMenu: FC<Porps> = ({ open, handleDrawerClose }) => {
                             />
 
                         </List>
-                        <Divider />
+                        <Divider/>
                         <List>
 
                             <TodosList

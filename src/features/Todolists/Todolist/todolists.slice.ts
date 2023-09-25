@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {todolistsApi, TodolistsType} from "../../../common/api/api";
 import {createAppAsyncThunk} from "../../../common/utils/create-app-async-thunk";
-import {tasksThunk} from "../Tasks/tasks.slice";
+import {tasksThunk} from "../../Tasks/tasks.slice";
 
 const initialState: TodolistsType[] = []
 
@@ -24,27 +24,26 @@ const slice = createSlice({
 //thunk
 export const getTodolists = createAppAsyncThunk<{ todolists: TodolistsType[] }>
 ('todolists/getTodolists', async (arg, thunkAPI) => {
-    const { dispatch, rejectWithValue } = thunkAPI
+    const {dispatch, rejectWithValue} = thunkAPI
 
     try {
         const res = await todolistsApi.getTodolists()
         res.data.forEach(tl => dispatch(tasksThunk.getTasks({todolistId: tl.id})))
-        return { todolists: res.data }
+        return {todolists: res.data}
     } catch (error) {
         return rejectWithValue(null)
     }
 })
 
-export const removeTodolist = createAppAsyncThunk<
-    { todolistId: string },
+export const removeTodolist = createAppAsyncThunk<{ todolistId: string },
     string>
 ('todolists/removeTodolist', async (todolistId, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI
+    const {rejectWithValue} = thunkAPI
 
     try {
         const res = await todolistsApi.removeTodolist(todolistId)
         if (res.data.resultCode === 0) {
-            return { todolistId }
+            return {todolistId}
         } else {
             return rejectWithValue(null)
         }
@@ -54,4 +53,4 @@ export const removeTodolist = createAppAsyncThunk<
 })
 
 export const todolistsSlice = slice.reducer
-export const todolistsThunk = { getTodolists, removeTodolist }
+export const todolistsThunk = {getTodolists, removeTodolist}

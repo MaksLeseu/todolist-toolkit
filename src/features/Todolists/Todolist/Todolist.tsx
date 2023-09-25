@@ -1,12 +1,11 @@
 import React, {ChangeEvent, FC, useState} from "react";
 import s from './Todolist.module.css'
-import {Task} from "../Tasks/Task";
-import {ButtonAddTask} from "../Tasks/ButtonAddTask/ButtonAddTask";
-import {ModalWindow} from "./ModalWindow";
+import {Task} from "../../Tasks/Task";
+import {ButtonAddTask} from "../../Tasks/ButtonAddTask/ButtonAddTask";
+import {ModalWindow} from "../../../common/components/ModalWindow/ModalWindow";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {tasksThunk} from "../Tasks/tasks.slice";
+import {tasksThunk} from "../../Tasks/tasks.slice";
 import DescriptionIcon from '@mui/icons-material/Description';
-import {ButtonRemoveTodo} from "./ButtonRemoveTodo";
 import {todolistsThunk} from "./todolists.slice";
 
 type TodolistType = {
@@ -41,11 +40,11 @@ export const Todolist: FC<TodolistType> = (props) => {
     return (
         <div>
             <div className={s.titleContainer}>
-                <DescriptionIcon color={'info'} />
+                <DescriptionIcon color={'info'}/>
                 <h2>{props.title}</h2>
             </div>
             <div className={s.todolist}>
-                <Task todolistId={props.todolistId} />
+                <Task todolistId={props.todolistId}/>
                 <ButtonAddTask
                     label={'Add a task'}
                     className={'addTask'}

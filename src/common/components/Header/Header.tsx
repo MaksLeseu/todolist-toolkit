@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
 import {Typography} from "@mui/material";
@@ -14,7 +14,6 @@ import {NavLink} from "react-router-dom";
 import {Menu} from "./Menu/Menu";
 import {LogOutButton} from "./LogOutButton/LogOutButton";
 import {BodyMenu} from "./BodyMenu/BodyMenu";
-import s from './Header.module.css'
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -24,7 +23,7 @@ const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
+})<AppBarProps>(({theme, open}) => ({
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
@@ -63,8 +62,8 @@ export const Header = () => {
     };
 
     return (
-        <Box sx={{ display: 'flex', marginBottom: '120px' }}>
-            <CssBaseline />
+        <Box sx={{display: 'flex', marginBottom: '120px'}}>
+            <CssBaseline/>
             <AppBar position="fixed" open={open}>
                 <Toolbar>
 

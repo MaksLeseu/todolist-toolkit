@@ -1,10 +1,10 @@
 import React, {FC, useState} from "react";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../store/store";
-import {TasksType} from "../../../common/api/api";
+import {AppRootStateType} from "../../store/store";
+import {TasksType} from "../../common/api/api";
 import s from './Task.module.css'
-import {MoreHoriz} from "./MoreHoriz";
-import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
+import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
+import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {tasksThunk} from "./tasks.slice";
 import {ButtonAddTask} from "./ButtonAddTask/ButtonAddTask";
 import TextField from "@mui/material/TextField";
@@ -12,18 +12,20 @@ import {Button} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from '@mui/icons-material/Close';
 
-type TaskPropsType = {
+type Props = {
     todolistId: string
 }
 
-export const Task: FC<TaskPropsType> = (props) => {
-    const task  = useSelector<AppRootStateType, any>(state => state.tasks[props.todolistId])
+export const Task: FC<Props> = (props) => {
+    const {todolistId} = props
+    console.log('Task')
+    const task = useSelector<AppRootStateType, any>(state => state.tasks[todolistId])
     const dispatch = useAppDispatch()
 
-    const [ description, setDescription ] = useState<boolean>(false)
+    const [description, setDescription] = useState<boolean>(false)
 
     const removeTask = (taskId: string) => {
-        dispatch(tasksThunk.removeTask({todolistId: props.todolistId, taskId}))
+        dispatch(tasksThunk.removeTask({todolistId, taskId}))
     }
 
     const openDescription = () => {
@@ -73,11 +75,12 @@ export const Task: FC<TaskPropsType> = (props) => {
                         <ButtonAddTask
                             label={'Add a description'}
                             className={'add Description'}
+                            taskId={ts.id}
                             onClick={openDescription}
                         />
                 }
             </div>
         ))
         :
-        <div className={s.empty}>Todolist is empty!</div>
+        <div className={s.empty}></div>
 }

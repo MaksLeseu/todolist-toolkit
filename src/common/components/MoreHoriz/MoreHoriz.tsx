@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import IconButton from '@mui/material/IconButton';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import {BasicPopover} from "./BasicPopover";
+import {BasicPopover} from "../BasicPopover/BasicPopover";
 
 type MoreHorizPropsType = {
     taskId: string
@@ -25,7 +25,7 @@ export const MoreHoriz: FC<MoreHorizPropsType> = (props) => {
                 size={'small'}
                 onClick={handleClick}
             >
-                <MoreHorizIcon />
+                <MoreHorizIcon/>
             </IconButton>
             <BasicPopover
                 taskId={props.taskId}
