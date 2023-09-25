@@ -7,6 +7,7 @@ import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {tasksThunk} from "../../Tasks/tasks.slice";
 import DescriptionIcon from '@mui/icons-material/Description';
 import {todolistsThunk} from "./todolists.slice";
+import {AddTaskModalWindow} from "../../Tasks/AddTaskModalWindow/AddTaskModalWindow";
 
 type TodolistType = {
     todolistId: string
@@ -50,6 +51,7 @@ export const Todolist: FC<TodolistType> = (props) => {
                     className={'addTask'}
                     onClick={handleOpen}
                 />
+                <AddTaskModalWindow/>
                 <ModalWindow
                     title={title}
                     open={open}
