@@ -19,7 +19,7 @@ export const MoreHoriz: FC<MoreHorizPropsType> = (props) => {
     };
 
     return (
-        <>
+        <div>
             <IconButton
                 color={"inherit"}
                 size={'small'}
@@ -33,6 +33,6 @@ export const MoreHoriz: FC<MoreHorizPropsType> = (props) => {
                 handleClosePopover={handleClosePopover}
                 removeTask={props.removeTask}
             />
-        </>
+        </div>
     )
 }

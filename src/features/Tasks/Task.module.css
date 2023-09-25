@@ -20,12 +20,27 @@
 .task {
     width: 100%;
     border-bottom: 1px rgba(235, 236, 240, 1.00) solid;
+    transition: 0.5s;
+    cursor: pointer;
 }
+
+.task:hover {
+    background-color: rgba(235, 236, 240, 1.00);
+    box-shadow: 1px 1px 5px black;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+
 
 .container {
     padding: 15px;
     display: flex;
     justify-content: space-between;
+}
+
+.title {
+    display: flex;
+    align-items: center;
 }
 
 .text {

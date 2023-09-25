@@ -6,6 +6,7 @@ import s from './Task.module.css'
 import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {tasksThunk} from "./tasks.slice";
+import Checkbox from '@mui/material/Checkbox';
 
 type Props = {
     todolistId: string
@@ -35,7 +36,10 @@ export const Task: FC<Props> = (props) => {
         task.map((ts: TasksType) => (
             <div key={ts.id} className={s.task}>
                 <div className={s.container}>
-                    <div className={s.text}>{ts.title}</div>
+                    <div className={s.title}>
+                        <Checkbox/>
+                        <div className={s.text}>{ts.title}</div>
+                    </div>
                     <MoreHoriz
                         taskId={ts.id}
                         removeTask={removeTask}
