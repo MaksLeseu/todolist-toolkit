@@ -6,15 +6,16 @@ import {authThunk} from "./auth-slice";
 import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {AppRootStateType} from "../../store/store";
+import s from './Auth.module.css'
 
-export const Login = () => {
+export const Auth = () => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
 
-    const formik = useFormik( {
+    const formik = useFormik({
         validate: (values) => {
-            if (!values.email) return { email: '' }
-            if (!values.password) return { password: '' }
+            if (!values.email) return {email: ''}
+            if (!values.password) return {password: ''}
         },
         initialValues: {
             email: '',
@@ -27,14 +28,23 @@ export const Login = () => {
     })
 
     if (isLoggedIn) {
-        return <Navigate to={"/"} />
+        return <Navigate to={"/"}/>
     }
 
-    return <Grid container justifyContent="center">
+    return <Grid container justifyContent="center"
+                 sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Grid item xs={4}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
-                    <FormLabel>
+                    <FormLabel sx={
+                        {
+                            border: '1px #2a3b5a solid',
+                            borderRadius: '5px',
+                            paddingRight: '5px',
+                            paddingLeft: '5px',
+                            boxShadow: '0px 0px 3px black',
+                        }}
+                    >
                         <p>
                             To log in get registered <a href={'https://social-network.samuraijs.com/'}
                                                         target={'_blank'}>here</a>
@@ -42,9 +52,10 @@ export const Login = () => {
                         <p>
                             or use common test account credentials:
                         </p>
-                        <p> Email: free@samuraijs.com
+                        <p className={s.auth}>
+                            Email: free@samuraijs.com
                         </p>
-                        <p>
+                        <p className={s.auth}>
                             Password: free
                         </p>
                     </FormLabel>
