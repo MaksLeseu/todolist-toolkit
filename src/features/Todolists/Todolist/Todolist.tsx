@@ -3,10 +3,10 @@ import s from './Todolist.module.css'
 import {Task} from "../../Tasks/Task";
 import {ButtonAddTask} from "../../Tasks/ButtonAddTask/ButtonAddTask";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {tasksThunk} from "../../Tasks/tasks.slice";
 import DescriptionIcon from '@mui/icons-material/Description';
 import {todolistsThunk} from "./todolists.slice";
 import {AddTaskModalWindow} from "../../Tasks/AddTaskModalWindow/AddTaskModalWindow";
+import {tasksThunk} from "../../Tasks/tasks.slice";
 
 type TodolistType = {
     todolistId: string
@@ -40,6 +40,7 @@ export const Todolist: FC<TodolistType> = (props) => {
     const removeTodolist = () => {
         dispatch(todolistsThunk.removeTodolist(props.todolistId))
     }
+
     return (
         <div>
             <div className={s.titleContainer}>
@@ -52,7 +53,7 @@ export const Todolist: FC<TodolistType> = (props) => {
                     open
                         ?
                         <AddTaskModalWindow
-                            value={taskName}
+                            taskName={taskName}
                             handleClose={handleClose}
                             changeTaskName={changeTaskName}
                             addTask={addTask}

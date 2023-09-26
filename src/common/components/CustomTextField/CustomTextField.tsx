@@ -5,11 +5,13 @@ type Props = {
     label: string
     size: 'small' | 'medium'
     multiline: boolean
-    value?: string
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+    taskName?: string
+    changeTaskName?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const CustomTextField: FC<Props> = ({label, size, multiline, onChange, value}) => {
+export const CustomTextField: FC<Props> = (props) => {
+    const {label, size, multiline, taskName, changeTaskName} = props
+
     return (
         <>
             <TextField
@@ -18,8 +20,8 @@ export const CustomTextField: FC<Props> = ({label, size, multiline, onChange, va
                 sx={{width: '100%'}}
                 size={size}
                 multiline={multiline}
-                value={value}
-                onChange={onChange}
+                value={taskName}
+                onChange={changeTaskName}
             />
         </>
     )
