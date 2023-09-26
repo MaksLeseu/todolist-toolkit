@@ -2,7 +2,6 @@ import React, {ChangeEvent, FC, useState} from "react";
 import s from './Todolist.module.css'
 import {Task} from "../../Tasks/Task";
 import {ButtonAddTask} from "../../Tasks/ButtonAddTask/ButtonAddTask";
-import {ModalWindow} from "../../../common/components/ModalWindow/ModalWindow";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {tasksThunk} from "../../Tasks/tasks.slice";
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -16,22 +15,25 @@ type TodolistType = {
 
 export const Todolist: FC<TodolistType> = (props) => {
     const dispatch = useAppDispatch()
-    const [open, setOpen] = useState<boolean>(false)
-    const [title, setTitle] = useState('')
 
-    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
+    const [open, setOpen] = useState<boolean>(false)
+
+    const [taskName, setTaskName] = useState<string>('')
+    const [description, setDescription] = useState<string>('')
+
+    const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => {
+        setTaskName(e.currentTarget.value)
     }
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
         setOpen(false)
-        setTitle('')
+        setTaskName('')
     }
 
     const addTask = (title: string) => {
         setOpen(false)
-        setTitle('')
+        setTaskName('')
         dispatch(tasksThunk.addTask({todolistId: props.todolistId, title}))
     }
 
@@ -46,19 +48,29 @@ export const Todolist: FC<TodolistType> = (props) => {
             </div>
             <div className={s.todolist}>
                 <Task todolistId={props.todolistId}/>
-                <ButtonAddTask
-                    label={'Add a task'}
-                    className={'addTask'}
-                    onClick={handleOpen}
-                />
-                <AddTaskModalWindow/>
-                <ModalWindow
+                {
+                    open
+                        ?
+                        <AddTaskModalWindow
+                            value={taskName}
+                            handleClose={handleClose}
+                            changeTaskName={changeTaskName}
+                            addTask={addTask}
+                        />
+                        :
+                        <ButtonAddTask
+                            label={'Add a task'}
+                            className={'addTask'}
+                            onClick={handleOpen}
+                        />
+                }
+                {/*<ModalWindow
                     title={title}
                     open={open}
                     changeTitle={changeTitle}
                     onClick={handleClose}
                     addTask={addTask}
-                />
+                />*/}
             </div>
         </div>
     )
