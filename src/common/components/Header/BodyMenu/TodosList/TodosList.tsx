@@ -14,7 +14,7 @@ type Props = {
     open: boolean
 }
 
-export const TodosList: FC<Props> = ({ open }) => {
+export const TodosList: FC<Props> = ({open}) => {
     const todos = useSelector((state: AppRootStateType) => state.todolists)
 
     return (
@@ -38,9 +38,14 @@ export const TodosList: FC<Props> = ({ open }) => {
                                             justifyContent: 'center',
                                         }}
                                     >
-                                        {<InsertDriveFileIcon/>}
+                                        {<div className={s.icon}>
+                                            <InsertDriveFileIcon/>
+                                        </div>}
                                     </ListItemIcon>
-                                    <ListItemText primary={todo.title} sx={{opacity: open ? 1 : 0}}/>
+                                    <ListItemText
+                                        primary={todo.title}
+                                        sx={{opacity: open ? 1 : 0, color: 'rgba(236, 236, 241)'}}
+                                    />
                                 </ListItemButton>
                             </ListItem>
                         </Tooltip>

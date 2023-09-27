@@ -10,6 +10,7 @@ import {CSSObject, styled, Theme, useTheme} from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import {CreateTodoButton} from "./CreateTodoButton/CreateTodoButton";
 import {TodosList} from "./TodosList/TodosList";
+import s from '../Header.module.css'
 
 const drawerWidth = 240;
 
@@ -74,33 +75,35 @@ export const BodyMenu: FC<Porps> = ({open, handleDrawerClose}) => {
     return (
         <>
             {
-                isLoggedIn
-                    ?
-                    <Drawer variant="permanent" open={open}>
-                        <DrawerHeader>
-                            <IconButton onClick={handleDrawerClose}>
-                                {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
-                            </IconButton>
-                        </DrawerHeader>
-                        <Divider/>
-                        <List>
+                isLoggedIn &&
 
-                            <CreateTodoButton
-                                open={open}
-                            />
-
-                        </List>
-                        <Divider/>
-                        <List>
-
-                            <TodosList
-                                open={open}
-                            />
-
-                        </List>
-                    </Drawer>
-                    :
-                    null
+                <Drawer variant="permanent" open={open}>
+                    <DrawerHeader sx={{backgroundColor: 'rgba(32, 33, 35, 1.00)'}}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronRightIcon/> :
+                                <div className={s.icon}><ChevronLeftIcon/></div>}
+                        </IconButton>
+                    </DrawerHeader>
+                    <Divider sx={{backgroundColor: 'rgb(236, 236, 241)'}}/>
+                    <List sx={{backgroundColor: 'rgba(32, 33, 35, 1.00)'}}>
+                        <CreateTodoButton
+                            open={open}
+                        />
+                    </List>
+                    <Divider sx={{backgroundColor: 'rgb(236, 236, 241)'}}/>
+                    <List sx={{backgroundColor: 'rgba(32, 33, 35, 1.00)', height: '100%'}}>
+                        {
+                            open &&
+                            <List
+                                sx={{color: 'rgb(142, 142, 160)', marginLeft: '10px'}}>
+                                To-do lists:
+                            </List>
+                        }
+                        <TodosList
+                            open={open}
+                        />
+                    </List>
+                </Drawer>
             }
         </>
     )

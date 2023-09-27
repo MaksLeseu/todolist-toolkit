@@ -5,15 +5,16 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import ListItemText from "@mui/material/ListItemText";
 import Tooltip from "@mui/material/Tooltip";
+import s from '../../Header.module.css'
 
 type Props = {
     open: boolean
 }
 
-export const CreateTodoButton: FC<Props> = ({ open }) => {
+export const CreateTodoButton: FC<Props> = ({open}) => {
     return (
         <Tooltip title={'Create to-do list'} placement="right-start" arrow>
-            <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItem disablePadding sx={{display: 'block'}}>
                 <ListItemButton
                     sx={{
                         minHeight: 48,
@@ -28,9 +29,12 @@ export const CreateTodoButton: FC<Props> = ({ open }) => {
                             justifyContent: 'center',
                         }}
                     >
-                        {<NoteAddIcon />}
+                        {<div className={s.icon}>
+                            <NoteAddIcon/>
+                        </div>}
                     </ListItemIcon>
-                    <ListItemText primary={'Create To-do list'} sx={{ opacity: open ? 1 : 0 }} />
+                    <ListItemText primary={'Create To-do list'}
+                                  sx={{opacity: open ? 1 : 0, color: 'rgba(236, 236, 241)'}}/>
                 </ListItemButton>
             </ListItem>
         </Tooltip>
