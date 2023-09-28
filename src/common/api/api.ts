@@ -19,7 +19,7 @@ export const todolistsApi = {
 
 export const tasksApi = {
     getTasks(todolistId: string) {
-        return instance.get<{ items: TasksType }>(`todo-lists/${todolistId}/tasks`)
+        return instance.get<{ items: TasksType[] }>(`todo-lists/${todolistId}/tasks`)
     },
     createTask(arg: AddTaskArgType) {
         return instance.post(`todo-lists/${arg.todolistId}/tasks`, {title: arg.title})
@@ -34,7 +34,7 @@ export const tasksApi = {
 
 export const authApi = {
     me() {
-      return instance.get<MeType>(`/auth/me`)
+        return instance.get<MeType>(`/auth/me`)
     },
     login(data: LoginDataType) {
         return instance.post(`/auth/login`, data)

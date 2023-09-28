@@ -8,12 +8,14 @@ import {todolistsThunk} from "./todolists.slice";
 import {AddTaskModalWindow} from "../../Tasks/AddTaskModalWindow/AddTaskModalWindow";
 import {tasksThunk} from "../../Tasks/tasks.slice";
 
-type TodolistType = {
+type Props = {
     todolistId: string
     title: string
 }
 
-export const Todolist: FC<TodolistType> = (props) => {
+export const Todolist: FC<Props> = (props) => {
+    const {todolistId, title} = props
+
     const dispatch = useAppDispatch()
 
     const [open, setOpen] = useState<boolean>(false)
@@ -21,9 +23,8 @@ export const Todolist: FC<TodolistType> = (props) => {
     const [taskName, setTaskName] = useState<string>('')
     const [description, setDescription] = useState<string>('')
 
-    const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => {
-        setTaskName(e.currentTarget.value)
-    }
+    const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => setTaskName(e.currentTarget.value)
+    const changeDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.currentTarget.value)
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
@@ -31,31 +32,34 @@ export const Todolist: FC<TodolistType> = (props) => {
         setTaskName('')
     }
 
-    const addTask = (title: string) => {
+    const addTask = (title: string, description: string = '') => {
         setOpen(false)
         setTaskName('')
-        dispatch(tasksThunk.addTask({todolistId: props.todolistId, title}))
+        setDescription('')
+        dispatch(tasksThunk.addTaskName({todolistId: todolistId, title, description}))
     }
 
     const removeTodolist = () => {
-        dispatch(todolistsThunk.removeTodolist(props.todolistId))
+        dispatch(todolistsThunk.removeTodolist(todolistId))
     }
 
     return (
         <div>
             <div className={s.titleContainer}>
                 <DescriptionIcon color={'info'}/>
-                <h2>{props.title}</h2>
+                <h2>{title}</h2>
             </div>
             <div className={s.todolist}>
-                <Task todolistId={props.todolistId}/>
+                <Task todolistId={todolistId}/>
                 {
                     open
                         ?
                         <AddTaskModalWindow
                             taskName={taskName}
+                            description={description}
                             handleClose={handleClose}
                             changeTaskName={changeTaskName}
+                            changeDescription={changeDescription}
                             addTask={addTask}
                         />
                         :

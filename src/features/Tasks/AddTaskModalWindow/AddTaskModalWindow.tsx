@@ -5,15 +5,17 @@ import {CustomButton} from "../../../common/components/CustomButton/CustomButton
 
 type Props = {
     taskName: string
+    description: string
     handleClose: () => void
     changeTaskName: (e: ChangeEvent<HTMLInputElement>) => void
-    addTask: (title: string) => void
+    changeDescription: (e: ChangeEvent<HTMLInputElement>) => void
+    addTask: (title: string, description: string) => void
 }
 
 export const AddTaskModalWindow: FC<Props> = (props) => {
-    const {taskName, handleClose, changeTaskName, addTask} = props
+    const {taskName, description, handleClose, changeTaskName, changeDescription, addTask} = props
 
-    const addTaskHandle = () => addTask(taskName)
+    const addTaskHandle = () => addTask(taskName, description)
 
     return (
         <div className={s.modalWindow}>
@@ -27,7 +29,9 @@ export const AddTaskModalWindow: FC<Props> = (props) => {
             <CustomTextField
                 label={'Description'}
                 size={'small'}
+                description={description}
                 multiline={true}
+                changeDescription={changeDescription}
             />
             <div className={s.buttonGroup}>
                 <CustomButton

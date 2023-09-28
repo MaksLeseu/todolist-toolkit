@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC} from "react";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
 import {TasksType} from "../../common/api/api";
@@ -14,23 +14,11 @@ type Props = {
 
 export const Task: FC<Props> = (props) => {
     const {todolistId} = props
-    console.log('Task')
+
     const task = useSelector<AppRootStateType, any>(state => state.tasks[todolistId])
     const dispatch = useAppDispatch()
 
-    const [description, setDescription] = useState<boolean>(false)
-
-    const removeTask = (taskId: string) => {
-        dispatch(tasksThunk.removeTask({todolistId, taskId}))
-    }
-
-    const openDescription = () => {
-        setDescription(true)
-    }
-    const closeDescription = () => {
-        setDescription(false)
-    }
-
+    const removeTask = (taskId: string) => dispatch(tasksThunk.removeTask({todolistId, taskId}))
 
     return task && task.length > 0 ?
         task.map((ts: TasksType) => (
@@ -40,6 +28,7 @@ export const Task: FC<Props> = (props) => {
                         <Checkbox/>
                         <div className={s.text}>{ts.title}</div>
                     </div>
+                    <div>{ts.description}</div>
                     <MoreHoriz
                         taskId={ts.id}
                         removeTask={removeTask}
@@ -51,38 +40,3 @@ export const Task: FC<Props> = (props) => {
         <div className={s.empty}></div>
 }
 
-
-/*
-{
-    description
-        ?
-        <div>
-            <TextField
-                label="Enter text"
-                variant="outlined"
-                sx={{marginBottom: '10px'}}
-            />
-            <Button
-                variant="contained"
-                size={'small'}
-                sx={{marginRight: '5px'}}
-            >
-                Add a description
-            </Button>
-            <IconButton
-                color={"default"}
-                size={'small'}
-                onClick={closeDescription}
-                disableRipple={false}
-            >
-                <CloseIcon/>
-            </IconButton>
-        </div>
-        :
-        <ButtonAddTask
-            label={'Add a description'}
-            className={'add Description'}
-            taskId={ts.id}
-            onClick={openDescription}
-        />
-}*/
