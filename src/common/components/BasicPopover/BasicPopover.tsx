@@ -1,8 +1,10 @@
 import React, {FC} from "react";
 import Popover from '@mui/material/Popover';
-import {FormControlLabel, FormGroup, Typography} from "@mui/material";
-import IconButton from '@mui/material/IconButton';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemButton from "@mui/material/ListItemButton";
+import {IconButton, ListItem} from "@mui/material";
 
 type BasicPopoverPropsType = {
     taskId: string
@@ -32,7 +34,7 @@ export const BasicPopover: FC<BasicPopoverPropsType> = (props) => {
                     horizontal: 'left',
                 }}
             >
-                <FormGroup
+                {/*<FormGroup
                     sx={{ p: 2 }}
                 >
                     <FormControlLabel
@@ -47,7 +49,29 @@ export const BasicPopover: FC<BasicPopoverPropsType> = (props) => {
                             </IconButton>
                         }
                     />
-                </FormGroup>
+                </FormGroup>*/}
+                <ListItem sx={{display: 'block'}}>
+                    <IconButton
+                        size={'small'}
+                        color={"inherit"}
+                        disableRipple
+                        onClick={handleOnClick}
+                    >
+                        <ListItemButton
+                            sx={{height: '30px', borderRadius: '3px'}}
+                        >
+                            <ListItemIcon
+                                sx={{display: 'flex', alignItems: 'center'}}
+                            >
+                                <ListItemText
+                                    sx={{marginRight: '10px', color: 'black'}}
+                                    primary={'Remove task'}
+                                />
+                                <DeleteForeverIcon/>
+                            </ListItemIcon>
+                        </ListItemButton>
+                    </IconButton>
+                </ListItem>
             </Popover>
         </>
     )

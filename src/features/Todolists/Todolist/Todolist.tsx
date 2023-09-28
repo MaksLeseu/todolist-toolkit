@@ -32,7 +32,7 @@ export const Todolist: FC<Props> = (props) => {
         setTaskName('')
     }
 
-    const addTask = (title: string, description: string = '') => {
+    const addTask = (title: string, description: string) => {
         setOpen(false)
         setTaskName('')
         setDescription('')

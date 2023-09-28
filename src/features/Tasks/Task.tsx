@@ -42,6 +42,6 @@ export const Task: FC<Props> = (props) => {
             </div>
         ))
         :
-        <div className={s.empty}></div>
+        <div className={s.empty}>You don't have tasks.</div>
 }
 
