@@ -24,15 +24,20 @@ export const Task: FC<Props> = (props) => {
         task.map((ts: TasksType) => (
             <div key={ts.id} className={s.task}>
                 <div className={s.container}>
-                    <div className={s.title}>
-                        <Checkbox/>
-                        <div className={s.text}>{ts.title}</div>
+                    <div className={s.flexContainer}>
+                        <div className={s.title}>
+                            <Checkbox/>
+                            <div className={s.text}>{ts.title}</div>
+                        </div>
+                        <MoreHoriz
+                            taskId={ts.id}
+                            removeTask={removeTask}
+                        />
                     </div>
-                    <div>{ts.description}</div>
-                    <MoreHoriz
-                        taskId={ts.id}
-                        removeTask={removeTask}
-                    />
+                    {
+                        ts.description &&
+                        <div className={s.description}>{ts.description}</div>
+                    }
                 </div>
             </div>
         ))

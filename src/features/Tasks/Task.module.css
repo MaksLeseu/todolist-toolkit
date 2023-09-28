@@ -31,9 +31,11 @@
     transition: 0.5s;
 }
 
-
 .container {
     padding: 15px;
+}
+
+.flexContainer {
     display: flex;
     justify-content: space-between;
 }
@@ -52,3 +54,15 @@
     font-size: 18px;
     font-weight: 500;
 }
+
+.description {
+    font-size: 13px;
+    margin-left: 42px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 280px;
+    height: 1.2em;
+    white-space: nowrap;
+}
+
+
