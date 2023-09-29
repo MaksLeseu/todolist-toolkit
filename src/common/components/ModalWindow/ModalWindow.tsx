@@ -1,66 +1,54 @@
-import React, {ChangeEvent, ChangeEventHandler, FC, useState} from "react";
-import Modal from '@mui/material/Modal';
+import React, {FC} from "react";
 import {Box, IconButton, Typography} from "@mui/material";
-import TextField from '@mui/material/TextField';
-import CancelIcon from '@mui/icons-material/Cancel';
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import Modal from "@mui/material/Modal";
+import s from './ModalWindow.module.css'
+import Checkbox from "@mui/material/Checkbox";
+import Divider from "@mui/material/Divider";
+import CloseIcon from '@mui/icons-material/Close';
 
-type ModalWindowPropsType = {
-    title: string
+type Props = {
+    taskName: string
+    description: string
     open: boolean
-    changeTitle: (e: ChangeEvent<HTMLInputElement>) => void
-    onClick: () => void
-    addTask: (title: string) => void
+    closeModelWindow: () => void
 }
 
-export const ModalWindow: FC<ModalWindowPropsType> = (props) => {
-    const style = {
-        position: 'absolute' as 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-        borderRadius: 3,
-    };
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 800,
+    height: 500,
+    bgcolor: 'background.paper',
+    borderRadius: 2,
+    boxShadow: 24,
+};
+
+export const ModalWindow: FC<Props> = (props) => {
+    const {taskName, description, open, closeModelWindow} = props
 
     return (
         <>
             <Modal
-                open={props.open}
-                onClose={props.onClick}
+                open={open}
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Enter a title for the task
-                    </Typography>
-                    <TextField
-                        label={"Title"}
-                        sx={{mt: 2}}
-                        size={'small'}
-                        value={props.title}
-                        onChange={props.changeTitle}
-                    />
-                    <IconButton
-                        id={'add-task'}
-                        color={"success"}
-                        sx={{marginTop: '15px', marginLeft: '6px'}}
-                        onClick={() => props.addTask(props.title)}
-                    >
-                        <ArrowCircleRightIcon/>
-                    </IconButton>
-                    <IconButton
-                        id={'close-model'}
-                        color={"error"}
-                        sx={{marginTop: '15px', marginLeft: '3px'}}
-                        onClick={props.onClick}
-                    >
-                        <CancelIcon/>
-                    </IconButton>
-
+                    <div className={s.closeButton}>
+                        <IconButton onClick={closeModelWindow}>
+                            <CloseIcon/>
+                        </IconButton>
+                    </div>
+                    <Divider/>
+                    <Box sx={{padding: '10px 20px 20px 20px'}}>
+                        <div className={s.container}>
+                            <Checkbox/>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                {taskName}
+                            </Typography>
+                        </div>
+                        <p className={s.description}>{description}</p>
+                    </Box>
                 </Box>
             </Modal>
         </>
