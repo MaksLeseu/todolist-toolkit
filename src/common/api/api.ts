@@ -22,12 +22,12 @@ export const tasksApi = {
         return instance.get<{ items: TasksType[] }>(`todo-lists/${todolistId}/tasks`)
     },
     createTask(arg: AddTaskArgType) {
-        return instance.post(`todo-lists/${arg.todolistId}/tasks`, {title: arg.title})
+        return instance.post(`todo-lists/${arg.todolistId}/tasks`, {title: arg.title, description: arg.description})
     },
     removeTask(todolistId: string, taskId: string) {
         return instance.delete(`/todo-lists/${todolistId}/tasks/${taskId}`)
     },
-    addDescription(arg: AddDescriptionArgType) {
+    changeTask(arg: AddDescriptionArgType) {
         return instance.put(`/todo-lists/${arg.todolistId}/tasks/${arg.taskId}`, {description: arg.description})
     }
 }
@@ -68,6 +68,7 @@ export type TasksType = {
 type AddTaskArgType = {
     todolistId: string
     title: string
+    description: string
 }
 
 type AddDescriptionArgType = {

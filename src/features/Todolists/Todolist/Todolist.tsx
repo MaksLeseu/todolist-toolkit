@@ -36,7 +36,7 @@ export const Todolist: FC<Props> = (props) => {
         setOpen(false)
         setTaskName('')
         setDescription('')
-        dispatch(tasksThunk.addTaskName({todolistId: todolistId, title, description}))
+        dispatch(tasksThunk.addTask({todolistId: todolistId, title, description}))
     }
 
     const removeTodolist = () => {
