@@ -19,13 +19,9 @@ export const Task: FC<Props> = (props) => {
     const [open, setOpen] = useState<boolean>(false)
     const [taskId, setTaskId] = useState<string>('')
 
-    const openModelWindow = (e: any, taskId: string) => {
-        if (e.target.classList.contains('Task_flexContainer__QDh4K') ||
-            e.target.classList.contains('Task_title__H+ZUT') ||
-            e.target.classList.contains('Task_text__ZBAt2')) {
-            setTaskId(taskId)
-            setOpen(true)
-        }
+    const openModelWindow = (taskId: string) => {
+        setTaskId(taskId)
+        setOpen(true)
     }
     const closeModelWindow = () => setOpen(false)
 
@@ -33,6 +29,10 @@ export const Task: FC<Props> = (props) => {
     const dispatch = useAppDispatch()
 
     const removeTask = (taskId: string) => dispatch(tasksThunk.removeTask({todolistId, taskId}))
+
+    const changeCheckbox = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
+    }
 
     const returnModalWindow = (title: string, description: string): JSX.Element =>
         <ModalWindow
@@ -45,11 +45,11 @@ export const Task: FC<Props> = (props) => {
     return task && task.length > 0 ?
         task.map((ts: TasksType) => (
             <div key={ts.id} className={s.task}>
-                <div className={s.container} onClick={() => openModelWindow(event, ts.id)}>
+                <div className={s.container} onClick={() => openModelWindow(ts.id)}>
                     <div className={s.flexContainer}>
                         <div className={s.title}>
                             <div>
-                                <Checkbox/>
+                                <Checkbox onClick={changeCheckbox}/>
                             </div>
                             <div className={s.text}>{ts.title}</div>
                         </div>

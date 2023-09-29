@@ -9,7 +9,7 @@ import {IconButton, ListItem} from "@mui/material";
 type BasicPopoverPropsType = {
     taskId: string
     anchorEl: HTMLButtonElement | null
-    handleClosePopover: () => void
+    handleClosePopover: (event: any) => void
     removeTask: (taskId: string) => void
 }
 
@@ -17,9 +17,9 @@ export const BasicPopover: FC<BasicPopoverPropsType> = (props) => {
     const open = Boolean(props.anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
-    const handleOnClick = () => {
+    const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         props.removeTask(props.taskId)
-        props.handleClosePopover()
+        props.handleClosePopover(event)
     }
 
     return (

@@ -11,10 +11,12 @@ type MoreHorizPropsType = {
 export const MoreHoriz: FC<MoreHorizPropsType> = (props) => {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
-    const handleClosePopover = () => {
+    const handleClosePopover = (event: any) => {
+        event.stopPropagation()
         setAnchorEl(null);
     };
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
         setAnchorEl(event.currentTarget);
     };
 
