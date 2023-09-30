@@ -23,7 +23,7 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
 
     const filterTodos = (): JSX.Element => {
         const todo = todos.filter(td => td.id === todolist)
-        return <Todolist key={todo[0].id} todolistId={todo[0].id} title={todo[0].title}/>
+        return <Todolist key={todo[0].id} todolistId={todo[0].id} todolistTitle={todo[0].title}/>
     }
 
     const returnTodosList = (): JSX.Element[] => todos.map(td => (

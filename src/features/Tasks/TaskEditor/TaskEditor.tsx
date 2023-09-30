@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {Box, IconButton, Typography} from "@mui/material";
 import Modal from "@mui/material/Modal";
-import s from './ModalWindow.module.css'
+import s from './TaskEditor.module.css'
 import Checkbox from "@mui/material/Checkbox";
 import Divider from "@mui/material/Divider";
 import CloseIcon from '@mui/icons-material/Close';
@@ -9,8 +9,8 @@ import CloseIcon from '@mui/icons-material/Close';
 type Props = {
     taskName: string
     description: string
-    open: boolean
-    closeModelWindow: () => void
+    taskEditor: boolean
+    closeTaskEditor: () => void
 }
 
 const style = {
@@ -25,17 +25,17 @@ const style = {
     boxShadow: 24,
 };
 
-export const ModalWindow: FC<Props> = (props) => {
-    const {taskName, description, open, closeModelWindow} = props
+export const TaskEditor: FC<Props> = (props) => {
+    const {taskName, description, taskEditor, closeTaskEditor} = props
 
     return (
         <>
             <Modal
-                open={open}
+                open={taskEditor}
             >
                 <Box sx={style}>
                     <div className={s.closeButton}>
-                        <IconButton onClick={closeModelWindow}>
+                        <IconButton onClick={closeTaskEditor}>
                             <CloseIcon/>
                         </IconButton>
                     </div>

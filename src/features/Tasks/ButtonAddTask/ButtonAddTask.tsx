@@ -7,11 +7,10 @@ import s from './ButtonAddTask.module.css'
 type Props = {
     label: string
     className: string
-    taskId?: string
-    onClick: () => void
+    openFormAddTask: () => void
 }
 
-export const ButtonAddTask: FC<Props> = ({label, className, onClick, taskId}) => {
+export const ButtonAddTask: FC<Props> = ({label, className, openFormAddTask}) => {
     return (
         <>
             <FormGroup
@@ -23,7 +22,7 @@ export const ButtonAddTask: FC<Props> = ({label, className, onClick, taskId}) =>
                             color={"default"}
                             size={'small'}
                             aria-label={'Add task'}
-                            onClick={onClick}
+                            onClick={openFormAddTask}
                             disableRipple={true}
                         >
                             <AddIcon/>

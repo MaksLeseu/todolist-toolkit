@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC} from "react";
-import s from './AddTaskModalWindow.module.css'
+import s from './FormAddTask.module.css'
 import {CustomTextField} from "../../../common/components/CustomTextField/CustomTextField";
 import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
 import {MSG_BTN} from "../../../common/constans/app-messages.const";
@@ -7,14 +7,14 @@ import {MSG_BTN} from "../../../common/constans/app-messages.const";
 type Props = {
     taskName: string
     description: string
-    handleClose: () => void
+    closeFormAddTask: () => void
     changeTaskName: (e: ChangeEvent<HTMLInputElement>) => void
     changeDescription: (e: ChangeEvent<HTMLInputElement>) => void
     addTask: (title: string, description: string) => void
 }
 
-export const AddTaskModalWindow: FC<Props> = (props) => {
-    const {taskName, description, handleClose, changeTaskName, changeDescription, addTask} = props
+export const FormAddTask: FC<Props> = (props) => {
+    const {taskName, description, closeFormAddTask, changeTaskName, changeDescription, addTask} = props
 
     const addTaskHandle = () => addTask(taskName, description)
 
@@ -39,7 +39,7 @@ export const AddTaskModalWindow: FC<Props> = (props) => {
                     color={'inherit'}
                     label={MSG_BTN.CANCEL}
                     sx={{marginRight: '10px'}}
-                    handleClose={handleClose}
+                    closeFormAddTask={closeFormAddTask}
                 />
                 <CustomButton
                     color={'primary'}

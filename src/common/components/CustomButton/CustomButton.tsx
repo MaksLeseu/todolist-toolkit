@@ -5,12 +5,12 @@ type Props = {
     color: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
     label: string
     sx: { marginRight: '10px' } | null
-    handleClose?: () => void
+    closeFormAddTask?: () => void
     addTask?: () => void
 }
 
 export const CustomButton: FC<Props> = (props) => {
-    const {label, color, sx, handleClose, addTask} = props
+    const {label, color, sx, closeFormAddTask, addTask} = props
 
     return (
         <>
@@ -18,7 +18,7 @@ export const CustomButton: FC<Props> = (props) => {
                 variant="contained"
                 color={color}
                 sx={sx}
-                onClick={addTask || handleClose}
+                onClick={addTask || closeFormAddTask}
             >
                 {label}
             </Button>

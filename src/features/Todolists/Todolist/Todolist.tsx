@@ -5,21 +5,21 @@ import {ButtonAddTask} from "../../Tasks/ButtonAddTask/ButtonAddTask";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import DescriptionIcon from '@mui/icons-material/Description';
 import {todolistsThunk} from "./todolists.slice";
-import {AddTaskModalWindow} from "../../Tasks/AddTaskModalWindow/AddTaskModalWindow";
 import {tasksThunk} from "../../Tasks/tasks.slice";
 import {MSG_BTN} from "../../../common/constans/app-messages.const";
+import {FormAddTask} from "../../Tasks/FormAddTask/FormAddTask";
 
 type Props = {
     todolistId: string
-    title: string
+    todolistTitle: string
 }
 
 export const Todolist: FC<Props> = (props) => {
-    const {todolistId, title} = props
+    const {todolistId, todolistTitle} = props
 
     const dispatch = useAppDispatch()
 
-    const [open, setOpen] = useState<boolean>(false)
+    const [formAddTask, setFormAddTask] = useState<boolean>(false)
 
     const [taskName, setTaskName] = useState<string>('')
     const [description, setDescription] = useState<string>('')
@@ -27,17 +27,21 @@ export const Todolist: FC<Props> = (props) => {
     const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => setTaskName(e.currentTarget.value)
     const changeDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.currentTarget.value)
 
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => {
-        setOpen(false)
+    const openFormAddTask = () => setFormAddTask(true);
+
+    const closeFormAddTask = () => {
+        setFormAddTask(false)
+        clearingStateTaskNameAndDescription()
+    }
+
+    const clearingStateTaskNameAndDescription = () => {
         setTaskName('')
+        description && setDescription('')
     }
 
     const addTask = (title: string, description: string) => {
-        setOpen(false)
-        setTaskName('')
-        setDescription('')
         dispatch(tasksThunk.addTask({todolistId: todolistId, title, description}))
+        closeFormAddTask()
     }
 
     const removeTodolist = () => {
@@ -48,17 +52,17 @@ export const Todolist: FC<Props> = (props) => {
         <div>
             <div className={s.titleContainer}>
                 <DescriptionIcon color={'info'}/>
-                <h2>{title}</h2>
+                <h2>{todolistTitle}</h2>
             </div>
             <div className={s.todolist}>
                 <Task todolistId={todolistId}/>
                 {
-                    open
+                    formAddTask
                         ?
-                        <AddTaskModalWindow
+                        <FormAddTask
                             taskName={taskName}
                             description={description}
-                            handleClose={handleClose}
+                            closeFormAddTask={closeFormAddTask}
                             changeTaskName={changeTaskName}
                             changeDescription={changeDescription}
                             addTask={addTask}
@@ -67,16 +71,9 @@ export const Todolist: FC<Props> = (props) => {
                         <ButtonAddTask
                             label={MSG_BTN.ADD_A_TASK}
                             className={'addTask'}
-                            onClick={handleOpen}
+                            openFormAddTask={openFormAddTask}
                         />
                 }
-                {/*<ModalWindowAddTodo
-                    title={title}
-                    open={open}
-                    changeTitle={changeTitle}
-                    onClick={handleClose}
-                    addTask={addTask}
-                />*/}
             </div>
         </div>
     )

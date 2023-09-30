@@ -6,7 +6,7 @@ import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {tasksThunk} from "./tasks.slice";
 import Checkbox from '@mui/material/Checkbox';
-import {ModalWindow} from "../../common/components/ModalWindow/ModalWindow";
+import {TaskEditor} from "./TaskEditor/TaskEditor";
 import {TasksType} from "./tasks.api";
 
 type Props = {
@@ -16,17 +16,17 @@ type Props = {
 export const Task: FC<Props> = (props) => {
     const {todolistId} = props
 
-    const [open, setOpen] = useState<boolean>(false)
-    const [taskId, setTaskId] = useState<string>('')
-
-    const openModelWindow = (taskId: string) => {
-        setTaskId(taskId)
-        setOpen(true)
-    }
-    const closeModelWindow = () => setOpen(false)
-
     const task = useSelector<AppRootStateType, any>(state => state.tasks[todolistId])
     const dispatch = useAppDispatch()
+
+    const [taskId, setTaskId] = useState<string>('')
+    const [taskEditor, setTaskEditor] = useState<boolean>(false)
+
+    const openTaskEditor = (taskId: string) => {
+        setTaskId(taskId)
+        setTaskEditor(true)
+    }
+    const closeTaskEditor = () => setTaskEditor(false)
 
     const removeTask = (taskId: string) => dispatch(tasksThunk.removeTask({todolistId, taskId}))
 
@@ -34,18 +34,10 @@ export const Task: FC<Props> = (props) => {
         event.stopPropagation()
     }
 
-    const returnModalWindow = (title: string, description: string): JSX.Element =>
-        <ModalWindow
-            taskName={title}
-            description={description}
-            open={open}
-            closeModelWindow={closeModelWindow}
-        />
-
     return task && task.length > 0 ?
         task.map((ts: TasksType) => (
             <div key={ts.id} className={s.task}>
-                <div className={s.container} onClick={() => openModelWindow(ts.id)}>
+                <div className={s.container} onClick={() => openTaskEditor(ts.id)}>
 
                     <div className={s.flexContainer}>
                         <div className={s.title}>
@@ -66,11 +58,13 @@ export const Task: FC<Props> = (props) => {
                     }
                 </div>
                 {
-                    taskId
-                    &&
-                    taskId === ts.id
-                    &&
-                    returnModalWindow(ts.title, ts.description)
+                    taskId && taskId === ts.id &&
+                    <TaskEditor
+                        taskName={ts.title}
+                        description={ts.description}
+                        taskEditor={taskEditor}
+                        closeTaskEditor={closeTaskEditor}
+                    />
                 }
             </div>
         ))
