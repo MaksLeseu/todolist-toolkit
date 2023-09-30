@@ -27,7 +27,7 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
     }
 
     const returnTodosList = (): JSX.Element[] => todos.map(td => (
-        <NavLink to={`/todo/${td.id}`} className={s.todo}>
+        <NavLink to={`/todo/${td.id}`} key={td.id} className={s.todo}>
             <HomePageTodos key={td.id} todoTitle={td.title}/>
         </NavLink>
     ))

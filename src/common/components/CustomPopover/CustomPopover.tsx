@@ -15,7 +15,7 @@ type BasicPopoverPropsType = {
     removeTask: (taskId: string) => void
 }
 
-export const BasicPopover: FC<BasicPopoverPropsType> = (props) => {
+export const CustomPopover: FC<BasicPopoverPropsType> = (props) => {
     const open = Boolean(props.anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
@@ -57,26 +57,6 @@ export const BasicPopover: FC<BasicPopoverPropsType> = (props) => {
                             </ListItemIcon>
                         </ListItemButton>
                     </CustomIconButton>
-                    {/*<IconButton
-                        size={'small'}
-                        color={"inherit"}
-                        disableRipple
-                        onClick={handleOnClick}
-                    >
-                        <ListItemButton
-                            sx={{height: '30px', borderRadius: '3px'}}
-                        >
-                            <ListItemIcon
-                                sx={{display: 'flex', alignItems: 'center'}}
-                            >
-                                <ListItemText
-                                    sx={{marginRight: '10px', color: 'black'}}
-                                    primary={MSG_BTN.REMOVE_TASK}
-                                />
-                                <DeleteForeverIcon/>
-                            </ListItemIcon>
-                        </ListItemButton>
-                    </IconButton>*/}
                 </ListItem>
             </Popover>
         </>

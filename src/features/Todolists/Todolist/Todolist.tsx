@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, useState} from "react";
 import s from './Todolist.module.css'
 import {Task} from "../../Tasks/Task";
-import {ButtonAddTask} from "../../Tasks/ButtonAddTask/ButtonAddTask";
+import {AddTaskButton} from "../../Tasks/AddTaskButton/AddTaskButton";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import DescriptionIcon from '@mui/icons-material/Description';
 import {todolistsThunk} from "./todolists.slice";
@@ -70,9 +70,8 @@ export const Todolist: FC<Props> = (props) => {
                             addTask={addTask}
                         />
                         :
-                        <ButtonAddTask
+                        <AddTaskButton
                             label={MSG_BTN.ADD_A_TASK}
-                            className={'addTask'}
                             openFormAddTask={openFormAddTask}
                         />
                 }

@@ -21,7 +21,7 @@ export const TodosList: FC<Props> = ({open}) => {
         <>
             {
                 todos.map((todo, index) => (
-                    <NavLink to={`/todo/${todo.id}`} className={s.todo}>
+                    <NavLink to={`/todo/${todo.id}`} key={index} className={s.todo}>
                         <Tooltip key={index} title={todo.title} placement="right-start" arrow>
                             <ListItem key={todo.id} disablePadding sx={{display: 'block'}}>
                                 <ListItemButton
