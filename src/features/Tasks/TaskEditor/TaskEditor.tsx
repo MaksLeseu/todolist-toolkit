@@ -1,10 +1,10 @@
 import React, {FC} from "react";
 import {Box, IconButton, Typography} from "@mui/material";
-import Modal from "@mui/material/Modal";
 import s from './TaskEditor.module.css'
 import Checkbox from "@mui/material/Checkbox";
 import Divider from "@mui/material/Divider";
 import CloseIcon from '@mui/icons-material/Close';
+import {CustomModalWindow} from "../../../common/components/CustomModalWindow/CustomModalWindow";
 
 type Props = {
     taskName: string
@@ -30,7 +30,7 @@ export const TaskEditor: FC<Props> = (props) => {
 
     return (
         <>
-            <Modal
+            <CustomModalWindow
                 open={taskEditor}
             >
                 <Box sx={style}>
@@ -50,7 +50,7 @@ export const TaskEditor: FC<Props> = (props) => {
                         <p className={s.description}>{description}</p>
                     </Box>
                 </Box>
-            </Modal>
+            </CustomModalWindow>
         </>
     )
 }

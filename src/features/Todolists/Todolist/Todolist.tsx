@@ -4,7 +4,7 @@ import {Task} from "../../Tasks/Task";
 import {AddTaskButton} from "../../Tasks/AddTaskButton/AddTaskButton";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import DescriptionIcon from '@mui/icons-material/Description';
-import {todolistsThunk} from "./todolists.slice";
+import {todolistsThunk} from "../todolists.slice";
 import {tasksThunk} from "../../Tasks/tasks.slice";
 import {MSG_BTN} from "../../../common/constans/app-messages.const";
 import {FormAddTask} from "../../Tasks/FormAddTask/FormAddTask";

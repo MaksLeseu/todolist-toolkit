@@ -3,27 +3,26 @@ import TextField from "@mui/material/TextField";
 
 type Props = {
     label: string
-    taskName?: string
-    description?: string
+    value: string
     size: 'small' | 'medium'
     multiline: boolean
-    changeTaskName?: (e: ChangeEvent<HTMLInputElement>) => void
-    changeDescription?: (e: ChangeEvent<HTMLInputElement>) => void
+    sx?: Object
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const CustomTextField: FC<Props> = (props) => {
-    const {label, size, multiline, taskName, description, changeTaskName, changeDescription} = props
+    const {label, size, multiline, sx, value, onChange} = props
 
     return (
         <>
             <TextField
                 label={label}
                 variant="standard"
-                sx={{width: '100%'}}
+                sx={sx ? sx : {width: '100%'}}
                 size={size}
                 multiline={multiline}
-                value={taskName || description}
-                onChange={changeTaskName || changeDescription}
+                value={value}
+                onChange={onChange}
             />
         </>
     )

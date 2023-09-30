@@ -1,18 +1,22 @@
 import React, {FC} from "react";
-import {IconButton} from "@mui/material";
 import BackspaceIcon from '@mui/icons-material/Backspace';
+import {CustomIconButton} from "../../../../common/components/CustomIconButton/CustomIconButton";
 
-type ButtonRemoveTodoPropsType = {
+type Props = {
     onClick: () => void
 }
 
-export const ButtonRemoveTodo: FC<ButtonRemoveTodoPropsType> = (props) => {
+export const ButtonRemoveTodo: FC<Props> = (props) => {
+    const {onClick} = props
+
     return (
-        <IconButton
+        <CustomIconButton
             size={'small'}
-            onClick={props.onClick}
+            color={'default'}
+            disableRipple={false}
+            onClick={onClick}
         >
-            <BackspaceIcon />
-        </IconButton>
+            <BackspaceIcon/>
+        </CustomIconButton>
     )
 }

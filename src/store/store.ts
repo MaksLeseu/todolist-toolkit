@@ -1,5 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {todolistsSlice} from "../features/Todolists/Todolist/todolists.slice";
+import {todolistsSlice} from "../features/Todolists/todolists.slice";
 import {tasksSlice} from "../features/Tasks/tasks.slice";
 import {authSlice} from "../features/Auth/auth-slice";
 

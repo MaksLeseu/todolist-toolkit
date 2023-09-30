@@ -24,15 +24,15 @@ export const FormAddTask: FC<Props> = (props) => {
                 label={'Task name'}
                 size={'medium'}
                 multiline={false}
-                taskName={taskName}
-                changeTaskName={changeTaskName}
+                value={taskName}
+                onChange={changeTaskName}
             />
             <CustomTextField
                 label={'Description'}
                 size={'small'}
-                description={description}
+                value={description}
                 multiline={true}
-                changeDescription={changeDescription}
+                onChange={changeDescription}
             />
             <div className={s.buttonGroup}>
                 <CustomButton

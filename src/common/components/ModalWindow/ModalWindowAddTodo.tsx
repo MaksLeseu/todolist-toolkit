@@ -1,9 +1,10 @@
 import React, {ChangeEvent, FC} from "react";
-import Modal from '@mui/material/Modal';
-import {Box, IconButton, Typography} from "@mui/material";
-import TextField from '@mui/material/TextField';
+import {Box, Typography} from "@mui/material";
 import CancelIcon from '@mui/icons-material/Cancel';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import {CustomTextField} from "../CustomTextField/CustomTextField";
+import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
+import {CustomModalWindow} from "../CustomModalWindow/CustomModalWindow";
 
 type ModalWindowPropsType = {
     title: string
@@ -14,6 +15,8 @@ type ModalWindowPropsType = {
 }
 
 export const ModalWindowAddTodo: FC<ModalWindowPropsType> = (props) => {
+    const {title, open, changeTitle, onClick, addTask} = props
+
     const style = {
         position: 'absolute' as 'absolute',
         top: '50%',
@@ -29,40 +32,43 @@ export const ModalWindowAddTodo: FC<ModalWindowPropsType> = (props) => {
 
     return (
         <>
-            <Modal
-                open={props.open}
-                onClose={props.onClick}
+            <CustomModalWindow
+                open={open}
+                onClose={onClick}
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Enter a title for the task
                     </Typography>
-                    <TextField
+                    <CustomTextField
                         label={"Title"}
-                        sx={{mt: 2}}
                         size={'small'}
-                        value={props.title}
-                        onChange={props.changeTitle}
+                        sx={{mt: 2}}
+                        multiline={false}
+                        value={title}
+                        onChange={changeTitle}
                     />
-                    <IconButton
-                        id={'add-task'}
-                        color={"success"}
+                    <CustomIconButton
+                        size={'medium'}
+                        color={'success'}
+                        disableRipple={false}
                         sx={{marginTop: '15px', marginLeft: '6px'}}
-                        onClick={() => props.addTask(props.title)}
+                        onClick={() => addTask(title)}
                     >
                         <ArrowCircleRightIcon/>
-                    </IconButton>
-                    <IconButton
-                        id={'close-model'}
-                        color={"error"}
+                    </CustomIconButton>
+
+                    <CustomIconButton
+                        size={'medium'}
+                        color={'error'}
+                        disableRipple={false}
                         sx={{marginTop: '15px', marginLeft: '3px'}}
-                        onClick={props.onClick}
+                        onClick={onClick}
                     >
                         <CancelIcon/>
-                    </IconButton>
-
+                    </CustomIconButton>
                 </Box>
-            </Modal>
+            </CustomModalWindow>
         </>
     )
 }
