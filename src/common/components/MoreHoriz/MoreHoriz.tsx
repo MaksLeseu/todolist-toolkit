@@ -1,7 +1,7 @@
 import React, {FC} from "react";
-import IconButton from '@mui/material/IconButton';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import {BasicPopover} from "../BasicPopover/BasicPopover";
+import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
 
 type MoreHorizPropsType = {
     taskId: string
@@ -22,13 +22,21 @@ export const MoreHoriz: FC<MoreHorizPropsType> = (props) => {
 
     return (
         <div>
-            <IconButton
+            <CustomIconButton
+                color={"inherit"}
+                size={'small'}
+                disableRipple={false}
+                onClick={handleClick}
+            >
+                <MoreHorizIcon/>
+            </CustomIconButton>
+            {/*<IconButton
                 color={"inherit"}
                 size={'small'}
                 onClick={handleClick}
             >
                 <MoreHorizIcon/>
-            </IconButton>
+            </IconButton>*/}
             <BasicPopover
                 taskId={props.taskId}
                 anchorEl={anchorEl}

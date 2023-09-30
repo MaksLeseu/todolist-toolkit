@@ -4,8 +4,9 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
-import {IconButton, ListItem} from "@mui/material";
+import {ListItem} from "@mui/material";
 import {MSG_BTN} from "../../constans/app-messages.const";
+import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
 
 type BasicPopoverPropsType = {
     taskId: string
@@ -36,7 +37,27 @@ export const BasicPopover: FC<BasicPopoverPropsType> = (props) => {
                 }}
             >
                 <ListItem sx={{display: 'block'}}>
-                    <IconButton
+                    <CustomIconButton
+                        size={'small'}
+                        color={"inherit"}
+                        disableRipple={true}
+                        onClick={handleOnClick}
+                    >
+                        <ListItemButton
+                            sx={{height: '30px', borderRadius: '3px'}}
+                        >
+                            <ListItemIcon
+                                sx={{display: 'flex', alignItems: 'center'}}
+                            >
+                                <ListItemText
+                                    sx={{marginRight: '10px', color: 'black'}}
+                                    primary={MSG_BTN.REMOVE_TASK}
+                                />
+                                <DeleteForeverIcon/>
+                            </ListItemIcon>
+                        </ListItemButton>
+                    </CustomIconButton>
+                    {/*<IconButton
                         size={'small'}
                         color={"inherit"}
                         disableRipple
@@ -55,7 +76,7 @@ export const BasicPopover: FC<BasicPopoverPropsType> = (props) => {
                                 <DeleteForeverIcon/>
                             </ListItemIcon>
                         </ListItemButton>
-                    </IconButton>
+                    </IconButton>*/}
                 </ListItem>
             </Popover>
         </>

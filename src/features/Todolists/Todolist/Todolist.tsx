@@ -55,7 +55,9 @@ export const Todolist: FC<Props> = (props) => {
                 <h2>{todolistTitle}</h2>
             </div>
             <div className={s.todolist}>
+
                 <Task todolistId={todolistId}/>
+
                 {
                     formAddTask
                         ?
@@ -74,6 +76,7 @@ export const Todolist: FC<Props> = (props) => {
                             openFormAddTask={openFormAddTask}
                         />
                 }
+
             </div>
         </div>
     )
