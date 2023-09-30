@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {createAppAsyncThunk} from "../../common/utils/create-app-async-thunk";
-import {authApi, LoginDataType} from "../../common/api/api";
+import {authApi, LoginDataType} from "./auth.api";
 
 const initialState = {
     isLoggedIn: false
@@ -19,24 +19,22 @@ const slice = createSlice({
 })
 
 //thunk
-export const authMe = createAppAsyncThunk<
-    { isLoggedIn: boolean },
+export const authMe = createAppAsyncThunk<{ isLoggedIn: boolean },
     {}>
 ('auth/authMe', async (arg, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI
+    const {rejectWithValue} = thunkAPI
     try {
         const res = await authApi.me()
-        return  res.data.resultCode === 0 ? {isLoggedIn: true} : {isLoggedIn: false}
+        return res.data.resultCode === 0 ? {isLoggedIn: true} : {isLoggedIn: false}
     } catch (error) {
         return rejectWithValue(null)
     }
 })
 
-export const login = createAppAsyncThunk<
-    void,
+export const login = createAppAsyncThunk<void,
     { data: LoginDataType }>
 ('auth/login', async (arg, thunkAPI) => {
-    const { dispatch, rejectWithValue } = thunkAPI
+    const {dispatch, rejectWithValue} = thunkAPI
     try {
         const res = await authApi.login(arg.data)
         if (res.data.resultCode === 0) dispatch(authThunk.authMe({}))
@@ -45,11 +43,10 @@ export const login = createAppAsyncThunk<
     }
 })
 
-export const logout = createAppAsyncThunk<
-    void,
+export const logout = createAppAsyncThunk<void,
     {}>
 ('auth/logout', async (arg, thunkAPI) => {
-    const { dispatch, rejectWithValue } = thunkAPI
+    const {dispatch, rejectWithValue} = thunkAPI
     try {
         const res = await authApi.logout()
         if (res.data.resultCode === 0) dispatch(authThunk.authMe({}))
@@ -59,4 +56,4 @@ export const logout = createAppAsyncThunk<
 })
 
 export const authSlice = slice.reducer
-export const authThunk = { authMe, login, logout }
+export const authThunk = {authMe, login, logout}

@@ -1,6 +1,6 @@
-import {tasksApi, TasksType} from "../../common/api/api";
 import {createSlice} from "@reduxjs/toolkit";
 import {createAppAsyncThunk} from "../../common/utils/create-app-async-thunk";
+import {tasksApi, TasksType} from "./tasks.api";
 
 const initialState: StateTaskType = {}
 
@@ -31,7 +31,7 @@ export const fetchTasks = createAppAsyncThunk<{ tasks: TasksType[], todolistId: 
     const {rejectWithValue} = thunkAPI
 
     try {
-        const res = await tasksApi.getTasks(arg.todolistId)
+        const res = await tasksApi.fetchTasks(arg.todolistId)
         return {tasks: res.data.items, todolistId: arg.todolistId}
 
     } catch (error) {

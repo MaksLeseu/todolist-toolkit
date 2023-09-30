@@ -1,13 +1,13 @@
 import React, {FC, useState} from "react";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
-import {TasksType} from "../../common/api/api";
 import s from './Task.module.css'
 import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {tasksThunk} from "./tasks.slice";
 import Checkbox from '@mui/material/Checkbox';
 import {ModalWindow} from "../../common/components/ModalWindow/ModalWindow";
+import {TasksType} from "./tasks.api";
 
 type Props = {
     todolistId: string
