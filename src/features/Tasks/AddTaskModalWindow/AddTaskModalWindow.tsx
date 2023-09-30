@@ -2,6 +2,7 @@ import React, {ChangeEvent, FC} from "react";
 import s from './AddTaskModalWindow.module.css'
 import {CustomTextField} from "../../../common/components/CustomTextField/CustomTextField";
 import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
+import {MSG_BTN} from "../../../common/constans/app-messages.const";
 
 type Props = {
     taskName: string
@@ -36,13 +37,13 @@ export const AddTaskModalWindow: FC<Props> = (props) => {
             <div className={s.buttonGroup}>
                 <CustomButton
                     color={'inherit'}
-                    label={'Cancel'}
+                    label={MSG_BTN.CANCEL}
                     sx={{marginRight: '10px'}}
                     handleClose={handleClose}
                 />
                 <CustomButton
                     color={'primary'}
-                    label={'Add a task'}
+                    label={MSG_BTN.ADD_A_TASK}
                     sx={null}
                     addTask={addTaskHandle}
                 />

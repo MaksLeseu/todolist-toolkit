@@ -5,6 +5,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
 import {IconButton, ListItem} from "@mui/material";
+import {MSG_BTN} from "../../constans/app-messages.const";
 
 type BasicPopoverPropsType = {
     taskId: string
@@ -34,22 +35,6 @@ export const BasicPopover: FC<BasicPopoverPropsType> = (props) => {
                     horizontal: 'left',
                 }}
             >
-                {/*<FormGroup
-                    sx={{ p: 2 }}
-                >
-                    <FormControlLabel
-                        label={'Remove task'}
-                        control={
-                            <IconButton
-                                size={'small'}
-                                color={"inherit"}
-                                onClick={handleOnClick}
-                            >
-                                <DeleteForeverIcon />
-                            </IconButton>
-                        }
-                    />
-                </FormGroup>*/}
                 <ListItem sx={{display: 'block'}}>
                     <IconButton
                         size={'small'}
@@ -65,7 +50,7 @@ export const BasicPopover: FC<BasicPopoverPropsType> = (props) => {
                             >
                                 <ListItemText
                                     sx={{marginRight: '10px', color: 'black'}}
-                                    primary={'Remove task'}
+                                    primary={MSG_BTN.REMOVE_TASK}
                                 />
                                 <DeleteForeverIcon/>
                             </ListItemIcon>

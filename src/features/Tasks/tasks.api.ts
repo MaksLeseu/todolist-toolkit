@@ -2,6 +2,7 @@ import {instance} from "../../common/api/common.api";
 import {baseTodo} from "../Todolists/todolists.api";
 
 const base = 'tasks'
+
 export const tasksApi = {
     fetchTasks(todolistId: string) {
         return instance.get<{ items: TasksType[] }>(`${baseTodo}/${todolistId}/${base}`)

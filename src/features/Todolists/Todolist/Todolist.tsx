@@ -7,6 +7,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import {todolistsThunk} from "./todolists.slice";
 import {AddTaskModalWindow} from "../../Tasks/AddTaskModalWindow/AddTaskModalWindow";
 import {tasksThunk} from "../../Tasks/tasks.slice";
+import {MSG_BTN} from "../../../common/constans/app-messages.const";
 
 type Props = {
     todolistId: string
@@ -64,7 +65,7 @@ export const Todolist: FC<Props> = (props) => {
                         />
                         :
                         <ButtonAddTask
-                            label={'Add a task'}
+                            label={MSG_BTN.ADD_A_TASK}
                             className={'addTask'}
                             onClick={handleOpen}
                         />

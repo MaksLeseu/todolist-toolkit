@@ -6,6 +6,7 @@ import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import ListItemText from "@mui/material/ListItemText";
 import Tooltip from "@mui/material/Tooltip";
 import s from '../../Header.module.css'
+import {MSG_BTN} from "../../../../constans/app-messages.const";
 
 type Props = {
     open: boolean
@@ -33,7 +34,7 @@ export const CreateTodoButton: FC<Props> = ({open}) => {
                             <NoteAddIcon/>
                         </div>}
                     </ListItemIcon>
-                    <ListItemText primary={'Create To-do list'}
+                    <ListItemText primary={MSG_BTN.CREATE_TODO_LIST}
                                   sx={{opacity: open ? 1 : 0, color: 'rgba(236, 236, 241)'}}/>
                 </ListItemButton>
             </ListItem>

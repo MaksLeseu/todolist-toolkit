@@ -46,6 +46,7 @@ export const Task: FC<Props> = (props) => {
         task.map((ts: TasksType) => (
             <div key={ts.id} className={s.task}>
                 <div className={s.container} onClick={() => openModelWindow(ts.id)}>
+
                     <div className={s.flexContainer}>
                         <div className={s.title}>
                             <div>
@@ -53,6 +54,7 @@ export const Task: FC<Props> = (props) => {
                             </div>
                             <div className={s.text}>{ts.title}</div>
                         </div>
+
                         <MoreHoriz
                             taskId={ts.id}
                             removeTask={removeTask}
