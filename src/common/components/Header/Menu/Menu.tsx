@@ -1,18 +1,14 @@
 import React, {FC} from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../../store/store";
 import {CustomIconButton} from "../../CustomIconButton/CustomIconButton";
 
 type Props = {
-    open: boolean
+    sx: Object
     handleDrawerOpen: () => void
 }
 
 export const Menu: FC<Props> = (props) => {
-    const {open, handleDrawerOpen} = props
-
-    const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
+    const {sx, handleDrawerOpen} = props
 
     return (
         <CustomIconButton
@@ -21,18 +17,9 @@ export const Menu: FC<Props> = (props) => {
             disableRipple={false}
             edge="start"
             onClick={handleDrawerOpen}
-            sx={{
-                marginRight: 5,
-                ...(open && {display: 'none'}),
-            }}
+            sx={sx}
         >
-            {
-                isLoggedIn
-                    ?
-                    <MenuIcon/>
-                    :
-                    null
-            }
+            <MenuIcon/>
         </CustomIconButton>
     )
 }

@@ -42,6 +42,7 @@ const AppBar = styled(MuiAppBar, {
 export const Header = () => {
     const dispatch = useAppDispatch()
     const todos = useSelector((state: AppRootStateType) => state.todolists)
+    const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
 
     useEffect(() => {
         if (todos.length === 0) {
@@ -66,11 +67,16 @@ export const Header = () => {
             <CssBaseline/>
             <AppBar position="fixed" open={open}>
                 <Toolbar>
-
-                    <Menu
-                        open={open}
-                        handleDrawerOpen={handleDrawerOpen}
-                    />
+                    {
+                        isLoggedIn &&
+                        <Menu
+                            sx={{
+                                marginRight: 5,
+                                ...(open && {display: 'none'}),
+                            }}
+                            handleDrawerOpen={handleDrawerOpen}
+                        />
+                    }
 
                     <Typography
                         variant={'h6'}
@@ -88,9 +94,12 @@ export const Header = () => {
                         </NavLink>
                     </Typography>
 
-                    <LogOutButton
-                        handlerLogout={handlerLogout}
-                    />
+                    {
+                        isLoggedIn &&
+                        <LogOutButton
+                            handlerLogout={handlerLogout}
+                        />
+                    }
 
                 </Toolbar>
             </AppBar>
