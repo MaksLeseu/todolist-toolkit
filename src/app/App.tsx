@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Auth} from "../features/Auth/Auth";
 import {Header} from "../common/components/Header/Header";
 import {useAppDispatch} from "../common/hooks/useAppDispatch";
-import {authThunk} from "../features/Auth/auth-slice";
+import {authThunk} from "../features/Auth/auth.slice";
 import s from './App.module.css'
 
 

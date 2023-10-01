@@ -8,7 +8,7 @@ import {Typography} from "@mui/material";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../store/store";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
-import {authThunk} from "../../../features/Auth/auth-slice";
+import {authThunk} from "../../../features/Auth/auth.slice";
 import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
 import {NavLink} from "react-router-dom";
 import {Menu} from "./Menu/Menu";

@@ -2,7 +2,7 @@ import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, G
 import TextField from "@mui/material/TextField";
 import {useFormik} from "formik";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
-import {authThunk} from "./auth-slice";
+import {authThunk} from "./auth.slice";
 import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {AppRootStateType} from "../../store/store";

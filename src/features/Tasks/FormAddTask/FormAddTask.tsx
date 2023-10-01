@@ -38,14 +38,16 @@ export const FormAddTask: FC<Props> = (props) => {
                 <CustomButton
                     color={'inherit'}
                     label={MSG_BTN.CANCEL}
+                    variant={'contained'}
                     sx={{marginRight: '10px'}}
-                    closeFormAddTask={closeFormAddTask}
+                    onClick={closeFormAddTask}
                 />
                 <CustomButton
                     color={'primary'}
                     label={MSG_BTN.ADD_A_TASK}
+                    variant={'contained'}
                     sx={null}
-                    addTask={addTaskHandle}
+                    onClick={addTaskHandle}
                 />
             </div>
         </div>

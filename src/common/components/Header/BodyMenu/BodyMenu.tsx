@@ -1,5 +1,4 @@
 import React, {FC} from "react";
-import IconButton from "@mui/material/IconButton";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Divider from "@mui/material/Divider";
@@ -11,6 +10,7 @@ import MuiDrawer from "@mui/material/Drawer";
 import {CreateTodoButton} from "./CreateTodoButton/CreateTodoButton";
 import {TodosList} from "./TodosList/TodosList";
 import s from '../Header.module.css'
+import {CustomIconButton} from "../../CustomIconButton/CustomIconButton";
 
 const drawerWidth = 240;
 
@@ -62,12 +62,12 @@ const DrawerHeader = styled('div')(({theme}) => ({
 }));
 
 
-type Porps = {
+type Props = {
     open: boolean
     handleDrawerClose: () => void
 }
 
-export const BodyMenu: FC<Porps> = ({open, handleDrawerClose}) => {
+export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
 
     const theme = useTheme();
@@ -79,10 +79,13 @@ export const BodyMenu: FC<Porps> = ({open, handleDrawerClose}) => {
 
                 <Drawer variant="permanent" open={open}>
                     <DrawerHeader sx={{backgroundColor: 'rgba(32, 33, 35, 1.00)'}}>
-                        <IconButton onClick={handleDrawerClose}>
+                        <CustomIconButton
+                            disableRipple={false}
+                            onClick={handleDrawerClose}
+                        >
                             {theme.direction === 'rtl' ? <ChevronRightIcon/> :
                                 <div className={s.icon}><ChevronLeftIcon/></div>}
-                        </IconButton>
+                        </CustomIconButton>
                     </DrawerHeader>
                     <Divider sx={{backgroundColor: 'rgb(236, 236, 241)'}}/>
                     <List sx={{backgroundColor: 'rgba(32, 33, 35, 1.00)'}}>

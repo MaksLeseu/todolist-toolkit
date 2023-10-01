@@ -4,24 +4,22 @@ import {Button} from "@mui/material";
 type Props = {
     color: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
     label: string
-    sx: { marginRight: '10px' } | null
-    closeFormAddTask?: () => void
-    addTask?: () => void
+    variant: 'contained' | 'text' | 'outlined'
+    sx?: Object | null
+    onClick: () => void
 }
 
 export const CustomButton: FC<Props> = (props) => {
-    const {label, color, sx, closeFormAddTask, addTask} = props
+    const {label, color, variant, sx, onClick} = props
 
     return (
-        <>
-            <Button
-                variant="contained"
-                color={color}
-                sx={sx}
-                onClick={addTask || closeFormAddTask}
-            >
-                {label}
-            </Button>
-        </>
+        <Button
+            variant={variant}
+            color={color}
+            sx={sx && sx}
+            onClick={onClick}
+        >
+            {label}
+        </Button>
     )
 }

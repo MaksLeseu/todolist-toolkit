@@ -31,44 +31,42 @@ export const ModalWindowAddTodo: FC<ModalWindowPropsType> = (props) => {
     };
 
     return (
-        <>
-            <CustomModalWindow
-                open={open}
-                onClose={onClick}
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Enter a title for the task
-                    </Typography>
-                    <CustomTextField
-                        label={"Title"}
-                        size={'small'}
-                        sx={{mt: 2}}
-                        multiline={false}
-                        value={title}
-                        onChange={changeTitle}
-                    />
-                    <CustomIconButton
-                        size={'medium'}
-                        color={'success'}
-                        disableRipple={false}
-                        sx={{marginTop: '15px', marginLeft: '6px'}}
-                        onClick={() => addTask(title)}
-                    >
-                        <ArrowCircleRightIcon/>
-                    </CustomIconButton>
+        <CustomModalWindow
+            open={open}
+            onClose={onClick}
+        >
+            <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                    Enter a title for the task
+                </Typography>
+                <CustomTextField
+                    label={"Title"}
+                    size={'small'}
+                    sx={{mt: 2}}
+                    multiline={false}
+                    value={title}
+                    onChange={changeTitle}
+                />
+                <CustomIconButton
+                    size={'medium'}
+                    color={'success'}
+                    disableRipple={false}
+                    sx={{marginTop: '15px', marginLeft: '6px'}}
+                    onClick={() => addTask(title)}
+                >
+                    <ArrowCircleRightIcon/>
+                </CustomIconButton>
 
-                    <CustomIconButton
-                        size={'medium'}
-                        color={'error'}
-                        disableRipple={false}
-                        sx={{marginTop: '15px', marginLeft: '3px'}}
-                        onClick={onClick}
-                    >
-                        <CancelIcon/>
-                    </CustomIconButton>
-                </Box>
-            </CustomModalWindow>
-        </>
+                <CustomIconButton
+                    size={'medium'}
+                    color={'error'}
+                    disableRipple={false}
+                    sx={{marginTop: '15px', marginLeft: '3px'}}
+                    onClick={onClick}
+                >
+                    <CancelIcon/>
+                </CustomIconButton>
+            </Box>
+        </CustomModalWindow>
     )
 }

@@ -1,8 +1,8 @@
 import React, {FC} from "react";
-import {Button} from "@mui/material";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../store/store";
 import {MSG_BTN} from "../../../constans/app-messages.const";
+import {CustomButton} from "../../CustomButton/CustomButton";
 
 type Props = {
     handlerLogout: () => void
@@ -15,15 +15,13 @@ export const LogOutButton: FC<Props> = ({handlerLogout}) => {
         <>
             {
                 isLoggedIn
-                    ?
-                    <Button
-                        color={'inherit'}
-                        onClick={handlerLogout}
-                    >
-                        {MSG_BTN.LOG_OUT}
-                    </Button>
-                    :
-                    null
+                &&
+                <CustomButton
+                    color={'inherit'}
+                    variant={'text'}
+                    label={MSG_BTN.LOG_OUT}
+                    onClick={handlerLogout}
+                />
             }
         </>
     )
