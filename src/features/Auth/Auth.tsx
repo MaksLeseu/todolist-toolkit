@@ -1,17 +1,17 @@
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import {useFormik} from "formik";
-import {useAppDispatch} from "../../common/hooks/useAppDispatch";
+import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
 import {authThunk} from "./auth.slice";
-import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
-import {AppRootStateType} from "../../store/store";
 import s from './Auth.module.css'
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
+import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
+import {isLoggedInSelector} from "./auth.selector";
 
 export const Auth = () => {
     const dispatch = useAppDispatch()
-    const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
+    const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
 
     const formik = useFormik({
         validate: (values) => {

@@ -1,13 +1,13 @@
 import React, {FC, useState} from "react";
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../store/store";
 import s from './Task.module.css'
 import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
-import {useAppDispatch} from "../../common/hooks/useAppDispatch";
-import {tasksThunk} from "./tasks.slice";
+import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
+import {StateTaskType, tasksThunk} from "./tasks.slice";
 import Checkbox from '@mui/material/Checkbox';
 import {TaskEditor} from "./TaskEditor/TaskEditor";
 import {TasksType} from "./tasks.api";
+import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
+import {taskSelector} from "./task.selector";
 
 type Props = {
     todolistId: string
@@ -16,7 +16,9 @@ type Props = {
 export const Task: FC<Props> = (props) => {
     const {todolistId} = props
 
-    const task = useSelector<AppRootStateType, any>(state => state.tasks[todolistId])
+    const tasks: StateTaskType = useAppSelector(taskSelector)
+    const task: TasksType[] = tasks[todolistId]
+
     const dispatch = useAppDispatch()
 
     const [taskId, setTaskId] = useState<string>('')
@@ -34,41 +36,47 @@ export const Task: FC<Props> = (props) => {
         event.stopPropagation()
     }
 
-    return task && task.length > 0 ?
-        task.map((ts: TasksType) => (
-            <div key={ts.id} className={s.task}>
-                <div className={s.container} onClick={() => openTaskEditor(ts.id)}>
+    return (
+        <>
+            {
+                task && task.length > 0 ?
+                    task.map((ts: TasksType) => (
+                        <div key={ts.id} className={s.task}>
+                            <div className={s.container} onClick={() => openTaskEditor(ts.id)}>
 
-                    <div className={s.flexContainer}>
-                        <div className={s.title}>
-                            <div>
-                                <Checkbox onClick={changeCheckbox}/>
+                                <div className={s.flexContainer}>
+                                    <div className={s.title}>
+                                        <div>
+                                            <Checkbox onClick={changeCheckbox}/>
+                                        </div>
+                                        <div className={s.text}>{ts.title}</div>
+                                    </div>
+
+                                    <MoreHoriz
+                                        taskId={ts.id}
+                                        removeTask={removeTask}
+                                    />
+                                </div>
+                                {
+                                    ts.description &&
+                                    <div className={s.description}>{ts.description}</div>
+                                }
                             </div>
-                            <div className={s.text}>{ts.title}</div>
+                            {
+                                taskId && taskId === ts.id &&
+                                <TaskEditor
+                                    taskName={ts.title}
+                                    description={ts.description}
+                                    taskEditor={taskEditor}
+                                    closeTaskEditor={closeTaskEditor}
+                                />
+                            }
                         </div>
-
-                        <MoreHoriz
-                            taskId={ts.id}
-                            removeTask={removeTask}
-                        />
-                    </div>
-                    {
-                        ts.description &&
-                        <div className={s.description}>{ts.description}</div>
-                    }
-                </div>
-                {
-                    taskId && taskId === ts.id &&
-                    <TaskEditor
-                        taskName={ts.title}
-                        description={ts.description}
-                        taskEditor={taskEditor}
-                        closeTaskEditor={closeTaskEditor}
-                    />
-                }
-            </div>
-        ))
-        :
-        <div className={s.empty}>You don't have tasks.</div>
+                    ))
+                    :
+                    <div className={s.empty}>You don't have tasks.</div>
+            }
+        </>
+    )
 }
 

@@ -2,7 +2,7 @@ import React, {ChangeEvent, FC, useState} from "react";
 import s from './Todolist.module.css'
 import {Task} from "../../Tasks/Task";
 import {AddTaskButton} from "../../Tasks/AddTaskButton/AddTaskButton";
-import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
+import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
 import DescriptionIcon from '@mui/icons-material/Description';
 import {todolistsThunk} from "../todolists.slice";
 import {tasksThunk} from "../../Tasks/tasks.slice";

@@ -1,18 +1,21 @@
 import React, {FC} from "react";
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../store/store";
 import {Navigate, NavLink, useParams} from "react-router-dom";
 import {HomePageTodos} from "./HomePageTodos/HomePageTodos";
 import s from './Todolists.module.css'
 import {Todolist} from "./Todolist/Todolist";
+import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
+import {todolistsSelector} from "./todolists.selector";
+import {TodolistsType} from "./todolists.api";
+import {isLoggedInSelector} from "../Auth/auth.selector";
 
 type Props = {
     onClickLink: boolean
 }
 
 export const Todolists: FC<Props> = ({onClickLink}) => {
-    const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
-    const todos = useSelector((state: AppRootStateType) => state.todolists)
+
+    const todos: TodolistsType[] = useAppSelector(todolistsSelector)
+    const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
 
     const {todo} = useParams()
     const todolist = todo ? todo : ''
