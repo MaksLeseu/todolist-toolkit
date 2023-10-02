@@ -1,5 +1,4 @@
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid} from "@mui/material";
-import TextField from "@mui/material/TextField";
 import {useFormik} from "formik";
 import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
 import {authThunk} from "./auth.slice";
@@ -8,6 +7,7 @@ import s from './Auth.module.css'
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {isLoggedInSelector} from "./auth.selector";
+import {CustomTextField} from "../../common/components/CustomTextField/CustomTextField";
 
 export const Auth = () => {
     const dispatch = useAppDispatch()
@@ -62,16 +62,28 @@ export const Auth = () => {
                             </p>
                         </FormLabel>
                         <FormGroup>
-                            <TextField
-                                label="Email"
-                                margin="normal"
-                                {...formik.getFieldProps("email")}
+                            <CustomTextField
+                                label={'Email'}
+                                margin={'normal'}
+                                name={'email'}
+                                variant={'outlined'}
+                                value={formik.values.email}
+                                size={'medium'}
+                                multiline={false}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
                             />
-                            <TextField
-                                type="password"
-                                label="Password"
-                                margin="normal"
-                                {...formik.getFieldProps("password")}
+                            <CustomTextField
+                                label={'Password'}
+                                type={'password'}
+                                margin={'normal'}
+                                name={'password'}
+                                variant={'outlined'}
+                                value={formik.values.password}
+                                size={'medium'}
+                                multiline={false}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
                             />
                             <FormControlLabel
                                 label={'Remember me'}
