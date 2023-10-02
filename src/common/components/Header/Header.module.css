@@ -1,8 +1,8 @@
 .todo {
     text-decoration: none;
     background-color: rgba(32, 33, 35, 1.00);
-    color: rgb(236, 236, 241);
     color: rgb(142, 142, 160);
+    transition: 0.5s;
 }
 
 .icon {

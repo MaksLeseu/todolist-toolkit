@@ -8,7 +8,7 @@ type Props = {
 
 export const HomePageTodos: FC<Props> = ({todoTitle}) => {
     return (
-        <div className={s.todoContainer}>
+        <div>
             <div className={s.todo}>
                 <div className={s.container}>
                     <DescriptionIcon color={'info'}/>

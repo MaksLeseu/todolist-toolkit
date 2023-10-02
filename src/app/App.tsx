@@ -5,7 +5,6 @@ import {Auth} from "../features/Auth/Auth";
 import {Header} from "../common/components/Header/Header";
 import {useAppDispatch} from "../common/utils/hooks/useAppDispatch";
 import {authThunk} from "../features/Auth/auth.slice";
-import s from './App.module.css'
 
 
 export const App = () => {
@@ -17,7 +16,7 @@ export const App = () => {
 
     return (
         <BrowserRouter>
-            <div className={s.container}>
+            <div>
                 <Header/>
                 <Routes>
                     <Route path={'/'} element={<Todolists onClickLink={false}/>}/>

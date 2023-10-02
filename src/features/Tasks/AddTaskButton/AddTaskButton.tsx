@@ -36,23 +36,3 @@ export const AddTaskButton: FC<Props> = ({label, openFormAddTask}) => {
     )
 }
 
-
-/*
-<FormGroup
-    sx={{paddingLeft: 2, paddingTop: 2,}}
->
-    <FormControlLabel
-        control={
-            <CustomIconButton
-                size={'small'}
-                color={"default"}
-                disableRipple={true}
-                onClick={openFormAddTask}
-            >
-                <AddIcon/>
-            </CustomIconButton>
-        }
-        label={label}
-        className={className === 'addTask' ? s.btnAddTask : s.btnAddDescription}
-    />
-</FormGroup>*/

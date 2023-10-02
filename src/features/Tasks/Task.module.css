@@ -1,22 +1,3 @@
-._task {
-    width: 100%;
-    background-color: #ffffff;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    box-shadow: 1px 1px 3px black;
-}
-
-.__task {
-    width: 300px;
-    height: 100%;
-    background-color: rgba(235, 236, 240, 1.00);
-    margin-bottom: 30px;
-    border-radius: 5px;
-    box-shadow: 1px 1px 5px black;
-    padding: 10px;
-    margin-right: 15px;
-}
-
 .task {
     width: 100%;
     border-bottom: 1px rgba(235, 236, 240, 1.00) solid;
