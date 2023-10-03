@@ -4,8 +4,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import ListItemText from "@mui/material/ListItemText";
 import s from '../../Header.module.css'
-import {MSG_BTN} from "../../../../utils/constans/app-messages.const";
-import {CustomListItem} from "../../../CustomListItem/CustomListItem";
+import {MSG_BTN} from "../../../../common/utils/constans/app-messages.const";
+import {CustomListItem} from "../../../../common/components/CustomListItem/CustomListItem";
 
 type Props = {
     open: boolean

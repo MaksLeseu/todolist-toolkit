@@ -1,5 +1,5 @@
 import React, {FC, ReactNode} from "react";
-import {Header} from "../Header/Header";
+import {Header} from "../../../features/Header/Header";
 import {Outlet} from "react-router-dom";
 
 type Props = {

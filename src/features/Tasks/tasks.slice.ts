@@ -3,11 +3,9 @@ import {createAppAsyncThunk} from "../../common/utils/thunks/create-app-async-th
 import {tasksApi} from "./tasks.api";
 import {TasksType} from "./tasks.types";
 
-const initialState: StateTaskType = {}
-
 const slice = createSlice({
     name: 'tasks',
-    initialState,
+    initialState: {} as StateTaskType,
     reducers: {},
     extraReducers: (builder) => {
         builder

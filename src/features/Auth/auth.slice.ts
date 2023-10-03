@@ -3,13 +3,9 @@ import {createAppAsyncThunk} from "../../common/utils/thunks/create-app-async-th
 import {authApi} from "./auth.api";
 import {LoginDataType} from "./auth.types";
 
-const initialState = {
-    isLoggedIn: false
-}
-
 const slice = createSlice({
     name: 'auth',
-    initialState,
+    initialState: {isLoggedIn: false},
     reducers: {},
     extraReducers: (builder) => {
         builder

@@ -6,8 +6,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import ListItemText from "@mui/material/ListItemText";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../../../store/store";
-import {CustomListItem} from "../../../CustomListItem/CustomListItem";
+import {AppRootStateType} from "../../../../store/store";
+import {CustomListItem} from "../../../../common/components/CustomListItem/CustomListItem";
 
 type Props = {
     open: boolean

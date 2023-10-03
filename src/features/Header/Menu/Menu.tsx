@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import {CustomIconButton} from "../../CustomIconButton/CustomIconButton";
+import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 
 type Props = {
     sx: Object

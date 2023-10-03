@@ -4,11 +4,9 @@ import {tasksThunk} from "../Tasks/tasks.slice";
 import {todolistsApi} from "./todolists.api";
 import {TodolistsType} from "./todolists.types";
 
-const initialState: TodolistsType[] = []
-
 const slice = createSlice({
     name: 'todolists',
-    initialState,
+    initialState: [] as TodolistsType[],
     reducers: {},
     extraReducers: (builder) => {
         builder

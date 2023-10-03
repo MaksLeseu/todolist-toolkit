@@ -1,6 +1,6 @@
 import React, {FC} from "react";
-import {MSG_BTN} from "../../../utils/constans/app-messages.const";
-import {CustomButton} from "../../CustomButton/CustomButton";
+import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
+import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
 
 type Props = {
     handlerLogout: () => void

@@ -4,13 +4,13 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../../store/store";
+import {AppRootStateType} from "../../../store/store";
 import {CSSObject, styled, Theme, useTheme} from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import {CreateTodoButton} from "./CreateTodoButton/CreateTodoButton";
 import {TodosList} from "./TodosList/TodosList";
 import s from '../Header.module.css'
-import {CustomIconButton} from "../../CustomIconButton/CustomIconButton";
+import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 
 const drawerWidth = 240;
 
