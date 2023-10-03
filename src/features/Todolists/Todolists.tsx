@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {Navigate, NavLink, useParams} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import {HomePageTodos} from "./HomePageTodos/HomePageTodos";
 import s from './Todolists.module.css'
 import {Todolist} from "./Todolist/Todolist";
@@ -20,9 +20,9 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
     const {todo} = useParams()
     const todolist = todo ? todo : ''
 
-    if (!isLoggedIn) {
+    /*if (!isLoggedIn) {
         return <Navigate to={"/login"}/>
-    }
+    }*/
 
     const filterTodos = (): JSX.Element => {
         const todo = todos.filter(td => td.id === todolist)

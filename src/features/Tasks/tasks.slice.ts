@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {createAppAsyncThunk} from "../../common/utils/constans/create-app-async-thunk";
+import {createAppAsyncThunk} from "../../common/utils/thunks/create-app-async-thunk";
 import {tasksApi, TasksType} from "./tasks.api";
 
 const initialState: StateTaskType = {}

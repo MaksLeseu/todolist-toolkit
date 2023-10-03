@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {MSG_BTN} from "../../../constans/app-messages.const";
+import {MSG_BTN} from "../../../utils/constans/app-messages.const";
 import {CustomButton} from "../../CustomButton/CustomButton";
 
 type Props = {

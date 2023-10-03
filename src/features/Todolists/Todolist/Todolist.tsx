@@ -6,7 +6,7 @@ import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
 import DescriptionIcon from '@mui/icons-material/Description';
 import {todolistsThunk} from "../todolists.slice";
 import {tasksThunk} from "../../Tasks/tasks.slice";
-import {MSG_BTN} from "../../../common/constans/app-messages.const";
+import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 import {FormAddTask} from "../../Tasks/FormAddTask/FormAddTask";
 
 type Props = {

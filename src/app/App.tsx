@@ -1,10 +1,7 @@
 import React, {useEffect} from 'react';
-import {Todolists} from "../features/Todolists/Todolists";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {Auth} from "../features/Auth/Auth";
-import {Header} from "../common/components/Header/Header";
 import {useAppDispatch} from "../common/utils/hooks/useAppDispatch";
 import {authThunk} from "../features/Auth/auth.slice";
+import {Router} from "../routes/Routes";
 
 
 export const App = () => {
@@ -14,17 +11,19 @@ export const App = () => {
         dispatch(authThunk.authMe({}))
     }, [])
 
-    return (
-        <BrowserRouter>
-            <div>
-                <Header/>
-                <Routes>
-                    <Route path={'/'} element={<Todolists onClickLink={false}/>}/>
-                    <Route path={'/login'} element={<Auth/>}/>
-                    <Route path={'/todo/:todo/*'} element={<Todolists onClickLink={true}/>}/>
-                </Routes>
-            </div>
-        </BrowserRouter>
-    );
+    return <Router/>
 }
 
+
+/*return (
+    <BrowserRouter>
+        <div>
+            <Header/>
+            <Routes>
+                <Route path={'/'} element={<Todolists onClickLink={false}/>}/>
+                <Route path={'/login'} element={<Auth/>}/>
+                <Route path={'/todo/:todo/!*'} element={<Todolists onClickLink={true}/>}/>
+            </Routes>
+        </div>
+    </BrowserRouter>
+);*/

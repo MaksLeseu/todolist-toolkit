@@ -4,7 +4,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import ListItemText from "@mui/material/ListItemText";
 import s from '../../Header.module.css'
-import {MSG_BTN} from "../../../../constans/app-messages.const";
+import {MSG_BTN} from "../../../../utils/constans/app-messages.const";
 import {CustomListItem} from "../../../CustomListItem/CustomListItem";
 
 type Props = {

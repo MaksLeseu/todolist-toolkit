@@ -2,7 +2,7 @@ import React, {ChangeEvent, FC} from "react";
 import s from './FormAddTask.module.css'
 import {CustomTextField} from "../../../common/components/CustomTextField/CustomTextField";
 import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
-import {MSG_BTN} from "../../../common/constans/app-messages.const";
+import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 
 type Props = {
     taskName: string

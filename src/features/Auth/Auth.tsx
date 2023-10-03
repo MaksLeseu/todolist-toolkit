@@ -2,16 +2,23 @@ import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid} fro
 import {useFormik} from "formik";
 import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
 import {authThunk} from "./auth.slice";
-import {Navigate} from "react-router-dom";
 import s from './Auth.module.css'
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {isLoggedInSelector} from "./auth.selector";
 import {CustomTextField} from "../../common/components/CustomTextField/CustomTextField";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 export const Auth = () => {
     const dispatch = useAppDispatch()
     const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isLoggedIn) navigate('/');
+    }, [isLoggedIn])
 
     const formik = useFormik({
         validate: (values) => {
@@ -27,10 +34,6 @@ export const Auth = () => {
             dispatch(authThunk.login({data: values}))
         },
     })
-
-    if (isLoggedIn) {
-        return <Navigate to={"/"}/>
-    }
 
     return (
         <Grid container justifyContent="center"

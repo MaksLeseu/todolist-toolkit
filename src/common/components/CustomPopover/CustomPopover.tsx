@@ -5,7 +5,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
 import {ListItem} from "@mui/material";
-import {MSG_BTN} from "../../constans/app-messages.const";
+import {MSG_BTN} from "../../utils/constans/app-messages.const";
 import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
 
 type BasicPopoverPropsType = {
