@@ -1,4 +1,5 @@
 import {instance} from "../../common/api/common.api";
+import {TodolistsType} from "./todolists.types";
 
 export const baseTodo = 'todo-lists'
 
@@ -9,11 +10,4 @@ export const todolistsApi = {
     removeTodolist(todolistId: string) {
         return instance.delete(`/${baseTodo}/${todolistId}`)
     }
-}
-
-export type TodolistsType = {
-    id: string
-    addedDate: string
-    order: number
-    title: string
 }

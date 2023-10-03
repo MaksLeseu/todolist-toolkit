@@ -1,4 +1,5 @@
 import {instance} from "../../common/api/common.api";
+import {LoginDataType, MeType} from "./auth.types";
 
 const base = 'auth'
 
@@ -12,24 +13,4 @@ export const authApi = {
     logout() {
         return instance.delete(`/${base}/login`)
     }
-}
-
-
-type MeType = {
-    data: MeDataType
-    messages: []
-    fieldsErrors: []
-    resultCode: number
-}
-
-type MeDataType = {
-    id: number
-    login: string
-    email: string
-}
-
-export type LoginDataType = {
-    email: string
-    password: string
-    rememberMe: boolean
 }

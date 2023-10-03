@@ -5,8 +5,8 @@ import s from './Todolists.module.css'
 import {Todolist} from "./Todolist/Todolist";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {todolistsSelector} from "./todolists.selector";
-import {TodolistsType} from "./todolists.api";
 import {isLoggedInSelector} from "../Auth/auth.selector";
+import {TodolistsType} from "./todolists.types";
 
 type Props = {
     onClickLink: boolean

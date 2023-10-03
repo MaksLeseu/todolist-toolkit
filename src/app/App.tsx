@@ -9,21 +9,7 @@ export const App = () => {
 
     useEffect(() => {
         dispatch(authThunk.authMe({}))
-    }, [])
+    }, [dispatch])
 
     return <Router/>
 }
-
-
-/*return (
-    <BrowserRouter>
-        <div>
-            <Header/>
-            <Routes>
-                <Route path={'/'} element={<Todolists onClickLink={false}/>}/>
-                <Route path={'/login'} element={<Auth/>}/>
-                <Route path={'/todo/:todo/!*'} element={<Todolists onClickLink={true}/>}/>
-            </Routes>
-        </div>
-    </BrowserRouter>
-);*/

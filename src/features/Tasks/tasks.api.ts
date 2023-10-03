@@ -1,5 +1,6 @@
 import {instance} from "../../common/api/common.api";
 import {baseTodo} from "../Todolists/todolists.api";
+import {AddDescriptionArgType, AddTaskArgType, TasksType} from "./tasks.types";
 
 const base = 'tasks'
 
@@ -16,31 +17,4 @@ export const tasksApi = {
     changeTask(arg: AddDescriptionArgType) {
         return instance.put(`/${baseTodo}/${arg.todolistId}/${base}/${arg.taskId}`, {description: arg.description})
     }
-}
-
-export type TasksType = {
-    description: string
-    title: string
-    completed: boolean
-    status: number
-    priority: number
-    startDate: null
-    deadline: null
-    id: string
-    todoListId: string
-    order: number
-    addedDate: string
-}
-
-
-type AddTaskArgType = {
-    todolistId: string
-    title: string
-    description: string
-}
-
-type AddDescriptionArgType = {
-    todolistId: string
-    taskId: string
-    description: string
 }

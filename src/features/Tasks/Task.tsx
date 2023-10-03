@@ -5,9 +5,9 @@ import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
 import {StateTaskType, tasksThunk} from "./tasks.slice";
 import Checkbox from '@mui/material/Checkbox';
 import {TaskEditor} from "./TaskEditor/TaskEditor";
-import {TasksType} from "./tasks.api";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {taskSelector} from "./task.selector";
+import {TasksType} from "./tasks.types";
 
 type Props = {
     todolistId: string

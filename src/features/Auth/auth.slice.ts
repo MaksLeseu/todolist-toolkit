@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {createAppAsyncThunk} from "../../common/utils/thunks/create-app-async-thunk";
-import {authApi, LoginDataType} from "./auth.api";
+import {authApi} from "./auth.api";
+import {LoginDataType} from "./auth.types";
 
 const initialState = {
     isLoggedIn: false
