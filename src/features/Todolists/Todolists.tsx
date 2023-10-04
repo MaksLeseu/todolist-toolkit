@@ -5,7 +5,6 @@ import s from './Todolists.module.css'
 import {Todolist} from "./Todolist/Todolist";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {todolistsSelector} from "./todolists.selector";
-import {isLoggedInSelector} from "../Auth/auth.selector";
 import {TodolistsType} from "./todolists.types";
 
 type Props = {
@@ -15,14 +14,9 @@ type Props = {
 export const Todolists: FC<Props> = ({onClickLink}) => {
 
     const todos: TodolistsType[] = useAppSelector(todolistsSelector)
-    const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
 
     const {todo} = useParams()
     const todolist = todo ? todo : ''
-
-    /*if (!isLoggedIn) {
-        return <Navigate to={"/login"}/>
-    }*/
 
     const filterTodos = (): JSX.Element => {
         const todo = todos.filter(td => td.id === todolist)
