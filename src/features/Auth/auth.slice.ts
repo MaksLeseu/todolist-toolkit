@@ -2,6 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {createAppAsyncThunk} from "../../common/utils/thunks/create-app-async-thunk";
 import {authApi} from "./auth.api";
 import {LoginDataType} from "./auth.types";
+import {todolistsThunk} from "../Todolists/todolists.slice";
 
 const slice = createSlice({
     name: 'auth',
@@ -19,9 +20,10 @@ const slice = createSlice({
 export const authMe = createAppAsyncThunk<{ isLoggedIn: boolean },
     {}>
 ('auth/authMe', async (arg, thunkAPI) => {
-    const {rejectWithValue} = thunkAPI
+    const {rejectWithValue, dispatch} = thunkAPI
     try {
         const res = await authApi.me()
+        if (res) dispatch(todolistsThunk.fetchTodolists())
         return res.data.resultCode === 0 ? {isLoggedIn: true} : {isLoggedIn: false}
     } catch (error) {
         return rejectWithValue(null)

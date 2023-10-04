@@ -39,7 +39,7 @@ export const Task: FC<Props> = (props) => {
     return (
         <>
             {
-                task && task.length > 0 ?
+                task ?
                     task.map((ts: TasksType) => (
                         <div key={ts.id} className={s.task}>
                             <div className={s.container} onClick={() => openTaskEditor(ts.id)}>

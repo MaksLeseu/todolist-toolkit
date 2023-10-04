@@ -8,7 +8,6 @@ type Props = {
 
 export const Layout: FC<Props> = (props) => {
     const {children} = props
-    console.log(!!children)
 
     return (
         <div>

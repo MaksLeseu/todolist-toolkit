@@ -11,11 +11,16 @@ export const App = () => {
 
     useEffect(() => {
         setIsLoading(true)
+
         dispatch(authThunk.authMe({}))
-            .finally(() => setIsLoading(false))
+            .finally(() => setTimeout(() => {
+                setIsLoading(false)
+            }, 1000))
     }, [dispatch])
 
     if (isLoading) return <Preloader/>
 
     return <Router/>
 }
+
+

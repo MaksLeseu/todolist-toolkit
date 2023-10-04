@@ -10,7 +10,7 @@ const slice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getTodolists.fulfilled, (state, action) => {
+            .addCase(fetchTodolists.fulfilled, (state, action) => {
                 action.payload.todolists.forEach(tl => state.push(tl))
             })
             .addCase(removeTodolist.fulfilled, (state, action) => {
@@ -21,7 +21,7 @@ const slice = createSlice({
 })
 
 //thunk
-export const getTodolists = createAppAsyncThunk<{ todolists: TodolistsType[] }>
+export const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistsType[] }>
 ('todolists/getTodolists', async (arg, thunkAPI) => {
     const {dispatch, rejectWithValue} = thunkAPI
 
@@ -52,4 +52,4 @@ export const removeTodolist = createAppAsyncThunk<{ todolistId: string },
 })
 
 export const todolistsSlice = slice.reducer
-export const todolistsThunk = {getTodolists, removeTodolist}
+export const todolistsThunk = {fetchTodolists, removeTodolist}

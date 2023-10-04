@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
@@ -9,7 +9,6 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
 import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
 import {authThunk} from "../Auth/auth.slice";
-import {todolistsThunk} from "../Todolists/todolists.slice";
 import {NavLink} from "react-router-dom";
 import {Menu} from "./Menu/Menu";
 import {LogOutButton} from "./LogOutButton/LogOutButton";
@@ -41,14 +40,7 @@ const AppBar = styled(MuiAppBar, {
 
 export const Header = () => {
     const dispatch = useAppDispatch()
-    const todos = useSelector((state: AppRootStateType) => state.todolists)
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
-
-    useEffect(() => {
-        if (todos.length === 0) {
-            dispatch(todolistsThunk.getTodolists())
-        }
-    }, [])
 
     const handlerLogout = () => dispatch(authThunk.logout({}))
 
