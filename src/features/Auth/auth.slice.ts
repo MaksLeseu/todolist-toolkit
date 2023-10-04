@@ -3,6 +3,7 @@ import {createAppAsyncThunk} from "../../common/utils/thunks/create-app-async-th
 import {authApi} from "./auth.api";
 import {LoginDataType} from "./auth.types";
 import {todolistsThunk} from "../Todolists/todolists.slice";
+import {ResultCode} from "../../common/utils/enums";
 
 const slice = createSlice({
     name: 'auth',
@@ -23,8 +24,12 @@ export const authMe = createAppAsyncThunk<{ isLoggedIn: boolean },
     const {rejectWithValue, dispatch} = thunkAPI
     try {
         const res = await authApi.me()
-        if (res) dispatch(todolistsThunk.fetchTodolists())
-        return res.data.resultCode === 0 ? {isLoggedIn: true} : {isLoggedIn: false}
+        if (res.data.resultCode === ResultCode.Success) {
+            dispatch(todolistsThunk.fetchTodolists())
+            return {isLoggedIn: true}
+        } else {
+            return {isLoggedIn: false}
+        }
     } catch (error) {
         return rejectWithValue(null)
     }
@@ -36,7 +41,12 @@ export const login = createAppAsyncThunk<void,
     const {dispatch, rejectWithValue} = thunkAPI
     try {
         const res = await authApi.login(arg.data)
-        if (res.data.resultCode === 0) dispatch(authThunk.authMe({}))
+        console.log(res.data.messages[0])
+        if (res.data.resultCode === ResultCode.Success) {
+            dispatch(authThunk.authMe({}))
+        } else {
+
+        }
     } catch (error) {
         return rejectWithValue(null)
     }
@@ -48,7 +58,7 @@ export const logout = createAppAsyncThunk<void,
     const {dispatch, rejectWithValue} = thunkAPI
     try {
         const res = await authApi.logout()
-        if (res.data.resultCode === 0) dispatch(authThunk.authMe({}))
+        if (res.data.resultCode === ResultCode.Success) dispatch(authThunk.authMe({}))
     } catch (error) {
         return rejectWithValue(null)
     }
