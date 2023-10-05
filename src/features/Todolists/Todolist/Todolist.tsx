@@ -23,6 +23,7 @@ export const Todolist: FC<Props> = (props) => {
 
     const [taskName, setTaskName] = useState<string>('')
     const [description, setDescription] = useState<string>('')
+    const [visibleLiner, setVisibleLiner] = useState<boolean>(false)
 
     const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => setTaskName(e.currentTarget.value)
     const changeDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.currentTarget.value)
@@ -40,7 +41,9 @@ export const Todolist: FC<Props> = (props) => {
     }
 
     const addTask = (title: string, description: string) => {
+        setVisibleLiner(true)
         dispatch(tasksThunk.addTask({todolistId: todolistId, title, description}))
+            .finally(() => setVisibleLiner(false))
         closeFormAddTask()
     }
 
@@ -56,7 +59,11 @@ export const Todolist: FC<Props> = (props) => {
             </div>
             <div className={s.todolist}>
 
-                <Task todolistId={todolistId}/>
+                <Task
+                    todolistId={todolistId}
+                    visibleLiner={visibleLiner}
+                    setVisibleLiner={setVisibleLiner}
+                />
 
                 {
                     formAddTask

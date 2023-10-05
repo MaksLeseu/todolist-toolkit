@@ -8,13 +8,16 @@ import {TaskEditor} from "./TaskEditor/TaskEditor";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {taskSelector} from "./task.selector";
 import {TasksType} from "./tasks.types";
+import {CustomLinearProgress} from "../../common/components/CustomLinearProgress/CustomLinearProgress";
 
 type Props = {
     todolistId: string
+    visibleLiner: boolean
+    setVisibleLiner: (value: boolean) => void
 }
 
 export const Task: FC<Props> = (props) => {
-    const {todolistId} = props
+    const {todolistId, visibleLiner, setVisibleLiner} = props
 
     const tasks: StateTaskType = useAppSelector(taskSelector)
     const task: TasksType[] = tasks[todolistId]
@@ -30,7 +33,11 @@ export const Task: FC<Props> = (props) => {
     }
     const closeTaskEditor = () => setTaskEditor(false)
 
-    const removeTask = (taskId: string) => dispatch(tasksThunk.removeTask({todolistId, taskId}))
+    const removeTask = (taskId: string) => {
+        setVisibleLiner(true)
+        dispatch(tasksThunk.removeTask({todolistId, taskId}))
+            .finally(() => setVisibleLiner(false))
+    }
 
     const changeCheckbox = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
@@ -38,6 +45,7 @@ export const Task: FC<Props> = (props) => {
 
     return (
         <>
+            <CustomLinearProgress visible={visibleLiner}/>
             {
                 task ?
                     task.map((ts: TasksType) => (

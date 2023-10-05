@@ -55,7 +55,7 @@ export const Header = () => {
     };
 
     return (
-        <Box sx={{display: 'flex', marginBottom: '120px'}}>
+        <Box sx={{display: 'flex', marginBottom: '65px'}}>
             <CssBaseline/>
             <AppBar position="fixed" open={open}>
                 <Toolbar>

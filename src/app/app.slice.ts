@@ -10,8 +10,6 @@ const slice = createSlice({
         setAppError: (state, action: PayloadAction<{ error: Nullable<string> }>) => {
             state.error = action.payload.error;
         },
-    },
-    extraReducers: (builder) => {
     }
 })
 

@@ -33,7 +33,7 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
         componentName === 'todo' ? filterTodos() : returnTodosList()
 
     return (
-        <>
+        <div className={s.todolists}>
             {
                 onClickLink || <p className={s.title}>To-do lists</p>
             }
@@ -42,6 +42,6 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
                     onClickLink ? returnTodos('todo') : returnTodos('todoList')
                 }
             </div>
-        </>
+        </div>
     )
 }
