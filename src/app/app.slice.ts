@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Nullable} from "../common/utils/types/optional.types";
 
 const slice = createSlice({
@@ -6,10 +6,14 @@ const slice = createSlice({
     initialState: {
         error: null as Nullable<string>
     },
-    reducers: {},
+    reducers: {
+        setAppError: (state, action: PayloadAction<{ error: Nullable<string> }>) => {
+            state.error = action.payload.error;
+        },
+    },
     extraReducers: (builder) => {
-
     }
 })
 
 export const appSlice = slice.reducer
+export const appActions = slice.actions

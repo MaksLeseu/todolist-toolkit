@@ -4,6 +4,7 @@ import {authApi} from "./auth.api";
 import {LoginDataType} from "./auth.types";
 import {todolistsThunk} from "../Todolists/todolists.slice";
 import {ResultCode} from "../../common/utils/enums";
+import {handleServerAppError} from "../../common/utils/functions/handleServerAppError/handleServerAppError";
 
 const slice = createSlice({
     name: 'auth',
@@ -39,16 +40,16 @@ export const login = createAppAsyncThunk<void,
     { data: LoginDataType }>
 ('auth/login', async (arg, thunkAPI) => {
     const {dispatch, rejectWithValue} = thunkAPI
-    try {
-        const res = await authApi.login(arg.data)
-        console.log(res.data.messages[0])
-        if (res.data.resultCode === ResultCode.Success) {
-            dispatch(authThunk.authMe({}))
-        } else {
 
-        }
-    } catch (error) {
-        return rejectWithValue(null)
+    const res = await authApi.login(arg.data)
+
+    if (res.data.resultCode === ResultCode.Success) {
+        dispatch(authThunk.authMe({}))
+    } else {
+        const isShowAppError = !res.data.fieldsErrors.length;
+
+        handleServerAppError(res.data, dispatch, isShowAppError)
+        return rejectWithValue(res.data);
     }
 })
 
