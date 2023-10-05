@@ -7,8 +7,7 @@ import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {isLoggedInSelector} from "./auth.selector";
 import {CustomTextField} from "../../common/components/CustomTextField/CustomTextField";
-import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import {Navigate} from "react-router-dom";
 
 type FormikErrorType = {
     email?: string;
@@ -18,13 +17,6 @@ type FormikErrorType = {
 
 export const Auth = () => {
     const dispatch = useAppDispatch()
-    const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (isLoggedIn) navigate('/');
-    }, [isLoggedIn])
 
     const formik = useFormik({
         validate: (values) => {
@@ -52,6 +44,18 @@ export const Auth = () => {
             dispatch(authThunk.login({data: values}))
         },
     })
+
+    const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
+
+    /* const navigate = useNavigate();
+
+     useEffect(() => {
+         if (isLoggedIn) return navigate('/');
+     }, [isLoggedIn])*/
+
+    if (isLoggedIn) {
+        return <Navigate to={'/'}/>
+    }
 
     return (
         <Grid container justifyContent="center"
