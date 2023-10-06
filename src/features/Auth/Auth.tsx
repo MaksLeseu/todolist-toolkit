@@ -47,19 +47,13 @@ export const Auth = () => {
 
     const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
 
-    /* const navigate = useNavigate();
-
-     useEffect(() => {
-         if (isLoggedIn) return navigate('/');
-     }, [isLoggedIn])*/
-
     if (isLoggedIn) {
         return <Navigate to={'/'}/>
     }
 
     return (
         <Grid container justifyContent="center"
-              sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+              sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '60px'}}>
             <Grid item xs={4}>
                 <form onSubmit={formik.handleSubmit}>
                     <FormControl>

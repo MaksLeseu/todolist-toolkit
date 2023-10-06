@@ -61,6 +61,7 @@ export const Todolist: FC<Props> = (props) => {
 
                 <Task
                     todolistId={todolistId}
+                    todolistTitle={todolistTitle}
                     visibleLiner={visibleLiner}
                     setVisibleLiner={setVisibleLiner}
                 />

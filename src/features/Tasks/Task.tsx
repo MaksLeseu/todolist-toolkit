@@ -13,11 +13,12 @@ import {CustomLinearProgress} from "../../common/components/CustomLinearProgress
 type Props = {
     todolistId: string
     visibleLiner: boolean
+    todolistTitle: string
     setVisibleLiner: (value: boolean) => void
 }
 
 export const Task: FC<Props> = (props) => {
-    const {todolistId, visibleLiner, setVisibleLiner} = props
+    const {todolistId, todolistTitle, visibleLiner, setVisibleLiner} = props
 
     const tasks: StateTaskType = useAppSelector(taskSelector)
     const task: TasksType[] = tasks[todolistId]
@@ -74,6 +75,7 @@ export const Task: FC<Props> = (props) => {
                                 taskId && taskId === ts.id &&
                                 <TaskEditor
                                     taskName={ts.title}
+                                    todolistTitle={todolistTitle}
                                     description={ts.description}
                                     taskEditor={taskEditor}
                                     closeTaskEditor={closeTaskEditor}
