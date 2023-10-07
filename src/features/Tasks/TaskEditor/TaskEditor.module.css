@@ -1,21 +1,13 @@
-.columnDescription {
-    width: 100%;
-}
-
-.container {
-    display: flex;
-    align-items: center;
-}
-
-.description {
-    font-size: 16px;
-    margin-left: 43px;
-}
-
-.closeButton {
+.header {
     display: flex;
     justify-content: space-between;
     padding: 2px 10px 2px 10px;
+}
+
+.header p {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 2px 0 0 4px;
 }
 
 .todoTitle {
@@ -23,22 +15,39 @@
     align-items: center;
 }
 
-.closeButton p {
-    font-size: 14px;
-    font-weight: 700;
-    margin: 2px 0 0 4px;
+.taskBody {
+    width: 100%;
 }
 
-.column {
+.taskBodyContainer {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.taskRedactor {
+    border: 1px #2a3b5a solid;
+    border-radius: 10px;
+    padding: 7px 10px 10px 10px;
+    width: 100%;
+}
+
+.taskName {
+    margin: 3px 0 0 0;
+    font-weight: 500;
+}
+
+.description {
+    font-size: 16px;
+    margin: 15px 0 0 0;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.settingsTaskEditor {
     min-width: 220px;
     min-height: 100%;
     padding: 10px 10px 10px 20px;
-}
-
-
-.column p {
-    font-size: 13px;
-    color: #2a3b5a;
-    font-weight: 700;
-    margin: 0 0 3px 0;
 }

@@ -1,5 +1,5 @@
-import React, {FC} from "react";
-import {Box, Typography} from "@mui/material";
+import React, {FC, useState} from "react";
+import {Box} from "@mui/material";
 import s from './TaskEditor.module.css'
 import Checkbox from "@mui/material/Checkbox";
 import Divider from "@mui/material/Divider";
@@ -8,6 +8,10 @@ import {CustomModalWindow} from "../../../common/components/CustomModalWindow/Cu
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
 import DescriptionIcon from "@mui/icons-material/Description";
+import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
+import {SettingsTaskEditor} from "./SettingsTaskEditor/SettingsTaskEditor";
+import {ValueTask} from "./ValueTask/ValueTask";
+import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTooltip";
 
 type Props = {
     taskName: string
@@ -32,61 +36,100 @@ const style = {
 export const TaskEditor: FC<Props> = (props) => {
     const {taskName, description, todolistTitle, taskEditor, closeTaskEditor} = props
 
+    const [taskRedactor, setTaskRedactor] = useState<boolean>(false)
+
+    const openTaskRedactor = () => setTaskRedactor(true)
+    const closeTaskRedactor = () => setTaskRedactor(false)
+
     return (
         <>
             <CustomModalWindow
                 open={taskEditor}
             >
                 <Box sx={style}>
-                    <div className={s.closeButton}>
+
+                    <div className={s.header}>
                         <div className={s.todoTitle}>
                             <DescriptionIcon color={'info'}/>
                             <p>{todolistTitle}</p>
                         </div>
-                        <CustomIconButton disableRipple={false} onClick={closeTaskEditor}>
+
+                        <CustomIconButton
+                            disableRipple={false}
+                            onClick={closeTaskEditor}
+                        >
                             <CloseIcon/>
                         </CustomIconButton>
                     </div>
                     <Divider/>
+
                     <Box sx={{padding: '10px 20px 20px 20px', display: 'flex'}}>
-                        <div className={s.columnDescription}>
-                            <div className={s.container}>
-                                <Checkbox/>
-                                <Typography id="modal-modal-title" variant="h6" component="h2">
-                                    {taskName}
-                                </Typography>
+                        <div className={s.taskBody}>
+                            <div className={s.taskBodyContainer}>
+                                <div><Checkbox/></div>
+
+                                <CustomTooltip
+                                    title={taskRedactor ? '' : 'You can click on the text to open the task editor.'}
+                                    placement={'bottom'}
+                                >
+                                    <div className={taskRedactor ? s.taskRedactor : ''}>
+                                        <ValueTask
+                                            value={taskName}
+                                            label={'task name'}
+                                            taskRedactor={taskRedactor}
+                                            placement={'top-start'}
+                                            className={'taskName'}
+                                            sx={{width: '100%', marginBottom: '10px'}}
+                                            multiline={false}
+                                            onClick={openTaskRedactor}
+                                        />
+
+                                        <ValueTask
+                                            value={description}
+                                            label={'description'}
+                                            taskRedactor={taskRedactor}
+                                            placement={'bottom-start'}
+                                            className={'description'}
+                                            sx={{width: '100%'}}
+                                            multiline={true}
+                                            onClick={openTaskRedactor}
+                                        />
+                                    </div>
+                                </CustomTooltip>
+
                             </div>
-                            <p className={s.description}>{description}</p>
+                            <div className={s.buttons}>
+                                {
+                                    taskRedactor &&
+                                    <CustomButton
+                                        color={'inherit'}
+                                        label={MSG_BTN.CANCEL}
+                                        variant={'contained'}
+                                        size={'small'}
+                                        onClick={closeTaskRedactor}
+                                    />
+                                }
+                                {
+                                    taskRedactor &&
+                                    <CustomButton
+                                        color={'primary'}
+                                        label={MSG_BTN.SAVE}
+                                        variant={'contained'}
+                                        size={'small'}
+                                        sx={{marginLeft: '10px'}}
+                                    />
+                                }
+                            </div>
                         </div>
-                        <div className={s.column}>
-                            <p>Deadline</p>
-                            <CustomButton
-                                color={'inherit'}
+                        <div className={s.settingsTaskEditor}>
+                            <SettingsTaskEditor
+                                title={'Deadline'}
                                 label={'5 october'}
-                                variant={'contained'}
-                                sx={{
-                                    width: '100%',
-                                    height: '25px',
-                                    textTransform: 'none',
-                                    boxShadow: 'none',
-                                    marginBottom: '10px'
-                                }}
                             />
-                            <Divider/>
-                            <p>Priority</p>
-                            <CustomButton
-                                color={'inherit'}
+                            <SettingsTaskEditor
+                                title={'Priority'}
                                 label={'P4'}
-                                variant={'contained'}
-                                sx={{
-                                    width: '100%',
-                                    height: '25px',
-                                    textTransform: 'none',
-                                    boxShadow: 'none',
-                                    marginBottom: '10px',
-                                }}
                             />
-                            <Divider/>
                         </div>
                     </Box>
                 </Box>

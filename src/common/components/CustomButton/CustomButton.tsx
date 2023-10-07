@@ -6,12 +6,13 @@ type Props = {
     label: string
     variant: 'contained' | 'text' | 'outlined'
     type?: 'submit' | 'reset' | 'button'
+    size?: 'small' | 'medium'
     sx?: Object | null
     onClick?: () => void
 }
 
 export const CustomButton: FC<Props> = (props) => {
-    const {label, color, variant, type, sx, onClick} = props
+    const {label, color, variant, type, size, sx, onClick} = props
 
     return (
         <Button
@@ -19,6 +20,7 @@ export const CustomButton: FC<Props> = (props) => {
             color={color}
             type={type && type}
             sx={sx && sx}
+            size={size && size}
             onClick={onClick}
         >
             {label}

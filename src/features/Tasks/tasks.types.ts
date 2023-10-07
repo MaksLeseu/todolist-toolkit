@@ -22,5 +22,5 @@ export type AddTaskArgType = {
 export type AddDescriptionArgType = {
     todolistId: string
     taskId: string
-    description: string
+    description: TasksType
 }
