@@ -7,22 +7,22 @@ import {RequireAuth} from "../common/components/RequireAuth/RequireAuth";
 
 const privateRoutes = [
     {
-        path: '/',
+        path: 'todolist-toolkit/',
         element: <Navigate to={'todo'}/>
     },
     {
-        path: '/todo',
+        path: 'todolist-toolkit/todo',
         element: <Todolists onClickLink={false}/>
     },
     {
-        path: '/todo/:todo/*',
+        path: 'todolist-toolkit/todo/:todo/*',
         element: <Todolists onClickLink={true}/>
     }
 ]
 
 const publicRoutes = [
     {
-        path: '/login',
+        path: 'todolist-toolkit/login',
         element: (
             <Layout>
                 <Auth/>
@@ -34,7 +34,7 @@ const publicRoutes = [
         element: <Navigate to={'/404'}/>
     },
     {
-        path: '/404',
+        path: 'todolist-toolkit/404',
         element: (
             <div>
                 <p>404 - Page is not found!</p>
