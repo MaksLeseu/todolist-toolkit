@@ -9,5 +9,5 @@ export const RequireAuth = () => {
     const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
     const location = useLocation();
 
-    return isLoggedIn ? <Layout/> : <Navigate to={'/login'} state={{from: location}} replace/>
+    return isLoggedIn ? <Layout/> : <Navigate to={'/todolist-toolkit/login'} state={{from: location}} replace/>
 }

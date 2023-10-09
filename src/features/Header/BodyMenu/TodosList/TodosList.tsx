@@ -20,7 +20,7 @@ export const TodosList: FC<Props> = ({open}) => {
         <>
             {
                 todos.map((todo, index) => (
-                    <NavLink to={`/todo/${todo.id}`} key={index} className={s.todo}>
+                    <NavLink to={`/todolist-toolkit/todo/${todo.id}`} key={index} className={s.todo}>
                         <CustomListItem
                             disablePadding={true}
                             sx={{display: 'block'}}

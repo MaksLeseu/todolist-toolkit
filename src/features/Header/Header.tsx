@@ -75,7 +75,7 @@ export const Header = () => {
                         component={'div'}
                         sx={{flexGrow: 1}}
                     >
-                        <NavLink to={'/'}>
+                        <NavLink to={'/todolist-toolkit'}>
                             <Typography
                                 variant={'h6'}
                                 component={'div'}

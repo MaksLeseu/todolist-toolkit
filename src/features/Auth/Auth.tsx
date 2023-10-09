@@ -48,7 +48,7 @@ export const Auth = () => {
     const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
 
     if (isLoggedIn) {
-        return <Navigate to={'/'}/>
+        return <Navigate to={'/todolist-toolkit'}/>
     }
 
     return (
