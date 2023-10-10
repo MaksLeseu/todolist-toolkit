@@ -2,6 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {createAppAsyncThunk} from "../../common/utils/thunks/create-app-async-thunk";
 import {tasksApi} from "./tasks.api";
 import {TasksType} from "./tasks.types";
+import {todolistsActions} from "../Todolists/todolists.slice";
 
 const slice = createSlice({
     name: 'tasks',
@@ -22,6 +23,9 @@ const slice = createSlice({
             })
             .addCase(changeTask.fulfilled, (state, action) => {
                 state[action.payload.todolistId].map(ts => ts.id === action.payload.taskId)
+            })
+            .addCase(todolistsActions.clearTodos, () => {
+                return {}
             })
 
     }

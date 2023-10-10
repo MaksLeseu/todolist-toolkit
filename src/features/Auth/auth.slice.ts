@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {createAppAsyncThunk} from "../../common/utils/thunks/create-app-async-thunk";
 import {authApi} from "./auth.api";
 import {LoginDataType} from "./auth.types";
-import {todolistsThunk} from "../Todolists/todolists.slice";
+import {todolistsActions, todolistsThunk} from "../Todolists/todolists.slice";
 import {ResultCode} from "../../common/utils/enums";
 import {handleServerAppError} from "../../common/utils/functions/handleServerAppError/handleServerAppError";
 
@@ -59,7 +59,10 @@ export const logout = createAppAsyncThunk<void,
     const {dispatch, rejectWithValue} = thunkAPI
     try {
         const res = await authApi.logout()
-        if (res.data.resultCode === ResultCode.Success) dispatch(authThunk.authMe({}))
+        if (res.data.resultCode === ResultCode.Success) {
+            dispatch(todolistsActions.clearTodos())
+            dispatch(authThunk.authMe({}))
+        }
     } catch (error) {
         return rejectWithValue(null)
     }

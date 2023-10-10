@@ -7,7 +7,11 @@ import {TodolistsType} from "./todolists.types";
 const slice = createSlice({
     name: 'todolists',
     initialState: [] as TodolistsType[],
-    reducers: {},
+    reducers: {
+        clearTodos: () => {
+            return []
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchTodolists.fulfilled, (state, action) => {
@@ -51,5 +55,6 @@ export const removeTodolist = createAppAsyncThunk<{ todolistId: string },
     }
 })
 
+export const todolistsActions = slice.actions
 export const todolistsSlice = slice.reducer
 export const todolistsThunk = {fetchTodolists, removeTodolist}
