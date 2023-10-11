@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {ChangeEvent, FC, useState} from "react";
 import {Box} from "@mui/material";
 import s from './TaskEditor.module.css'
 import Checkbox from "@mui/material/Checkbox";
@@ -12,8 +12,14 @@ import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 import {SettingsTaskEditor} from "./SettingsTaskEditor/SettingsTaskEditor";
 import {ValueTask} from "./ValueTask/ValueTask";
 import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTooltip";
+import {tasksThunk} from "../tasks.slice";
+import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
+import {TasksType} from "../tasks.types";
 
 type Props = {
+    taskId: string
+    todolistId: string
+    task: TasksType
     taskName: string
     todolistTitle: string
     description: string
@@ -34,12 +40,28 @@ const style = {
 };
 
 export const TaskEditor: FC<Props> = (props) => {
-    const {taskName, description, todolistTitle, taskEditor, closeTaskEditor} = props
+    const {taskId, todolistId, task, taskName, description, todolistTitle, taskEditor, closeTaskEditor} = props
+
+    const dispatch = useAppDispatch()
 
     const [taskRedactor, setTaskRedactor] = useState<boolean>(false)
 
+    const [newTitle, setNewTitle] = useState<string>(taskName)
+    const [newDescription, setNewDescription] = useState<string>(description)
+
     const openTaskRedactor = () => setTaskRedactor(true)
     const closeTaskRedactor = () => setTaskRedactor(false)
+
+    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
+    const changeSpecification = (e: ChangeEvent<HTMLInputElement>) => setNewDescription(e.currentTarget.value)
+
+    const updateTask = () => {
+        dispatch(tasksThunk.updateTask({
+            todolistId, taskId, description: {...task, title: newTitle, description: newDescription}
+        }))
+        closeTaskRedactor()
+    }
+
 
     return (
         <>
@@ -74,24 +96,26 @@ export const TaskEditor: FC<Props> = (props) => {
                                 >
                                     <div className={taskRedactor ? s.taskRedactor : ''}>
                                         <ValueTask
-                                            value={taskName}
+                                            value={newTitle}
                                             label={'task name'}
                                             taskRedactor={taskRedactor}
                                             placement={'top-start'}
                                             className={'taskName'}
                                             sx={{width: '100%', marginBottom: '10px'}}
                                             multiline={false}
+                                            onChange={changeTitle}
                                             onClick={openTaskRedactor}
                                         />
 
                                         <ValueTask
-                                            value={description}
+                                            value={newDescription}
                                             label={'description'}
                                             taskRedactor={taskRedactor}
                                             placement={'bottom-start'}
                                             className={'description'}
                                             sx={{width: '100%'}}
                                             multiline={true}
+                                            onChange={changeSpecification}
                                             onClick={openTaskRedactor}
                                         />
                                     </div>
@@ -117,6 +141,7 @@ export const TaskEditor: FC<Props> = (props) => {
                                         variant={'contained'}
                                         size={'small'}
                                         sx={{marginLeft: '10px'}}
+                                        onClick={updateTask}
                                     />
                                 }
                             </div>

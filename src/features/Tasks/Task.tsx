@@ -48,7 +48,7 @@ export const Task: FC<Props> = (props) => {
         <>
             <CustomLinearProgress visible={visibleLiner}/>
             {
-                task ?
+                task.length > 0 ?
                     task.map((ts: TasksType) => (
                         <div key={ts.id} className={s.task}>
                             <div className={s.container} onClick={() => openTaskEditor(ts.id)}>
@@ -74,6 +74,9 @@ export const Task: FC<Props> = (props) => {
                             {
                                 taskId && taskId === ts.id &&
                                 <TaskEditor
+                                    taskId={ts.id}
+                                    todolistId={todolistId}
+                                    task={ts}
                                     taskName={ts.title}
                                     todolistTitle={todolistTitle}
                                     description={ts.description}
@@ -84,7 +87,7 @@ export const Task: FC<Props> = (props) => {
                         </div>
                     ))
                     :
-                    <div className={s.empty}>You don't have tasks.</div>
+                    <div className={s.empty}>You don't have tasks. Click on button, that create a task !!!</div>
             }
         </>
     )

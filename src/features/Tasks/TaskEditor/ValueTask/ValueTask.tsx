@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {ChangeEvent, FC} from "react";
 import {CustomTextField} from "../../../../common/components/CustomTextField/CustomTextField"
 import s from './ValueTask.module.css'
 
@@ -10,11 +10,12 @@ type Props = {
     className: string
     multiline: boolean
     sx: Object
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
     onClick: () => void
 }
 
 export const ValueTask: FC<Props> = (props) => {
-    const {value, label, sx, taskRedactor, className, multiline, onClick} = props
+    const {value, label, sx, taskRedactor, className, multiline, onChange, onClick} = props
 
     return (
         <>
@@ -27,8 +28,7 @@ export const ValueTask: FC<Props> = (props) => {
                         size={'small'}
                         multiline={multiline}
                         sx={sx}
-                        onChange={() => {
-                        }}
+                        onChange={onChange}
                     />
                     :
                     <p className={className === 'taskName' ? s.taskName : s.description}

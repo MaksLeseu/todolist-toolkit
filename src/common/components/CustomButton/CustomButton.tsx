@@ -7,7 +7,7 @@ type Props = {
     variant: 'contained' | 'text' | 'outlined'
     type?: 'submit' | 'reset' | 'button'
     size?: 'small' | 'medium'
-    sx?: Object | null
+    sx?: Object
     onClick?: () => void
 }
 
@@ -19,7 +19,7 @@ export const CustomButton: FC<Props> = (props) => {
             variant={variant}
             color={color}
             type={type && type}
-            sx={sx && sx}
+            sx={sx}
             size={size && size}
             onClick={onClick}
         >

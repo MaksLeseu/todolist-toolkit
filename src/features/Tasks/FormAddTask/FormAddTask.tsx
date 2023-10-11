@@ -46,7 +46,6 @@ export const FormAddTask: FC<Props> = (props) => {
                     color={'primary'}
                     label={MSG_BTN.ADD_A_TASK}
                     variant={'contained'}
-                    sx={null}
                     onClick={addTaskHandle}
                 />
             </div>

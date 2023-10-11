@@ -15,6 +15,6 @@ export const tasksApi = {
         return instance.delete(`/${baseTodo}/${todolistId}/${base}/${taskId}`)
     },
     changeTask(arg: AddDescriptionArgType) {
-        return instance.put(`/${baseTodo}/${arg.todolistId}/${base}/${arg.taskId}`, {description: arg.description})
+        return instance.put(`/${baseTodo}/${arg.todolistId}/${base}/${arg.taskId}`, {...arg.description})
     }
 }
