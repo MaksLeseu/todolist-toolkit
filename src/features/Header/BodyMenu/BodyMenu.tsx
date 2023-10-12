@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {ChangeEvent, FC, useState} from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Divider from "@mui/material/Divider";
@@ -11,6 +11,8 @@ import {CreateTodoButton} from "./CreateTodoButton/CreateTodoButton";
 import {TodosList} from "./TodosList/TodosList";
 import s from '../Header.module.css'
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
+import {ModalWindow} from "../../../common/components/ModalWindow/ModalWindow";
+import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
 
 const drawerWidth = 240;
 
@@ -68,7 +70,20 @@ type Props = {
 }
 
 export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
+    const dispatch = useAppDispatch()
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
+
+    const [modalWindow, setModalWindow] = useState<boolean>(false)
+    const [todoName, setTodoName] = useState<string>('')
+
+    const changeTodoName = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
+
+    const openModalWindow = () => setModalWindow(true)
+    const closeModalWindow = () => setModalWindow(false)
+
+    const addTodo = () => {
+
+    }
 
     const theme = useTheme();
 
@@ -91,6 +106,7 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
                     <List sx={{backgroundColor: 'rgba(32, 33, 35, 1.00)'}}>
                         <CreateTodoButton
                             open={open}
+                            openModalWindow={openModalWindow}
                         />
                     </List>
                     <Divider sx={{backgroundColor: 'rgb(236, 236, 241)'}}/>
@@ -107,6 +123,16 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
                         />
                     </List>
                 </Drawer>
+            }
+            {
+                modalWindow &&
+                <ModalWindow
+                    value={todoName}
+                    open={true}
+                    changeTodoName={changeTodoName}
+                    closeModalWindow={closeModalWindow}
+                    addTodo={addTodo}
+                />
             }
         </>
     )

@@ -9,9 +9,12 @@ import {CustomListItem} from "../../../../common/components/CustomListItem/Custo
 
 type Props = {
     open: boolean
+    openModalWindow: () => void
 }
 
-export const CreateTodoButton: FC<Props> = ({open}) => {
+export const CreateTodoButton: FC<Props> = (props) => {
+    const {open, openModalWindow} = props
+
     return (
         <CustomListItem
             disablePadding={true}
@@ -24,6 +27,7 @@ export const CreateTodoButton: FC<Props> = ({open}) => {
                     justifyContent: open ? 'initial' : 'center',
                     px: 2.5,
                 }}
+                onClick={openModalWindow}
             >
                 <ListItemIcon
                     sx={{
