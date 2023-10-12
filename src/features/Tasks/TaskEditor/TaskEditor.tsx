@@ -15,6 +15,7 @@ import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTool
 import {tasksThunk} from "../tasks.slice";
 import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
 import {TasksType} from "../tasks.types";
+import DrawIcon from '@mui/icons-material/Draw';
 
 type Props = {
     taskId: string
@@ -76,12 +77,23 @@ export const TaskEditor: FC<Props> = (props) => {
                             <p>{todolistTitle}</p>
                         </div>
 
-                        <CustomIconButton
-                            disableRipple={false}
-                            onClick={closeTaskEditor}
-                        >
-                            <CloseIcon/>
-                        </CustomIconButton>
+                        <div>
+                            <CustomIconButton
+                                disableRipple={false}
+                                onClick={openTaskRedactor}
+                                color={'primary'}
+                            >
+                                <DrawIcon/>
+                            </CustomIconButton>
+
+                            <CustomIconButton
+                                disableRipple={false}
+                                color={'inherit'}
+                                onClick={closeTaskEditor}
+                            >
+                                <CloseIcon/>
+                            </CustomIconButton>
+                        </div>
                     </div>
                     <Divider/>
 
