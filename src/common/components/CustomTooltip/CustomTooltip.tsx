@@ -1,10 +1,21 @@
 import React, {FC, ReactElement} from "react";
 import Tooltip from "@mui/material/Tooltip";
-import {Nullable} from "../../utils/types/optional.types";
 
 type Props = {
-    title: Nullable<string>
-    placement?: "right-start" | "bottom-end" | "bottom-start" | "bottom" | "left-end" | "left-start" | "left" | "right-end" | "top-start"
+    title: React.ReactNode
+    placement?:
+        | 'bottom-end'
+        | 'bottom-start'
+        | 'bottom'
+        | 'left-end'
+        | 'left-start'
+        | 'left'
+        | 'right-end'
+        | 'right-start'
+        | 'right'
+        | 'top-end'
+        | 'top-start'
+        | 'top'
     children: ReactElement
 }
 

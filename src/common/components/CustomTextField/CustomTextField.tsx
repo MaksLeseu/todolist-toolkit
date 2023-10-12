@@ -4,12 +4,12 @@ import TextField from "@mui/material/TextField";
 type Props = {
     label: string
     type?: string
-    value: string
-    margin?: "normal" | "none" | "dense" | undefined
+    value?: string
+    margin?: "normal" | "none" | "dense"
     name?: string
     variant?: 'filled' | 'standard' | 'outlined'
     size: 'small' | 'medium'
-    multiline: boolean
+    multiline?: boolean
     sx?: Object
     onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
@@ -22,15 +22,15 @@ export const CustomTextField: FC<Props> = (props) => {
         <>
             <TextField
                 label={label}
-                type={type && type}
+                type={type}
                 variant={variant ? variant : 'standard'}
-                margin={margin && margin}
-                name={name && name}
+                margin={margin}
+                name={name}
                 sx={sx ? sx : {width: '100%'}}
                 size={size}
                 multiline={multiline}
                 value={value}
-                onBlur={onBlur && onBlur}
+                onBlur={onBlur}
                 onChange={onChange}
             />
         </>
