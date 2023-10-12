@@ -59,26 +59,6 @@ export const ModalWindow: FC<ModalWindowPropsType> = (props) => {
                         sx={{marginTop: '25px', marginLeft: '6px'}}
                         onClick={addTodo}
                     />
-
-                    {/*<CustomIconButton
-                        size={'medium'}
-                        color={'success'}
-                        disableRipple={false}
-                        sx={{marginTop: '15px', marginLeft: '6px'}}
-                        onClick={() => addTask(value)}
-                    >
-                        <ArrowCircleRightIcon/>
-                    </CustomIconButton>*/}
-
-                    {/* <CustomIconButton
-                        size={'medium'}
-                        color={'error'}
-                        disableRipple={false}
-                        sx={{marginTop: '15px', marginLeft: '3px'}}
-                        onClick={onClick}
-                    >
-                        <CancelIcon/>
-                    </CustomIconButton>*/}
                 </div>
             </Box>
         </CustomModalWindow>

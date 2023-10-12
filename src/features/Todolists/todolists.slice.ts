@@ -17,6 +17,9 @@ const slice = createSlice({
             .addCase(fetchTodolists.fulfilled, (state, action) => {
                 action.payload.todolists.forEach(tl => state.push(tl))
             })
+            .addCase(addTodolist.fulfilled, (state, action) => {
+                state.push(action.payload.todolist)
+            })
             .addCase(removeTodolist.fulfilled, (state, action) => {
                 const index = state.findIndex((td) => td.id === action.payload.todolistId)
                 if (index !== -1) state.splice(index, 1)
@@ -33,6 +36,18 @@ export const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistsType[] }
         const res = await todolistsApi.getTodolists()
         res.data.forEach(tl => dispatch(tasksThunk.fetchTasks({todolistId: tl.id})))
         return {todolists: res.data}
+    } catch (error) {
+        return rejectWithValue(null)
+    }
+})
+
+export const addTodolist = createAppAsyncThunk<any, { title: string }>
+('todolists/addTodolist', async (arg, thunkAPI) => {
+    const {rejectWithValue} = thunkAPI
+
+    try {
+        const res = await todolistsApi.addTodolist(arg.title)
+        return {todolist: res.data.data.item}
     } catch (error) {
         return rejectWithValue(null)
     }
@@ -57,4 +72,4 @@ export const removeTodolist = createAppAsyncThunk<{ todolistId: string },
 
 export const todolistsActions = slice.actions
 export const todolistsSlice = slice.reducer
-export const todolistsThunk = {fetchTodolists, removeTodolist}
+export const todolistsThunk = {fetchTodolists, addTodolist, removeTodolist}

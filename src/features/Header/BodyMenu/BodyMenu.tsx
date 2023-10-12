@@ -13,6 +13,7 @@ import s from '../Header.module.css'
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 import {ModalWindow} from "../../../common/components/ModalWindow/ModalWindow";
 import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
+import {todolistsThunk} from "../../Todolists/todolists.slice";
 
 const drawerWidth = 240;
 
@@ -82,7 +83,7 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
     const closeModalWindow = () => setModalWindow(false)
 
     const addTodo = () => {
-
+        if (todoName.trim()) dispatch(todolistsThunk.addTodolist({title: todoName}))
     }
 
     const theme = useTheme();

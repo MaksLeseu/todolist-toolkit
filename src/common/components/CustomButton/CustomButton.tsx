@@ -1,5 +1,7 @@
 import React, {FC} from "react";
 import {Button} from "@mui/material";
+import {SxProps} from "@mui/system";
+import {Theme} from "@mui/material/styles";
 
 type Props = {
     color: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
@@ -7,7 +9,7 @@ type Props = {
     variant: 'contained' | 'text' | 'outlined'
     type?: 'submit' | 'reset' | 'button'
     size?: 'small' | 'medium' | 'large'
-    sx?: Object
+    sx?: SxProps<Theme>
     onClick?: () => void
 }
 
@@ -27,3 +29,20 @@ export const CustomButton: FC<Props> = (props) => {
         </Button>
     )
 }
+
+type PropsTwo = {
+    label: string
+}
+
+export const CustomButtonTwo: FC<PropsTwo> = (props) => {
+    const {label,} = props
+
+    return (
+        <Button
+            sx={{}}
+        >
+            {label}
+        </Button>
+    )
+}
+
