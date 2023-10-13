@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, MouseEventHandler} from "react";
 import {Button} from "@mui/material";
 import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material/styles";
@@ -10,7 +10,7 @@ type Props = {
     type?: 'submit' | 'reset' | 'button'
     size?: 'small' | 'medium' | 'large'
     sx?: SxProps<Theme>
-    onClick?: () => void
+    onClick?: MouseEventHandler
 }
 
 export const CustomButton: FC<Props> = (props) => {
@@ -30,19 +30,4 @@ export const CustomButton: FC<Props> = (props) => {
     )
 }
 
-type PropsTwo = {
-    label: string
-}
-
-export const CustomButtonTwo: FC<PropsTwo> = (props) => {
-    const {label,} = props
-
-    return (
-        <Button
-            sx={{}}
-        >
-            {label}
-        </Button>
-    )
-}
 

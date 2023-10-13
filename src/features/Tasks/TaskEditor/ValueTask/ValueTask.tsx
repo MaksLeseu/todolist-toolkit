@@ -1,17 +1,20 @@
-import React, {ChangeEvent, FC} from "react";
+import React, {FC, MouseEventHandler} from "react";
 import {CustomTextField} from "../../../../common/components/CustomTextField/CustomTextField"
 import s from './ValueTask.module.css'
+import {SxProps} from "@mui/system";
+import {Theme} from "@mui/material/styles";
+import {OutlinedInputProps} from "@mui/material/OutlinedInput";
 
 type Props = {
     value: string
-    label: string
+    label: React.ReactNode
     placement: "right-start" | "bottom-end" | "bottom-start" | "bottom" | "left-end" | "left-start" | "left" | "right-end" | "top-start" | undefined
     taskRedactor: boolean
     className: string
     multiline: boolean
-    sx: Object
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void
-    onClick: () => void
+    sx: SxProps<Theme>
+    onChange: OutlinedInputProps['onChange']
+    onClick: MouseEventHandler | undefined
 }
 
 export const ValueTask: FC<Props> = (props) => {

@@ -1,17 +1,19 @@
 import React, {FC} from "react";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import {CustomPopover} from "../CustomPopover/CustomPopover";
+import {AnchorElType, CustomPopover} from "../CustomPopover/CustomPopover";
 import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
 
-type MoreHorizPropsType = {
+type Props = {
     taskId: string
     removeTask: (taskId: string) => void
 }
 
-export const MoreHoriz: FC<MoreHorizPropsType> = (props) => {
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+export const MoreHoriz: FC<Props> = (props) => {
+    const {taskId, removeTask} = props
 
-    const handleClosePopover = (event: any) => {
+    const [anchorEl, setAnchorEl] = React.useState<AnchorElType>(null);
+
+    const handleClosePopover = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
         setAnchorEl(null);
     };
@@ -31,10 +33,10 @@ export const MoreHoriz: FC<MoreHorizPropsType> = (props) => {
                 <MoreHorizIcon/>
             </CustomIconButton>
             <CustomPopover
-                taskId={props.taskId}
+                taskId={taskId}
                 anchorEl={anchorEl}
                 handleClosePopover={handleClosePopover}
-                removeTask={props.removeTask}
+                removeTask={removeTask}
             />
         </div>
     )

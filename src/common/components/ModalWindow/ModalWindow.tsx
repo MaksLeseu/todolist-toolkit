@@ -4,7 +4,7 @@ import {CustomTextField} from "../CustomTextField/CustomTextField";
 import {CustomModalWindow} from "../CustomModalWindow/CustomModalWindow";
 import {CustomButton} from "../CustomButton/CustomButton";
 
-type ModalWindowPropsType = {
+type Props = {
     value: string
     open: boolean
     changeTodoName: (e: ChangeEvent<HTMLInputElement>) => void
@@ -12,7 +12,7 @@ type ModalWindowPropsType = {
     addTodo: () => void
 }
 
-export const ModalWindow: FC<ModalWindowPropsType> = (props) => {
+export const ModalWindow: FC<Props> = (props) => {
     const {value, open, changeTodoName, closeModalWindow, addTodo} = props
 
     const style = {

@@ -1,9 +1,9 @@
-import React, {FC} from "react";
+import React, {FC, MouseEventHandler} from "react";
 import BackspaceIcon from '@mui/icons-material/Backspace';
 import {CustomIconButton} from "../../../../common/components/CustomIconButton/CustomIconButton";
 
 type Props = {
-    onClick: () => void
+    onClick: MouseEventHandler | undefined
 }
 
 export const ButtonRemoveTodo: FC<Props> = (props) => {

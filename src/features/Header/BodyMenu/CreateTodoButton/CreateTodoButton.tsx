@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, MouseEventHandler} from "react";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
@@ -9,7 +9,7 @@ import {CustomListItem} from "../../../../common/components/CustomListItem/Custo
 
 type Props = {
     open: boolean
-    openModalWindow: () => void
+    openModalWindow: MouseEventHandler | undefined
 }
 
 export const CreateTodoButton: FC<Props> = (props) => {

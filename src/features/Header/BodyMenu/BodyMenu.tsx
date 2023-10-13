@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useState} from "react";
+import React, {ChangeEvent, FC, MouseEventHandler, useState} from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Divider from "@mui/material/Divider";
@@ -67,7 +67,7 @@ const DrawerHeader = styled('div')(({theme}) => ({
 
 type Props = {
     open: boolean
-    handleDrawerClose: () => void
+    handleDrawerClose: MouseEventHandler
 }
 
 export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {

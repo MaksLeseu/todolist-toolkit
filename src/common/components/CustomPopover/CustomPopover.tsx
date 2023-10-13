@@ -8,20 +8,33 @@ import {ListItem} from "@mui/material";
 import {MSG_BTN} from "../../utils/constans/app-messages.const";
 import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
 
-type BasicPopoverPropsType = {
+interface PopoverVirtualElement {
+    getBoundingClientRect: () => DOMRect;
+    nodeType: Node['ELEMENT_NODE'];
+}
+
+export type AnchorElType = | null
+    | Element
+    | (() => Element)
+    | PopoverVirtualElement
+    | (() => PopoverVirtualElement);
+
+type Props = {
     taskId: string
-    anchorEl: HTMLButtonElement | null
-    handleClosePopover: (event: any) => void
+    anchorEl: AnchorElType
+    handleClosePopover: (event: React.MouseEvent<HTMLButtonElement>) => void
     removeTask: (taskId: string) => void
 }
 
-export const CustomPopover: FC<BasicPopoverPropsType> = (props) => {
-    const open = Boolean(props.anchorEl);
+export const CustomPopover: FC<Props> = (props) => {
+    const {taskId, anchorEl, removeTask, handleClosePopover} = props
+
+    const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
     const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        props.removeTask(props.taskId)
-        props.handleClosePopover(event)
+        removeTask(taskId)
+        handleClosePopover(event)
     }
 
     return (
@@ -29,8 +42,8 @@ export const CustomPopover: FC<BasicPopoverPropsType> = (props) => {
             <Popover
                 id={id}
                 open={open}
-                anchorEl={props.anchorEl}
-                onClose={props.handleClosePopover}
+                anchorEl={anchorEl}
+                onClose={handleClosePopover}
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'left',

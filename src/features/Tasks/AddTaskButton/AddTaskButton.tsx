@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, MouseEventHandler} from "react";
 import AddIcon from '@mui/icons-material/Add';
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -6,8 +6,8 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
 
 type Props = {
-    label: string
-    openFormAddTask: () => void
+    label: React.ReactNode
+    openFormAddTask: MouseEventHandler | undefined
 }
 
 export const AddTaskButton: FC<Props> = ({label, openFormAddTask}) => {

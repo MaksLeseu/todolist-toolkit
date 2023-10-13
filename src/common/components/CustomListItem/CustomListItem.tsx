@@ -2,10 +2,12 @@ import React, {FC, ReactElement} from "react";
 import {ListItem} from "@mui/material";
 import {Nullable} from "../../utils/types/optional.types";
 import {CustomTooltip} from "../CustomTooltip/CustomTooltip";
+import {SxProps} from "@mui/system";
+import {Theme} from "@mui/material/styles";
 
 type Props = {
     disablePadding: boolean
-    sx: Object
+    sx: SxProps<Theme>
     children: ReactElement
     titleTooltip: Nullable<string>
 }

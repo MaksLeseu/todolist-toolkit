@@ -1,5 +1,6 @@
-import React, {FC, ReactNode} from "react";
-import {IconButton} from "@mui/material";
+import React, {FC, MouseEventHandler, ReactNode} from "react";
+import {IconButton, Theme} from "@mui/material";
+import {SxProps} from "@mui/system";
 
 type Props = {
     size?: "small" | "medium" | "large"
@@ -7,8 +8,8 @@ type Props = {
     disableRipple: boolean
     edge?: false | "start" | "end"
     children: ReactNode
-    sx?: Object
-    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
+    sx?: SxProps<Theme>
+    onClick: MouseEventHandler | undefined
 }
 
 export const CustomIconButton: FC<Props> = (props) => {

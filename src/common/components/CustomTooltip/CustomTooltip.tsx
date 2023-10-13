@@ -20,10 +20,10 @@ type Props = {
 }
 
 export const CustomTooltip: FC<Props> = (props) => {
-    const {title, placement, children} = props
+    const {title, placement = 'right-start', children} = props
 
     return (
-        <Tooltip title={title} placement={placement ? placement : 'right-start'} arrow>
+        <Tooltip title={title} placement={placement} arrow>
             {children}
         </Tooltip>
     )
