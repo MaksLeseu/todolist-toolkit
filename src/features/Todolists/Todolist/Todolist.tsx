@@ -1,13 +1,17 @@
-import React, {ChangeEvent, FC, useState} from "react";
+import React, {ChangeEvent, FC, useEffect, useState} from "react";
 import s from './Todolist.module.css'
 import {Task} from "../../Tasks/Task";
 import {AddTaskButton} from "../../Tasks/AddTaskButton/AddTaskButton";
 import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
 import DescriptionIcon from '@mui/icons-material/Description';
 import {todolistsThunk} from "../todolists.slice";
-import {tasksThunk} from "../../Tasks/tasks.slice";
+import {StateTaskType, tasksThunk} from "../../Tasks/tasks.slice";
 import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 import {FormAddTask} from "../../Tasks/FormAddTask/FormAddTask";
+import {useAppSelector} from "../../../common/utils/hooks/useAppSelector";
+import {taskSelector} from "../../Tasks/task.selector";
+import {Preloader} from "../../../common/components/Preloader/Preloader";
+import {TasksType} from "../../Tasks/tasks.types";
 
 type Props = {
     todolistId: string
@@ -18,6 +22,12 @@ export const Todolist: FC<Props> = (props) => {
     const {todolistId, todolistTitle} = props
 
     const dispatch = useAppDispatch()
+    const tasks: StateTaskType = useAppSelector(taskSelector)
+    const task: TasksType[] = tasks[todolistId]
+
+    useEffect(() => {
+        dispatch(tasksThunk.fetchTasks({todolistId}))
+    }, [])
 
     const [formAddTask, setFormAddTask] = useState<boolean>(false)
 
@@ -50,6 +60,8 @@ export const Todolist: FC<Props> = (props) => {
     const removeTodolist = () => {
         dispatch(todolistsThunk.removeTodolist(todolistId))
     }
+
+    if (task === undefined) return <Preloader/>
 
     return (
         <div>

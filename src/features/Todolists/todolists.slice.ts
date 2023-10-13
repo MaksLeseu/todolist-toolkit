@@ -1,6 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {createAppAsyncThunk} from "../../common/utils/thunks/create-app-async-thunk";
-import {tasksThunk} from "../Tasks/tasks.slice";
 import {todolistsApi} from "./todolists.api";
 import {TodolistsType} from "./todolists.types";
 
@@ -18,7 +17,7 @@ const slice = createSlice({
                 action.payload.todolists.forEach(tl => state.push(tl))
             })
             .addCase(addTodolist.fulfilled, (state, action) => {
-                state.push(action.payload.todolist)
+                state.unshift(action.payload.todolist)
             })
             .addCase(removeTodolist.fulfilled, (state, action) => {
                 const index = state.findIndex((td) => td.id === action.payload.todolistId)
@@ -34,7 +33,6 @@ export const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistsType[] }
 
     try {
         const res = await todolistsApi.getTodolists()
-        res.data.forEach(tl => dispatch(tasksThunk.fetchTasks({todolistId: tl.id})))
         return {todolists: res.data}
     } catch (error) {
         return rejectWithValue(null)
