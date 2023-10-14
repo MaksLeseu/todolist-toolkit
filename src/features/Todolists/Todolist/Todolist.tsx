@@ -4,7 +4,6 @@ import {Task} from "../../Tasks/Task";
 import {AddTaskButton} from "../../Tasks/AddTaskButton/AddTaskButton";
 import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
 import DescriptionIcon from '@mui/icons-material/Description';
-import {todolistsThunk} from "../todolists.slice";
 import {StateTaskType, tasksThunk} from "../../Tasks/tasks.slice";
 import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 import {FormAddTask} from "../../Tasks/FormAddTask/FormAddTask";
@@ -55,10 +54,6 @@ export const Todolist: FC<Props> = (props) => {
         dispatch(tasksThunk.addTask({todolistId: todolistId, title, description}))
             .finally(() => setVisibleLiner(false))
         closeFormAddTask()
-    }
-
-    const removeTodolist = () => {
-        dispatch(todolistsThunk.removeTodolist(todolistId))
     }
 
     if (task === undefined) return <Preloader/>

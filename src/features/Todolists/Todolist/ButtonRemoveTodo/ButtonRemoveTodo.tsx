@@ -1,22 +1,23 @@
-import React, {FC, MouseEventHandler} from "react";
-import BackspaceIcon from '@mui/icons-material/Backspace';
+import React, {FC} from "react";
 import {CustomIconButton} from "../../../../common/components/CustomIconButton/CustomIconButton";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 type Props = {
-    onClick: MouseEventHandler | undefined
+    todolistId?: string | undefined
+    removeTodo: (todolistId: string | undefined) => void
 }
 
 export const ButtonRemoveTodo: FC<Props> = (props) => {
-    const {onClick} = props
+    const {todolistId, removeTodo} = props
 
     return (
         <CustomIconButton
             size={'small'}
-            color={'default'}
+            color={'inherit'}
             disableRipple={false}
-            onClick={onClick}
+            onClick={() => removeTodo(todolistId)}
         >
-            <BackspaceIcon/>
+            <DeleteForeverIcon/>
         </CustomIconButton>
     )
 }

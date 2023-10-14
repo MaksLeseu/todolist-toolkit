@@ -8,12 +8,15 @@ import ListItemText from "@mui/material/ListItemText";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../store/store";
 import {CustomListItem} from "../../../../common/components/CustomListItem/CustomListItem";
+import {ButtonRemoveTodo} from "../../../Todolists/Todolist/ButtonRemoveTodo/ButtonRemoveTodo";
 
 type Props = {
     open: boolean
+    onClickNavLick: (event: any) => void
+    removeTodo: (todolistId: string | undefined) => void
 }
 
-export const TodosList: FC<Props> = ({open}) => {
+export const TodosList: FC<Props> = ({open, removeTodo, onClickNavLick}) => {
     const todos = useSelector((state: AppRootStateType) => state.todolists)
 
     return (
@@ -48,6 +51,12 @@ export const TodosList: FC<Props> = ({open}) => {
                                     primary={todo.title}
                                     sx={{opacity: open ? 1 : 0, color: 'rgba(236, 236, 241)'}}
                                 />
+                                {
+                                    open &&
+                                    <ButtonRemoveTodo
+                                        todolistId={todo.id}
+                                        removeTodo={removeTodo}
+                                    />}
                             </ListItemButton>
                         </CustomListItem>
                     </NavLink>

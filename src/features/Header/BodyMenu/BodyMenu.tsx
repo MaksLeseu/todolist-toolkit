@@ -77,6 +77,8 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
     const [modalWindow, setModalWindow] = useState<boolean>(false)
     const [todoName, setTodoName] = useState<string>('')
 
+    const [navLink, setNavLink] = useState<boolean>(false)
+
     const changeTodoName = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
 
     const openModalWindow = () => setModalWindow(true)
@@ -84,6 +86,14 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
 
     const addTodo = () => {
         if (todoName.trim()) dispatch(todolistsThunk.addTodolist({title: todoName}))
+    }
+
+    const preventDefault = (event: any) => {
+        event.preventDefault()
+    }
+
+    const removeTodo = (todolistId: string | undefined) => {
+        todolistId && dispatch(todolistsThunk.removeTodolist(todolistId))
     }
 
     const theme = useTheme();
@@ -121,6 +131,8 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
                         }
                         <TodosList
                             open={open}
+                            onClickNavLick={preventDefault}
+                            removeTodo={removeTodo}
                         />
                     </List>
                 </Drawer>
