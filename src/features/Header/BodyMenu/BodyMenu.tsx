@@ -11,7 +11,7 @@ import {CreateTodoButton} from "./CreateTodoButton/CreateTodoButton";
 import {TodosList} from "./TodosList/TodosList";
 import s from '../Header.module.css'
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
-import {ModalWindow} from "../../../common/components/ModalWindow/ModalWindow";
+import {AddTodoModalWindow} from "../../../common/components/AddTodoModalWindow/AddTodoModalWindow";
 import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
 import {todolistsThunk} from "../../Todolists/todolists.slice";
 
@@ -77,8 +77,6 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
     const [modalWindow, setModalWindow] = useState<boolean>(false)
     const [todoName, setTodoName] = useState<string>('')
 
-    const [navLink, setNavLink] = useState<boolean>(false)
-
     const changeTodoName = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
 
     const openModalWindow = () => setModalWindow(true)
@@ -89,7 +87,7 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
     }
 
     const preventDefault = (event: any) => {
-        event.preventDefault()
+        event.stopPropagation()
     }
 
     const removeTodo = (todolistId: string | undefined) => {
@@ -139,7 +137,7 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
             }
             {
                 modalWindow &&
-                <ModalWindow
+                <AddTodoModalWindow
                     value={todoName}
                     open={true}
                     changeTodoName={changeTodoName}
