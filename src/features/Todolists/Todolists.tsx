@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {NavLink, useParams} from "react-router-dom";
+import {Navigate, NavLink, useParams} from "react-router-dom";
 import {HomePageTodos} from "./HomePageTodos/HomePageTodos";
 import s from './Todolists.module.css'
 import {Todolist} from "./Todolist/Todolist";
@@ -20,7 +20,12 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
 
     const filterTodos = (): JSX.Element => {
         const todo = todos.filter(td => td.id === todolist)
-        return <Todolist key={todo[0].id} todolistId={todo[0].id} todolistTitle={todo[0].title}/>
+
+        if (todo.length <= 0) {
+            return <Navigate to={'/todolist-toolkit'}/>
+        } else {
+            return <Todolist key={todo[0].id} todolistId={todo[0].id} todolistTitle={todo[0].title}/>
+        }
     }
 
     const returnTodosList = (): JSX.Element[] => todos.map(td => (

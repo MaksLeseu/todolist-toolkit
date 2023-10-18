@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import s from "../../Header.module.css";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -12,12 +12,14 @@ import {ButtonRemoveTodo} from "../../../Todolists/Todolist/ButtonRemoveTodo/But
 
 type Props = {
     open: boolean
-    onClickNavLick: (event: any) => void
     removeTodo: (todolistId: string | undefined) => void
 }
 
-export const TodosList: FC<Props> = ({open, removeTodo, onClickNavLick}) => {
+export const TodosList: FC<Props> = ({open, removeTodo}) => {
     const todos = useSelector((state: AppRootStateType) => state.todolists)
+
+    const {todo} = useParams()
+    const todolist = todo ? todo : ''
 
     return (
         <>
@@ -52,7 +54,7 @@ export const TodosList: FC<Props> = ({open, removeTodo, onClickNavLick}) => {
                                     sx={{opacity: open ? 1 : 0, color: 'rgba(236, 236, 241)'}}
                                 />
                                 {
-                                    open &&
+                                    open && todolist === todo.id &&
                                     <ButtonRemoveTodo
                                         todolistId={todo.id}
                                         removeTodo={removeTodo}

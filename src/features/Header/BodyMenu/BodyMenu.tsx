@@ -86,10 +86,6 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
         if (todoName.trim()) dispatch(todolistsThunk.addTodolist({title: todoName}))
     }
 
-    const preventDefault = (event: any) => {
-        event.stopPropagation()
-    }
-
     const removeTodo = (todolistId: string | undefined) => {
         todolistId && dispatch(todolistsThunk.removeTodolist(todolistId))
     }
@@ -129,7 +125,6 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
                         }
                         <TodosList
                             open={open}
-                            onClickNavLick={preventDefault}
                             removeTodo={removeTodo}
                         />
                     </List>
