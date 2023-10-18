@@ -4,12 +4,11 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import s from './ButtonRemoveTodo.module.css'
 
 type Props = {
-    todolistId?: string | undefined
-    removeTodo: (todolistId: string | undefined) => void
+    openConfirmation: () => void
 }
 
 export const ButtonRemoveTodo: FC<Props> = (props) => {
-    const {todolistId, removeTodo} = props
+    const {openConfirmation} = props
 
     return (
         <div className={s.container}>
@@ -17,7 +16,7 @@ export const ButtonRemoveTodo: FC<Props> = (props) => {
                 size={'small'}
                 color={'inherit'}
                 disableRipple={false}
-                onClick={() => removeTodo(todolistId)}
+                onClick={openConfirmation}
             >
                 <DeleteForeverIcon/>
             </CustomIconButton>

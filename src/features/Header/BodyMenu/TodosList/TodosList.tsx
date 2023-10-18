@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import {NavLink, useParams} from "react-router-dom";
 import s from "../../Header.module.css";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -9,6 +9,7 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../store/store";
 import {CustomListItem} from "../../../../common/components/CustomListItem/CustomListItem";
 import {ButtonRemoveTodo} from "../../../Todolists/Todolist/ButtonRemoveTodo/ButtonRemoveTodo";
+import {ConfirmationModalWindow} from "../../../../common/components/СonfirmationModalWindow/СonfirmationModalWindow";
 
 type Props = {
     open: boolean
@@ -18,8 +19,17 @@ type Props = {
 export const TodosList: FC<Props> = ({open, removeTodo}) => {
     const todos = useSelector((state: AppRootStateType) => state.todolists)
 
+    const [confirmation, setConfirmation] = useState<boolean>(false)
+
     const {todo} = useParams()
     const todolist = todo ? todo : ''
+
+    const deletionConfirmation = (todolistId: string | undefined) => {
+        setConfirmation(false)
+        removeTodo(todolistId)
+    }
+
+    const changeConfirmation = () => setConfirmation(!confirmation)
 
     return (
         <>
@@ -56,9 +66,18 @@ export const TodosList: FC<Props> = ({open, removeTodo}) => {
                                 {
                                     open && todolist === todo.id &&
                                     <ButtonRemoveTodo
+                                        openConfirmation={changeConfirmation}
+                                    />
+                                }
+                                {
+                                    confirmation && todolist === todo.id &&
+                                    <ConfirmationModalWindow
                                         todolistId={todo.id}
-                                        removeTodo={removeTodo}
-                                    />}
+                                        title={todo.title}
+                                        closeConfirmation={changeConfirmation}
+                                        deletionConfirmation={deletionConfirmation}
+                                    />
+                                }
                             </ListItemButton>
                         </CustomListItem>
                     </NavLink>

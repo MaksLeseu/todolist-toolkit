@@ -4,6 +4,9 @@
 
 .confirmation p {
     font-size: 18px;
+}
+
+.confirmation span {
     font-weight: 700;
 }
 
