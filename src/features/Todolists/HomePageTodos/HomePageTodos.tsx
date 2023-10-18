@@ -1,6 +1,7 @@
 import {FC} from "react";
 import s from './HomePageTodos.module.css'
 import DescriptionIcon from '@mui/icons-material/Description';
+import {ConfirmationModalWindow} from "../../../common/components/СonfirmationModalWindow/СonfirmationModalWindow";
 
 type Props = {
     todoTitle: string
@@ -14,6 +15,7 @@ export const HomePageTodos: FC<Props> = ({todoTitle}) => {
                     <DescriptionIcon color={'info'}/>
                     <div className={s.title}>{todoTitle}</div>
                 </div>
+                <ConfirmationModalWindow/>
             </div>
         </div>
     )
