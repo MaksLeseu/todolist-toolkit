@@ -83,7 +83,11 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
     const closeModalWindow = () => setModalWindow(false)
 
     const addTodo = () => {
-        if (todoName.trim()) dispatch(todolistsThunk.addTodolist({title: todoName}))
+        if (todoName.trim()) {
+            dispatch(todolistsThunk.addTodolist({title: todoName}))
+            setTodoName('')
+            closeModalWindow()
+        }
     }
 
     const removeTodo = (todolistId: string | undefined) => {
