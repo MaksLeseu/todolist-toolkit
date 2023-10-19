@@ -5,8 +5,7 @@ import s from './ConfirmationModalWindow.module.css'
 
 type Props = {
     title: string
-    todolistId: string
-    deletionConfirmation: any
+    actionConfirmation: MouseEventHandler | undefined
     closeConfirmation: MouseEventHandler | undefined
 }
 
@@ -18,7 +17,7 @@ const style = {
 }
 
 export const ConfirmationModalWindow: FC<Props> = (props) => {
-    const {title, todolistId, deletionConfirmation, closeConfirmation} = props
+    const {title, actionConfirmation, closeConfirmation} = props
 
     return (
         <CustomModalWindow
@@ -41,7 +40,7 @@ export const ConfirmationModalWindow: FC<Props> = (props) => {
                         color={'error'}
                         label={'Delete'}
                         variant={'contained'}
-                        onClick={() => deletionConfirmation(todolistId)}
+                        onClick={actionConfirmation}
                     />
                 </div>
             </div>

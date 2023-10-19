@@ -1,10 +1,10 @@
-import React, {FC} from "react";
+import React, {FC, MouseEventHandler} from "react";
 import {CustomIconButton} from "../../../../common/components/CustomIconButton/CustomIconButton";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import s from './ButtonRemoveTodo.module.css'
 
 type Props = {
-    openConfirmation: () => void
+    openConfirmation: MouseEventHandler | undefined
 }
 
 export const ButtonRemoveTodo: FC<Props> = (props) => {

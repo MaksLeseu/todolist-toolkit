@@ -8,3 +8,18 @@
 .icon {
     color: rgb(236, 236, 241);
 }
+
+.headerContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    border: none;
+    font-size: 18px;
+}

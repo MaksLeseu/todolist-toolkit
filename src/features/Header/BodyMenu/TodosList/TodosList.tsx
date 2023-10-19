@@ -24,9 +24,9 @@ export const TodosList: FC<Props> = ({open, removeTodo}) => {
     const {todo} = useParams()
     const todolist = todo ? todo : ''
 
-    const deletionConfirmation = (todolistId: string | undefined) => {
-        setConfirmation(false)
+    const deletionConfirmation = (todolistId: string) => {
         removeTodo(todolistId)
+        setConfirmation(false)
     }
 
     const changeConfirmation = () => setConfirmation(!confirmation)
@@ -72,10 +72,9 @@ export const TodosList: FC<Props> = ({open, removeTodo}) => {
                                 {
                                     confirmation && todolist === todo.id &&
                                     <ConfirmationModalWindow
-                                        todolistId={todo.id}
                                         title={todo.title}
                                         closeConfirmation={changeConfirmation}
-                                        deletionConfirmation={deletionConfirmation}
+                                        actionConfirmation={() => deletionConfirmation(todo.id)}
                                     />
                                 }
                             </ListItemButton>

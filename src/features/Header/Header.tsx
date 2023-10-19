@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
-import {Typography} from "@mui/material";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
 import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
@@ -13,6 +12,7 @@ import {NavLink} from "react-router-dom";
 import {Menu} from "./Menu/Menu";
 import {LogOutButton} from "./LogOutButton/LogOutButton";
 import {BodyMenu} from "./BodyMenu/BodyMenu";
+import s from './Header.module.css'
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -70,28 +70,18 @@ export const Header = () => {
                         />
                     }
 
-                    <Typography
-                        variant={'h6'}
-                        component={'div'}
-                        sx={{flexGrow: 1}}
-                    >
-                        <NavLink to={'/todolist-toolkit'}>
-                            <Typography
-                                variant={'h6'}
-                                component={'div'}
-                                sx={{flexGrow: 1, color: 'white', textDecoration: 'none'}}
-                            >
-                                To-do list
-                            </Typography>
+                    <div className={s.headerContainer}>
+                        <NavLink className={s.title} to={'/todolist-toolkit'}>
+                            To-do list
                         </NavLink>
-                    </Typography>
 
-                    {
-                        isLoggedIn &&
-                        <LogOutButton
-                            handlerLogout={handlerLogout}
-                        />
-                    }
+                        {
+                            isLoggedIn &&
+                            <LogOutButton
+                                handlerLogout={handlerLogout}
+                            />
+                        }
+                    </div>
 
                 </Toolbar>
             </AppBar>
