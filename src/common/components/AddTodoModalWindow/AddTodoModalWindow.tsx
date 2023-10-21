@@ -1,19 +1,19 @@
-import React, {ChangeEvent, FC} from "react";
+import React, {ChangeEvent, FC, MouseEventHandler} from "react";
 import {CustomTextField} from "../CustomTextField/CustomTextField";
 import {CustomModalWindow} from "../CustomModalWindow/CustomModalWindow";
 import {CustomButton} from "../CustomButton/CustomButton";
 import s from './AddTodoModalWindow.module.css'
 
 type Props = {
+    isOpen: boolean
     value: string
-    open: boolean
     changeTodoName: (e: ChangeEvent<HTMLInputElement>) => void
-    closeModalWindow: () => void
+    closeModalWindow: MouseEventHandler | undefined
     addTodo: () => void
 }
 
 export const AddTodoModalWindow: FC<Props> = (props) => {
-    const {value, open, changeTodoName, closeModalWindow, addTodo} = props
+    const {isOpen, value, changeTodoName, closeModalWindow, addTodo} = props
 
     const style = {
         width: 350,
@@ -24,7 +24,7 @@ export const AddTodoModalWindow: FC<Props> = (props) => {
 
     return (
         <CustomModalWindow
-            open={open}
+            open={isOpen}
             title={'Add a to-do list'}
             styleObject={style}
             onClose={closeModalWindow}

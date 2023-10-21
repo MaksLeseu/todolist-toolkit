@@ -13,7 +13,6 @@ type StyleObjectType = {
     borderRadius: number
 }
 
-
 type Props = {
     open: boolean
     title: string

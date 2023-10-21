@@ -1,19 +1,19 @@
 import React, {ChangeEvent, FC, useState} from "react";
-import {Box} from "@mui/material";
-import s from './TaskEditor.module.css'
-import Checkbox from "@mui/material/Checkbox";
-import {CustomModalWindow} from "../../../common/components/CustomModalWindow/CustomModalWindow";
-import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
-import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
-import {SettingsTaskEditor} from "./SettingsTaskEditor/SettingsTaskEditor";
-import {ValueTask} from "./ValueTask/ValueTask";
-import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTooltip";
 import {tasksThunk} from "../tasks.slice";
 import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
 import {TasksType} from "../tasks.types";
-import DescriptionIcon from "@mui/icons-material/Description";
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
+import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
+import {ValueTask} from "./ValueTask/ValueTask";
+import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
+import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTooltip";
+import {CustomModalWindow} from "../../../common/components/CustomModalWindow/CustomModalWindow";
+import {SettingsTaskEditor} from "./SettingsTaskEditor/SettingsTaskEditor";
+import {Box} from "@mui/material";
+import Checkbox from "@mui/material/Checkbox";
+import s from './TaskEditor.module.css'
 import DrawIcon from '@mui/icons-material/Draw';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 type Props = {
     taskId: string

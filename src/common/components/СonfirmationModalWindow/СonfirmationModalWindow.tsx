@@ -1,9 +1,10 @@
 import React, {FC, MouseEventHandler} from "react";
-import {CustomModalWindow} from "../CustomModalWindow/CustomModalWindow";
 import {CustomButton} from "../CustomButton/CustomButton";
+import {CustomModalWindow} from "../CustomModalWindow/CustomModalWindow";
 import s from './ConfirmationModalWindow.module.css'
 
 type Props = {
+    isOpen: boolean
     title: string
     actionConfirmation: MouseEventHandler | undefined
     closeConfirmation: MouseEventHandler | undefined
@@ -17,33 +18,35 @@ const style = {
 }
 
 export const ConfirmationModalWindow: FC<Props> = (props) => {
-    const {title, actionConfirmation, closeConfirmation} = props
+    const {isOpen, title, actionConfirmation, closeConfirmation} = props
 
     return (
-        <CustomModalWindow
-            open={true}
-            title={'Delete to-do list?'}
-            styleObject={style}
-            onClose={closeConfirmation}
-        >
-            <div className={s.confirmation}>
-                <p>This will delete <span>{title}</span></p>
-                <div className={s.containerButton}>
-                    <CustomButton
-                        color={'inherit'}
-                        label={'Cancel'}
-                        variant={'contained'}
-                        sx={{marginRight: '10px'}}
-                        onClick={closeConfirmation}
-                    />
-                    <CustomButton
-                        color={'error'}
-                        label={'Delete'}
-                        variant={'contained'}
-                        onClick={actionConfirmation}
-                    />
+        <>
+            <CustomModalWindow
+                open={isOpen}
+                title={'Delete to-do list?'}
+                styleObject={style}
+                onClose={closeConfirmation}
+            >
+                <div className={s.confirmation}>
+                    <p>This will delete <span>{title}</span></p>
+                    <div className={s.containerButton}>
+                        <CustomButton
+                            color={'inherit'}
+                            label={'Cancel'}
+                            variant={'contained'}
+                            sx={{marginRight: '10px'}}
+                            onClick={closeConfirmation}
+                        />
+                        <CustomButton
+                            color={'error'}
+                            label={'Delete'}
+                            variant={'contained'}
+                            onClick={actionConfirmation}
+                        />
+                    </div>
                 </div>
-            </div>
-        </CustomModalWindow>
+            </CustomModalWindow>
+        </>
     )
 }

@@ -1,5 +1,5 @@
 import React, {FC, MouseEventHandler} from "react";
-import {CustomIconButton} from "../../../../common/components/CustomIconButton/CustomIconButton";
+import {CustomIconButton} from "../../../../../../common/components/CustomIconButton/CustomIconButton";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import s from './ButtonRemoveTodo.module.css'
 

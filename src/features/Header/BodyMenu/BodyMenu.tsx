@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, MouseEventHandler, useState} from "react";
+import React, {FC, MouseEventHandler} from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Divider from "@mui/material/Divider";
@@ -7,11 +7,10 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../store/store";
 import {CSSObject, styled, Theme, useTheme} from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
-import {CreateTodoButton} from "./CreateTodoButton/CreateTodoButton";
+import {CreateTodo} from "./CreateTodo/CreateTodo";
 import {TodosList} from "./TodosList/TodosList";
 import s from '../Header.module.css'
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
-import {AddTodoModalWindow} from "../../../common/components/AddTodoModalWindow/AddTodoModalWindow";
 import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
 import {todolistsThunk} from "../../Todolists/todolists.slice";
 
@@ -74,22 +73,6 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
 
-    const [modalWindow, setModalWindow] = useState<boolean>(false)
-    const [todoName, setTodoName] = useState<string>('')
-
-    const changeTodoName = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
-
-    const openModalWindow = () => setModalWindow(true)
-    const closeModalWindow = () => setModalWindow(false)
-
-    const addTodo = () => {
-        if (todoName.trim()) {
-            dispatch(todolistsThunk.addTodolist({title: todoName}))
-            setTodoName('')
-            closeModalWindow()
-        }
-    }
-
     const removeTodo = (todolistId: string | undefined) => {
         todolistId && dispatch(todolistsThunk.removeTodolist(todolistId))
     }
@@ -113,9 +96,8 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
                     </DrawerHeader>
                     <Divider sx={{backgroundColor: 'rgb(236, 236, 241)'}}/>
                     <List sx={{backgroundColor: 'rgba(32, 33, 35, 1.00)'}}>
-                        <CreateTodoButton
+                        <CreateTodo
                             open={open}
-                            openModalWindow={openModalWindow}
                         />
                     </List>
                     <Divider sx={{backgroundColor: 'rgb(236, 236, 241)'}}/>
@@ -133,16 +115,6 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
                         />
                     </List>
                 </Drawer>
-            }
-            {
-                modalWindow &&
-                <AddTodoModalWindow
-                    value={todoName}
-                    open={true}
-                    changeTodoName={changeTodoName}
-                    closeModalWindow={closeModalWindow}
-                    addTodo={addTodo}
-                />
             }
         </>
     )
