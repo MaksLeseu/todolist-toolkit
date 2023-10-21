@@ -63,6 +63,7 @@ export const Task: FC<Props> = (props) => {
 
                                     <MoreHoriz
                                         taskId={ts.id}
+                                        taskTitle={ts.title}
                                         removeTask={removeTask}
                                     />
                                 </div>

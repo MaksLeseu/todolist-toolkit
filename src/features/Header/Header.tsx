@@ -44,29 +44,23 @@ export const Header = () => {
 
     const handlerLogout = () => dispatch(authThunk.logout({}))
 
-    const [open, setOpen] = React.useState(false);
+    const [isOpen, setIsOpen] = React.useState(false);
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+    const changeDrawer = () => setIsOpen(!isOpen)
 
     return (
         <Box sx={{display: 'flex', marginBottom: '65px'}}>
             <CssBaseline/>
-            <AppBar position="fixed" open={open}>
+            <AppBar position="fixed" open={isOpen}>
                 <Toolbar>
                     {
                         isLoggedIn &&
                         <Menu
                             sx={{
                                 marginRight: 5,
-                                ...(open && {display: 'none'}),
+                                ...(isOpen && {display: 'none'}),
                             }}
-                            handleDrawerOpen={handleDrawerOpen}
+                            handleDrawerOpen={changeDrawer}
                         />
                     }
 
@@ -87,8 +81,8 @@ export const Header = () => {
             </AppBar>
 
             <BodyMenu
-                open={open}
-                handleDrawerClose={handleDrawerClose}
+                isOpen={isOpen}
+                handleDrawerClose={changeDrawer}
             />
         </Box>
     );

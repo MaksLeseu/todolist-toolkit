@@ -65,11 +65,11 @@ const DrawerHeader = styled('div')(({theme}) => ({
 
 
 type Props = {
-    open: boolean
+    isOpen: boolean
     handleDrawerClose: MouseEventHandler
 }
 
-export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
+export const BodyMenu: FC<Props> = ({isOpen, handleDrawerClose}) => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
 
@@ -84,7 +84,7 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
             {
                 isLoggedIn &&
 
-                <Drawer variant="permanent" open={open}>
+                <Drawer variant="permanent" open={isOpen}>
                     <DrawerHeader sx={{backgroundColor: 'rgba(32, 33, 35, 1.00)'}}>
                         <CustomIconButton
                             disableRipple={false}
@@ -97,20 +97,20 @@ export const BodyMenu: FC<Props> = ({open, handleDrawerClose}) => {
                     <Divider sx={{backgroundColor: 'rgb(236, 236, 241)'}}/>
                     <List sx={{backgroundColor: 'rgba(32, 33, 35, 1.00)'}}>
                         <CreateTodo
-                            open={open}
+                            open={isOpen}
                         />
                     </List>
                     <Divider sx={{backgroundColor: 'rgb(236, 236, 241)'}}/>
                     <List sx={{backgroundColor: 'rgba(32, 33, 35, 1.00)', height: '100%'}}>
                         {
-                            open &&
+                            isOpen &&
                             <List
                                 sx={{color: 'rgb(142, 142, 160)', marginLeft: '10px'}}>
                                 To-do lists:
                             </List>
                         }
                         <TodosList
-                            open={open}
+                            open={isOpen}
                             removeTodo={removeTodo}
                         />
                     </List>

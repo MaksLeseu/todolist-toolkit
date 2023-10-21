@@ -29,7 +29,8 @@ export const RemoveTodo: FC<Props> = (props) => {
             />
             <ConfirmationModalWindow
                 isOpen={confirmation}
-                title={todolistTitle}
+                title={'to-do list'}
+                description={todolistTitle}
                 closeConfirmation={changeConfirmation}
                 actionConfirmation={() => deletionConfirmation(todolistId)}
             />

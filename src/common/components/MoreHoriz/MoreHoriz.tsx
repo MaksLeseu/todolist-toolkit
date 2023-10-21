@@ -5,11 +5,12 @@ import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
 
 type Props = {
     taskId: string
+    taskTitle: string
     removeTask: (taskId: string) => void
 }
 
 export const MoreHoriz: FC<Props> = (props) => {
-    const {taskId, removeTask} = props
+    const {taskId, taskTitle, removeTask} = props
 
     const [anchorEl, setAnchorEl] = React.useState<AnchorElType>(null);
 
@@ -34,6 +35,7 @@ export const MoreHoriz: FC<Props> = (props) => {
             </CustomIconButton>
             <CustomPopover
                 taskId={taskId}
+                taskTitle={taskTitle}
                 anchorEl={anchorEl}
                 handleClosePopover={handleClosePopover}
                 removeTask={removeTask}

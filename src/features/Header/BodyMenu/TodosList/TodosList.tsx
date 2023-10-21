@@ -18,7 +18,6 @@ type Props = {
 export const TodosList: FC<Props> = ({open, removeTodo}) => {
     const todos = useSelector((state: AppRootStateType) => state.todolists)
 
-
     const {todo} = useParams()
     const todolist = todo ? todo : ''
 

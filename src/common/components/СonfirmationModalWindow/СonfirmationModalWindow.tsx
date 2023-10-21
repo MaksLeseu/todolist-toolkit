@@ -6,6 +6,7 @@ import s from './ConfirmationModalWindow.module.css'
 type Props = {
     isOpen: boolean
     title: string
+    description: string
     actionConfirmation: MouseEventHandler | undefined
     closeConfirmation: MouseEventHandler | undefined
 }
@@ -18,18 +19,18 @@ const style = {
 }
 
 export const ConfirmationModalWindow: FC<Props> = (props) => {
-    const {isOpen, title, actionConfirmation, closeConfirmation} = props
+    const {isOpen, title, description, actionConfirmation, closeConfirmation} = props
 
     return (
         <>
             <CustomModalWindow
                 open={isOpen}
-                title={'Delete to-do list?'}
+                title={`Delete ${title}?`}
                 styleObject={style}
                 onClose={closeConfirmation}
             >
                 <div className={s.confirmation}>
-                    <p>This will delete <span>{title}</span></p>
+                    <p>This will delete <span>{description}</span></p>
                     <div className={s.containerButton}>
                         <CustomButton
                             color={'inherit'}
