@@ -1,35 +1,34 @@
-import React, {FC, useState} from "react";
+import React, {ChangeEvent, FC, useState} from "react";
 import s from './Task.module.css'
 import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
 import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
-import {StateTaskType, tasksThunk} from "./tasks.slice";
-import Checkbox from '@mui/material/Checkbox';
+import {tasksThunk} from "./tasks.slice";
 import {TaskEditor} from "./TaskEditor/TaskEditor";
-import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
-import {taskSelector} from "./task.selector";
 import {TasksType} from "./tasks.types";
-import {CustomLinearProgress} from "../../common/components/CustomLinearProgress/CustomLinearProgress";
+import {TaskStatuses} from "../../common/utils/enums";
+import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
 
 type Props = {
+    taskId: string
     todolistId: string
-    visibleLiner: boolean
+    taskStatus: number
+    taskTitle: string
+    taskDescription: string
     todolistTitle: string
+    task: TasksType
     setVisibleLiner: (value: boolean) => void
 }
 
 export const Task: FC<Props> = (props) => {
-    const {todolistId, todolistTitle, visibleLiner, setVisibleLiner} = props
-
-    const tasks: StateTaskType = useAppSelector(taskSelector)
-    const task: TasksType[] = tasks[todolistId]
+    const {taskId, taskTitle, taskDescription, task, todolistTitle, todolistId, taskStatus, setVisibleLiner} = props
 
     const dispatch = useAppDispatch()
 
-    const [taskId, setTaskId] = useState<string>('')
+    const [taskIdFromURL, setTaskIdFromUrl] = useState<string>('')
     const [taskEditor, setTaskEditor] = useState<boolean>(false)
 
     const openTaskEditor = (taskId: string) => {
-        setTaskId(taskId)
+        setTaskIdFromUrl(taskId)
         setTaskEditor(true)
     }
     const closeTaskEditor = () => setTaskEditor(false)
@@ -40,57 +39,63 @@ export const Task: FC<Props> = (props) => {
             .finally(() => setVisibleLiner(false))
     }
 
-    const changeCheckbox = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation()
+    const stopPropagation = (e: any) => e.stopPropagation()
+
+    const changeCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
+        let newIsDoneValue = event.currentTarget.checked;
+
+        setVisibleLiner(true)
+        dispatch(tasksThunk.updateTask({
+            todolistId, taskId,
+            domainModel: {status: newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New}
+        }))
+            .finally(() => setVisibleLiner(false))
     }
 
     return (
-        <>
-            <CustomLinearProgress visible={visibleLiner}/>
-            {
-                task.length > 0 ?
-                    task.map((ts: TasksType) => (
-                        <div key={ts.id} className={s.task}>
-                            <div className={s.container} onClick={() => openTaskEditor(ts.id)}>
+        <div key={taskId} className={s.task}>
+            <div className={s.container} onClick={() => openTaskEditor(taskId)}>
 
-                                <div className={s.flexContainer}>
-                                    <div className={s.title}>
-                                        <div>
-                                            <Checkbox onClick={changeCheckbox}/>
-                                        </div>
-                                        <div className={s.text}>{ts.title}</div>
-                                    </div>
-
-                                    <MoreHoriz
-                                        taskId={ts.id}
-                                        taskTitle={ts.title}
-                                        removeTask={removeTask}
-                                    />
-                                </div>
-                                {
-                                    ts.description &&
-                                    <div className={s.description}>{ts.description}</div>
-                                }
-                            </div>
-                            {
-                                taskId && taskId === ts.id &&
-                                <TaskEditor
-                                    taskId={ts.id}
-                                    todolistId={todolistId}
-                                    task={ts}
-                                    taskName={ts.title}
-                                    todolistTitle={todolistTitle}
-                                    description={ts.description}
-                                    taskEditor={taskEditor}
-                                    closeTaskEditor={closeTaskEditor}
-                                />
-                            }
+                <div className={s.flexContainer}>
+                    <div className={s.title}>
+                        <div>
+                            <CustomCheckbox
+                                checked={taskStatus === TaskStatuses.Completed}
+                                onChange={changeCheckbox}
+                                stopPropagation={stopPropagation}
+                            />
                         </div>
-                    ))
-                    :
-                    <div className={s.empty}>You don't have tasks. Click on button, that create a task !!!</div>
+                        <div className={s.text}>{taskTitle}</div>
+                    </div>
+
+                    <MoreHoriz
+                        taskId={taskId}
+                        taskTitle={taskTitle}
+                        removeTask={removeTask}
+                    />
+                </div>
+                {
+                    taskDescription &&
+                    <div className={s.description}>{taskDescription}</div>
+                }
+            </div>
+            {
+                taskIdFromURL && taskIdFromURL === taskId && taskStatus === TaskStatuses.New &&
+                <TaskEditor
+                    taskId={taskId}
+                    todolistId={todolistId}
+                    task={task}
+                    taskName={taskTitle}
+                    taskStatus={taskStatus}
+                    todolistTitle={todolistTitle}
+                    description={taskDescription}
+                    taskEditor={taskEditor}
+                    closeTaskEditor={closeTaskEditor}
+                    changeCheckbox={changeCheckbox}
+                    stopPropagation={stopPropagation}
+                />
             }
-        </>
+        </div>
     )
 }
 

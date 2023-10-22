@@ -1,8 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {createAppAsyncThunk} from "../../common/utils/thunks/create-app-async-thunk";
 import {tasksApi} from "./tasks.api";
-import {TasksType} from "./tasks.types";
+import {TasksType, UpdateTaskArgType, UpdateTaskModelType} from "./tasks.types";
 import {todolistsActions} from "../Todolists/todolists.slice";
+import {ResultCode} from "../../common/utils/enums";
 
 const slice = createSlice({
     name: 'tasks',
@@ -77,23 +78,34 @@ export const removeTask = createAppAsyncThunk<any,
     }
 })
 
-export const updateTask = createAppAsyncThunk<{ todolistId: string, taskId: string, description: TasksType },
-    { todolistId: string, taskId: string, description: TasksType }>
+export const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>
 ('tasks/addDescription', async (arg, thunkAPI) => {
-    const {dispatch, rejectWithValue} = thunkAPI
+    const {dispatch, rejectWithValue, getState} = thunkAPI
+
+    const state = getState()
+    const task = state.tasks[arg.todolistId].find((t) => t.id === arg.taskId);
+
+    if (!task) return rejectWithValue(null);
+
+    const apiModel: UpdateTaskModelType = {
+        deadline: task.deadline as any,
+        description: task.description,
+        priority: task.priority,
+        startDate: task.startDate as any,
+        title: task.title,
+        status: task.status,
+        ...arg.domainModel,
+    };
 
     try {
-        const res = await tasksApi.changeTask({
-            todolistId: arg.todolistId,
-            taskId: arg.taskId,
-            description: arg.description
-        })
+        const res = await tasksApi.updateTask(
+            arg.todolistId,
+            arg.taskId,
+            apiModel)
 
-        if (res.data.resultCode === 0) dispatch(fetchTasks({todolistId: arg.todolistId}))
+        if (res.data.resultCode === ResultCode.Success) dispatch(fetchTasks({todolistId: arg.todolistId}))
 
-        return {
-            todolistId: arg.todolistId, taskId: arg.taskId, description: arg.description
-        }
+        return arg
     } catch (error) {
         return rejectWithValue(null)
     }

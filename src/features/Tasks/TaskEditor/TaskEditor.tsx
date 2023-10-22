@@ -10,20 +10,24 @@ import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTool
 import {CustomModalWindow} from "../../../common/components/CustomModalWindow/CustomModalWindow";
 import {SettingsTaskEditor} from "./SettingsTaskEditor/SettingsTaskEditor";
 import {Box} from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
 import s from './TaskEditor.module.css'
 import DrawIcon from '@mui/icons-material/Draw';
 import DescriptionIcon from '@mui/icons-material/Description';
+import {CustomCheckbox} from "../../../common/components/CustomCheckbox/CustomCheckbox";
+import {TaskStatuses} from "../../../common/utils/enums";
 
 type Props = {
     taskId: string
     todolistId: string
     task: TasksType
     taskName: string
+    taskStatus: number
     todolistTitle: string
     description: string
     taskEditor: boolean
     closeTaskEditor: () => void
+    changeCheckbox: (event: ChangeEvent<HTMLInputElement>) => void
+    stopPropagation: (e: any) => void
 }
 
 const style = {
@@ -34,7 +38,19 @@ const style = {
 };
 
 export const TaskEditor: FC<Props> = (props) => {
-    const {taskId, todolistId, task, taskName, description, todolistTitle, taskEditor, closeTaskEditor} = props
+    const {
+        taskId,
+        todolistId,
+        task,
+        taskName,
+        taskStatus,
+        description,
+        todolistTitle,
+        taskEditor,
+        closeTaskEditor,
+        changeCheckbox,
+        stopPropagation
+    } = props
 
     const dispatch = useAppDispatch()
 
@@ -51,7 +67,7 @@ export const TaskEditor: FC<Props> = (props) => {
 
     const updateTask = () => {
         dispatch(tasksThunk.updateTask({
-            todolistId, taskId, description: {...task, title: newTitle, description: newDescription}
+            todolistId, taskId, domainModel: {title: newTitle, description: newDescription}
         }))
         closeTaskRedactor()
     }
@@ -78,7 +94,12 @@ export const TaskEditor: FC<Props> = (props) => {
                 <Box sx={{padding: '10px 20px 20px 20px', display: 'flex'}}>
                     <div className={s.taskBody}>
                         <div className={s.taskBodyContainer}>
-                            <div><Checkbox/></div>
+                            <div>
+                                <CustomCheckbox
+                                    checked={taskStatus === TaskStatuses.Completed}
+                                    onChange={changeCheckbox}
+                                />
+                            </div>
 
                             <CustomTooltip
                                 title={taskRedactor ? '' : 'You can click on the text to open the task editor.'}

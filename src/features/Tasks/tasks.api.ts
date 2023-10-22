@@ -1,6 +1,6 @@
 import {instance} from "../../common/api/common.api";
 import {baseTodo} from "../Todolists/todolists.api";
-import {AddDescriptionArgType, AddTaskArgType, TasksType} from "./tasks.types";
+import {AddTaskArgType, TasksType, UpdateTaskModelType} from "./tasks.types";
 
 const base = 'tasks'
 
@@ -14,7 +14,7 @@ export const tasksApi = {
     removeTask(todolistId: string, taskId: string) {
         return instance.delete(`/${baseTodo}/${todolistId}/${base}/${taskId}`)
     },
-    changeTask(arg: AddDescriptionArgType) {
-        return instance.put(`/${baseTodo}/${arg.todolistId}/${base}/${arg.taskId}`, {...arg.description})
+    updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
+        return instance.put(`/${baseTodo}/${todolistId}/${base}/${taskId}`, model)
     }
 }

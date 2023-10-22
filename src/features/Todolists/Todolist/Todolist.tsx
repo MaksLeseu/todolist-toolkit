@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FC, useEffect, useState} from "react";
 import s from './Todolist.module.css'
-import {Task} from "../../Tasks/Task";
+import {Tasks} from "../../Tasks/Tasks";
 import {AddTaskButton} from "../../Tasks/AddTaskButton/AddTaskButton";
 import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -66,7 +66,7 @@ export const Todolist: FC<Props> = (props) => {
             </div>
             <div className={s.todolist}>
 
-                <Task
+                <Tasks
                     todolistId={todolistId}
                     todolistTitle={todolistTitle}
                     visibleLiner={visibleLiner}
