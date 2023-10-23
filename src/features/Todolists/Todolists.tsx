@@ -24,7 +24,7 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
         if (todo.length <= 0) {
             return <Navigate to={'/todolist-toolkit'}/>
         } else {
-            return <Todolist key={todo[0].id} todolistId={todo[0].id} todolistTitle={todo[0].title}/>
+            return <Todolist key={todo[0].id} todolistId={todo[0].id} todolistTitle={todo[0].title} todolist={todo[0]}/>
         }
     }
 

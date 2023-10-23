@@ -5,28 +5,41 @@ import {taskSelector} from "./task.selector";
 import {TasksType} from "./tasks.types";
 import {CustomLinearProgress} from "../../common/components/CustomLinearProgress/CustomLinearProgress";
 import {Task} from "./Task";
+import {TaskStatuses} from "../../common/utils/enums";
+import {TodolistsType} from "../Todolists/todolists.types";
 
 
 type Props = {
     todolistId: string
     visibleLiner: boolean
+    todolist: TodolistsType
     todolistTitle: string
     setVisibleLiner: (value: boolean) => void
 }
 
 export const Tasks: FC<Props> = (props) => {
-    const {todolistId, todolistTitle, visibleLiner, setVisibleLiner} = props
+    const {todolistId, todolistTitle, todolist, visibleLiner, setVisibleLiner} = props
 
     const tasks: StateTaskType = useAppSelector(taskSelector)
     const task: TasksType[] = tasks[todolistId]
+
+    let filteredTasks = task
+
+    if (todolist.filter === 'active') {
+        filteredTasks = task.filter(ts => ts.status === TaskStatuses.New)
+    }
+
+    if (todolist.filter === 'completed') {
+        filteredTasks = task.filter(ts => ts.status === TaskStatuses.Completed)
+    }
 
     return (
         <>
             <CustomLinearProgress visible={visibleLiner}/>
             {
-                task.length > 0
+                filteredTasks.length > 0
                     ?
-                    task.map((ts: TasksType) =>
+                    filteredTasks.map((ts: TasksType) =>
                         <Task
                             taskId={ts.id}
                             todolistId={todolistId}

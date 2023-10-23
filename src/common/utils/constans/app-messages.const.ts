@@ -9,5 +9,5 @@ export const MSG_BTN = {
     DISPLAY: 'Display',
     ALL_TASKS: 'All tasks',
     ONLY_COMPLETED_TASKS: 'Only completed tasks',
-    ONLY_UNFINISHED_TASKS: 'Only unfinished tasks'
+    ONLY_ACTIVE_TASKS: 'Only active tasks'
 }

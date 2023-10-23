@@ -4,11 +4,15 @@ import {AnchorElType} from "../../../common/components/CustomPopover/CustomPopov
 import {DisplayPopover} from "../../../common/components/DisplayPopover/DisplayPopover";
 import {GeneralIconButton} from "../../../common/components/GeneralIconButton/GeneralIconButton";
 import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
+import {TodolistFilterType} from "../../Todolists/todolists.types";
 
-type Props = {}
+type Props = {
+    valueTodoFilter: TodolistFilterType
+    changeTodolistsFilterHandler: (filter: TodolistFilterType) => void
+}
 
 export const FilterTasks: FC<Props> = (props) => {
-    const {} = props
+    const {valueTodoFilter, changeTodolistsFilterHandler} = props
 
     const [anchorEl, setAnchorEl] = React.useState<AnchorElType>(null);
 
@@ -32,7 +36,9 @@ export const FilterTasks: FC<Props> = (props) => {
             />
             <DisplayPopover
                 anchorEl={anchorEl}
+                valueTodoFilter={valueTodoFilter}
                 handleClosePopover={handleClosePopover}
+                changeTodolistsFilterHandler={changeTodolistsFilterHandler}
             />
         </>
     )

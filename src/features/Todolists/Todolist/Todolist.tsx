@@ -12,14 +12,23 @@ import {taskSelector} from "../../Tasks/task.selector";
 import {Preloader} from "../../../common/components/Preloader/Preloader";
 import {TasksType} from "../../Tasks/tasks.types";
 import {FilterTasks} from "../../Tasks/FilterTasks/FilterTasks";
+import {TodolistFilterType, TodolistsType} from "../todolists.types";
+import {useActions} from "../../../common/utils/hooks/useActions";
+import {todolistsActions} from "../todolists.slice";
 
 type Props = {
     todolistId: string
     todolistTitle: string
+    todolist: TodolistsType
 }
 
 export const Todolist: FC<Props> = (props) => {
-    const {todolistId, todolistTitle} = props
+    const {todolistId, todolistTitle, todolist} = props
+
+    const {changeTodolistFilter} = useActions(todolistsActions);
+
+    const changeTodolistsFilterHandler = (filter: TodolistFilterType) =>
+        changeTodolistFilter({id: todolistId, filter})
 
     const dispatch = useAppDispatch()
     const tasks: StateTaskType = useAppSelector(taskSelector)
@@ -66,13 +75,17 @@ export const Todolist: FC<Props> = (props) => {
                     <DescriptionIcon color={'info'}/>
                     <h2>{todolistTitle}</h2>
                 </div>
-                <FilterTasks/>
+                <FilterTasks
+                    valueTodoFilter={todolist.filter}
+                    changeTodolistsFilterHandler={changeTodolistsFilterHandler}
+                />
             </div>
             <div className={s.todolist}>
 
                 <Tasks
                     todolistId={todolistId}
                     todolistTitle={todolistTitle}
+                    todolist={todolist}
                     visibleLiner={visibleLiner}
                     setVisibleLiner={setVisibleLiner}
                 />

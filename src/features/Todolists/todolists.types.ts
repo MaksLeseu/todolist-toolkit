@@ -3,4 +3,7 @@ export type TodolistsType = {
     addedDate: string
     order: number
     title: string
+    filter: TodolistFilterType
 }
+
+export type TodolistFilterType = 'all' | 'active' | 'completed'

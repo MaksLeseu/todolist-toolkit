@@ -1,12 +1,16 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {createAppAsyncThunk} from "../../common/utils/thunks/create-app-async-thunk";
 import {todolistsApi} from "./todolists.api";
-import {TodolistsType} from "./todolists.types";
+import {TodolistFilterType, TodolistsType} from "./todolists.types";
 
 const slice = createSlice({
     name: 'todolists',
     initialState: [] as TodolistsType[],
     reducers: {
+        changeTodolistFilter: (state, action: PayloadAction<{ id: string; filter: TodolistFilterType }>) => {
+            const todo = state.find(tl => tl.id === action.payload.id)
+            if (todo) todo.filter = action.payload.filter
+        },
         clearTodos: () => {
             return []
         }
@@ -14,7 +18,7 @@ const slice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchTodolists.fulfilled, (state, action) => {
-                action.payload.todolists.forEach(tl => state.push(tl))
+                action.payload.todolists.forEach(tl => state.push({...tl, filter: 'all'}))
             })
             .addCase(addTodolist.fulfilled, (state, action) => {
                 state.unshift(action.payload.todolist)

@@ -5,14 +5,17 @@ import {GeneralIconButton} from "../GeneralIconButton/GeneralIconButton";
 import {MSG_BTN} from "../../utils/constans/app-messages.const";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {TaskGrouping} from "./TaskGrouping/TaskGrouping";
+import {TodolistFilterType} from "../../../features/Todolists/todolists.types";
 
 type Props = {
     anchorEl: AnchorElType
+    valueTodoFilter: TodolistFilterType
     handleClosePopover: (event: React.MouseEvent<HTMLButtonElement>) => void
+    changeTodolistsFilterHandler: (filter: TodolistFilterType) => void
 }
 
 export const DisplayPopover: FC<Props> = (props) => {
-    const {anchorEl, handleClosePopover} = props
+    const {anchorEl, valueTodoFilter, handleClosePopover, changeTodolistsFilterHandler} = props
 
     const [isOpen, setIsOpen] = useState<AnchorElType>(null)
 
@@ -42,7 +45,9 @@ export const DisplayPopover: FC<Props> = (props) => {
             />
             <TaskGrouping
                 anchorEl={isOpen}
+                valueTodoFilter={valueTodoFilter}
                 handleClosePopover={handleCloseTaskGrouping}
+                changeTodolistsFilterHandler={changeTodolistsFilterHandler}
             />
         </CustomPopover>
     )
