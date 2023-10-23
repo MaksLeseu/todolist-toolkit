@@ -1,10 +1,10 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import {AnchorElType, CustomPopover} from "../CustomPopover/CustomPopover";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
+import {GeneralIconButton} from "../GeneralIconButton/GeneralIconButton";
+import {MSG_BTN} from "../../utils/constans/app-messages.const";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import {TaskGrouping} from "./TaskGrouping/TaskGrouping";
 
 type Props = {
     anchorEl: AnchorElType
@@ -14,32 +14,36 @@ type Props = {
 export const DisplayPopover: FC<Props> = (props) => {
     const {anchorEl, handleClosePopover} = props
 
+    const [isOpen, setIsOpen] = useState<AnchorElType>(null)
+
+    const handleCloseTaskGrouping = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
+        setIsOpen(null);
+    };
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation()
+        setIsOpen(event.currentTarget);
+    };
+
     return (
         <CustomPopover
             anchorEl={anchorEl}
             handleClosePopover={handleClosePopover}
         >
-            <CustomIconButton
+            <GeneralIconButton
                 size={'small'}
                 color={"default"}
                 disableRipple={true}
-                onClick={() => {
-                }}
-            >
-                <ListItemButton
-                    sx={{height: '30px', borderRadius: '3px'}}
-                >
-                    <ListItemIcon
-                        sx={{display: 'flex', alignItems: 'center'}}
-                    >
-                        <AutoAwesomeMotionIcon/>
-                        <ListItemText
-                            sx={{color: 'black', marginLeft: '10px'}}
-                            primary={'task grouping'}
-                        />
-                    </ListItemIcon>
-                </ListItemButton>
-            </CustomIconButton>
+                primary={MSG_BTN.TASK_GROUPING}
+                textStyles={{marginLeft: '10px'}}
+                childrenIconFirstPosition={<AutoAwesomeMotionIcon/>}
+                childrenIconSecondPosition={<ArrowDropDownIcon/>}
+                onClick={handleClick}
+            />
+            <TaskGrouping
+                anchorEl={isOpen}
+                handleClosePopover={handleCloseTaskGrouping}
+            />
         </CustomPopover>
     )
 }

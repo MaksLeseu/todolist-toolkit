@@ -4,5 +4,10 @@ export const MSG_BTN = {
     ADD_A_TASK: 'Add a task',
     REMOVE_TASK: 'Remove task',
     LOG_OUT: 'Log out',
-    SAVE: 'Save'
+    SAVE: 'Save',
+    TASK_GROUPING: 'Task grouping',
+    DISPLAY: 'Display',
+    ALL_TASKS: 'All tasks',
+    ONLY_COMPLETED_TASKS: 'Only completed tasks',
+    ONLY_UNFINISHED_TASKS: 'Only unfinished tasks'
 }

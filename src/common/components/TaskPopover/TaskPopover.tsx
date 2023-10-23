@@ -1,12 +1,9 @@
 import React, {FC, useState} from "react";
 import {AnchorElType, CustomPopover} from "../CustomPopover/CustomPopover";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import {MSG_BTN} from "../../utils/constans/app-messages.const";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
 import {ConfirmationModalWindow} from "../СonfirmationModalWindow/СonfirmationModalWindow";
+import {GeneralIconButton} from "../GeneralIconButton/GeneralIconButton";
 
 type Props = {
     taskId: string
@@ -36,26 +33,15 @@ export const TaskPopover: FC<Props> = (props) => {
             anchorEl={anchorEl}
             handleClosePopover={handleClosePopover}
         >
-            <CustomIconButton
+            <GeneralIconButton
                 size={'small'}
                 color={"inherit"}
                 disableRipple={true}
+                primary={MSG_BTN.REMOVE_TASK}
+                textStyles={{marginRight: '5px'}}
+                childrenIconSecondPosition={<DeleteForeverIcon/>}
                 onClick={changeConformation}
-            >
-                <ListItemButton
-                    sx={{height: '30px', borderRadius: '3px'}}
-                >
-                    <ListItemIcon
-                        sx={{display: 'flex', alignItems: 'center'}}
-                    >
-                        <ListItemText
-                            sx={{marginRight: '10px', color: 'black'}}
-                            primary={MSG_BTN.REMOVE_TASK}
-                        />
-                        <DeleteForeverIcon/>
-                    </ListItemIcon>
-                </ListItemButton>
-            </CustomIconButton>
+            />
             <ConfirmationModalWindow
                 isOpen={isOpen}
                 title={'task'}

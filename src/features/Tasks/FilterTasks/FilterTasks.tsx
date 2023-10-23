@@ -1,11 +1,9 @@
 import React, {FC} from "react";
-import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 import TuneIcon from '@mui/icons-material/Tune';
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemButton from "@mui/material/ListItemButton";
 import {AnchorElType} from "../../../common/components/CustomPopover/CustomPopover";
 import {DisplayPopover} from "../../../common/components/DisplayPopover/DisplayPopover";
+import {GeneralIconButton} from "../../../common/components/GeneralIconButton/GeneralIconButton";
+import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 
 type Props = {}
 
@@ -25,24 +23,13 @@ export const FilterTasks: FC<Props> = (props) => {
 
     return (
         <>
-            <CustomIconButton
+            <GeneralIconButton
+                primary={MSG_BTN.DISPLAY}
                 disableRipple={true}
+                textStyles={{marginLeft: '5px'}}
+                childrenIconFirstPosition={<TuneIcon/>}
                 onClick={handleClick}
-            >
-                <ListItemButton
-                    sx={{height: '35px', borderRadius: '3px'}}
-                >
-                    <ListItemIcon
-                        sx={{display: 'flex', alignItems: 'center'}}
-                    >
-                        <TuneIcon/>
-                        <ListItemText
-                            sx={{color: 'black', marginLeft: '5px'}}
-                            primary={'Display'}
-                        />
-                    </ListItemIcon>
-                </ListItemButton>
-            </CustomIconButton>
+            />
             <DisplayPopover
                 anchorEl={anchorEl}
                 handleClosePopover={handleClosePopover}
