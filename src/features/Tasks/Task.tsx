@@ -7,6 +7,7 @@ import {TaskEditor} from "./TaskEditor/TaskEditor";
 import {TasksType} from "./tasks.types";
 import {TaskStatuses} from "../../common/utils/enums";
 import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
+import {PreviewCompletedTask} from "./PreviewCompletedTask/PreviewCompletedTask";
 
 type Props = {
     taskId: string
@@ -22,16 +23,19 @@ type Props = {
 export const Task: FC<Props> = (props) => {
     const {taskId, taskTitle, taskDescription, todolistTitle, todolistId, taskStatus, setVisibleLiner} = props
 
-    const dispatch = useAppDispatch()
-
     const taskStatusNew = taskStatus === TaskStatuses.New
     const taskStatusCompleted = taskStatus === TaskStatuses.Completed
-    const checkDescription = taskDescription && taskStatusNew
+
+    const dispatch = useAppDispatch()
 
     const [taskEditor, setTaskEditor] = useState<boolean>(false)
+    const [previewCompletedTask, setPreviewCompletedTask] = useState<boolean>(false)
 
     const openTaskEditor = () => setTaskEditor(true)
     const closeTaskEditor = () => setTaskEditor(false)
+
+    const openPreviewCompletedTask = () => setPreviewCompletedTask(true)
+    const closePreviewCompletedTask = () => setPreviewCompletedTask(false)
 
     const removeTask = (taskId: string) => {
         setVisibleLiner(true)
@@ -47,12 +51,15 @@ export const Task: FC<Props> = (props) => {
             todolistId, taskId,
             domainModel: {status: newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New}
         }))
+            .then(() => closeTaskEditor())
+            .catch(() => console.log('Some mistake!'))
             .finally(() => setVisibleLiner(false))
+        closePreviewCompletedTask()
     }
 
     return (
         <div key={taskId} className={taskStatusCompleted ? s.taskCompleted : s.task}>
-            <div className={s.container} onClick={openTaskEditor}>
+            <div className={s.container} onClick={taskStatusCompleted ? openPreviewCompletedTask : openTaskEditor}>
 
                 <div className={s.flexContainer}>
                     <div className={s.title}>
@@ -72,7 +79,7 @@ export const Task: FC<Props> = (props) => {
                     />
                 </div>
                 {
-                    checkDescription &&
+                    taskDescription && taskStatusNew &&
                     <div className={s.description}>{taskDescription}</div>
                 }
             </div>
@@ -86,6 +93,15 @@ export const Task: FC<Props> = (props) => {
                 taskEditor={taskEditor}
                 closeTaskEditor={closeTaskEditor}
                 updateCheckbox={updateCheckbox}
+            />
+            <PreviewCompletedTask
+                taskName={taskTitle}
+                taskStatus={taskStatus}
+                todolistTitle={todolistTitle}
+                description={taskDescription}
+                previewCompletedTask={previewCompletedTask}
+                updateCheckbox={updateCheckbox}
+                closePreviewCompletedTask={closePreviewCompletedTask}
             />
         </div>
     )
