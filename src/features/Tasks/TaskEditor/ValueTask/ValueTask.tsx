@@ -35,7 +35,7 @@ export const ValueTask: FC<Props> = (props) => {
                     />
                     :
                     <p className={className === 'taskName' ? s.taskName : s.description}
-                       onClick={onClick}
+                       onDoubleClick={onClick}
                     >
                         {value}
                     </p>

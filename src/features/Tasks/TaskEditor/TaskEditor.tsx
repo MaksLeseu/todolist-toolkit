@@ -24,7 +24,7 @@ type Props = {
     description: string
     taskEditor: boolean
     closeTaskEditor: () => void
-    changeCheckbox: (event: ChangeEvent<HTMLInputElement>) => void
+    updateCheckbox: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 const style = {
@@ -44,7 +44,7 @@ export const TaskEditor: FC<Props> = (props) => {
         todolistTitle,
         taskEditor,
         closeTaskEditor,
-        changeCheckbox,
+        updateCheckbox,
     } = props
 
     const dispatch = useAppDispatch()
@@ -63,7 +63,7 @@ export const TaskEditor: FC<Props> = (props) => {
         dispatch(tasksThunk.updateTask({
             todolistId, taskId, domainModel: {title: newTitle, description: newDescription}
         }))
-        closeTaskEditor()
+        openOrCloseTaskRedactor()
     }
 
 
@@ -91,12 +91,12 @@ export const TaskEditor: FC<Props> = (props) => {
                             <div>
                                 <CustomCheckbox
                                     checked={taskStatus === TaskStatuses.Completed}
-                                    onChange={changeCheckbox}
+                                    onChange={updateCheckbox}
                                 />
                             </div>
 
                             <CustomTooltip
-                                title={taskRedactor ? '' : 'You can click on the text to open the task editor.'}
+                                title={taskRedactor ? '' : 'You can double click on the text to open the task editor.'}
                                 placement={'bottom'}
                             >
                                 <div className={taskRedactor ? s.taskRedactor : ''}>

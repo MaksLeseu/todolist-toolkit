@@ -1,4 +1,4 @@
-import React, {FC, MouseEventHandler, ReactElement, ReactNode} from "react";
+import React, {FC, MouseEventHandler, ReactElement, ReactNode, SyntheticEvent} from "react";
 import Modal from "@mui/material/Modal";
 import s from './CustomModalWindow.module.css'
 import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
@@ -39,6 +39,7 @@ export const CustomModalWindow: FC<Props> = (props) => {
         <Modal
             open={open}
             onClose={onClose}
+            onClick={(e: MouseEvent | SyntheticEvent) => e.stopPropagation()}
         >
             <Box sx={style}>
                 <div className={s.header}>

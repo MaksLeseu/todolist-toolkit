@@ -39,7 +39,7 @@ export const Task: FC<Props> = (props) => {
             .finally(() => setVisibleLiner(false))
     }
 
-    const changeCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
+    const updateCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = event.currentTarget.checked;
 
         setVisibleLiner(true)
@@ -59,7 +59,7 @@ export const Task: FC<Props> = (props) => {
                         <div>
                             <CustomCheckbox
                                 checked={taskStatusCompleted}
-                                onChange={changeCheckbox}
+                                onChange={updateCheckbox}
                             />
                         </div>
                         <div className={s.text}>{taskTitle}</div>
@@ -85,7 +85,7 @@ export const Task: FC<Props> = (props) => {
                 description={taskDescription}
                 taskEditor={taskEditor}
                 closeTaskEditor={closeTaskEditor}
-                changeCheckbox={changeCheckbox}
+                updateCheckbox={updateCheckbox}
             />
         </div>
     )
