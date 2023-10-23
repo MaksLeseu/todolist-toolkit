@@ -11,6 +11,7 @@ import {useAppSelector} from "../../../common/utils/hooks/useAppSelector";
 import {taskSelector} from "../../Tasks/task.selector";
 import {Preloader} from "../../../common/components/Preloader/Preloader";
 import {TasksType} from "../../Tasks/tasks.types";
+import {FilterTasks} from "../../Tasks/FilterTasks/FilterTasks";
 
 type Props = {
     todolistId: string
@@ -60,9 +61,12 @@ export const Todolist: FC<Props> = (props) => {
 
     return (
         <div>
-            <div className={s.titleContainer}>
-                <DescriptionIcon color={'info'}/>
-                <h2>{todolistTitle}</h2>
+            <div className={s.headerContainer}>
+                <div className={s.titleContainer}>
+                    <DescriptionIcon color={'info'}/>
+                    <h2>{todolistTitle}</h2>
+                </div>
+                <FilterTasks/>
             </div>
             <div className={s.todolist}>
 

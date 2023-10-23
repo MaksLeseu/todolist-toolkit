@@ -1,7 +1,8 @@
 import React, {FC} from "react";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import {AnchorElType, CustomPopover} from "../CustomPopover/CustomPopover";
+import {AnchorElType} from "../CustomPopover/CustomPopover";
 import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
+import {TaskPopover} from "../TaskPopover/TaskPopover";
 
 type Props = {
     taskId: string
@@ -33,12 +34,12 @@ export const MoreHoriz: FC<Props> = (props) => {
             >
                 <MoreHorizIcon/>
             </CustomIconButton>
-            <CustomPopover
+            <TaskPopover
                 taskId={taskId}
                 taskTitle={taskTitle}
                 anchorEl={anchorEl}
-                handleClosePopover={handleClosePopover}
                 removeTask={removeTask}
+                handleClosePopover={handleClosePopover}
             />
         </div>
     )
