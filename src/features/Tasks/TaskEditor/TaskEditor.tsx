@@ -1,7 +1,6 @@
 import React, {ChangeEvent, FC, useState} from "react";
 import {tasksThunk} from "../tasks.slice";
 import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
-import {TasksType} from "../tasks.types";
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
 import {ValueTask} from "./ValueTask/ValueTask";
@@ -19,7 +18,6 @@ import {TaskStatuses} from "../../../common/utils/enums";
 type Props = {
     taskId: string
     todolistId: string
-    task: TasksType
     taskName: string
     taskStatus: number
     todolistTitle: string
@@ -27,7 +25,6 @@ type Props = {
     taskEditor: boolean
     closeTaskEditor: () => void
     changeCheckbox: (event: ChangeEvent<HTMLInputElement>) => void
-    stopPropagation: (e: any) => void
 }
 
 const style = {
@@ -41,7 +38,6 @@ export const TaskEditor: FC<Props> = (props) => {
     const {
         taskId,
         todolistId,
-        task,
         taskName,
         taskStatus,
         description,
@@ -49,7 +45,6 @@ export const TaskEditor: FC<Props> = (props) => {
         taskEditor,
         closeTaskEditor,
         changeCheckbox,
-        stopPropagation
     } = props
 
     const dispatch = useAppDispatch()
@@ -59,8 +54,7 @@ export const TaskEditor: FC<Props> = (props) => {
     const [newTitle, setNewTitle] = useState<string>(taskName)
     const [newDescription, setNewDescription] = useState<string>(description)
 
-    const openTaskRedactor = () => setTaskRedactor(true)
-    const closeTaskRedactor = () => setTaskRedactor(false)
+    const openOrCloseTaskRedactor = () => setTaskRedactor(!taskRedactor)
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
     const changeSpecification = (e: ChangeEvent<HTMLInputElement>) => setNewDescription(e.currentTarget.value)
@@ -69,7 +63,7 @@ export const TaskEditor: FC<Props> = (props) => {
         dispatch(tasksThunk.updateTask({
             todolistId, taskId, domainModel: {title: newTitle, description: newDescription}
         }))
-        closeTaskRedactor()
+        closeTaskEditor()
     }
 
 
@@ -83,7 +77,7 @@ export const TaskEditor: FC<Props> = (props) => {
                 childrenRedactor={(
                     <CustomIconButton
                         disableRipple={false}
-                        onClick={openTaskRedactor}
+                        onClick={openOrCloseTaskRedactor}
                         color={'primary'}
                     >
                         <DrawIcon/>
@@ -115,7 +109,7 @@ export const TaskEditor: FC<Props> = (props) => {
                                         sx={{width: '100%', marginBottom: '10px'}}
                                         multiline={false}
                                         onChange={changeTitle}
-                                        onClick={openTaskRedactor}
+                                        onClick={openOrCloseTaskRedactor}
                                     />
 
                                     <ValueTask
@@ -127,7 +121,7 @@ export const TaskEditor: FC<Props> = (props) => {
                                         sx={{width: '100%'}}
                                         multiline={true}
                                         onChange={changeSpecification}
-                                        onClick={openTaskRedactor}
+                                        onClick={openOrCloseTaskRedactor}
                                     />
                                 </div>
                             </CustomTooltip>
@@ -141,7 +135,7 @@ export const TaskEditor: FC<Props> = (props) => {
                                     label={MSG_BTN.CANCEL}
                                     variant={'contained'}
                                     size={'small'}
-                                    onClick={closeTaskRedactor}
+                                    onClick={openOrCloseTaskRedactor}
                                 />
                             }
                             {

@@ -6,6 +6,7 @@ import {TasksType} from "./tasks.types";
 import {CustomLinearProgress} from "../../common/components/CustomLinearProgress/CustomLinearProgress";
 import {Task} from "./Task";
 
+
 type Props = {
     todolistId: string
     visibleLiner: boolean

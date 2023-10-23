@@ -20,17 +20,17 @@ type Props = {
 }
 
 export const Task: FC<Props> = (props) => {
-    const {taskId, taskTitle, taskDescription, task, todolistTitle, todolistId, taskStatus, setVisibleLiner} = props
+    const {taskId, taskTitle, taskDescription, todolistTitle, todolistId, taskStatus, setVisibleLiner} = props
 
     const dispatch = useAppDispatch()
 
-    const [taskIdFromURL, setTaskIdFromUrl] = useState<string>('')
+    const taskStatusNew = taskStatus === TaskStatuses.New
+    const taskStatusCompleted = taskStatus === TaskStatuses.Completed
+    const checkDescription = taskDescription && taskStatusNew
+
     const [taskEditor, setTaskEditor] = useState<boolean>(false)
 
-    const openTaskEditor = (taskId: string) => {
-        setTaskIdFromUrl(taskId)
-        setTaskEditor(true)
-    }
+    const openTaskEditor = () => setTaskEditor(true)
     const closeTaskEditor = () => setTaskEditor(false)
 
     const removeTask = (taskId: string) => {
@@ -38,8 +38,6 @@ export const Task: FC<Props> = (props) => {
         dispatch(tasksThunk.removeTask({todolistId, taskId}))
             .finally(() => setVisibleLiner(false))
     }
-
-    const stopPropagation = (e: any) => e.stopPropagation()
 
     const changeCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = event.currentTarget.checked;
@@ -53,16 +51,15 @@ export const Task: FC<Props> = (props) => {
     }
 
     return (
-        <div key={taskId} className={s.task}>
-            <div className={s.container} onClick={() => openTaskEditor(taskId)}>
+        <div key={taskId} className={taskStatusCompleted ? s.taskCompleted : s.task}>
+            <div className={s.container} onClick={openTaskEditor}>
 
                 <div className={s.flexContainer}>
                     <div className={s.title}>
                         <div>
                             <CustomCheckbox
-                                checked={taskStatus === TaskStatuses.Completed}
+                                checked={taskStatusCompleted}
                                 onChange={changeCheckbox}
-                                stopPropagation={stopPropagation}
                             />
                         </div>
                         <div className={s.text}>{taskTitle}</div>
@@ -75,26 +72,21 @@ export const Task: FC<Props> = (props) => {
                     />
                 </div>
                 {
-                    taskDescription &&
+                    checkDescription &&
                     <div className={s.description}>{taskDescription}</div>
                 }
             </div>
-            {
-                taskIdFromURL && taskIdFromURL === taskId && taskStatus === TaskStatuses.New &&
-                <TaskEditor
-                    taskId={taskId}
-                    todolistId={todolistId}
-                    task={task}
-                    taskName={taskTitle}
-                    taskStatus={taskStatus}
-                    todolistTitle={todolistTitle}
-                    description={taskDescription}
-                    taskEditor={taskEditor}
-                    closeTaskEditor={closeTaskEditor}
-                    changeCheckbox={changeCheckbox}
-                    stopPropagation={stopPropagation}
-                />
-            }
+            <TaskEditor
+                taskId={taskId}
+                todolistId={todolistId}
+                taskName={taskTitle}
+                taskStatus={taskStatus}
+                todolistTitle={todolistTitle}
+                description={taskDescription}
+                taskEditor={taskEditor}
+                closeTaskEditor={closeTaskEditor}
+                changeCheckbox={changeCheckbox}
+            />
         </div>
     )
 }
