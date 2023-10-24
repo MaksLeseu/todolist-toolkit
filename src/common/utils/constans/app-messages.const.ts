@@ -6,6 +6,7 @@ export const MSG_BTN = {
     LOG_OUT: 'Log out',
     SAVE: 'Save',
     TASK_GROUPING: 'Task grouping',
+    TASK_SORTING: 'Task sorting',
     DISPLAY: 'Display',
     ALL_TASKS: 'All tasks',
     ONLY_COMPLETED_TASKS: 'Only completed tasks',

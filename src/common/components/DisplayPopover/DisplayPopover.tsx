@@ -6,32 +6,29 @@ import {MSG_BTN} from "../../utils/constans/app-messages.const";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {TaskGrouping} from "./TaskGrouping/TaskGrouping";
 import {TodolistFilterType} from "../../../features/Todolists/todolists.types";
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 
 type Props = {
-    anchorEl: AnchorElType
+    openDisplay: AnchorElType
     valueTodoFilter: TodolistFilterType
-    handleClosePopover: (event: React.MouseEvent<HTMLButtonElement>) => void
+    handleCloseDisplay: (event: React.MouseEvent<HTMLButtonElement>) => void
     changeTodolistsFilterHandler: (filter: TodolistFilterType) => void
 }
 
 export const DisplayPopover: FC<Props> = (props) => {
-    const {anchorEl, valueTodoFilter, handleClosePopover, changeTodolistsFilterHandler} = props
+    const {openDisplay, valueTodoFilter, handleCloseDisplay, changeTodolistsFilterHandler} = props
 
-    const [isOpen, setIsOpen] = useState<AnchorElType>(null)
+    const [openTaskGrouping, setOpenTaskGrouping] = useState<AnchorElType>(null)
 
-    const handleCloseTaskGrouping = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation()
-        setIsOpen(null);
-    };
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation()
-        setIsOpen(event.currentTarget);
+    const handleCloseTaskGrouping = () => setOpenTaskGrouping(null);
+    const handleOpenTaskGrouping = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setOpenTaskGrouping(event.currentTarget);
     };
 
     return (
         <CustomPopover
-            anchorEl={anchorEl}
-            handleClosePopover={handleClosePopover}
+            anchorEl={openDisplay}
+            handleClosePopover={handleCloseDisplay}
         >
             <GeneralIconButton
                 size={'small'}
@@ -41,12 +38,23 @@ export const DisplayPopover: FC<Props> = (props) => {
                 textStyles={{marginLeft: '10px'}}
                 childrenIconFirstPosition={<AutoAwesomeMotionIcon/>}
                 childrenIconSecondPosition={<ArrowDropDownIcon/>}
-                onClick={handleClick}
+                onClick={handleOpenTaskGrouping}
+            />
+            <GeneralIconButton
+                size={'small'}
+                color={"default"}
+                disableRipple={true}
+                primary={MSG_BTN.TASK_SORTING}
+                textStyles={{marginLeft: '10px'}}
+                childrenIconFirstPosition={<CompareArrowsIcon/>}
+                childrenIconSecondPosition={<ArrowDropDownIcon/>}
+                onClick={() => {
+                }}
             />
             <TaskGrouping
-                anchorEl={isOpen}
+                openTaskGrouping={openTaskGrouping}
                 valueTodoFilter={valueTodoFilter}
-                handleClosePopover={handleCloseTaskGrouping}
+                handleCloseTaskGrouping={handleCloseTaskGrouping}
                 changeTodolistsFilterHandler={changeTodolistsFilterHandler}
             />
         </CustomPopover>

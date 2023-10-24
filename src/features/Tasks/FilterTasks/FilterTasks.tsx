@@ -14,15 +14,11 @@ type Props = {
 export const FilterTasks: FC<Props> = (props) => {
     const {valueTodoFilter, changeTodolistsFilterHandler} = props
 
-    const [anchorEl, setAnchorEl] = React.useState<AnchorElType>(null);
+    const [openDisplay, setOpenDisplay] = React.useState<AnchorElType>(null);
 
-    const handleClosePopover = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation()
-        setAnchorEl(null);
-    };
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation()
-        setAnchorEl(event.currentTarget);
+    const handleCloseDisplay = () => setOpenDisplay(null);
+    const handleOpenDisplay = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setOpenDisplay(event.currentTarget);
     };
 
     return (
@@ -32,12 +28,12 @@ export const FilterTasks: FC<Props> = (props) => {
                 disableRipple={true}
                 textStyles={{marginLeft: '5px'}}
                 childrenIconFirstPosition={<TuneIcon/>}
-                onClick={handleClick}
+                onClick={handleOpenDisplay}
             />
             <DisplayPopover
-                anchorEl={anchorEl}
+                openDisplay={openDisplay}
                 valueTodoFilter={valueTodoFilter}
-                handleClosePopover={handleClosePopover}
+                handleCloseDisplay={handleCloseDisplay}
                 changeTodolistsFilterHandler={changeTodolistsFilterHandler}
             />
         </>

@@ -25,23 +25,23 @@ type Props = {
 export const Todolist: FC<Props> = (props) => {
     const {todolistId, todolistTitle, todolist} = props
 
-    const {changeTodolistFilter} = useActions(todolistsActions);
-
-    const changeTodolistsFilterHandler = (filter: TodolistFilterType) =>
-        changeTodolistFilter({id: todolistId, filter})
-
     const dispatch = useAppDispatch()
-    const tasks: StateTaskType = useAppSelector(taskSelector)
-    const task: TasksType[] = tasks[todolistId]
 
     useEffect(() => {
         dispatch(tasksThunk.fetchTasks({todolistId}))
     }, [])
 
-    const [formAddTask, setFormAddTask] = useState<boolean>(false)
+    const tasks: StateTaskType = useAppSelector(taskSelector)
+    const task: TasksType[] = tasks[todolistId]
+
+    const {changeTodolistFilter} = useActions(todolistsActions);
+
+    const changeTodolistsFilterHandler = (filter: TodolistFilterType) =>
+        changeTodolistFilter({id: todolistId, filter})
 
     const [taskName, setTaskName] = useState<string>('')
     const [description, setDescription] = useState<string>('')
+    const [formAddTask, setFormAddTask] = useState<boolean>(false)
     const [visibleLiner, setVisibleLiner] = useState<boolean>(false)
 
     const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => setTaskName(e.currentTarget.value)
@@ -61,7 +61,7 @@ export const Todolist: FC<Props> = (props) => {
 
     const addTask = (title: string, description: string) => {
         setVisibleLiner(true)
-        dispatch(tasksThunk.addTask({todolistId: todolistId, title, description}))
+        dispatch(tasksThunk.addTask({todolistId, title, description}))
             .finally(() => setVisibleLiner(false))
         closeFormAddTask()
     }
@@ -107,7 +107,6 @@ export const Todolist: FC<Props> = (props) => {
                             openFormAddTask={openFormAddTask}
                         />
                 }
-
             </div>
         </div>
     )

@@ -6,24 +6,29 @@ import {TodolistFilterType} from "../../../../features/Todolists/todolists.types
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 type Props = {
-    anchorEl: AnchorElType
+    openTaskGrouping: AnchorElType
     valueTodoFilter: TodolistFilterType
-    handleClosePopover: (event: React.MouseEvent<HTMLButtonElement>) => void
+    handleCloseTaskGrouping: () => void
     changeTodolistsFilterHandler: (filter: TodolistFilterType) => void
 }
 
 export const TaskGrouping: FC<Props> = (props) => {
-    const {anchorEl, valueTodoFilter, handleClosePopover, changeTodolistsFilterHandler} = props
+    const {openTaskGrouping, valueTodoFilter, handleCloseTaskGrouping, changeTodolistsFilterHandler} = props
+
+    const tasksFiltering = (filter: TodolistFilterType) => {
+        changeTodolistsFilterHandler(filter)
+        handleCloseTaskGrouping()
+    }
 
     return (
         <CustomPopover
-            anchorEl={anchorEl}
+            anchorEl={openTaskGrouping}
             listItemStyles={{p: '0'}}
             anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'center',
             }}
-            handleClosePopover={handleClosePopover}
+            handleClosePopover={handleCloseTaskGrouping}
         >
             <GeneralIconButton
                 size={'small'}
@@ -31,7 +36,7 @@ export const TaskGrouping: FC<Props> = (props) => {
                 disableRipple={true}
                 primary={MSG_BTN.ONLY_COMPLETED_TASKS}
                 childrenIconSecondPosition={valueTodoFilter === 'completed' && <ExpandMoreIcon color={'primary'}/>}
-                onClick={() => changeTodolistsFilterHandler('completed')}
+                onClick={() => tasksFiltering('completed')}
             />
             <GeneralIconButton
                 size={'small'}
@@ -40,7 +45,7 @@ export const TaskGrouping: FC<Props> = (props) => {
                 sx={{width: '100%'}}
                 primary={MSG_BTN.ONLY_ACTIVE_TASKS}
                 childrenIconSecondPosition={valueTodoFilter === 'active' && <ExpandMoreIcon color={'primary'}/>}
-                onClick={() => changeTodolistsFilterHandler('active')}
+                onClick={() => tasksFiltering('active')}
             />
             <GeneralIconButton
                 size={'small'}
@@ -49,7 +54,7 @@ export const TaskGrouping: FC<Props> = (props) => {
                 sx={{width: '100%'}}
                 primary={MSG_BTN.ALL_TASKS}
                 childrenIconSecondPosition={valueTodoFilter === 'all' && <ExpandMoreIcon color={'primary'}/>}
-                onClick={() => changeTodolistsFilterHandler('all')}
+                onClick={() => tasksFiltering('all')}
             />
         </CustomPopover>
     )

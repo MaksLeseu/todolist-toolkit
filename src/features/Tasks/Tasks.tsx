@@ -8,7 +8,6 @@ import {Task} from "./Task";
 import {TaskStatuses} from "../../common/utils/enums";
 import {TodolistsType} from "../Todolists/todolists.types";
 
-
 type Props = {
     todolistId: string
     visibleLiner: boolean
