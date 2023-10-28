@@ -8,6 +8,7 @@ import {TasksType} from "./tasks.types";
 import {TaskStatuses} from "../../common/utils/enums";
 import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
 import {PreviewCompletedTask} from "./PreviewCompletedTask/PreviewCompletedTask";
+import {Dayjs} from "dayjs";
 
 type Props = {
     taskId: string
@@ -15,13 +16,27 @@ type Props = {
     taskStatus: number
     taskTitle: string
     taskDescription: string
+    taskAddedDate: string
+    taskDeadline: Dayjs | null
+    taskStartDate: Dayjs | null
     todolistTitle: string
     task: TasksType
     setVisibleLiner: (value: boolean) => void
 }
 
 export const Task: FC<Props> = (props) => {
-    const {taskId, taskTitle, taskDescription, todolistTitle, todolistId, taskStatus, setVisibleLiner} = props
+    const {
+        taskId,
+        taskTitle,
+        taskDescription,
+        taskAddedDate,
+        taskDeadline,
+        taskStartDate,
+        todolistTitle,
+        todolistId,
+        taskStatus,
+        setVisibleLiner
+    } = props
 
     const taskStatusNew = taskStatus === TaskStatuses.New
     const taskStatusCompleted = taskStatus === TaskStatuses.Completed
@@ -57,6 +72,16 @@ export const Task: FC<Props> = (props) => {
         closePreviewCompletedTask()
     }
 
+    const updateTask = (taskId: string, todolistId: string, title: string, description: string, deadline: Dayjs | null, startDate: Dayjs | null, closeTaskRedactor: () => void) => {
+        const deadlineValue = deadline === null ? taskDeadline : deadline
+        const startDateValue = startDate === null ? taskStartDate : startDate
+
+        dispatch(tasksThunk.updateTask({
+            todolistId, taskId, domainModel: {title, description, deadline: deadlineValue, startDate: startDateValue}
+        }))
+        closeTaskRedactor()
+    }
+
     return (
         <div key={taskId} className={taskStatusCompleted ? s.taskCompleted : s.task}>
             <div className={s.container} onClick={taskStatusCompleted ? openPreviewCompletedTask : openTaskEditor}>
@@ -88,11 +113,15 @@ export const Task: FC<Props> = (props) => {
                 todolistId={todolistId}
                 taskName={taskTitle}
                 taskStatus={taskStatus}
+                taskAddedDate={taskAddedDate}
+                taskDeadline={taskDeadline}
+                taskStartDate={taskStartDate}
                 todolistTitle={todolistTitle}
                 description={taskDescription}
                 taskEditor={taskEditor}
                 closeTaskEditor={closeTaskEditor}
                 updateCheckbox={updateCheckbox}
+                updateTask={updateTask}
             />
             <PreviewCompletedTask
                 taskName={taskTitle}

@@ -15,6 +15,7 @@ import {FilterTasks} from "../../Tasks/FilterTasks/FilterTasks";
 import {TodolistFilterType, TodolistsType} from "../todolists.types";
 import {useActions} from "../../../common/utils/hooks/useActions";
 import {todolistsActions} from "../todolists.slice";
+import {Dayjs} from "dayjs";
 
 type Props = {
     todolistId: string
@@ -43,6 +44,7 @@ export const Todolist: FC<Props> = (props) => {
     const [description, setDescription] = useState<string>('')
     const [formAddTask, setFormAddTask] = useState<boolean>(false)
     const [visibleLiner, setVisibleLiner] = useState<boolean>(false)
+    const [deadline, setDeadline] = useState<Dayjs | null>(null)
 
     const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => setTaskName(e.currentTarget.value)
     const changeDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.currentTarget.value)
@@ -59,11 +61,22 @@ export const Todolist: FC<Props> = (props) => {
         description && setDescription('')
     }
 
-    const addTask = (title: string, description: string) => {
-        setVisibleLiner(true)
-        dispatch(tasksThunk.addTask({todolistId, title, description}))
+    const settingDateDeadline = (deadline: any) => {
+        setDeadline(deadline)
+    }
+
+    const addTask = (title: string, description: string, deadline: any) => {
+
+        /*console.log(title)
+        console.log(description)*/
+        /*console.log(deadline['$d'].getTime())*/
+        /*const date = new Date()
+        console.log(date)*/
+
+        /*setVisibleLiner(true)
+        dispatch(tasksThunk.addTask({todolistId, title, description, deadline: deadline['$d'].getTime()}))
             .finally(() => setVisibleLiner(false))
-        closeFormAddTask()
+        closeFormAddTask()*/
     }
 
     if (task === undefined) return <Preloader/>
@@ -96,10 +109,12 @@ export const Todolist: FC<Props> = (props) => {
                         <FormAddTask
                             taskName={taskName}
                             description={description}
+                            deadline={deadline}
                             closeFormAddTask={closeFormAddTask}
                             changeTaskName={changeTaskName}
                             changeDescription={changeDescription}
                             addTask={addTask}
+                            settingDateDeadline={settingDateDeadline}
                         />
                         :
                         <AddTaskButton

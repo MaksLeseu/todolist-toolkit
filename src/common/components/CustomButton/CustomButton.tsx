@@ -5,12 +5,12 @@ import {Theme} from "@mui/material/styles";
 
 type Props = {
     color: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
-    label: string
+    label: string | undefined
     variant: 'contained' | 'text' | 'outlined'
     type?: 'submit' | 'reset' | 'button'
     size?: 'small' | 'medium' | 'large'
     sx?: SxProps<Theme>
-    onClick?: MouseEventHandler
+    onClick?: MouseEventHandler | undefined
 }
 
 export const CustomButton: FC<Props> = (props) => {

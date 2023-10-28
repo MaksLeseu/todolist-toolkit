@@ -4,6 +4,7 @@ import {tasksApi} from "./tasks.api";
 import {TasksType, UpdateTaskArgType, UpdateTaskModelType} from "./tasks.types";
 import {todolistsActions} from "../Todolists/todolists.slice";
 import {ResultCode} from "../../common/utils/enums";
+import {Dayjs} from "dayjs";
 
 const slice = createSlice({
     name: 'tasks',
@@ -48,15 +49,18 @@ export const fetchTasks = createAppAsyncThunk<{ tasks: TasksType[], todolistId: 
 })
 
 export const addTask = createAppAsyncThunk<{ todolistId: string, task: TasksType },
-    { todolistId: string, title: string, description: string }>
+    { todolistId: string, title: string, description: string, deadline: Dayjs | null }>
 ('tasks/addTask', async (arg, thunkAPI) => {
     const {rejectWithValue} = thunkAPI
+
+    console.log(arg.deadline)
 
     try {
         const res = await tasksApi.createTask({
             todolistId: arg.todolistId,
             title: arg.title,
-            description: arg.description
+            description: arg.description,
+            deadline: arg.deadline
         })
 
         return {todolistId: arg.todolistId, task: res.data.data.item}
@@ -101,7 +105,8 @@ export const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgTy
         const res = await tasksApi.updateTask(
             arg.todolistId,
             arg.taskId,
-            apiModel)
+            apiModel
+        )
 
         if (res.data.resultCode === ResultCode.Success) dispatch(fetchTasks({todolistId: arg.todolistId}))
 

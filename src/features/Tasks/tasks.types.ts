@@ -1,3 +1,5 @@
+import {Dayjs} from "dayjs";
+
 export type TasksType = {
     description: string
     title: string
@@ -17,6 +19,7 @@ export type AddTaskArgType = {
     todolistId: string
     title: string
     description: string
+    deadline: Dayjs | null
 }
 
 export type AddDescriptionArgType = {
@@ -30,14 +33,16 @@ export type UpdateDomainTaskModelType = {
     description?: string;
     status?: number;
     priority?: number;
-    startDate?: string;
-    deadline?: string;
+    startDate?: Dayjs | null;
+    deadline?: Dayjs | null;
 };
 
 export type UpdateTaskArgType = {
     taskId: string;
     domainModel: UpdateDomainTaskModelType;
     todolistId: string;
+    deadline?: Dayjs | null
+    startDate?: Dayjs | null
 };
 
 export type UpdateTaskModelType = {
@@ -45,6 +50,6 @@ export type UpdateTaskModelType = {
     description: string;
     status: number;
     priority: number;
-    startDate: string;
-    deadline: string;
+    startDate: Dayjs | null;
+    deadline: Dayjs | null;
 };

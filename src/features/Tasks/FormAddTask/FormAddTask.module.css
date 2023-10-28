@@ -13,3 +13,7 @@
     justify-content: flex-end;
     margin-top: 30px;
 }
+
+.settings {
+    display: flex;
+}

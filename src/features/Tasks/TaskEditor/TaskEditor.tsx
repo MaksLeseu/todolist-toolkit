@@ -1,6 +1,4 @@
 import React, {ChangeEvent, FC, useState} from "react";
-import {tasksThunk} from "../tasks.slice";
-import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
 import {ValueTask} from "./ValueTask/ValueTask";
@@ -14,17 +12,22 @@ import DrawIcon from '@mui/icons-material/Draw';
 import DescriptionIcon from '@mui/icons-material/Description';
 import {CustomCheckbox} from "../../../common/components/CustomCheckbox/CustomCheckbox";
 import {TaskStatuses} from "../../../common/utils/enums";
+import {Dayjs} from "dayjs";
 
 type Props = {
     taskId: string
     todolistId: string
     taskName: string
     taskStatus: number
+    taskAddedDate: string
+    taskDeadline: Dayjs | null
+    taskStartDate: Dayjs | null
     todolistTitle: string
     description: string
     taskEditor: boolean
     closeTaskEditor: () => void
     updateCheckbox: (event: ChangeEvent<HTMLInputElement>) => void
+    updateTask: (taskId: string, todolistId: string, title: string, description: string, deadline: any, startDate: any, closeTaskRedactor: () => void) => void
 }
 
 const style = {
@@ -40,31 +43,36 @@ export const TaskEditor: FC<Props> = (props) => {
         todolistId,
         taskName,
         taskStatus,
+        taskAddedDate,
+        taskDeadline,
+        taskStartDate,
         description,
         todolistTitle,
         taskEditor,
         closeTaskEditor,
         updateCheckbox,
+        updateTask
     } = props
-
-    const dispatch = useAppDispatch()
 
     const [taskRedactor, setTaskRedactor] = useState<boolean>(false)
 
     const [newTitle, setNewTitle] = useState<string>(taskName)
     const [newDescription, setNewDescription] = useState<string>(description)
+    const [deadlineDate, setDeadline] = useState<Dayjs | null>(null)
+    const [startDate, setStartDate] = useState<Dayjs | null>(null)
 
-    const openOrCloseTaskRedactor = () => setTaskRedactor(!taskRedactor)
+    const settingDateDeadline = (deadline: Dayjs | null) => setDeadline(deadline)
+    const settingStartDate = (startDate: Dayjs | null) => setStartDate(startDate)
+
+    const openTaskRedactor = () => setTaskRedactor(true)
+    const closeTaskRedactor = () => setTaskRedactor(false)
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
     const changeSpecification = (e: ChangeEvent<HTMLInputElement>) => setNewDescription(e.currentTarget.value)
 
-    const updateTask = () => {
-        dispatch(tasksThunk.updateTask({
-            todolistId, taskId, domainModel: {title: newTitle, description: newDescription}
-        }))
-        openOrCloseTaskRedactor()
-    }
+    const wrapperUpdateTaskForButton = () => updateTask(taskId, todolistId, newTitle, newDescription, deadlineDate, startDate, closeTaskRedactor)
+    const wrapperUpdateTaskForSettings = (taskId: string, todolistId: string, title: string, description: string, deadline: Dayjs | null, startDate: Dayjs | null) =>
+        updateTask(taskId, todolistId, title, description, deadline, startDate, closeTaskRedactor)
 
 
     return (
@@ -77,7 +85,7 @@ export const TaskEditor: FC<Props> = (props) => {
                 childrenRedactor={(
                     <CustomIconButton
                         disableRipple={false}
-                        onClick={openOrCloseTaskRedactor}
+                        onClick={closeTaskRedactor}
                         color={'primary'}
                     >
                         <DrawIcon/>
@@ -109,7 +117,7 @@ export const TaskEditor: FC<Props> = (props) => {
                                         sx={{width: '100%', marginBottom: '10px'}}
                                         multiline={false}
                                         onChange={changeTitle}
-                                        onClick={openOrCloseTaskRedactor}
+                                        onClick={openTaskRedactor}
                                     />
 
                                     <ValueTask
@@ -121,7 +129,7 @@ export const TaskEditor: FC<Props> = (props) => {
                                         sx={{width: '100%'}}
                                         multiline={true}
                                         onChange={changeSpecification}
-                                        onClick={openOrCloseTaskRedactor}
+                                        onClick={openTaskRedactor}
                                     />
                                 </div>
                             </CustomTooltip>
@@ -135,7 +143,7 @@ export const TaskEditor: FC<Props> = (props) => {
                                     label={MSG_BTN.CANCEL}
                                     variant={'contained'}
                                     size={'small'}
-                                    onClick={openOrCloseTaskRedactor}
+                                    onClick={closeTaskRedactor}
                                 />
                             }
                             {
@@ -146,20 +154,44 @@ export const TaskEditor: FC<Props> = (props) => {
                                     variant={'contained'}
                                     size={'small'}
                                     sx={{marginLeft: '10px'}}
-                                    onClick={updateTask}
+                                    onClick={wrapperUpdateTaskForButton}
                                 />
                             }
                         </div>
                     </div>
                     <div className={s.settingsTaskEditor}>
                         <SettingsTaskEditor
+                            title={'StartDate'}
+                            variant={'startDate'}
+                            taskId={taskId}
+                            todolistId={todolistId}
+                            taskName={newTitle}
+                            taskStartDate={taskStartDate}
+                            taskDescription={newDescription}
+                            updateTask={wrapperUpdateTaskForSettings}
+                            handleSettingStartDate={settingStartDate}
+                        />
+                        <SettingsTaskEditor
                             title={'Deadline'}
-                            label={'5 october'}
+                            variant={'deadline'}
+                            taskId={taskId}
+                            todolistId={todolistId}
+                            taskName={newTitle}
+                            taskDeadline={taskDeadline}
+                            taskDescription={newDescription}
+                            updateTask={wrapperUpdateTaskForSettings}
+                            settingDateDeadline={settingDateDeadline}
                         />
                         <SettingsTaskEditor
                             title={'Priority'}
                             label={'P4'}
+                            taskId={taskId}
+                            todolistId={todolistId}
+                            taskName={newTitle}
+                            taskDescription={newDescription}
+                            updateTask={wrapperUpdateTaskForSettings}
                         />
+                        <p className={s.dateAdded}>{`Date added: ${taskAddedDate.slice(0, 10)}`}</p>
                     </div>
                 </Box>
             </CustomModalWindow>
