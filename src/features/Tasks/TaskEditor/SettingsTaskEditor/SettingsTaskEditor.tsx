@@ -11,17 +11,17 @@ import dayjs, {Dayjs} from "dayjs";
 type Props = {
     title: string
     label?: string | undefined
-    taskId: string
-    todolistId: string
-    taskName: string
-    taskDescription: string
+    taskId?: string
+    todolistId?: string
+    taskName?: string
+    taskDescription?: string
     taskDeadline?: Dayjs | null
     taskStartDate?: Dayjs | null
     variant?: 'deadline' | 'startDate'
     sx?: SxProps<Theme>
-    settingDateDeadline?: (deadline: Dayjs | null) => void
+    handleSettingDeadline?: (deadline: Dayjs | null) => void
     handleSettingStartDate?: (startDate: Dayjs | null) => void
-    updateTask: (taskId: string, todolistId: string, title: string, description: string, deadline: any, startDate: any) => void
+    updateTask?: (taskId: string, todolistId: string, title: string, description: string, deadline: any, startDate: any) => void
 }
 
 export const SettingsTaskEditor: FC<Props> = (props) => {
@@ -36,7 +36,7 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
         taskDescription,
         taskDeadline,
         taskStartDate,
-        settingDateDeadline,
+        handleSettingDeadline,
         handleSettingStartDate,
         updateTask
     } = props
@@ -46,29 +46,31 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
     const [startDate, setStartDate] = useState<Dayjs | null>(null)
 
     const handleCloseCalendar = () => {
+        const condition = updateTask && taskId && todolistId && taskName && taskDescription !== undefined
+
         setOpenCalendar(null)
-        updateTask(taskId, todolistId, taskName, taskDescription, deadline, startDate)
+        condition && updateTask(taskId, todolistId, taskName, taskDescription, deadline, startDate)
     }
     const handleOpenCalendar = (event: React.MouseEvent<HTMLButtonElement>) => {
         setOpenCalendar(event.currentTarget);
     };
 
-    const settingDeadline = (date: dayjs.Dayjs | null) => {
+    const settingDeadlineValue = (date: dayjs.Dayjs | null) => {
         setDeadline(date)
-        settingDateDeadline && settingDateDeadline(date)
+        handleSettingDeadline && handleSettingDeadline(date)
     }
-    const settingStartDate = (date: dayjs.Dayjs | null) => {
+    const settingStartDateValue = (date: dayjs.Dayjs | null) => {
         setStartDate(date)
         handleSettingStartDate && handleSettingStartDate(date)
     }
 
-    const dateConversion = (date: dayjs.Dayjs) => dayjs(date).toString().slice(5, 16)
+    const dateConversionToString = (date: dayjs.Dayjs) => dayjs(date).toString().slice(5, 16)
 
-    const deadlineValue = taskDeadline && dateConversion(taskDeadline)
-    const startDateValue = taskStartDate && dateConversion(taskStartDate)
+    const deadlineValue = taskDeadline && dateConversionToString(taskDeadline)
+    const startDateValue = taskStartDate && dateConversionToString(taskStartDate)
 
-    const deadlineLabel = variant === 'deadline' && deadlineValue ? deadlineValue : deadline && dateConversion(deadline)
-    const startDateLabel = variant === 'startDate' && startDateValue ? startDateValue : startDate && dateConversion(startDate)
+    const deadlineLabel = variant === 'deadline' && deadlineValue ? deadlineValue : deadline && dateConversionToString(deadline)
+    const startDateLabel = variant === 'startDate' && startDateValue ? startDateValue : startDate && dateConversionToString(startDate)
 
     return (
         <div>
@@ -92,16 +94,16 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
                 variant === 'deadline' &&
                 <BaseCalendar
                     openCalendar={openCalendar}
-                    handleCloseCalendar={handleCloseCalendar}
-                    settingDate={settingDeadline}
+                    closeCalendar={handleCloseCalendar}
+                    settingDate={settingDeadlineValue}
                 />
             }
             {
                 variant === 'startDate' &&
                 <BaseCalendar
                     openCalendar={openCalendar}
-                    handleCloseCalendar={handleCloseCalendar}
-                    settingDate={settingStartDate}
+                    closeCalendar={handleCloseCalendar}
+                    settingDate={settingStartDateValue}
                 />
             }
         </div>

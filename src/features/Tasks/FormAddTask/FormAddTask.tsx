@@ -4,31 +4,36 @@ import {CustomTextField} from "../../../common/components/CustomTextField/Custom
 import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
 import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 import {Dayjs} from "dayjs";
+import {SettingsTaskEditor} from "../TaskEditor/SettingsTaskEditor/SettingsTaskEditor";
 
 type Props = {
     taskName: string
     description: string
-    deadline: any
+    startDate: Dayjs | null
+    deadline: Dayjs | null
     closeFormAddTask: () => void
     changeTaskName: (e: ChangeEvent<HTMLInputElement>) => void
     changeDescription: (e: ChangeEvent<HTMLInputElement>) => void
-    addTask: (title: string, description: string, deadline: any) => void
-    settingDateDeadline: (deadline: Dayjs | null) => void
+    addTask: (title: string, description: string, startDate: Dayjs | null, deadline: Dayjs | null) => void
+    handleSettingDeadline: (deadline: Dayjs | null) => void
+    handleSettingStartDate: (startDate: Dayjs | null) => void
 }
 
 export const FormAddTask: FC<Props> = (props) => {
     const {
         taskName,
         description,
+        startDate,
         deadline,
         closeFormAddTask,
         changeTaskName,
         changeDescription,
         addTask,
-        settingDateDeadline
+        handleSettingDeadline,
+        handleSettingStartDate
     } = props
 
-    const addTaskHandle = () => addTask(taskName, description, deadline)
+    const addTaskHandle = () => addTask(taskName, description, startDate, deadline)
 
     return (
         <div className={s.modalWindow}>
@@ -48,23 +53,23 @@ export const FormAddTask: FC<Props> = (props) => {
                 onChange={changeDescription}
             />
             <div className={s.settings}>
-                {/*<SettingsTaskEditor
+                <SettingsTaskEditor
                     title={'StartDate'}
                     variant={'startDate'}
                     sx={{marginRight: '10px', width: '130px'}}
-                    settingDateDeadline={settingDateDeadline}
+                    handleSettingStartDate={handleSettingStartDate}
                 />
                 <SettingsTaskEditor
                     title={'Deadline'}
                     variant={'deadline'}
                     sx={{marginRight: '10px', width: '130px'}}
-                    settingDateDeadline={settingDateDeadline}
+                    handleSettingDeadline={handleSettingDeadline}
                 />
                 <SettingsTaskEditor
                     title={'Priority'}
                     label={'P4'}
                     sx={{width: '130px'}}
-                />*/}
+                />
             </div>
             <div className={s.buttonGroup}>
                 <CustomButton

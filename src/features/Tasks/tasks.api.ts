@@ -9,7 +9,12 @@ export const tasksApi = {
         return instance.get<{ items: TasksType[] }>(`${baseTodo}/${todolistId}/${base}`)
     },
     createTask(arg: AddTaskArgType) {
-        return instance.post(`/${baseTodo}/${arg.todolistId}/${base}`, {title: arg.title, description: arg.description})
+        return instance.post(`/${baseTodo}/${arg.todolistId}/${base}`, {
+            title: arg.title,
+            description: arg.description,
+            startDate: arg.startDate,
+            deadline: arg.deadline
+        })
     },
     removeTask(todolistId: string, taskId: string) {
         return instance.delete(`/${baseTodo}/${todolistId}/${base}/${taskId}`)

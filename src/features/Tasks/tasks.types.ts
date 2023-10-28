@@ -19,6 +19,7 @@ export type AddTaskArgType = {
     todolistId: string
     title: string
     description: string
+    startDate: Dayjs | null
     deadline: Dayjs | null
 }
 

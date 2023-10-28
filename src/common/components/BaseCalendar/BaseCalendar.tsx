@@ -6,15 +6,13 @@ import {AnchorElType, CustomPopover} from "../CustomPopover/CustomPopover";
 import dayjs, {Dayjs} from "dayjs";
 
 type Props = {
-    value?: Dayjs | null
-    setValue?: any
     openCalendar: AnchorElType
-    handleCloseCalendar: () => void
+    closeCalendar: () => void
     settingDate: (date: dayjs.Dayjs | null) => void
 }
 
 export const BaseCalendar: FC<Props> = (props) => {
-    const {openCalendar, handleCloseCalendar, settingDate} = props
+    const {openCalendar, closeCalendar, settingDate} = props
 
     const nowDate = new Date()
     const [value, setValue] = React.useState<Dayjs | null>(dayjs(nowDate));
@@ -24,7 +22,7 @@ export const BaseCalendar: FC<Props> = (props) => {
     return (
         <CustomPopover
             anchorEl={openCalendar}
-            handleClosePopover={handleCloseCalendar}
+            handleClosePopover={closeCalendar}
         >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DateCalendar', 'DateCalendar']}>

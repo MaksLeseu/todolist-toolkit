@@ -58,11 +58,6 @@ export const TaskEditor: FC<Props> = (props) => {
 
     const [newTitle, setNewTitle] = useState<string>(taskName)
     const [newDescription, setNewDescription] = useState<string>(description)
-    const [deadlineDate, setDeadline] = useState<Dayjs | null>(null)
-    const [startDate, setStartDate] = useState<Dayjs | null>(null)
-
-    const settingDateDeadline = (deadline: Dayjs | null) => setDeadline(deadline)
-    const settingStartDate = (startDate: Dayjs | null) => setStartDate(startDate)
 
     const openTaskRedactor = () => setTaskRedactor(true)
     const closeTaskRedactor = () => setTaskRedactor(false)
@@ -70,7 +65,7 @@ export const TaskEditor: FC<Props> = (props) => {
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
     const changeSpecification = (e: ChangeEvent<HTMLInputElement>) => setNewDescription(e.currentTarget.value)
 
-    const wrapperUpdateTaskForButton = () => updateTask(taskId, todolistId, newTitle, newDescription, deadlineDate, startDate, closeTaskRedactor)
+    const wrapperUpdateTaskForButton = () => updateTask(taskId, todolistId, newTitle, newDescription, taskDeadline, taskStartDate, closeTaskRedactor)
     const wrapperUpdateTaskForSettings = (taskId: string, todolistId: string, title: string, description: string, deadline: Dayjs | null, startDate: Dayjs | null) =>
         updateTask(taskId, todolistId, title, description, deadline, startDate, closeTaskRedactor)
 
@@ -85,7 +80,7 @@ export const TaskEditor: FC<Props> = (props) => {
                 childrenRedactor={(
                     <CustomIconButton
                         disableRipple={false}
-                        onClick={closeTaskRedactor}
+                        onClick={openTaskRedactor}
                         color={'primary'}
                     >
                         <DrawIcon/>
@@ -169,7 +164,6 @@ export const TaskEditor: FC<Props> = (props) => {
                             taskStartDate={taskStartDate}
                             taskDescription={newDescription}
                             updateTask={wrapperUpdateTaskForSettings}
-                            handleSettingStartDate={settingStartDate}
                         />
                         <SettingsTaskEditor
                             title={'Deadline'}
@@ -180,7 +174,6 @@ export const TaskEditor: FC<Props> = (props) => {
                             taskDeadline={taskDeadline}
                             taskDescription={newDescription}
                             updateTask={wrapperUpdateTaskForSettings}
-                            settingDateDeadline={settingDateDeadline}
                         />
                         <SettingsTaskEditor
                             title={'Priority'}
