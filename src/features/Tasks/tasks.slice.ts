@@ -49,11 +49,9 @@ export const fetchTasks = createAppAsyncThunk<{ tasks: TasksType[], todolistId: 
 })
 
 export const addTask = createAppAsyncThunk<{ todolistId: string, task: TasksType },
-    { todolistId: string, title: string, description: string, startDate: Dayjs | null, deadline: Dayjs | null }>
+    { todolistId: string, title: string, description: string, startDate: Dayjs | null, deadline: Dayjs | null, priority: number }>
 ('tasks/addTask', async (arg, thunkAPI) => {
     const {rejectWithValue} = thunkAPI
-
-    console.log(arg.deadline)
 
     try {
         const res = await tasksApi.createTask({
@@ -61,7 +59,8 @@ export const addTask = createAppAsyncThunk<{ todolistId: string, task: TasksType
             title: arg.title,
             description: arg.description,
             startDate: arg.startDate,
-            deadline: arg.deadline
+            deadline: arg.deadline,
+            priority: arg.priority
         })
 
         return {todolistId: arg.todolistId, task: res.data.data.item}
@@ -95,10 +94,10 @@ export const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgTy
     const apiModel: UpdateTaskModelType = {
         deadline: task.deadline as any,
         description: task.description,
-        priority: task.priority,
         startDate: task.startDate as any,
         title: task.title,
         status: task.status,
+        priority: task.priority,
         ...arg.domainModel,
     };
 

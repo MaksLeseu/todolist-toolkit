@@ -22,12 +22,13 @@ type Props = {
     taskAddedDate: string
     taskDeadline: Dayjs | null
     taskStartDate: Dayjs | null
+    taskPriority: number
     todolistTitle: string
     description: string
     taskEditor: boolean
     closeTaskEditor: () => void
     updateCheckbox: (event: ChangeEvent<HTMLInputElement>) => void
-    updateTask: (taskId: string, todolistId: string, title: string, description: string, deadline: any, startDate: any, closeTaskRedactor: () => void) => void
+    updateTask: (taskId: string, todolistId: string, title: string, description: string, deadline: any, startDate: any, priority: number, closeTaskRedactor: () => void) => void
 }
 
 const style = {
@@ -46,6 +47,7 @@ export const TaskEditor: FC<Props> = (props) => {
         taskAddedDate,
         taskDeadline,
         taskStartDate,
+        taskPriority,
         description,
         todolistTitle,
         taskEditor,
@@ -65,9 +67,9 @@ export const TaskEditor: FC<Props> = (props) => {
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
     const changeSpecification = (e: ChangeEvent<HTMLInputElement>) => setNewDescription(e.currentTarget.value)
 
-    const wrapperUpdateTaskForButton = () => updateTask(taskId, todolistId, newTitle, newDescription, taskDeadline, taskStartDate, closeTaskRedactor)
-    const wrapperUpdateTaskForSettings = (taskId: string, todolistId: string, title: string, description: string, deadline: Dayjs | null, startDate: Dayjs | null) =>
-        updateTask(taskId, todolistId, title, description, deadline, startDate, closeTaskRedactor)
+    const wrapperUpdateTaskForButton = () => updateTask(taskId, todolistId, newTitle, newDescription, taskDeadline, taskStartDate, taskPriority, closeTaskRedactor)
+    const wrapperUpdateTaskForSettings = (taskId: string, todolistId: string, title: string, description: string, deadline: Dayjs | null, startDate: Dayjs | null, priority: number) =>
+        updateTask(taskId, todolistId, title, description, deadline, startDate, priority, closeTaskRedactor)
 
 
     return (
@@ -163,6 +165,7 @@ export const TaskEditor: FC<Props> = (props) => {
                             taskName={newTitle}
                             taskStartDate={taskStartDate}
                             taskDescription={newDescription}
+                            taskPriority={taskPriority}
                             updateTask={wrapperUpdateTaskForSettings}
                         />
                         <SettingsTaskEditor
@@ -173,15 +176,17 @@ export const TaskEditor: FC<Props> = (props) => {
                             taskName={newTitle}
                             taskDeadline={taskDeadline}
                             taskDescription={newDescription}
+                            taskPriority={taskPriority}
                             updateTask={wrapperUpdateTaskForSettings}
                         />
                         <SettingsTaskEditor
                             title={'Priority'}
-                            label={'P4'}
+                            variant={'priority'}
                             taskId={taskId}
                             todolistId={todolistId}
                             taskName={newTitle}
                             taskDescription={newDescription}
+                            taskPriority={taskPriority}
                             updateTask={wrapperUpdateTaskForSettings}
                         />
                         <p className={s.dateAdded}>{`Date added: ${taskAddedDate.slice(0, 10)}`}</p>

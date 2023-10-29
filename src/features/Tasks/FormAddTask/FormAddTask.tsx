@@ -11,12 +11,14 @@ type Props = {
     description: string
     startDate: Dayjs | null
     deadline: Dayjs | null
+    priority: number
     closeFormAddTask: () => void
     changeTaskName: (e: ChangeEvent<HTMLInputElement>) => void
     changeDescription: (e: ChangeEvent<HTMLInputElement>) => void
-    addTask: (title: string, description: string, startDate: Dayjs | null, deadline: Dayjs | null) => void
+    addTask: (title: string, description: string, startDate: Dayjs | null, deadline: Dayjs | null, priority: number) => void
     handleSettingDeadline: (deadline: Dayjs | null) => void
     handleSettingStartDate: (startDate: Dayjs | null) => void
+    handleSettingPriority: (priority: number) => void
 }
 
 export const FormAddTask: FC<Props> = (props) => {
@@ -25,15 +27,17 @@ export const FormAddTask: FC<Props> = (props) => {
         description,
         startDate,
         deadline,
+        priority,
         closeFormAddTask,
         changeTaskName,
         changeDescription,
         addTask,
         handleSettingDeadline,
-        handleSettingStartDate
+        handleSettingStartDate,
+        handleSettingPriority
     } = props
 
-    const addTaskHandle = () => addTask(taskName, description, startDate, deadline)
+    const addTaskHandle = () => addTask(taskName, description, startDate, deadline, priority)
 
     return (
         <div className={s.modalWindow}>
@@ -67,8 +71,9 @@ export const FormAddTask: FC<Props> = (props) => {
                 />
                 <SettingsTaskEditor
                     title={'Priority'}
-                    label={'P4'}
+                    variant={'priority'}
                     sx={{width: '130px'}}
+                    handleSettingPriority={handleSettingPriority}
                 />
             </div>
             <div className={s.buttonGroup}>

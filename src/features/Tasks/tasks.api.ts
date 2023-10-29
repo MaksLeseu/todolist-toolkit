@@ -13,7 +13,8 @@ export const tasksApi = {
             title: arg.title,
             description: arg.description,
             startDate: arg.startDate,
-            deadline: arg.deadline
+            deadline: arg.deadline,
+            priority: arg.priority
         })
     },
     removeTask(todolistId: string, taskId: string) {

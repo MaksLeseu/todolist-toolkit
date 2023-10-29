@@ -47,6 +47,7 @@ export const Todolist: FC<Props> = (props) => {
 
     const [deadline, setDeadline] = useState<Dayjs | null>(null)
     const [startDate, setStartDate] = useState<Dayjs | null>(null)
+    const [priority, setPriority] = useState<number>(1)
 
     const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => setTaskName(e.currentTarget.value)
     const changeDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.currentTarget.value)
@@ -65,13 +66,14 @@ export const Todolist: FC<Props> = (props) => {
 
     const handleSettingDeadline = (deadline: Dayjs | null) => setDeadline(deadline)
     const handleSettingStartDate = (startDate: Dayjs | null) => setStartDate(startDate)
+    const handleSettingPriority = (priority: number) => setPriority(priority)
 
-    const addTask = (title: string, description: string, startDate: Dayjs | null, deadline: Dayjs | null) => {
+    const addTask = (title: string, description: string, startDate: Dayjs | null, deadline: Dayjs | null, priority: number) => {
         if (!title) {
             return
         }
         setVisibleLiner(true)
-        dispatch(tasksThunk.addTask({todolistId, title, description, startDate, deadline}))
+        dispatch(tasksThunk.addTask({todolistId, title, description, startDate, deadline, priority}))
             .finally(() => setVisibleLiner(false))
         closeFormAddTask()
     }
@@ -108,12 +110,14 @@ export const Todolist: FC<Props> = (props) => {
                             description={description}
                             startDate={startDate}
                             deadline={deadline}
+                            priority={priority}
                             closeFormAddTask={closeFormAddTask}
                             changeTaskName={changeTaskName}
                             changeDescription={changeDescription}
                             addTask={addTask}
                             handleSettingDeadline={handleSettingDeadline}
                             handleSettingStartDate={handleSettingStartDate}
+                            handleSettingPriority={handleSettingPriority}
                         />
                         :
                         <AddTaskButton

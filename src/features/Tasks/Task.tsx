@@ -19,6 +19,7 @@ type Props = {
     taskAddedDate: string
     taskDeadline: Dayjs | null
     taskStartDate: Dayjs | null
+    taskPriority: number
     todolistTitle: string
     task: TasksType
     setVisibleLiner: (value: boolean) => void
@@ -32,6 +33,7 @@ export const Task: FC<Props> = (props) => {
         taskAddedDate,
         taskDeadline,
         taskStartDate,
+        taskPriority,
         todolistTitle,
         todolistId,
         taskStatus,
@@ -72,12 +74,14 @@ export const Task: FC<Props> = (props) => {
         closePreviewCompletedTask()
     }
 
-    const updateTask = (taskId: string, todolistId: string, title: string, description: string, deadline: Dayjs | null, startDate: Dayjs | null, closeTaskRedactor: () => void) => {
+    const updateTask = (taskId: string, todolistId: string, title: string, description: string, deadline: Dayjs | null, startDate: Dayjs | null, priority: number, closeTaskRedactor: () => void) => {
         const deadlineValue = deadline === null ? taskDeadline : deadline
         const startDateValue = startDate === null ? taskStartDate : startDate
 
         dispatch(tasksThunk.updateTask({
-            todolistId, taskId, domainModel: {title, description, deadline: deadlineValue, startDate: startDateValue}
+            todolistId,
+            taskId,
+            domainModel: {title, description, priority, deadline: deadlineValue, startDate: startDateValue}
         }))
         closeTaskRedactor()
     }
@@ -116,6 +120,7 @@ export const Task: FC<Props> = (props) => {
                 taskAddedDate={taskAddedDate}
                 taskDeadline={taskDeadline}
                 taskStartDate={taskStartDate}
+                taskPriority={taskPriority}
                 todolistTitle={todolistTitle}
                 description={taskDescription}
                 taskEditor={taskEditor}

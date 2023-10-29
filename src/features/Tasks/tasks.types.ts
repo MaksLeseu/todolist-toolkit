@@ -21,6 +21,7 @@ export type AddTaskArgType = {
     description: string
     startDate: Dayjs | null
     deadline: Dayjs | null
+    priority: number
 }
 
 export type AddDescriptionArgType = {
@@ -40,10 +41,8 @@ export type UpdateDomainTaskModelType = {
 
 export type UpdateTaskArgType = {
     taskId: string;
-    domainModel: UpdateDomainTaskModelType;
     todolistId: string;
-    deadline?: Dayjs | null
-    startDate?: Dayjs | null
+    domainModel: UpdateDomainTaskModelType;
 };
 
 export type UpdateTaskModelType = {

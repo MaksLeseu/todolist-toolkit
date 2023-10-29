@@ -48,6 +48,7 @@ export const Tasks: FC<Props> = (props) => {
                             taskAddedDate={ts.addedDate}
                             taskDeadline={ts.deadline}
                             taskStartDate={ts.startDate}
+                            taskPriority={ts.priority}
                             todolistTitle={todolistTitle}
                             task={ts}
                             setVisibleLiner={setVisibleLiner}
