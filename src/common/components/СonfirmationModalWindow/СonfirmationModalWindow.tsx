@@ -30,7 +30,7 @@ export const ConfirmationModalWindow: FC<Props> = (props) => {
                 onClose={closeConfirmation}
             >
                 <div className={s.confirmation}>
-                    <p>This will delete <span>{description}</span></p>
+                    <p>{description}</p>
                     <div className={s.containerButton}>
                         <CustomButton
                             color={'inherit'}

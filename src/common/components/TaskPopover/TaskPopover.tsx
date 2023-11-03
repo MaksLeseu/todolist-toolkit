@@ -45,7 +45,7 @@ export const TaskPopover: FC<Props> = (props) => {
             <ConfirmationModalWindow
                 isOpen={isOpen}
                 title={'task'}
-                description={taskTitle}
+                description={`This will delete ${taskTitle}`}
                 actionConfirmation={handleOnClick}
                 closeConfirmation={changeConformation}
             />

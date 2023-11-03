@@ -13,6 +13,9 @@ import {CustomCheckbox} from "../../../common/components/CustomCheckbox/CustomCh
 import {TaskStatuses} from "../../../common/utils/enums";
 import {Dayjs} from "dayjs";
 import {GroupSettingsTaskEditor} from "./GroupSettingsTaskEditor/GroupSettingsTaskEditor";
+import {UpdateTaskParamsType} from "../Task";
+import {Nullable} from "../../../common/utils/types/optional.types";
+import {ConfirmationModalWindow} from "../../../common/components/СonfirmationModalWindow/СonfirmationModalWindow";
 
 type Props = {
     taskId: string
@@ -20,15 +23,15 @@ type Props = {
     taskName: string
     taskStatus: number
     taskAddedDate: string
-    taskDeadline: Dayjs | null
-    taskStartDate: Dayjs | null
+    taskDeadline: Nullable<Dayjs>
+    taskStartDate: Nullable<Dayjs>
     taskPriority: number
     todolistTitle: string
     description: string
     taskEditor: boolean
     closeTaskEditor: () => void
     updateCheckbox: (event: ChangeEvent<HTMLInputElement>) => void
-    updateTask: (taskId: string, todolistId: string, title: string, description: string, deadline: any, startDate: any, priority: number, closeTaskRedactor: () => void) => void
+    updateTask: (params: UpdateTaskParamsType) => void
 }
 
 const style = {
@@ -57,6 +60,7 @@ export const TaskEditor: FC<Props> = (props) => {
     } = props
 
     const [taskRedactor, setTaskRedactor] = useState<boolean>(false)
+    const [taskConfirmation, setTaskConfirmation] = useState<boolean>(false)
 
     const [newTitle, setNewTitle] = useState<string>(taskName)
     const [newDescription, setNewDescription] = useState<string>(description)
@@ -64,13 +68,45 @@ export const TaskEditor: FC<Props> = (props) => {
     const openTaskRedactor = () => setTaskRedactor(true)
     const closeTaskRedactor = () => setTaskRedactor(false)
 
+    const closeConfirmation = () => setTaskConfirmation(false)
+    const actionConfirmation = () => {
+        setNewTitle(taskName)
+        setNewDescription(description)
+        closeConfirmation()
+        closeTaskRedactor()
+    }
+
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
     const changeSpecification = (e: ChangeEvent<HTMLInputElement>) => setNewDescription(e.currentTarget.value)
 
     const wrapperUpdateTaskForButton = () =>
-        updateTask(taskId, todolistId, newTitle, newDescription, taskDeadline, taskStartDate, taskPriority, closeTaskRedactor)
-    const wrapperUpdateTaskForGroupSettings = (startDate: Dayjs | null, deadline: Dayjs | null, priority: number) =>
-        updateTask(taskId, todolistId, newTitle, newDescription, deadline, startDate, priority, closeTaskRedactor)
+        updateTask({
+            taskId,
+            todolistId,
+            title: newTitle,
+            description: newDescription,
+            deadline: taskDeadline,
+            startDate: taskStartDate,
+            priority: taskPriority,
+            closeTaskRedactor
+        })
+    const wrapperUpdateTaskForGroupSettings = (startDate: Nullable<Dayjs>, deadline: Nullable<Dayjs>, priority: number) =>
+        updateTask({
+            taskId,
+            todolistId,
+            title: newTitle,
+            description: newDescription,
+            deadline, startDate, priority, closeTaskRedactor
+        })
+
+    const handleCloseTaskEditor = () => {
+        if (taskRedactor && taskName !== newTitle || description !== newDescription) {
+            return setTaskConfirmation(true)
+        }
+
+        closeTaskEditor()
+        closeTaskRedactor()
+    }
 
     return (
         <>
@@ -88,7 +124,7 @@ export const TaskEditor: FC<Props> = (props) => {
                         <DrawIcon/>
                     </CustomIconButton>
                 )}
-                onClose={closeTaskEditor}
+                onClose={handleCloseTaskEditor}
             >
                 <Box sx={{padding: '10px 20px 20px 20px', display: 'flex'}}>
                     <div className={s.taskBody}>
@@ -165,6 +201,13 @@ export const TaskEditor: FC<Props> = (props) => {
                         />
                         <p className={s.dateAdded}>{`Date added: ${taskAddedDate.slice(0, 10)}`}</p>
                     </div>
+                    <ConfirmationModalWindow
+                        isOpen={taskConfirmation}
+                        title={'changes'}
+                        description={'Changes will not be saved'}
+                        actionConfirmation={actionConfirmation}
+                        closeConfirmation={closeConfirmation}
+                    />
                 </Box>
             </CustomModalWindow>
         </>

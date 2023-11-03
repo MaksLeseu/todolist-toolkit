@@ -9,6 +9,7 @@ import {TaskStatuses} from "../../common/utils/enums";
 import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
 import {PreviewCompletedTask} from "./PreviewCompletedTask/PreviewCompletedTask";
 import {Dayjs} from "dayjs";
+import {Nullable} from "../../common/utils/types/optional.types";
 
 type Props = {
     taskId: string
@@ -17,12 +18,23 @@ type Props = {
     taskTitle: string
     taskDescription: string
     taskAddedDate: string
-    taskDeadline: Dayjs | null
-    taskStartDate: Dayjs | null
+    taskDeadline: Nullable<Dayjs>
+    taskStartDate: Nullable<Dayjs>
     taskPriority: number
     todolistTitle: string
     task: TasksType
     setVisibleLiner: (value: boolean) => void
+}
+
+export type UpdateTaskParamsType = {
+    taskId: string
+    todolistId: string
+    title: string
+    description: string
+    deadline: Nullable<Dayjs>
+    startDate: Nullable<Dayjs>
+    priority: number
+    closeTaskRedactor: () => void
 }
 
 export const Task: FC<Props> = (props) => {
@@ -74,16 +86,22 @@ export const Task: FC<Props> = (props) => {
         closePreviewCompletedTask()
     }
 
-    const updateTask = (taskId: string, todolistId: string, title: string, description: string, deadline: Dayjs | null, startDate: Dayjs | null, priority: number, closeTaskRedactor: () => void) => {
-        const deadlineValue = deadline === null ? taskDeadline : deadline
-        const startDateValue = startDate === null ? taskStartDate : startDate
+    const updateTask = (params: UpdateTaskParamsType) => {
+        const deadlineValue = params.deadline === null ? taskDeadline : params.deadline
+        const startDateValue = params.startDate === null ? taskStartDate : params.startDate
 
         dispatch(tasksThunk.updateTask({
             todolistId,
             taskId,
-            domainModel: {title, description, priority, deadline: deadlineValue, startDate: startDateValue}
+            domainModel: {
+                title: params.title,
+                description: params.description,
+                priority: params.priority,
+                deadline: deadlineValue,
+                startDate: startDateValue
+            }
         }))
-        closeTaskRedactor()
+        params.closeTaskRedactor()
     }
 
     return (
