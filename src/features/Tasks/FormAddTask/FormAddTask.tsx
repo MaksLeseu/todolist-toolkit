@@ -1,43 +1,32 @@
-import React, {ChangeEvent, FC} from "react";
+import React, {ChangeEvent, FC, MouseEventHandler} from "react";
 import s from './FormAddTask.module.css'
 import {CustomTextField} from "../../../common/components/CustomTextField/CustomTextField";
 import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
 import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
+import {GroupSettingsTaskEditor} from "../TaskEditor/GroupSettingsTaskEditor/GroupSettingsTaskEditor";
+import {Nullable} from "../../../common/utils/types/optional.types";
 import {Dayjs} from "dayjs";
-import {SettingsTaskEditor} from "../TaskEditor/SettingsTaskEditor/SettingsTaskEditor";
 
 type Props = {
     taskName: string
     description: string
-    startDate: Dayjs | null
-    deadline: Dayjs | null
-    priority: number
-    closeFormAddTask: () => void
+    closeFormAddTask: MouseEventHandler | undefined
     changeTaskName: (e: ChangeEvent<HTMLInputElement>) => void
     changeDescription: (e: ChangeEvent<HTMLInputElement>) => void
-    addTask: (title: string, description: string, startDate: Dayjs | null, deadline: Dayjs | null, priority: number) => void
-    handleSettingDeadline: (deadline: Dayjs | null) => void
-    handleSettingStartDate: (startDate: Dayjs | null) => void
-    handleSettingPriority: (priority: number) => void
+    addTask: MouseEventHandler | undefined
+    genericSettingFunction: (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => void
 }
 
 export const FormAddTask: FC<Props> = (props) => {
     const {
         taskName,
         description,
-        startDate,
-        deadline,
-        priority,
         closeFormAddTask,
         changeTaskName,
         changeDescription,
         addTask,
-        handleSettingDeadline,
-        handleSettingStartDate,
-        handleSettingPriority
+        genericSettingFunction
     } = props
-
-    const addTaskHandle = () => addTask(taskName, description, startDate, deadline, priority)
 
     return (
         <div className={s.modalWindow}>
@@ -57,23 +46,9 @@ export const FormAddTask: FC<Props> = (props) => {
                 onChange={changeDescription}
             />
             <div className={s.settings}>
-                <SettingsTaskEditor
-                    title={'StartDate'}
-                    variant={'startDate'}
+                <GroupSettingsTaskEditor
                     sx={{marginRight: '10px', width: '130px'}}
-                    handleSettingStartDate={handleSettingStartDate}
-                />
-                <SettingsTaskEditor
-                    title={'Deadline'}
-                    variant={'deadline'}
-                    sx={{marginRight: '10px', width: '130px'}}
-                    handleSettingDeadline={handleSettingDeadline}
-                />
-                <SettingsTaskEditor
-                    title={'Priority'}
-                    variant={'priority'}
-                    sx={{width: '130px'}}
-                    handleSettingPriority={handleSettingPriority}
+                    genericSettingFunction={genericSettingFunction}
                 />
             </div>
             <div className={s.buttonGroup}>
@@ -88,7 +63,7 @@ export const FormAddTask: FC<Props> = (props) => {
                     color={'primary'}
                     label={MSG_BTN.ADD_A_TASK}
                     variant={'contained'}
-                    onClick={addTaskHandle}
+                    onClick={addTask}
                 />
             </div>
         </div>

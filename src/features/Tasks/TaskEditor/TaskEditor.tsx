@@ -5,7 +5,6 @@ import {ValueTask} from "./ValueTask/ValueTask";
 import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTooltip";
 import {CustomModalWindow} from "../../../common/components/CustomModalWindow/CustomModalWindow";
-import {SettingsTaskEditor} from "./SettingsTaskEditor/SettingsTaskEditor";
 import {Box} from "@mui/material";
 import s from './TaskEditor.module.css'
 import DrawIcon from '@mui/icons-material/Draw';
@@ -13,6 +12,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import {CustomCheckbox} from "../../../common/components/CustomCheckbox/CustomCheckbox";
 import {TaskStatuses} from "../../../common/utils/enums";
 import {Dayjs} from "dayjs";
+import {GroupSettingsTaskEditor} from "./GroupSettingsTaskEditor/GroupSettingsTaskEditor";
 
 type Props = {
     taskId: string
@@ -67,10 +67,10 @@ export const TaskEditor: FC<Props> = (props) => {
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
     const changeSpecification = (e: ChangeEvent<HTMLInputElement>) => setNewDescription(e.currentTarget.value)
 
-    const wrapperUpdateTaskForButton = () => updateTask(taskId, todolistId, newTitle, newDescription, taskDeadline, taskStartDate, taskPriority, closeTaskRedactor)
-    const wrapperUpdateTaskForSettings = (taskId: string, todolistId: string, title: string, description: string, deadline: Dayjs | null, startDate: Dayjs | null, priority: number) =>
-        updateTask(taskId, todolistId, title, description, deadline, startDate, priority, closeTaskRedactor)
-
+    const wrapperUpdateTaskForButton = () =>
+        updateTask(taskId, todolistId, newTitle, newDescription, taskDeadline, taskStartDate, taskPriority, closeTaskRedactor)
+    const wrapperUpdateTaskForGroupSettings = (startDate: Dayjs | null, deadline: Dayjs | null, priority: number) =>
+        updateTask(taskId, todolistId, newTitle, newDescription, deadline, startDate, priority, closeTaskRedactor)
 
     return (
         <>
@@ -157,37 +157,11 @@ export const TaskEditor: FC<Props> = (props) => {
                         </div>
                     </div>
                     <div className={s.settingsTaskEditor}>
-                        <SettingsTaskEditor
-                            title={'StartDate'}
-                            variant={'startDate'}
-                            taskId={taskId}
-                            todolistId={todolistId}
-                            taskName={newTitle}
-                            taskStartDate={taskStartDate}
-                            taskDescription={newDescription}
+                        <GroupSettingsTaskEditor
                             taskPriority={taskPriority}
-                            updateTask={wrapperUpdateTaskForSettings}
-                        />
-                        <SettingsTaskEditor
-                            title={'Deadline'}
-                            variant={'deadline'}
-                            taskId={taskId}
-                            todolistId={todolistId}
-                            taskName={newTitle}
                             taskDeadline={taskDeadline}
-                            taskDescription={newDescription}
-                            taskPriority={taskPriority}
-                            updateTask={wrapperUpdateTaskForSettings}
-                        />
-                        <SettingsTaskEditor
-                            title={'Priority'}
-                            variant={'priority'}
-                            taskId={taskId}
-                            todolistId={todolistId}
-                            taskName={newTitle}
-                            taskDescription={newDescription}
-                            taskPriority={taskPriority}
-                            updateTask={wrapperUpdateTaskForSettings}
+                            taskStartDate={taskStartDate}
+                            updateTask={wrapperUpdateTaskForGroupSettings}
                         />
                         <p className={s.dateAdded}>{`Date added: ${taskAddedDate.slice(0, 10)}`}</p>
                     </div>

@@ -16,6 +16,7 @@ import {TodolistFilterType, TodolistsType} from "../todolists.types";
 import {useActions} from "../../../common/utils/hooks/useActions";
 import {todolistsActions} from "../todolists.slice";
 import {Dayjs} from "dayjs";
+import {Nullable} from "../../../common/utils/types/optional.types";
 
 type Props = {
     todolistId: string
@@ -45,8 +46,8 @@ export const Todolist: FC<Props> = (props) => {
     const [formAddTask, setFormAddTask] = useState<boolean>(false)
     const [visibleLiner, setVisibleLiner] = useState<boolean>(false)
 
-    const [deadline, setDeadline] = useState<Dayjs | null>(null)
-    const [startDate, setStartDate] = useState<Dayjs | null>(null)
+    const [deadline, setDeadline] = useState<Nullable<Dayjs>>(null)
+    const [startDate, setStartDate] = useState<Nullable<Dayjs>>(null)
     const [priority, setPriority] = useState<number>(1)
 
     const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => setTaskName(e.currentTarget.value)
@@ -64,19 +65,36 @@ export const Todolist: FC<Props> = (props) => {
         description && setDescription('')
     }
 
-    const handleSettingDeadline = (deadline: Dayjs | null) => setDeadline(deadline)
-    const handleSettingStartDate = (startDate: Dayjs | null) => setStartDate(startDate)
+    const handleSettingDeadline = (deadline: Nullable<Dayjs>) => setDeadline(deadline)
+    const handleSettingStartDate = (startDate: Nullable<Dayjs>) => setStartDate(startDate)
     const handleSettingPriority = (priority: number) => setPriority(priority)
 
-    const addTask = (title: string, description: string, startDate: Dayjs | null, deadline: Dayjs | null, priority: number) => {
-        if (!title) {
-            return
+    const genericSettingFunction = (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => {
+        const methodsForSettingValues = {
+            'startDate': (startDate: Nullable<Dayjs> | number) => {
+                handleSettingStartDate(startDate as Nullable<Dayjs>)
+            },
+            'deadline': (deadline: Nullable<Dayjs> | number) => {
+                handleSettingDeadline(deadline as Nullable<Dayjs>)
+            },
+            'priority': (priority: number | Nullable<Dayjs>) => {
+                handleSettingPriority(priority as number)
+            },
         }
+        methodsForSettingValues[method](value)
+    }
+
+
+    const addTask = (title: string, description: string, startDate: Dayjs | null, deadline: Dayjs | null, priority: number) => {
+        if (!title) return
+
         setVisibleLiner(true)
         dispatch(tasksThunk.addTask({todolistId, title, description, startDate, deadline, priority}))
             .finally(() => setVisibleLiner(false))
         closeFormAddTask()
     }
+
+    const addTaskHandle = () => addTask(taskName, description, startDate, deadline, priority)
 
     if (task === undefined) return <Preloader/>
 
@@ -108,16 +126,11 @@ export const Todolist: FC<Props> = (props) => {
                         <FormAddTask
                             taskName={taskName}
                             description={description}
-                            startDate={startDate}
-                            deadline={deadline}
-                            priority={priority}
                             closeFormAddTask={closeFormAddTask}
                             changeTaskName={changeTaskName}
                             changeDescription={changeDescription}
-                            addTask={addTask}
-                            handleSettingDeadline={handleSettingDeadline}
-                            handleSettingStartDate={handleSettingStartDate}
-                            handleSettingPriority={handleSettingPriority}
+                            addTask={addTaskHandle}
+                            genericSettingFunction={genericSettingFunction}
                         />
                         :
                         <AddTaskButton
