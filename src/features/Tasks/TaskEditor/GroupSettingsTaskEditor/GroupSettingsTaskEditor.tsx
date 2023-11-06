@@ -42,6 +42,7 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
     const [deadline, setDeadline] = useState<Nullable<Dayjs>>(null)
     const [startDate, setStartDate] = useState<Nullable<Dayjs>>(null)
     const [priority, setPriority] = useState<number>(taskPriority ? taskPriority : 0)
+    console.log(startDate)
 
     const handleCloseDeadlineCalendar = () => {
         setOpenDeadlineCalender(null)
@@ -75,6 +76,17 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
         genericSettingFunction && genericSettingFunction(priority, 'priority')
     }
 
+    const resetStartDate = () => {
+        setStartDate(null)
+        startDatePropsExist && updateTask(null, taskDeadline, taskPriority)
+        setOpenStartDateCalender(null)
+    }
+    const resetDeadline = () => {
+        setDeadline(null)
+        deadlinePropsExist && updateTask(taskStartDate, null, taskPriority)
+        setOpenDeadlineCalender(null)
+    }
+
 
     const deadlineLabel = taskDeadline ? dateConversionToString(dayjs(taskDeadline)) : deadline && dateConversionToString(deadline) || 'Set deadline'
     const startDateLabel = taskStartDate ? dateConversionToString(dayjs(taskStartDate)) : startDate && dateConversionToString(startDate) || 'Set start date'
@@ -91,6 +103,7 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
                         openCalendar={openStartDateCalender}
                         closeCalendar={handleCloseStartDateCalender}
                         settingDate={settingStartDateValue}
+                        resetDate={resetStartDate}
                     />
                 }
                 handleOpen={handleOpenStartDateCalender}
@@ -104,6 +117,7 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
                         openCalendar={openDeadlineCalender}
                         closeCalendar={handleCloseDeadlineCalendar}
                         settingDate={settingDeadlineValue}
+                        resetDate={resetDeadline}
                     />
                 }
                 handleOpen={handleOpenDeadlineCalendar}
