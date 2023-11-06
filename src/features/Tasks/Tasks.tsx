@@ -40,6 +40,7 @@ export const Tasks: FC<Props> = (props) => {
                     ?
                     filteredTasks.map((ts: TasksType) =>
                         <Task
+                            key={ts.id}
                             taskId={ts.id}
                             todolistId={todolistId}
                             taskStatus={ts.status}

@@ -24,6 +24,14 @@ type Props = {
     todolist: TodolistsType
 }
 
+type AddTaskParamsType = {
+    title: string
+    description: string
+    startDate: Nullable<Dayjs>
+    deadline: Nullable<Dayjs>
+    priority: number
+}
+
 export const Todolist: FC<Props> = (props) => {
     const {todolistId, todolistTitle, todolist} = props
 
@@ -85,16 +93,28 @@ export const Todolist: FC<Props> = (props) => {
     }
 
 
-    const addTask = (title: string, description: string, startDate: Dayjs | null, deadline: Dayjs | null, priority: number) => {
-        if (!title) return
+    const addTask = (params: AddTaskParamsType) => {
+        if (!params.title) return
 
         setVisibleLiner(true)
-        dispatch(tasksThunk.addTask({todolistId, title, description, startDate, deadline, priority}))
-            .finally(() => setVisibleLiner(false))
+        dispatch(tasksThunk.addTask({
+            todolistId,
+            title: params.title,
+            description: params.description,
+            startDate: params.startDate,
+            deadline: params.deadline,
+            priority: params.priority
+        }))
+            .finally(() => {
+                setVisibleLiner(false)
+                setDeadline(null)
+                setStartDate(null)
+                setPriority(1)
+            })
         closeFormAddTask()
     }
 
-    const addTaskHandle = () => addTask(taskName, description, startDate, deadline, priority)
+    const addTaskHandle = () => addTask({title: taskName, description, startDate, deadline, priority})
 
     if (task === undefined) return <Preloader/>
 

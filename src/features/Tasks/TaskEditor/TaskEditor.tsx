@@ -90,14 +90,15 @@ export const TaskEditor: FC<Props> = (props) => {
             priority: taskPriority,
             closeTaskRedactor
         })
-    const wrapperUpdateTaskForGroupSettings = (startDate: Nullable<Dayjs>, deadline: Nullable<Dayjs>, priority: number) =>
-        updateTask({
+    const wrapperUpdateTaskForGroupSettings = (startDate: Nullable<Dayjs>, deadline: Nullable<Dayjs>, priority: number) => {
+        return updateTask({
             taskId,
             todolistId,
             title: newTitle,
             description: newDescription,
             deadline, startDate, priority, closeTaskRedactor
         })
+    }
 
     const handleCloseTaskEditor = () => {
         if (taskRedactor && taskName !== newTitle || description !== newDescription) {

@@ -6,7 +6,7 @@ import {dateConversionToString} from "../../../../common/utils/functions/dateCon
 import {
     priorityConversionToString
 } from "../../../../common/utils/functions/priorityConversionToString/priorityConversionToString";
-import {Dayjs} from "dayjs";
+import dayjs, {Dayjs} from "dayjs";
 import {AnchorElType} from "../../../../common/components/CustomPopover/CustomPopover";
 import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material/styles";
@@ -31,9 +31,9 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
         genericSettingFunction
     } = props
 
-    const deadlinePropsExist = updateTask && taskStartDate && taskPriority
-    const startDatePropsExist = updateTask && taskDeadline && taskPriority
-    const priorityPropsExist = updateTask && taskStartDate && taskDeadline
+    const deadlinePropsExist = updateTask && taskStartDate !== undefined && taskPriority
+    const startDatePropsExist = updateTask && taskDeadline !== undefined && taskPriority
+    const priorityPropsExist = updateTask && taskStartDate !== undefined && taskDeadline !== undefined
 
     const [openDeadlineCalender, setOpenDeadlineCalender] = useState<AnchorElType>(null)
     const [openStartDateCalender, setOpenStartDateCalender] = useState<AnchorElType>(null)
@@ -45,7 +45,6 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
 
     const handleCloseDeadlineCalendar = () => {
         setOpenDeadlineCalender(null)
-
         deadlinePropsExist && updateTask(taskStartDate, deadline, taskPriority)
     }
     const handleOpenDeadlineCalendar = (event: React.MouseEvent<HTMLButtonElement>) => setOpenDeadlineCalender(event.currentTarget);
@@ -77,8 +76,8 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
     }
 
 
-    const deadlineLabel = taskDeadline ? dateConversionToString(taskDeadline) : deadline && dateConversionToString(deadline)
-    const startDateLabel = taskStartDate ? dateConversionToString(taskStartDate) : startDate && dateConversionToString(startDate)
+    const deadlineLabel = taskDeadline ? dateConversionToString(dayjs(taskDeadline)) : deadline && dateConversionToString(deadline) || 'Set deadline'
+    const startDateLabel = taskStartDate ? dateConversionToString(dayjs(taskStartDate)) : startDate && dateConversionToString(startDate) || 'Set start date'
     const priorityLabel = priorityConversionToString(priority)
 
     return (
@@ -90,7 +89,6 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
                 children={
                     <BaseCalendar
                         openCalendar={openStartDateCalender}
-                        title={'StartDate'}
                         closeCalendar={handleCloseStartDateCalender}
                         settingDate={settingStartDateValue}
                     />
@@ -104,7 +102,6 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
                 children={
                     <BaseCalendar
                         openCalendar={openDeadlineCalender}
-                        title={'Deadline'}
                         closeCalendar={handleCloseDeadlineCalendar}
                         settingDate={settingDeadlineValue}
                     />

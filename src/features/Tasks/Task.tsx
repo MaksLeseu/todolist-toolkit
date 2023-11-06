@@ -89,7 +89,6 @@ export const Task: FC<Props> = (props) => {
     const updateTask = (params: UpdateTaskParamsType) => {
         const deadlineValue = params.deadline === null ? taskDeadline : params.deadline
         const startDateValue = params.startDate === null ? taskStartDate : params.startDate
-
         dispatch(tasksThunk.updateTask({
             todolistId,
             taskId,
