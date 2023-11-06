@@ -48,17 +48,17 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
 
     const [deadline, setDeadline] = useState<Nullable<Dayjs>>(null)
     const [startDate, setStartDate] = useState<Nullable<Dayjs>>(null)
-    const [priority, setPriority] = useState<number>(taskPriority ? taskPriority : 0)
+    const [priority, setPriority] = useState<number>(taskPriority ? taskPriority : 1)
 
     const handleCloseDeadlineCalendar = () => {
         setOpenDeadlineCalender(null)
-        deadlinePropsExist && updateTask(taskStartDate, deadline, taskPriority)
+        deadlinePropsExist && deadline && updateTask(taskStartDate, deadline, taskPriority)
     }
     const handleOpenDeadlineCalendar = (event: React.MouseEvent<HTMLButtonElement>) => setOpenDeadlineCalender(event.currentTarget);
 
     const handleCloseStartDateCalender = () => {
         setOpenStartDateCalender(null)
-        startDatePropsExist && updateTask(startDate, taskDeadline, taskPriority)
+        startDatePropsExist && startDate && updateTask(startDate, taskDeadline, taskPriority)
     }
     const handleOpenStartDateCalender = (event: React.MouseEvent<HTMLButtonElement>) => setOpenStartDateCalender(event.currentTarget)
 
@@ -66,11 +66,11 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
     const handleClosePriority = () => setOpenPriority(null)
 
     const settingDeadlineValue = (date: Nullable<Dayjs>) => {
-        setDeadline(date)
+        date && setDeadline(date)
         genericSettingFunction && genericSettingFunction(date, 'deadline')
     }
     const settingStartDateValue = (date: Nullable<Dayjs>) => {
-        setStartDate(date)
+        date && setStartDate(date)
         genericSettingFunction && genericSettingFunction(date, 'startDate')
     }
 
@@ -84,12 +84,12 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
 
     const resetStartDate = () => {
         setStartDate(null)
-        startDatePropsExist && updateTask(null, taskDeadline, taskPriority)
+        startDatePropsExist && taskStartDate && updateTask(null, taskDeadline, taskPriority)
         setOpenStartDateCalender(null)
     }
     const resetDeadline = () => {
         setDeadline(null)
-        deadlinePropsExist && updateTask(taskStartDate, null, taskPriority)
+        deadlinePropsExist && taskDeadline && updateTask(taskStartDate, null, taskPriority)
         setOpenDeadlineCalender(null)
     }
 
