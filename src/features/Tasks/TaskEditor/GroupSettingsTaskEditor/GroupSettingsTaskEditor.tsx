@@ -11,12 +11,18 @@ import {AnchorElType} from "../../../../common/components/CustomPopover/CustomPo
 import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material/styles";
 import {Nullable} from "../../../../common/utils/types/optional.types";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
+import ListItemText from "@mui/material/ListItemText";
+import {CustomIconButton} from "../../../../common/components/CustomIconButton/CustomIconButton";
 
 type Props = {
     taskDeadline?: Nullable<Dayjs>
     taskStartDate?: Nullable<Dayjs>
     taskPriority?: number
     sx?: SxProps<Theme>
+    resetButton: boolean
     updateTask?: (startDate: Nullable<Dayjs>, deadline: Nullable<Dayjs>, priority: number) => void
     genericSettingFunction?: (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => void
 }
@@ -27,6 +33,7 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
         taskStartDate,
         taskPriority,
         sx,
+        resetButton,
         updateTask,
         genericSettingFunction
     } = props
@@ -42,7 +49,6 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
     const [deadline, setDeadline] = useState<Nullable<Dayjs>>(null)
     const [startDate, setStartDate] = useState<Nullable<Dayjs>>(null)
     const [priority, setPriority] = useState<number>(taskPriority ? taskPriority : 0)
-    console.log(startDate)
 
     const handleCloseDeadlineCalendar = () => {
         setOpenDeadlineCalender(null)
@@ -87,6 +93,27 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
         setOpenDeadlineCalender(null)
     }
 
+    const returnChildrenResetButton = (resetDate: () => void) => resetButton &&
+        (
+            <CustomIconButton
+                disableRipple={true}
+                color={'inherit'}
+                onClick={resetDate}
+            >
+                <ListItemButton
+                    sx={{height: '30px', borderRadius: '3px'}}
+                >
+                    <ListItemIcon
+                        sx={{display: 'flex', alignItems: 'center'}}
+                    >
+                        <DoNotDisturbAltIcon/>
+                        <ListItemText
+                            sx={{color: 'black', marginLeft: '10px'}}
+                            primary={'Reset date.'}
+                        />
+                    </ListItemIcon>
+                </ListItemButton>
+            </CustomIconButton>);
 
     const deadlineLabel = taskDeadline ? dateConversionToString(dayjs(taskDeadline)) : deadline && dateConversionToString(deadline) || 'Set deadline'
     const startDateLabel = taskStartDate ? dateConversionToString(dayjs(taskStartDate)) : startDate && dateConversionToString(startDate) || 'Set start date'
@@ -101,6 +128,7 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
                 children={
                     <BaseCalendar
                         openCalendar={openStartDateCalender}
+                        childrenResetButton={returnChildrenResetButton(resetStartDate)}
                         closeCalendar={handleCloseStartDateCalender}
                         settingDate={settingStartDateValue}
                         resetDate={resetStartDate}
@@ -115,6 +143,7 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
                 children={
                     <BaseCalendar
                         openCalendar={openDeadlineCalender}
+                        childrenResetButton={returnChildrenResetButton(resetDeadline)}
                         closeCalendar={handleCloseDeadlineCalendar}
                         settingDate={settingDeadlineValue}
                         resetDate={resetDeadline}

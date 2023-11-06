@@ -198,6 +198,7 @@ export const TaskEditor: FC<Props> = (props) => {
                             taskPriority={taskPriority}
                             taskDeadline={taskDeadline}
                             taskStartDate={taskStartDate}
+                            resetButton={true}
                             updateTask={wrapperUpdateTaskForGroupSettings}
                         />
                         <p className={s.dateAdded}>{`Date added: ${taskAddedDate.slice(0, 10)}`}</p>

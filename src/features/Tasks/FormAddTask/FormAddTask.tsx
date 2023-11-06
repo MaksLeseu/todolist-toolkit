@@ -47,6 +47,7 @@ export const FormAddTask: FC<Props> = (props) => {
             />
             <div className={s.settings}>
                 <GroupSettingsTaskEditor
+                    resetButton={false}
                     sx={{marginRight: '10px', width: '130px'}}
                     genericSettingFunction={genericSettingFunction}
                 />
