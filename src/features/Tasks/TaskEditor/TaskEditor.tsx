@@ -1,7 +1,5 @@
-import React, {ChangeEvent, FC, useState} from "react";
+import React, {ChangeEvent, FC, useEffect, useState} from "react";
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
-import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
-import {ValueTask} from "./ValueTask/ValueTask";
 import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTooltip";
 import {CustomModalWindow} from "../../../common/components/CustomModalWindow/CustomModalWindow";
@@ -12,10 +10,12 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import {CustomCheckbox} from "../../../common/components/CustomCheckbox/CustomCheckbox";
 import {TaskStatuses} from "../../../common/utils/enums";
 import {Dayjs} from "dayjs";
-import {GroupSettingsTaskEditor} from "./GroupSettingsTaskEditor/GroupSettingsTaskEditor";
 import {UpdateTaskParamsType} from "../Task";
 import {Nullable} from "../../../common/utils/types/optional.types";
 import {ConfirmationModalWindow} from "../../../common/components/СonfirmationModalWindow/СonfirmationModalWindow";
+import {TaskRedactor} from "../../../common/components/TaskRedactor/TaskRedactor";
+import {CustomButtonGroup} from "../../../common/components/CustomButtonGroup/CustomButtonGroup";
+import {SettingsTaskEditor} from "./SettingsTaskEditor/SettingsTaskEditor";
 
 type Props = {
     taskId: string
@@ -65,6 +65,11 @@ export const TaskEditor: FC<Props> = (props) => {
     const [newTitle, setNewTitle] = useState<string>(taskName)
     const [newDescription, setNewDescription] = useState<string>(description)
 
+    useEffect(() => {
+        setNewTitle(taskName)
+        setNewDescription(description)
+    }, [description || taskName])
+
     const openTaskRedactor = () => setTaskRedactor(true)
     const closeTaskRedactor = () => setTaskRedactor(false)
 
@@ -79,7 +84,7 @@ export const TaskEditor: FC<Props> = (props) => {
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
     const changeSpecification = (e: ChangeEvent<HTMLInputElement>) => setNewDescription(e.currentTarget.value)
 
-    const wrapperUpdateTaskForButton = () =>
+    const wrapperUpdateTaskForButtonTaskEditor = () =>
         updateTask({
             taskId,
             todolistId,
@@ -90,7 +95,7 @@ export const TaskEditor: FC<Props> = (props) => {
             priority: taskPriority,
             closeTaskRedactor
         })
-    const wrapperUpdateTaskForGroupSettings = (startDate: Nullable<Dayjs>, deadline: Nullable<Dayjs>, priority: number) => {
+    const wrapperUpdateTaskForGroupSettingsTaskEditor = (startDate: Nullable<Dayjs>, deadline: Nullable<Dayjs>, priority: number) => {
         return updateTask({
             taskId,
             todolistId,
@@ -138,68 +143,56 @@ export const TaskEditor: FC<Props> = (props) => {
                             </div>
 
                             <CustomTooltip
-                                title={taskRedactor ? '' : 'You can double click on the text to open the task editor.'}
+                                title={!taskRedactor ? '' : 'You can double click on the text to open the task editor.'}
                                 placement={'bottom'}
                             >
-                                <div className={taskRedactor ? s.taskRedactor : ''}>
-                                    <ValueTask
-                                        value={newTitle}
-                                        label={'task name'}
-                                        taskRedactor={taskRedactor}
-                                        placement={'top-start'}
-                                        className={'taskName'}
-                                        sx={{width: '100%', marginBottom: '10px'}}
-                                        multiline={false}
-                                        onChange={changeTitle}
-                                        onClick={openTaskRedactor}
-                                    />
-
-                                    <ValueTask
-                                        value={newDescription}
-                                        label={'description'}
-                                        taskRedactor={taskRedactor}
-                                        placement={'bottom-start'}
-                                        className={'description'}
-                                        sx={{width: '100%'}}
-                                        multiline={true}
-                                        onChange={changeSpecification}
-                                        onClick={openTaskRedactor}
-                                    />
-                                </div>
+                                <>
+                                    {
+                                        !taskRedactor &&
+                                        <div className={s.containerText}>
+                                            <p className={s.taskName}
+                                               onDoubleClick={openTaskRedactor}
+                                            >
+                                                {newTitle}
+                                            </p>
+                                            <p className={s.description}
+                                               onDoubleClick={openTaskRedactor}
+                                            >
+                                                {newDescription}
+                                            </p>
+                                        </div>
+                                    }
+                                </>
                             </CustomTooltip>
+
+                            <TaskRedactor
+                                taskRedactor={taskRedactor}
+                                valueTask={newTitle}
+                                valueDescription={newDescription}
+                                changeTitle={changeTitle}
+                                changeSpecification={changeSpecification}
+                            />
 
                         </div>
                         <div className={s.buttons}>
                             {
                                 taskRedactor &&
-                                <CustomButton
-                                    color={'inherit'}
-                                    label={MSG_BTN.CANCEL}
-                                    variant={'contained'}
+                                <CustomButtonGroup
+                                    firstButtonLabel={MSG_BTN.CANCEL}
+                                    secondButtonLabel={MSG_BTN.SAVE}
                                     size={'small'}
-                                    onClick={closeTaskRedactor}
-                                />
-                            }
-                            {
-                                taskRedactor &&
-                                <CustomButton
-                                    color={'primary'}
-                                    label={MSG_BTN.SAVE}
-                                    variant={'contained'}
-                                    size={'small'}
-                                    sx={{marginLeft: '10px'}}
-                                    onClick={wrapperUpdateTaskForButton}
+                                    firstButtonOnClick={closeTaskRedactor}
+                                    secondButtonOnClick={wrapperUpdateTaskForButtonTaskEditor}
                                 />
                             }
                         </div>
                     </div>
                     <div className={s.settingsTaskEditor}>
-                        <GroupSettingsTaskEditor
-                            taskPriority={taskPriority}
-                            taskDeadline={taskDeadline}
+                        <SettingsTaskEditor
                             taskStartDate={taskStartDate}
-                            resetButton={true}
-                            updateTask={wrapperUpdateTaskForGroupSettings}
+                            taskDeadline={taskDeadline}
+                            taskPriority={taskPriority}
+                            updateTask={wrapperUpdateTaskForGroupSettingsTaskEditor}
                         />
                         <p className={s.dateAdded}>{`Date added: ${taskAddedDate.slice(0, 10)}`}</p>
                     </div>

@@ -8,10 +8,11 @@ type Props = {
     taskId: string
     taskTitle: string
     removeTask: (taskId: string) => void
+    openTaskRedactor: () => void
 }
 
 export const MoreHoriz: FC<Props> = (props) => {
-    const {taskId, taskTitle, removeTask} = props
+    const {taskId, taskTitle, removeTask, openTaskRedactor} = props
 
     const [anchorEl, setAnchorEl] = React.useState<AnchorElType>(null);
 
@@ -40,6 +41,7 @@ export const MoreHoriz: FC<Props> = (props) => {
                 anchorEl={anchorEl}
                 removeTask={removeTask}
                 handleClosePopover={handleClosePopover}
+                openTaskRedactor={openTaskRedactor}
             />
         </div>
     )

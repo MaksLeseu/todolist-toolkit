@@ -8,14 +8,13 @@ import dayjs, {Dayjs} from "dayjs";
 
 type Props = {
     openCalendar: AnchorElType
-    childrenResetButton: ReactNode
+    childrenResetButton?: ReactNode
     closeCalendar: () => void
     settingDate: (date: Nullable<Dayjs>) => void
-    resetDate?: () => void
 }
 
 export const BaseCalendar: FC<Props> = (props) => {
-    const {openCalendar, childrenResetButton, closeCalendar, settingDate, resetDate} = props
+    const {openCalendar, childrenResetButton, closeCalendar, settingDate} = props
 
     const [value, setValue] = React.useState<Nullable<Dayjs>>(dayjs(new Date()));
 

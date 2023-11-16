@@ -3,9 +3,9 @@ import s from './FormAddTask.module.css'
 import {CustomTextField} from "../../../common/components/CustomTextField/CustomTextField";
 import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
 import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
-import {GroupSettingsTaskEditor} from "../TaskEditor/GroupSettingsTaskEditor/GroupSettingsTaskEditor";
 import {Nullable} from "../../../common/utils/types/optional.types";
 import {Dayjs} from "dayjs";
+import {SettingsFormAddTask} from "./SettingsFormAddTask";
 
 type Props = {
     taskName: string
@@ -46,9 +46,8 @@ export const FormAddTask: FC<Props> = (props) => {
                 onChange={changeDescription}
             />
             <div className={s.settings}>
-                <GroupSettingsTaskEditor
-                    resetButton={false}
-                    sx={{marginRight: '10px', width: '130px'}}
+                <SettingsFormAddTask
+                    calenderStyles={{marginRight: '10px', width: '130px'}}
                     genericSettingFunction={genericSettingFunction}
                 />
             </div>

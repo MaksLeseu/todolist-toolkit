@@ -1,15 +1,19 @@
-import React, {ChangeEvent, FC, useState} from "react";
+import React, {ChangeEvent, FC, useEffect, useState} from "react";
 import s from './Task.module.css'
-import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
 import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
 import {tasksThunk} from "./tasks.slice";
 import {TaskEditor} from "./TaskEditor/TaskEditor";
 import {TasksType} from "./tasks.types";
 import {TaskStatuses} from "../../common/utils/enums";
-import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
 import {PreviewCompletedTask} from "./PreviewCompletedTask/PreviewCompletedTask";
 import {Dayjs} from "dayjs";
 import {Nullable} from "../../common/utils/types/optional.types";
+import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
+import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
+import {TaskRedactor} from "../../common/components/TaskRedactor/TaskRedactor";
+import {MSG_BTN} from "../../common/utils/constans/app-messages.const";
+import {CustomButtonGroup} from "../../common/components/CustomButtonGroup/CustomButtonGroup";
+import {SettingsTask} from "./SettingsTask";
 
 type Props = {
     taskId: string
@@ -87,8 +91,6 @@ export const Task: FC<Props> = (props) => {
     }
 
     const updateTask = (params: UpdateTaskParamsType) => {
-        /*const deadlineValue = params.deadline === null ? taskDeadline : params.deadline
-        const startDateValue = params.startDate === null ? taskStartDate : params.startDate*/
         dispatch(tasksThunk.updateTask({
             todolistId,
             taskId,
@@ -103,32 +105,124 @@ export const Task: FC<Props> = (props) => {
         params.closeTaskRedactor()
     }
 
+    const [isOpenTaskRedactor, setIsOpenTaskRedactor] = useState<boolean>(false)
+    const [newTaskTitle, setNewTaskTitle] = useState<string>(taskTitle)
+    const [newTaskDescription, setNewTaskDescription] = useState<string>(taskDescription)
+
+    useEffect(() => {
+        setNewTaskTitle(taskTitle)
+        setNewTaskDescription(taskDescription)
+    }, [taskTitle || taskDescription])
+
+    const updateTitle = (e: ChangeEvent<HTMLInputElement>) => setNewTaskTitle(e.currentTarget.value)
+    const updateDescription = (e: ChangeEvent<HTMLInputElement>) => setNewTaskDescription(e.currentTarget.value)
+
+    const openTaskRedactor = () => setIsOpenTaskRedactor(true)
+    const closeTaskRedactor = () => setIsOpenTaskRedactor(false)
+
+
+    const [deadline, setDeadline] = useState<Nullable<Dayjs>>(null)
+    const [startDate, setStartDate] = useState<Nullable<Dayjs>>(null)
+    const [priority, setPriority] = useState<Nullable<number>>(null)
+
+    const genericSettingFunction = (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => {
+        const methodsForSettingValues = {
+            'startDate': (startDate: Nullable<Dayjs> | number) => {
+                setStartDate(startDate as Nullable<Dayjs>)
+            },
+            'deadline': (deadline: Nullable<Dayjs> | number) => {
+                setDeadline(deadline as Nullable<Dayjs>)
+            },
+            'priority': (priority: number | Nullable<Dayjs>) => {
+                setPriority(priority as number)
+            },
+        }
+        methodsForSettingValues[method](value)
+    }
+
+    const resetAllValues = () => {
+        setStartDate(null)
+        setDeadline(null)
+        setPriority(null)
+    }
+
+    const updateHandle = () => {
+        let finallyDeadline = deadline
+        let finallyStartDate = startDate
+        let finallyPriority = priority
+        if (deadline === null) finallyDeadline = taskDeadline ? taskDeadline : deadline
+        if (startDate === null) finallyStartDate = taskStartDate ? taskStartDate : startDate
+        if (finallyPriority === null) finallyPriority = taskPriority
+
+        updateTask({
+            taskId,
+            todolistId,
+            title: newTaskTitle,
+            description: newTaskDescription,
+            deadline: finallyDeadline,
+            startDate: finallyStartDate,
+            priority: finallyPriority,
+            closeTaskRedactor
+        })
+        resetAllValues()
+    }
+
     return (
         <div key={taskId} className={taskStatusCompleted ? s.taskCompleted : s.task}>
-            <div className={s.container} onClick={taskStatusCompleted ? openPreviewCompletedTask : openTaskEditor}>
+            {
+                !isOpenTaskRedactor &&
+                <div className={s.container} onClick={taskStatusCompleted ? openPreviewCompletedTask : openTaskEditor}>
 
-                <div className={s.flexContainer}>
-                    <div className={s.title}>
-                        <div>
-                            <CustomCheckbox
-                                checked={taskStatusCompleted}
-                                onChange={updateCheckbox}
-                            />
+                    <div className={s.flexContainer}>
+                        <div className={s.title}>
+                            <div>
+                                <CustomCheckbox
+                                    checked={taskStatusCompleted}
+                                    onChange={updateCheckbox}
+                                />
+                            </div>
+                            <div className={s.text}>{taskTitle}</div>
                         </div>
-                        <div className={s.text}>{taskTitle}</div>
-                    </div>
 
-                    <MoreHoriz
-                        taskId={taskId}
-                        taskTitle={taskTitle}
-                        removeTask={removeTask}
-                    />
+                        <MoreHoriz
+                            taskId={taskId}
+                            taskTitle={taskTitle}
+                            removeTask={removeTask}
+                            openTaskRedactor={openTaskRedactor}
+                        />
+                    </div>
+                    {
+                        taskDescription && taskStatusNew &&
+                        <div className={s.description}>{taskDescription}</div>
+                    }
                 </div>
-                {
-                    taskDescription && taskStatusNew &&
-                    <div className={s.description}>{taskDescription}</div>
+            }
+            <TaskRedactor
+                taskRedactor={isOpenTaskRedactor}
+                valueTask={newTaskTitle}
+                valueDescription={newTaskDescription}
+                childrenGroupSettings={
+                    <div className={s.groupSettingsContainer}>
+                        <SettingsTask
+                            taskStartDate={taskStartDate}
+                            taskDeadline={taskDeadline}
+                            taskPriority={taskPriority}
+                            calenderStyles={{marginRight: '10px', width: '130px'}}
+                            genericSettingFunction={genericSettingFunction}
+                        />
+                    </div>
                 }
-            </div>
+                childrenButtons={
+                    <CustomButtonGroup
+                        firstButtonLabel={MSG_BTN.CANCEL}
+                        secondButtonLabel={MSG_BTN.SAVE}
+                        firstButtonOnClick={closeTaskRedactor}
+                        secondButtonOnClick={updateHandle}
+                    />
+                }
+                changeTitle={updateTitle}
+                changeSpecification={updateDescription}
+            />
             <TaskEditor
                 taskId={taskId}
                 todolistId={todolistId}
@@ -155,6 +249,6 @@ export const Task: FC<Props> = (props) => {
                 closePreviewCompletedTask={closePreviewCompletedTask}
             />
         </div>
-    )
+    );
 }
 

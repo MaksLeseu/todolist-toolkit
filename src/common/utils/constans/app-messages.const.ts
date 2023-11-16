@@ -3,6 +3,7 @@ export const MSG_BTN = {
     CREATE_TODO_LIST: 'Create To-do list',
     ADD_A_TASK: 'Add a task',
     REMOVE_TASK: 'Remove task',
+    CHANGE_TASK: 'Change task',
     LOG_OUT: 'Log out',
     SAVE: 'Save',
     TASK_GROUPING: 'Task grouping',

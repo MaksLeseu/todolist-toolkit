@@ -1,5 +1,5 @@
 import React, {FC, useState} from "react";
-import {SettingsTaskEditor} from "../SettingsTaskEditor/SettingsTaskEditor";
+import {SettingsButton} from "../SettingsButton/SettingsButton";
 import {BaseCalendar} from "../../../../common/components/BaseCalendar/BaseCalendar";
 import {Priority} from "../../../../common/components/Priority/Priority";
 import {dateConversionToString} from "../../../../common/utils/functions/dateConversionToString/dateConversionToString";
@@ -17,7 +17,7 @@ import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import ListItemText from "@mui/material/ListItemText";
 import {CustomIconButton} from "../../../../common/components/CustomIconButton/CustomIconButton";
 
-type Props = {
+type _Props = {
     taskDeadline?: Nullable<Dayjs>
     taskStartDate?: Nullable<Dayjs>
     taskPriority?: number
@@ -27,20 +27,33 @@ type Props = {
     genericSettingFunction?: (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => void
 }
 
+type Props = {
+    calenderStyles?: SxProps<Theme>
+    update?: DataUpdateProps
+    collection?: DataCollectionProps
+}
+
+type DataCollectionProps = {
+    genericSettingFunction: (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => void
+}
+
+type DataUpdateProps = {
+    taskDeadline: Nullable<Dayjs>
+    taskStartDate: Nullable<Dayjs>
+    taskPriority: number
+    updateTask: (startDate: Nullable<Dayjs>, deadline: Nullable<Dayjs>, priority: number) => void
+}
+
 export const GroupSettingsTaskEditor: FC<Props> = (props) => {
     const {
-        taskDeadline,
-        taskStartDate,
-        taskPriority,
-        sx,
-        resetButton,
-        updateTask,
-        genericSettingFunction
+        calenderStyles,
+        update,
+        collection,
     } = props
 
-    const deadlinePropsExist = updateTask && taskStartDate !== undefined && taskPriority
+    /*const deadlinePropsExist = update.updateTask && update.taskStartDate !== undefined && taskPriority
     const startDatePropsExist = updateTask && taskDeadline !== undefined && taskPriority
-    const priorityPropsExist = updateTask && taskStartDate !== undefined && taskDeadline !== undefined
+    const priorityPropsExist = updateTask && taskStartDate !== undefined && taskDeadline !== undefined*/
 
     const [openDeadlineCalender, setOpenDeadlineCalender] = useState<AnchorElType>(null)
     const [openStartDateCalender, setOpenStartDateCalender] = useState<AnchorElType>(null)
@@ -48,17 +61,17 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
 
     const [deadline, setDeadline] = useState<Nullable<Dayjs>>(null)
     const [startDate, setStartDate] = useState<Nullable<Dayjs>>(null)
-    const [priority, setPriority] = useState<number>(taskPriority ? taskPriority : 1)
+    const [priority, setPriority] = useState<number>(update && update.taskPriority ? update.taskPriority : 1)
 
     const handleCloseDeadlineCalendar = () => {
         setOpenDeadlineCalender(null)
-        deadlinePropsExist && deadline && updateTask(taskStartDate, deadline, taskPriority)
+        update && deadline && update.updateTask(update.taskStartDate, deadline, update.taskPriority)
     }
     const handleOpenDeadlineCalendar = (event: React.MouseEvent<HTMLButtonElement>) => setOpenDeadlineCalender(event.currentTarget);
 
     const handleCloseStartDateCalender = () => {
         setOpenStartDateCalender(null)
-        startDatePropsExist && startDate && updateTask(startDate, taskDeadline, taskPriority)
+        update && startDate && update.updateTask(startDate, update.taskDeadline, update.taskPriority)
     }
     const handleOpenStartDateCalender = (event: React.MouseEvent<HTMLButtonElement>) => setOpenStartDateCalender(event.currentTarget)
 
@@ -67,33 +80,33 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
 
     const settingDeadlineValue = (date: Nullable<Dayjs>) => {
         date && setDeadline(date)
-        genericSettingFunction && genericSettingFunction(date, 'deadline')
+        collection && collection.genericSettingFunction(date, 'deadline')
     }
     const settingStartDateValue = (date: Nullable<Dayjs>) => {
         date && setStartDate(date)
-        genericSettingFunction && genericSettingFunction(date, 'startDate')
+        collection && collection.genericSettingFunction(date, 'startDate')
     }
 
     const settingPriority = (priority: number) => {
         setPriority(priority)
         handleClosePriority()
-        priorityPropsExist && updateTask(taskStartDate, taskDeadline, priority)
+        update && update.updateTask(update.taskStartDate, update.taskDeadline, priority)
 
-        genericSettingFunction && genericSettingFunction(priority, 'priority')
+        collection && collection.genericSettingFunction(priority, 'priority')
     }
 
     const resetStartDate = () => {
         setStartDate(null)
-        startDatePropsExist && taskStartDate && updateTask(null, taskDeadline, taskPriority)
+        update && update.updateTask(null, update.taskDeadline, update.taskPriority)
         setOpenStartDateCalender(null)
     }
     const resetDeadline = () => {
         setDeadline(null)
-        deadlinePropsExist && taskDeadline && updateTask(taskStartDate, null, taskPriority)
+        update && update.updateTask(update.taskStartDate, null, update.taskPriority)
         setOpenDeadlineCalender(null)
     }
 
-    const returnChildrenResetButton = (resetDate: () => void) => resetButton &&
+    const returnChildrenResetButton = (resetDate: () => void) => update &&
         (
             <CustomIconButton
                 disableRipple={true}
@@ -115,46 +128,44 @@ export const GroupSettingsTaskEditor: FC<Props> = (props) => {
                 </ListItemButton>
             </CustomIconButton>);
 
-    const deadlineLabel = taskDeadline ? dateConversionToString(dayjs(taskDeadline)) : deadline && dateConversionToString(deadline) || 'Set deadline'
-    const startDateLabel = taskStartDate ? dateConversionToString(dayjs(taskStartDate)) : startDate && dateConversionToString(startDate) || 'Set start date'
+    const deadlineLabel = update && update.taskDeadline ? dateConversionToString(dayjs(update.taskDeadline)) : deadline && dateConversionToString(deadline) || 'Set deadline'
+    const startDateLabel = update && update.taskStartDate ? dateConversionToString(dayjs(update.taskStartDate)) : startDate && dateConversionToString(startDate) || 'Set start date'
     const priorityLabel = priorityConversionToString(priority)
 
     return (
         <>
-            <SettingsTaskEditor
+            <SettingsButton
                 title={'StartDate'}
                 label={startDateLabel ? startDateLabel : null}
-                sx={sx}
+                sx={calenderStyles}
                 children={
                     <BaseCalendar
                         openCalendar={openStartDateCalender}
                         childrenResetButton={returnChildrenResetButton(resetStartDate)}
                         closeCalendar={handleCloseStartDateCalender}
                         settingDate={settingStartDateValue}
-                        resetDate={resetStartDate}
                     />
                 }
                 handleOpen={handleOpenStartDateCalender}
             />
-            <SettingsTaskEditor
+            <SettingsButton
                 title={'Deadline'}
                 label={deadlineLabel ? deadlineLabel : null}
-                sx={sx}
+                sx={calenderStyles}
                 children={
                     <BaseCalendar
                         openCalendar={openDeadlineCalender}
                         childrenResetButton={returnChildrenResetButton(resetDeadline)}
                         closeCalendar={handleCloseDeadlineCalendar}
                         settingDate={settingDeadlineValue}
-                        resetDate={resetDeadline}
                     />
                 }
                 handleOpen={handleOpenDeadlineCalendar}
             />
-            <SettingsTaskEditor
+            <SettingsButton
                 title={'Priority'}
                 label={priorityLabel}
-                sx={sx}
+                sx={calenderStyles}
                 children={
                     <Priority
                         openPriority={openPriority}
