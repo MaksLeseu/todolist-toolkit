@@ -15,7 +15,7 @@ type FormikErrorType = {
     rememberMe?: boolean;
 };
 
-export const Auth = () => {
+export const _Auth = () => {
     const dispatch = useAppDispatch()
 
     const formik = useFormik({
@@ -130,5 +130,65 @@ export const Auth = () => {
                 </form>
             </Grid>
         </Grid>
+    )
+}
+
+export const Auth = () => {
+    const dispatch = useAppDispatch()
+
+    const formik = useFormik({
+        validate: (values) => {
+            const errors: FormikErrorType = {};
+            if (!values.email) {
+                errors.email = "Email is required";
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = "Invalid email address";
+            }
+
+            if (!values.password) {
+                errors.password = "Required";
+            } else if (values.password.length < 3) {
+                errors.password = "Must be 3 characters or more";
+            }
+
+            return errors;
+        },
+        initialValues: {
+            email: '',
+            password: '',
+            rememberMe: false
+        },
+        onSubmit: values => {
+            dispatch(authThunk.login({data: values}))
+        },
+    })
+
+    const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
+
+    if (isLoggedIn) {
+        return <Navigate to={'/todolist-toolkit'}/>
+    }
+
+    return (
+        <div className={s.authContainer}>
+            <h2>CHOOSE</h2>
+            <p>the way you want to enter, please</p>
+            <CustomButton
+                color={'inherit'}
+                label={'Continue with email'}
+                variant={'contained'}
+                sx={{
+                    backgroundColor: '#EFE3FF',
+                    width: '328px',
+                    height: '56px',
+                    fontSize: '16px',
+                    textTransform: 'none',
+                    color: '#000000',
+                    fontWeight: 500,
+                    borderRadius: '8px',
+                    fontFamily: 'Montserrat'
+                }}
+            />
+        </div>
     )
 }
