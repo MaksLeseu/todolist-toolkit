@@ -1,0 +1,16 @@
+.container {
+    width: 100%;
+    height: 60px;
+    background-color: #EFE3FF;
+    padding: 18px 165px 18px 165px;
+}
+
+.container p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    font-style: normal;
+    font-family: Montserrat, sans-serif;
+    color: #704ECC;
+}

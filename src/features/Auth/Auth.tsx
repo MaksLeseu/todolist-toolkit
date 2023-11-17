@@ -8,6 +8,7 @@ import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {isLoggedInSelector} from "./auth.selector";
 import {CustomTextField} from "../../common/components/CustomTextField/CustomTextField";
 import {Navigate} from "react-router-dom";
+import {Icon} from "../../common/components/Icon/Icon";
 
 type FormikErrorType = {
     email?: string;
@@ -176,6 +177,7 @@ export const Auth = () => {
             <CustomButton
                 color={'inherit'}
                 label={'Continue with email'}
+                icon={<div className={s.icon}><Icon id={'email'}/></div>}
                 variant={'contained'}
                 sx={{
                     backgroundColor: '#EFE3FF',
@@ -186,7 +188,52 @@ export const Auth = () => {
                     color: '#000000',
                     fontWeight: 500,
                     borderRadius: '8px',
-                    fontFamily: 'Montserrat'
+                    fontFamily: 'Montserrat',
+                    boxShadow: '0',
+                    marginBottom: '12px',
+                    lineHeight: '24px', display: 'flex',
+                    justifyContent: 'normal',
+                }}
+            />
+            <CustomButton
+                color={'inherit'}
+                label={'Use a test account'}
+                icon={<div className={s.icon}><Icon id={'testAccount'}/></div>}
+                variant={'contained'}
+                sx={{
+                    backgroundColor: '#EFE3FF',
+                    width: '328px',
+                    height: '56px',
+                    fontSize: '16px',
+                    textTransform: 'none',
+                    color: '#000000',
+                    fontWeight: 500,
+                    borderRadius: '8px',
+                    fontFamily: 'Montserrat',
+                    boxShadow: '0',
+                    marginBottom: '32px',
+                    padding: '16px',
+                    lineHeight: '24px',
+                    display: 'flex',
+                    justifyContent: 'normal',
+                }}
+            />
+            <CustomButton
+                color={'inherit'}
+                label={'Is it your first time? Sign up'}
+                variant={'contained'}
+                sx={{
+                    backgroundColor: '#704ECC',
+                    width: '328px',
+                    height: '56px',
+                    fontSize: '16px',
+                    textTransform: 'none',
+                    color: '#FFFFFF',
+                    fontWeight: 500,
+                    borderRadius: '8px',
+                    fontFamily: 'Montserrat',
+                    boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
+                    lineHeight: '34px',
                 }}
             />
         </div>
