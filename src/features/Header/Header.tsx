@@ -49,9 +49,9 @@ export const Header = () => {
     const changeDrawer = () => setIsOpen(!isOpen)
 
     return (
-        <Box sx={{display: 'flex', marginBottom: '65px'}}>
+        <Box sx={{display: 'flex', marginBottom: '71px'}}>
             <CssBaseline/>
-            <AppBar position="fixed" open={isOpen}>
+            <AppBar position="fixed" sx={{backgroundColor: '#EFE3FF', height: '60px', boxShadow: '0'}} open={isOpen}>
                 <Toolbar>
                     {
                         isLoggedIn &&
@@ -66,7 +66,7 @@ export const Header = () => {
 
                     <div className={s.headerContainer}>
                         <NavLink className={s.title} to={'/todolist-toolkit'}>
-                            To-do list
+                            Today
                         </NavLink>
 
                         {

@@ -17,9 +17,14 @@
 
 .title {
     display: flex;
-    align-items: center;
-    color: white;
+    margin: 0 auto;
+    color: #704ECC;
     text-decoration: none;
     border: none;
+    font-family: Montserrat;
     font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    text-transform: uppercase;
 }

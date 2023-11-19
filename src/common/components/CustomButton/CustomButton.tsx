@@ -6,6 +6,7 @@ import {Theme} from "@mui/material/styles";
 type Props = {
     color: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
     label: string | undefined
+    additionalLabel?: string | undefined | ReactElement
     icon?: ReactElement
     variant: 'contained' | 'text' | 'outlined'
     type?: 'submit' | 'reset' | 'button'
@@ -15,7 +16,7 @@ type Props = {
 }
 
 export const CustomButton: FC<Props> = (props) => {
-    const {label, color, variant, type, size, icon, sx, onClick} = props
+    const {label, additionalLabel, color, variant, type, size, icon, sx, onClick} = props
 
     return (
         <Button
@@ -26,7 +27,7 @@ export const CustomButton: FC<Props> = (props) => {
             size={size}
             onClick={onClick}
         >
-            {icon}{label}
+            {icon}{label}{additionalLabel}
         </Button>
     )
 }

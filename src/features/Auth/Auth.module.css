@@ -25,7 +25,7 @@
     margin-bottom: 0;
 }
 
-.authContainer p {
+.authTitle {
     font-size: 24px;
     font-weight: 400;
     height: 30px;
@@ -37,4 +37,11 @@
 .icon {
     display: flex;
     margin-right: 14px;
+}
+
+.labelForButton {
+    font-weight: 700;
+    margin: 0;
+    font-size: 16px;
+    padding-left: 4px;
 }

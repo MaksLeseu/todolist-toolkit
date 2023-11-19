@@ -173,7 +173,7 @@ export const Auth = () => {
     return (
         <div className={s.authContainer}>
             <h2>CHOOSE</h2>
-            <p>the way you want to enter, please</p>
+            <p className={s.authTitle}>the way you want to enter, please</p>
             <CustomButton
                 color={'inherit'}
                 label={'Continue with email'}
@@ -220,7 +220,8 @@ export const Auth = () => {
             />
             <CustomButton
                 color={'inherit'}
-                label={'Is it your first time? Sign up'}
+                label={'Is it your first time?'}
+                additionalLabel={<p className={s.labelForButton}>Sign up</p>}
                 variant={'contained'}
                 sx={{
                     backgroundColor: '#704ECC',

@@ -7,7 +7,5 @@ export const useSettingPriority = () => {
     const settingPriority = (priority: Nullable<number>) => setPriority(priority)
     const resetPriority = () => setPriority(null)
 
-    return (
-        {priority, settingPriority, resetPriority}
-    )
+    return {priority, settingPriority, resetPriority}
 }

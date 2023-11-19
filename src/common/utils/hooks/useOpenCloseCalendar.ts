@@ -16,13 +16,13 @@ export const useOpenCloseCalendar = () => {
             })
         } else if (event && params) {
             const methodForOpen = {
-                'startDate': () => {
+                ['startDate']: () => {
                     setIsOpenCalendar({
                         openStartDate: event.currentTarget,
                         openDeadline: null,
                     })
                 },
-                'deadline': () => {
+                ['deadline']: () => {
                     setIsOpenCalendar({
                         openStartDate: null,
                         openDeadline: event.currentTarget,
