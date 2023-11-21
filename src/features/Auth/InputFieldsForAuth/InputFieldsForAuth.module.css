@@ -1,0 +1,75 @@
+.container {
+    font-family: 'Montserrat', sans-serif;
+    width: 350px;
+}
+
+.label {
+    color: #000;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    margin: 0;
+}
+
+.line {
+    width: 100%;
+    height: 0.2px;
+    background-color: #FF8811;
+    margin-bottom: 12px;
+}
+
+.flexContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.testAcc {
+    margin-left: 11px;
+}
+
+.testAcc p {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    margin: 0 0 4px 0;
+}
+
+.inputFields {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.textPolicy {
+    width: 100%;
+    height: 48px;
+    margin-bottom: 32px;
+}
+
+.containerTextPolicy {
+    display: flex;
+    justify-content: center;
+}
+
+.mediumFont {
+    margin: 0;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    color: #000;
+}
+
+.boldFont {
+    font-weight: 700;
+    margin: 0 0 0 3px;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 24px;
+    color: #000;
+}
