@@ -1,14 +1,15 @@
 import {useFormik} from "formik";
 import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
-import {authThunk} from "./auth.slice";
 import s from './Auth.module.css'
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {isLoggedInSelector} from "./auth.selector";
 import {Navigate} from "react-router-dom";
-import {Icon} from "../../common/components/Icon/Icon";
+import {EmailIcon} from "../../common/components/Icons/EmailIcon";
 import {InputFieldsForAuth} from "./InputFieldsForAuth/InputFieldsForAuth";
 import {useState} from "react";
+import {TestAccIcon} from "../../common/components/Icons/TestAccIcon";
+import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
 
 type FormikErrorType = {
     email?: string;
@@ -42,7 +43,8 @@ export const Auth = () => {
             rememberMe: false
         },
         onSubmit: values => {
-            dispatch(authThunk.login({data: values}))
+            /*dispatch(authThunk.login({data: values}))*/
+            alert(JSON.stringify(values))
         },
     })
 
@@ -77,7 +79,7 @@ export const Auth = () => {
                 <CustomButton
                     color={'inherit'}
                     label={'Continue with email'}
-                    icon={<div className={s.icon}><Icon id={'email'}/></div>}
+                    icon={<div className={s.icon}><EmailIcon/></div>}
                     variant={'contained'}
                     sx={{
                         backgroundColor: '#EFE3FF',
@@ -102,6 +104,14 @@ export const Auth = () => {
                 label={'Continue with email'}
                 loginValue={formik.values.email}
                 passwordValue={formik.values.password}
+                rememberMeChildren={
+                    <CustomCheckbox
+                        checked={formik.values.rememberMe}
+                        name={'rememberMe'}
+                        disableRipple={true}
+                        onChange={formik.handleChange}
+                    />
+                }
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 onSubmit={formik.handleSubmit}
@@ -111,7 +121,7 @@ export const Auth = () => {
                 <CustomButton
                     color={'inherit'}
                     label={'Use a test account'}
-                    icon={<div className={s.icon}><Icon id={'testAccount'}/></div>}
+                    icon={<div className={s.icon}><TestAccIcon/></div>}
                     variant={'contained'}
                     sx={{
                         backgroundColor: '#EFE3FF',

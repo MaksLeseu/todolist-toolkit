@@ -73,3 +73,28 @@
     line-height: 24px;
     color: #000;
 }
+
+.rememberMe {
+    display: flex;
+    margin-bottom: 28px;
+    margin-left: 4px;
+}
+
+.rememberMe p {
+    color: #704ECC;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    margin: 0 0 0 4px;
+}
+
+/*
+.MuiFormControl-root:focus {
+    border: 2px #704ECC solid;
+}
+
+.MuiFormControl-root.Mui-focused {
+    border: 2px #704ECC solid;
+}*/

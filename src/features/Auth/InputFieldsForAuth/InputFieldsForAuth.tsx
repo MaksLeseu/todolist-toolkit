@@ -1,12 +1,17 @@
-import React, {FC, ReactNode} from 'react';
+import React, {FC, ReactNode, useState} from 'react';
 import s from './InputFieldsForAuth.module.css'
 import {CustomTextField} from "../../../common/components/CustomTextField/CustomTextField";
 import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
+import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
+import {InputAdornment} from "@mui/material";
+import {VisibilityOffIcon} from "../../../common/components/Icons/VisibilityOffIcon";
+import {VisibilityIcon} from "../../../common/components/Icons/VisibilityIcon";
 
 type Props = {
     isOpen: boolean
     label: string
     testAccChildren?: ReactNode
+    rememberMeChildren?: ReactNode
     loginValue: string
     passwordValue: string
     onChange: {
@@ -25,12 +30,37 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
         isOpen,
         label,
         testAccChildren,
+        rememberMeChildren,
         loginValue,
         passwordValue,
         onChange,
         onBlur,
         onSubmit
     } = props
+
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const clickShowPassword = () => setShowPassword(!showPassword)
+
+    const [showFocus, setShowFocus] = useState({
+        login: false,
+        password: false,
+    })
+
+    const focusing = (params: 'login' | 'password') => {
+        const focus = {
+            'login': () => setShowFocus({login: true, password: false}),
+            'password': () => setShowFocus({login: false, password: true})
+        }
+        return focus[params]()
+    }
+
+    const blur = () => {
+        setShowFocus({login: false, password: false})
+        return onBlur
+    }
+
+    const focusLogin = showFocus.login ? {border: '2px #704ECC solid'} : {}
+    const focusPassword = showFocus.password ? {border: '2px #704ECC solid'} : {}
 
     return (
         <>
@@ -56,6 +86,7 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                         backgroundColor: '#F7F7F8',
                                         border: 'none',
                                         marginBottom: '16px',
+                                        ...focusLogin
                                     }}
                                     InputProps={{
                                         disableUnderline: true,
@@ -67,12 +98,13 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                         },
                                     }}
                                     onChange={onChange}
-                                    onBlur={onBlur}
+                                    onBlur={blur}
+                                    onFocus={() => focusing('login')}
                                 />
                                 <CustomTextField
                                     size={'small'}
                                     name={'password'}
-                                    type={'password'}
+                                    type={showPassword ? 'text' : 'password'}
                                     placeholder={'Password'}
                                     value={passwordValue}
                                     sx={{
@@ -80,8 +112,8 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                         height: '56px',
                                         borderRadius: '8px',
                                         backgroundColor: '#F7F7F8',
-                                        border: 'none',
                                         marginBottom: '16px',
+                                        ...focusPassword
                                     }}
                                     InputProps={{
                                         disableUnderline: true,
@@ -91,10 +123,23 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                             paddingRight: '16px',
                                             marginTop: '16px',
                                         },
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <CustomIconButton
+                                                    disableRipple={false}
+                                                    onClick={clickShowPassword}
+                                                >
+                                                    {showPassword ? <VisibilityIcon/> : <VisibilityOffIcon/>}
+                                                </CustomIconButton>
+                                            </InputAdornment>
+                                        )
                                     }}
                                     onChange={onChange}
-                                    onBlur={onBlur}
+                                    onFocus={() => focusing('password')}
+                                    onBlur={blur}
                                 />
+                                {rememberMeChildren &&
+                                    <div className={s.rememberMe}>{rememberMeChildren}<p>Remember me</p></div>}
                             </div>
                             <CustomButton
                                 type={'submit'}

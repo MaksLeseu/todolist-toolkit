@@ -4,6 +4,7 @@ import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material/styles";
 import {InputBaseProps} from "@mui/material/InputBase";
 import {OutlinedInputProps} from "@mui/material/OutlinedInput";
+import {InputProps as StandardInputProps} from "@mui/material/Input/Input";
 
 type Props = {
     label?: React.ReactNode
@@ -21,6 +22,7 @@ type Props = {
     InputProps?: Partial<OutlinedInputProps> | { disableUnderline: boolean }
     onBlur?: InputBaseProps['onBlur']
     onChange: OutlinedInputProps['onChange']
+    onFocus?: StandardInputProps['onFocus']
 }
 
 export const CustomTextField: FC<Props> = (props) => {
@@ -39,7 +41,8 @@ export const CustomTextField: FC<Props> = (props) => {
         placeholder,
         hiddenLabel,
         onBlur,
-        onChange
+        onChange,
+        onFocus
     } = props
 
     return (
@@ -60,6 +63,7 @@ export const CustomTextField: FC<Props> = (props) => {
                 placeholder={placeholder}
                 onBlur={onBlur}
                 onChange={onChange}
+                onFocus={onFocus}
             />
         </>
     )
