@@ -6,6 +6,9 @@ import {CustomIconButton} from "../../../common/components/CustomIconButton/Cust
 import {InputAdornment} from "@mui/material";
 import {VisibilityOffIcon} from "../../../common/components/Icons/VisibilityOffIcon";
 import {VisibilityIcon} from "../../../common/components/Icons/VisibilityIcon";
+import Box from "@mui/material/Box";
+import {SxProps} from "@mui/system";
+import {Theme} from "@mui/material/styles";
 
 type Props = {
     isOpen: boolean
@@ -14,6 +17,8 @@ type Props = {
     rememberMeChildren?: ReactNode
     loginValue: string
     passwordValue: string
+    rememberMeValue?: boolean
+    sx?: SxProps<Theme>
     onChange: {
         (e: React.ChangeEvent<any>): void;
         <T_1 = string | React.ChangeEvent<any>>(field: T_1): T_1 extends React.ChangeEvent<any> ? void : (e: string | React.ChangeEvent<any>) => void;
@@ -33,6 +38,8 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
         rememberMeChildren,
         loginValue,
         passwordValue,
+        rememberMeValue,
+        sx,
         onChange,
         onBlur,
         onSubmit
@@ -67,7 +74,11 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
             {
                 isOpen
                 &&
-                <div className={s.container}>
+                <Box sx={{
+                    width: '350px',
+                    fontFamily: 'Montserrat',
+                    ...sx
+                }}>
                     <h2 className={s.label}>{label}</h2>
                     <div className={s.line}></div>
                     {testAccChildren && <div className={s.testAcc}>{testAccChildren}</div>}
@@ -95,6 +106,12 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                             paddingLeft: '16px',
                                             paddingRight: '16px',
                                             marginTop: '16px',
+                                            fontFamily: 'Montserrat',
+                                            fontSize: '16px',
+                                            fontStyle: 'normal',
+                                            fontWeight: 500,
+                                            lineHeight: '24px',
+                                            color: 'rgba(16, 16, 18, 0.50)',
                                         },
                                     }}
                                     onChange={onChange}
@@ -112,7 +129,6 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                         height: '56px',
                                         borderRadius: '8px',
                                         backgroundColor: '#F7F7F8',
-                                        marginBottom: '16px',
                                         ...focusPassword
                                     }}
                                     InputProps={{
@@ -122,6 +138,12 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                             paddingLeft: '16px',
                                             paddingRight: '16px',
                                             marginTop: '16px',
+                                            fontFamily: 'Montserrat',
+                                            fontSize: '16px',
+                                            fontStyle: 'normal',
+                                            fontWeight: 500,
+                                            lineHeight: '24px',
+                                            color: 'rgba(16, 16, 18, 0.50)',
                                         },
                                         endAdornment: (
                                             <InputAdornment position="end">
@@ -139,7 +161,9 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                     onBlur={blur}
                                 />
                                 {rememberMeChildren &&
-                                    <div className={s.rememberMe}>{rememberMeChildren}<p>Remember me</p></div>}
+                                    <div className={s.rememberMe}>{rememberMeChildren}<p
+                                        className={rememberMeValue && rememberMeValue ? s.rememberMeTextActive : s.rememberMeTextDefault}>Remember
+                                        me</p></div>}
                             </div>
                             <CustomButton
                                 type={'submit'}
@@ -158,6 +182,10 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                     fontFamily: 'Montserrat',
                                     boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                                     lineHeight: '34px',
+                                    marginTop: '16px',
+                                    '&:hover': {
+                                        color: '#000'
+                                    }
                                 }}
                             />
                             <div className={s.textPolicy}>
@@ -172,7 +200,7 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                             </div>
                         </div>
                     </form>
-                </div>
+                </Box>
             }
         </>
     );

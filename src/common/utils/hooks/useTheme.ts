@@ -48,15 +48,11 @@ export const useTheme = () => {
                         color: '#704ECC',
                         width: '24px',
                         height: '24px',
-                    }
-                },
-                styleOverrides: {
-                    root: {
-                        '&:focus': {
+                        '&.Mui-checked': {
                             color: '#FF8811',
                         },
                     }
-                }
+                },
             }
         },
     });

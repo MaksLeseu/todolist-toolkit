@@ -10,6 +10,7 @@ import {InputFieldsForAuth} from "./InputFieldsForAuth/InputFieldsForAuth";
 import {useState} from "react";
 import {TestAccIcon} from "../../common/components/Icons/TestAccIcon";
 import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
+import {Link} from "@mui/material";
 
 type FormikErrorType = {
     email?: string;
@@ -99,23 +100,6 @@ export const Auth = () => {
                     onClick={openEmailLogin}
                 />
             }
-            <InputFieldsForAuth
-                isOpen={emailAcc}
-                label={'Continue with email'}
-                loginValue={formik.values.email}
-                passwordValue={formik.values.password}
-                rememberMeChildren={
-                    <CustomCheckbox
-                        checked={formik.values.rememberMe}
-                        name={'rememberMe'}
-                        disableRipple={true}
-                        onChange={formik.handleChange}
-                    />
-                }
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                onSubmit={formik.handleSubmit}
-            />
             {
                 visibleButtons === 'testAcc' ||
                 <CustomButton
@@ -144,38 +128,67 @@ export const Auth = () => {
                 />
             }
             <InputFieldsForAuth
+                isOpen={emailAcc}
+                label={'Continue with email'}
+                loginValue={formik.values.email}
+                passwordValue={formik.values.password}
+                rememberMeValue={formik.values.rememberMe}
+                sx={{
+                    marginTop: '8px'
+                }}
+                rememberMeChildren={
+                    <CustomCheckbox
+                        checked={formik.values.rememberMe}
+                        name={'rememberMe'}
+                        disableRipple={true}
+                        onChange={formik.handleChange}
+                    />
+                }
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                onSubmit={formik.handleSubmit}
+            />
+            <InputFieldsForAuth
                 isOpen={testAcc}
                 label={'Use a test account'}
                 testAccChildren={<>
                     <p>Email: free@samuraijs.com</p>
                     <p>Password: free</p>
                 </>}
+                sx={{
+                    marginTop: '28px'
+                }}
                 loginValue={formik.values.email}
                 passwordValue={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 onSubmit={formik.handleSubmit}
             />
-            <CustomButton
-                color={'inherit'}
-                label={'Is it your first time?'}
-                additionalLabel={<p className={s.labelForButton}>Sign up</p>}
-                variant={'contained'}
-                sx={{
-                    backgroundColor: '#704ECC',
-                    width: '328px',
-                    height: '56px',
-                    fontSize: '16px',
-                    textTransform: 'none',
-                    color: '#FFFFFF',
-                    fontWeight: 500,
-                    borderRadius: '8px',
-                    fontFamily: 'Montserrat',
-                    boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
-                    lineHeight: '34px',
-                    marginBottom: '108px',
-                }}
-            />
+            <Link href={'https://social-network.samuraijs.com/signUp'} target="_blank">
+                <CustomButton
+                    color={'inherit'}
+                    label={'Is it your first time?'}
+                    additionalLabel={<p className={s.labelForButton}>Sign up</p>}
+                    variant={'contained'}
+                    sx={{
+                        backgroundColor: '#704ECC',
+                        width: '328px',
+                        height: '56px',
+                        fontSize: '16px',
+                        textTransform: 'none',
+                        color: '#FFFFFF',
+                        fontWeight: 500,
+                        borderRadius: '8px',
+                        fontFamily: 'Montserrat',
+                        boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
+                        lineHeight: '34px',
+                        marginBottom: '108px',
+                        '&:hover': {
+                            color: '#000'
+                        }
+                    }}
+                />
+            </Link>
         </div>
     )
 }
