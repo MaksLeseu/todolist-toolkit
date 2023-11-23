@@ -9,6 +9,8 @@ import {VisibilityIcon} from "../../../common/components/Icons/VisibilityIcon";
 import Box from "@mui/material/Box";
 import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material/styles";
+import {MistakeIcon} from "../../../common/components/Icons/MistakeIcon";
+import {SuccessIcon} from "../../../common/components/Icons/SuccessIcon";
 
 type Props = {
     isOpen: boolean
@@ -18,6 +20,10 @@ type Props = {
     loginValue: string
     passwordValue: string
     rememberMeValue?: boolean
+    touchedPassword: boolean | undefined
+    touchedLogin: boolean | undefined
+    errorsPassword: string | undefined
+    errorsLogin: string | undefined
     sx?: SxProps<Theme>
     onChange: {
         (e: React.ChangeEvent<any>): void;
@@ -28,6 +34,7 @@ type Props = {
         <T = any>(fieldOrEvent: T): T extends string ? (e: any) => void : void;
     }
     onSubmit: (e?: React.FormEvent<HTMLFormElement>) => void
+    hardcodeParamsForTestAcc?: (params: 'login' | 'password') => 'free@samuraijs.com' | 'free'
 }
 
 export const InputFieldsForAuth: FC<Props> = (props) => {
@@ -39,10 +46,15 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
         loginValue,
         passwordValue,
         rememberMeValue,
+        touchedLogin,
+        touchedPassword,
+        errorsPassword,
+        errorsLogin,
         sx,
         onChange,
         onBlur,
-        onSubmit
+        onSubmit,
+        hardcodeParamsForTestAcc
     } = props
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -61,13 +73,19 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
         return focus[params]()
     }
 
-    const blur = () => {
+    const blur = (e: React.FocusEvent<any, Element>) => {
         setShowFocus({login: false, password: false})
-        return onBlur
+        onBlur(e)
     }
 
     const focusLogin = showFocus.login ? {border: '2px #704ECC solid'} : {}
     const focusPassword = showFocus.password ? {border: '2px #704ECC solid'} : {}
+
+    const showErrorsLogin = touchedLogin && errorsLogin ? {border: '2px #EB2525 solid'} : {}
+    const showErrorsPassword = touchedPassword && errorsPassword ? {border: '2px #EB2525 solid'} : {}
+
+    const successLogin = touchedLogin && !errorsLogin ? {border: '2px #26C518 solid'} : '';
+    const successPassword = touchedPassword && !errorsPassword ? {border: '2px #26C518 solid'} : '';
 
     return (
         <>
@@ -85,11 +103,20 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                     <form onSubmit={onSubmit}>
                         <div className={s.flexContainer}>
                             <div className={s.inputFields}>
+                                <div>
+                                    {
+                                        touchedLogin && errorsLogin &&
+                                        <div className={s.errorsContainer}>
+                                            <MistakeIcon/>
+                                            <p className={s.error}>{errorsLogin}</p>
+                                        </div>
+                                    }
+                                </div>
                                 <CustomTextField
                                     size={'small'}
                                     name={'email'}
                                     placeholder={'Email'}
-                                    value={loginValue}
+                                    value={!rememberMeChildren ? hardcodeParamsForTestAcc && hardcodeParamsForTestAcc('login') : loginValue}
                                     sx={{
                                         width: '328px',
                                         height: '56px',
@@ -97,7 +124,9 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                         backgroundColor: '#F7F7F8',
                                         border: 'none',
                                         marginBottom: '16px',
-                                        ...focusLogin
+                                        ...focusLogin,
+                                        ...showErrorsLogin,
+                                        ...successLogin
                                     }}
                                     InputProps={{
                                         disableUnderline: true,
@@ -113,23 +142,39 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                             lineHeight: '24px',
                                             color: 'rgba(16, 16, 18, 0.50)',
                                         },
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                {successLogin && <SuccessIcon/>}
+                                            </InputAdornment>
+                                        )
                                     }}
                                     onChange={onChange}
                                     onBlur={blur}
                                     onFocus={() => focusing('login')}
                                 />
+                                <div>
+                                    {
+                                        touchedPassword && errorsPassword &&
+                                        <div className={s.errorsContainer}>
+                                            <MistakeIcon/>
+                                            <p className={s.error}>{errorsPassword}</p>
+                                        </div>
+                                    }
+                                </div>
                                 <CustomTextField
                                     size={'small'}
                                     name={'password'}
                                     type={showPassword ? 'text' : 'password'}
                                     placeholder={'Password'}
-                                    value={passwordValue}
+                                    value={!rememberMeChildren ? hardcodeParamsForTestAcc && hardcodeParamsForTestAcc('password') : passwordValue}
                                     sx={{
                                         width: '328px',
                                         height: '56px',
                                         borderRadius: '8px',
                                         backgroundColor: '#F7F7F8',
-                                        ...focusPassword
+                                        ...focusPassword,
+                                        ...showErrorsPassword,
+                                        ...successPassword
                                     }}
                                     InputProps={{
                                         disableUnderline: true,
@@ -153,6 +198,7 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                                 >
                                                     {showPassword ? <VisibilityIcon/> : <VisibilityOffIcon/>}
                                                 </CustomIconButton>
+                                                {successPassword && <SuccessIcon/>}
                                             </InputAdornment>
                                         )
                                     }}

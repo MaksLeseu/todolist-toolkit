@@ -7,10 +7,11 @@ import {isLoggedInSelector} from "./auth.selector";
 import {Navigate} from "react-router-dom";
 import {EmailIcon} from "../../common/components/Icons/EmailIcon";
 import {InputFieldsForAuth} from "./InputFieldsForAuth/InputFieldsForAuth";
-import {useState} from "react";
+import React, {useState} from "react";
 import {TestAccIcon} from "../../common/components/Icons/TestAccIcon";
 import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
 import {Link} from "@mui/material";
+import {authThunk} from "./auth.slice";
 
 type FormikErrorType = {
     email?: string;
@@ -44,31 +45,48 @@ export const Auth = () => {
             rememberMe: false
         },
         onSubmit: values => {
-            /*dispatch(authThunk.login({data: values}))*/
-            alert(JSON.stringify(values))
+            dispatch(authThunk.login({data: values}))
         },
     })
 
     const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
 
-    const [testAcc, setTestAcc] = useState<boolean>(false)
-    const [emailAcc, setEmailAcc] = useState<boolean>(false)
+    const [account, setAccount] = useState({
+        test: false,
+        user: false
+    })
     const [visibleButtons, setVisibleButtons] = useState<'testAcc' | 'nothing' | 'email'>('nothing')
 
-    const openTestAcc = () => {
-        setTestAcc(true)
-        setVisibleButtons('testAcc')
-        emailAcc && setEmailAcc(false)
-    }
-
-    const openEmailLogin = () => {
-        setEmailAcc(true)
-        setVisibleButtons('email')
-        testAcc && setTestAcc(false)
+    const openAccount = (params: 'test' | 'user') => {
+        const account = {
+            'test': () => {
+                setAccount({
+                    test: true,
+                    user: false
+                })
+                setVisibleButtons('testAcc')
+            },
+            'user': () => {
+                setAccount({
+                    test: false,
+                    user: true
+                })
+                setVisibleButtons('email')
+            }
+        }
+        return account[params]()
     }
 
     if (isLoggedIn) {
         return <Navigate to={'/todolist-toolkit'}/>
+    }
+
+    const hardcodeParamsForTestAcc = (params: 'login' | 'password'): 'free@samuraijs.com' | 'free' => {
+        const hardcode = {
+            'login': (): 'free@samuraijs.com' => formik.values.email = 'free@samuraijs.com',
+            'password': (): 'free' => formik.values.password = 'free',
+        }
+        return hardcode[params]()
     }
 
     return (
@@ -97,7 +115,7 @@ export const Auth = () => {
                         lineHeight: '24px', display: 'flex',
                         justifyContent: 'normal',
                     }}
-                    onClick={openEmailLogin}
+                    onClick={() => openAccount('user')}
                 />
             }
             {
@@ -124,15 +142,19 @@ export const Auth = () => {
                         display: 'flex',
                         justifyContent: 'normal',
                     }}
-                    onClick={openTestAcc}
+                    onClick={() => openAccount('test')}
                 />
             }
             <InputFieldsForAuth
-                isOpen={emailAcc}
+                isOpen={account.user}
                 label={'Continue with email'}
                 loginValue={formik.values.email}
                 passwordValue={formik.values.password}
                 rememberMeValue={formik.values.rememberMe}
+                touchedLogin={formik.touched.email}
+                touchedPassword={formik.touched.password}
+                errorsLogin={formik.errors.email}
+                errorsPassword={formik.errors.password}
                 sx={{
                     marginTop: '8px'
                 }}
@@ -149,20 +171,25 @@ export const Auth = () => {
                 onSubmit={formik.handleSubmit}
             />
             <InputFieldsForAuth
-                isOpen={testAcc}
+                isOpen={account.test}
                 label={'Use a test account'}
+                loginValue={formik.values.email}
+                passwordValue={formik.values.password}
+                touchedLogin={formik.touched.email}
+                touchedPassword={formik.touched.password}
+                errorsLogin={formik.errors.email}
+                errorsPassword={formik.errors.password}
+                sx={{
+                    marginTop: '28px'
+                }}
                 testAccChildren={<>
                     <p>Email: free@samuraijs.com</p>
                     <p>Password: free</p>
                 </>}
-                sx={{
-                    marginTop: '28px'
-                }}
-                loginValue={formik.values.email}
-                passwordValue={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 onSubmit={formik.handleSubmit}
+                hardcodeParamsForTestAcc={hardcodeParamsForTestAcc}
             />
             <Link href={'https://social-network.samuraijs.com/signUp'} target="_blank">
                 <CustomButton
