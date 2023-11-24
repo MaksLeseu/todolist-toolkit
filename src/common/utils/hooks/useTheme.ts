@@ -2,6 +2,44 @@ import {createTheme} from "@mui/material";
 
 export const useTheme = () => {
     const theme = createTheme({
+        palette: {
+            common: {
+                white: '#FFF',
+                black: '#000'
+            },
+            primary: {
+                main: '#EFE3FF',
+                light: '#FFF',
+                dark: '#F7F7F8',
+                contrastText: '#000'
+            },
+            secondary: {
+                main: '#704ECC',
+                contrastText: '#FFF'
+            },
+            error: {
+                main: '#EB2525'
+            },
+            success: {
+                main: '#26C518'
+            },
+            text: {
+                primary: '#000000',
+                secondary: 'rgba(16, 16, 18, 0.50)',
+                disabled: '#828387',
+            },
+            grey: {
+                A100: '#F7F7F8'
+            },
+            action: {
+                hover: '',
+                disabled: '',
+                focus: '',
+            }
+        },
+        typography: {
+            fontFamily: 'Montserrat'
+        },
         components: {
             MuiTextField: {
                 defaultProps: {
@@ -25,19 +63,17 @@ export const useTheme = () => {
                 }
             },
             MuiInputBase: {
+                defaultProps: {
+                    sx: {}
+                },
                 styleOverrides: {
                     input: {
                         '&::placeholder': {
                             fontSize: '16px',
-                            fontFamily: 'Montserrat',
                             fontStyle: 'normal',
                             fontWeight: 500,
-                            color: 'rgba(16, 16, 18, 0.50)',
-                            opacity: 1
+                            opacity: 1,
                         },
-                        /*'&:focus': {
-                            border: '2px #704ECC solid',
-                        },*/
                     }
                 },
             },

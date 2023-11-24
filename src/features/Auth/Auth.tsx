@@ -96,20 +96,17 @@ export const Auth = () => {
             {
                 visibleButtons === 'email' ||
                 <CustomButton
-                    color={'inherit'}
+                    color={'primary'}
                     label={'Continue with email'}
                     icon={<div className={s.icon}><EmailIcon/></div>}
                     variant={'contained'}
                     sx={{
-                        backgroundColor: '#EFE3FF',
                         width: '328px',
                         height: '56px',
                         fontSize: '16px',
                         textTransform: 'none',
-                        color: '#000000',
                         fontWeight: 500,
                         borderRadius: '8px',
-                        fontFamily: 'Montserrat',
                         boxShadow: '0',
                         marginBottom: '12px',
                         lineHeight: '24px', display: 'flex',
@@ -121,20 +118,17 @@ export const Auth = () => {
             {
                 visibleButtons === 'testAcc' ||
                 <CustomButton
-                    color={'inherit'}
+                    color={'primary'}
                     label={'Use a test account'}
                     icon={<div className={s.icon}><TestAccIcon/></div>}
                     variant={'contained'}
                     sx={{
-                        backgroundColor: '#EFE3FF',
                         width: '328px',
                         height: '56px',
                         fontSize: '16px',
                         textTransform: 'none',
-                        color: '#000000',
                         fontWeight: 500,
                         borderRadius: '8px',
-                        fontFamily: 'Montserrat',
                         boxShadow: '0',
                         marginBottom: '32px',
                         padding: '16px',
@@ -193,26 +187,20 @@ export const Auth = () => {
             />
             <Link href={'https://social-network.samuraijs.com/signUp'} target="_blank">
                 <CustomButton
-                    color={'inherit'}
+                    color={'secondary'}
                     label={'Is it your first time?'}
                     additionalLabel={<p className={s.labelForButton}>Sign up</p>}
                     variant={'contained'}
                     sx={{
-                        backgroundColor: '#704ECC',
                         width: '328px',
                         height: '56px',
                         fontSize: '16px',
                         textTransform: 'none',
-                        color: '#FFFFFF',
                         fontWeight: 500,
                         borderRadius: '8px',
-                        fontFamily: 'Montserrat',
                         boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                         lineHeight: '34px',
                         marginBottom: '108px',
-                        '&:hover': {
-                            color: '#000'
-                        }
                     }}
                 />
             </Link>

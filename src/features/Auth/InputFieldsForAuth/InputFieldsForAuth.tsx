@@ -94,7 +94,6 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                 &&
                 <Box sx={{
                     width: '350px',
-                    fontFamily: 'Montserrat',
                     ...sx
                 }}>
                     <h2 className={s.label}>{label}</h2>
@@ -121,7 +120,7 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                         width: '328px',
                                         height: '56px',
                                         borderRadius: '8px',
-                                        backgroundColor: '#F7F7F8',
+                                        backgroundColor: 'grey.A100',
                                         border: 'none',
                                         marginBottom: '16px',
                                         ...focusLogin,
@@ -135,12 +134,11 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                             paddingLeft: '16px',
                                             paddingRight: '16px',
                                             marginTop: '16px',
-                                            fontFamily: 'Montserrat',
                                             fontSize: '16px',
                                             fontStyle: 'normal',
                                             fontWeight: 500,
                                             lineHeight: '24px',
-                                            color: 'rgba(16, 16, 18, 0.50)',
+                                            color: 'text.secondary',
                                         },
                                         endAdornment: (
                                             <InputAdornment position="end">
@@ -171,7 +169,7 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                         width: '328px',
                                         height: '56px',
                                         borderRadius: '8px',
-                                        backgroundColor: '#F7F7F8',
+                                        backgroundColor: 'grey.A100',
                                         ...focusPassword,
                                         ...showErrorsPassword,
                                         ...successPassword
@@ -183,12 +181,11 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                             paddingLeft: '16px',
                                             paddingRight: '16px',
                                             marginTop: '16px',
-                                            fontFamily: 'Montserrat',
                                             fontSize: '16px',
                                             fontStyle: 'normal',
                                             fontWeight: 500,
                                             lineHeight: '24px',
-                                            color: 'rgba(16, 16, 18, 0.50)',
+                                            color: 'text.secondary',
                                         },
                                         endAdornment: (
                                             <InputAdornment position="end">
@@ -213,25 +210,19 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                             </div>
                             <CustomButton
                                 type={'submit'}
-                                color={'inherit'}
+                                color={'secondary'}
                                 label={'Sign in'}
                                 variant={'contained'}
                                 sx={{
-                                    backgroundColor: '#704ECC',
                                     width: '328px',
                                     height: '56px',
                                     fontSize: '16px',
                                     textTransform: 'none',
-                                    color: '#FFFFFF',
                                     fontWeight: 700,
                                     borderRadius: '8px',
-                                    fontFamily: 'Montserrat',
                                     boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                                     lineHeight: '34px',
                                     marginTop: '16px',
-                                    '&:hover': {
-                                        color: '#000'
-                                    }
                                 }}
                             />
                             <div className={s.textPolicy}>
