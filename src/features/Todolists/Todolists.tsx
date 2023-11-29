@@ -5,7 +5,10 @@ import {Todolist} from "./Todolist/Todolist";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {todolistsSelector} from "./todolists.selector";
 import {TodolistsType} from "./todolists.types";
+import {CustomButton} from "../../common/components/CustomButton/CustomButton";
+import {QuestionIcon} from "../../common/components/Icons/QuestionIcon";
 import s from './Todolists.module.css'
+
 
 type Props = {
     onClickLink: boolean
@@ -40,7 +43,32 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
     return (
         <div className={s.todolists}>
             {
-                onClickLink || <p className={s.title}>To-do lists</p>
+                onClickLink ? <p className={s.title}>To-do lists</p>
+                    :
+                    <div className={s.notSingleTask}>
+                        <p className={s.notSingleTaskLabel}>sorry,</p>
+                        <p className={s.notSingleTaskText}>you haven't created any tasks.</p>
+                        <CustomButton
+                            color={'secondary'}
+                            label={'Create new one'}
+                            variant={'contained'}
+                            sx={{
+                                borderRadius: '8px',
+                                width: '255px',
+                                height: '56px',
+                                boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
+                                color: '#FFF',
+                                fontSize: '22px',
+                                fontWeight: 700,
+                                fontStyle: 'normal',
+                                lineHeight: '34px',
+                                marginBottom: '40px',
+                            }}
+                        />
+                        <div className={s.notSingleTaskImageContainer}>
+                            <QuestionIcon/>
+                        </div>
+                    </div>
             }
             <div className={s.todosList}>
                 {

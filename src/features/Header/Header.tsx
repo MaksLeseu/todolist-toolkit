@@ -11,7 +11,6 @@ import {authThunk} from "../Auth/auth.slice";
 import {NavLink} from "react-router-dom";
 import {Menu} from "./Menu/Menu";
 import {LogOutButton} from "./LogOutButton/LogOutButton";
-import {BodyMenu} from "./BodyMenu/BodyMenu";
 import s from './Header.module.css'
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 
@@ -108,10 +107,10 @@ export const Header = () => {
                 </Toolbar>
             </AppBar>
 
-            <BodyMenu
+            {/*<BodyMenu
                 isOpen={isOpen}
                 handleDrawerClose={changeDrawer}
-            />
+            />*/}
         </Box>
     );
 }
