@@ -1,0 +1,148 @@
+.startPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 550px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title {
+    width: 475px;
+    color: var(--main-text-color);
+    font-size: 72px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 80px;
+    margin: 0;
+}
+
+.secondTitle {
+    color: var(--second-text-color);
+    font-size: 72px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 80px;
+    margin: 0 0 12px 0;
+}
+
+.text {
+    width: 357px;
+    color: var(--main-text-color);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 30px;
+    margin: 0 0 60px 0;
+}
+
+.link {
+    width: 255px;
+    height: 70px;
+}
+
+.imageContainer {
+    width: 634px;
+    height: 461px;
+}
+
+@media (max-width: 1109px) {
+    .title {
+        width: 400px;
+        font-size: 60px;
+        line-height: 70px;
+    }
+
+    .secondTitle {
+        font-size: 60px;
+        line-height: 50px;
+    }
+
+    .text {
+        margin: 0 0 30px 0;
+    }
+
+    .link {
+        width: 225px;
+        height: 60px;
+    }
+
+    .imageContainer {
+        width: 500px;
+    }
+}
+
+@media (max-width: 975px) {
+    .startPage {
+        flex-direction: column;
+    }
+
+    .title {
+        width: 400px;
+        font-size: 50px;
+        line-height: 70px;
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .secondTitle {
+        font-size: 50px;
+        line-height: 50px;
+        text-align: center;
+    }
+
+    .text {
+        width: 390px;
+        font-size: 20px;
+        margin: 0 0 20px 0;
+        text-align: center;
+    }
+
+    .link {
+        width: 200px;
+        height: 50px;
+        margin: 0 auto;
+    }
+
+    .imageContainer {
+        width: 400px;
+    }
+}
+
+@media (max-width: 510px) {
+    .title {
+        width: 300px;
+        font-size: 40px;
+        line-height: 50px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .secondTitle {
+        font-size: 40px;
+        line-height: 30px;
+        text-align: center;
+    }
+
+    .text {
+        width: 300px;
+        font-size: 18px;
+        margin: 0 0 20px 0;
+        text-align: center;
+        line-height: 20px;
+    }
+
+    .link {
+        width: 150px;
+        height: 40px;
+        margin: 0 auto;
+    }
+
+    .imageContainer {
+        width: 300px;
+    }
+}

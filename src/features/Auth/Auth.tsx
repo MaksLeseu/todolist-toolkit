@@ -1,6 +1,5 @@
 import {useFormik} from "formik";
 import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
-import s from './Auth.module.css'
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {isLoggedInSelector} from "./auth.selector";
@@ -12,6 +11,7 @@ import {TestAccIcon} from "../../common/components/Icons/TestAccIcon";
 import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
 import {Link} from "@mui/material";
 import {authThunk} from "./auth.slice";
+import s from './Auth.module.css'
 
 type FormikErrorType = {
     email?: string;
@@ -108,8 +108,9 @@ export const Auth = () => {
                         fontWeight: 500,
                         borderRadius: '8px',
                         boxShadow: '0',
+                        lineHeight: '24px',
                         marginBottom: '12px',
-                        lineHeight: '24px', display: 'flex',
+                        display: 'flex',
                         justifyContent: 'normal',
                     }}
                     onClick={() => openAccount('user')}
@@ -130,9 +131,9 @@ export const Auth = () => {
                         fontWeight: 500,
                         borderRadius: '8px',
                         boxShadow: '0',
+                        lineHeight: '24px',
                         marginBottom: '32px',
                         padding: '16px',
-                        lineHeight: '24px',
                         display: 'flex',
                         justifyContent: 'normal',
                     }}
@@ -185,7 +186,15 @@ export const Auth = () => {
                 onSubmit={formik.handleSubmit}
                 hardcodeParamsForTestAcc={hardcodeParamsForTestAcc}
             />
-            <Link href={'https://social-network.samuraijs.com/signUp'} target="_blank">
+            <Link
+                href={'https://social-network.samuraijs.com/signUp'}
+                sx={{
+                    width: '328px',
+                    height: '56px',
+                    marginBottom: '47px',
+                }}
+                target="_blank"
+            >
                 <CustomButton
                     color={'secondary'}
                     label={'Is it your first time?'}
@@ -198,6 +207,7 @@ export const Auth = () => {
                         textTransform: 'none',
                         fontWeight: 500,
                         borderRadius: '8px',
+                        fontStyle: 'normal',
                         boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                         lineHeight: '34px',
                         marginBottom: '108px',

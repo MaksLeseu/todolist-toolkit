@@ -18,4 +18,10 @@ code {
 
 .root {
     height: 100%;
+    --main-text-color: #000;
+    --second-text-color: #704ECC;
+    --error-text-color: #EB2525;
+    --additional-text-color: #FF8811;
+    --main-bg-color: #EFE3FF;
+    /*font-family: 'Montserrat', sans-serif;*/
 }

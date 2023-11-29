@@ -38,7 +38,10 @@ export const useTheme = () => {
             }
         },
         typography: {
-            fontFamily: 'Montserrat'
+            allVariants: {
+                fontFamily: "'Montserrat', sans-serif",
+                textTransform: "none",
+            }
         },
         components: {
             MuiTextField: {
@@ -89,6 +92,11 @@ export const useTheme = () => {
                         },
                     }
                 },
+            },
+            MuiButtonBase: {
+                defaultProps: {
+                    sx: {}
+                }
             }
         },
     });

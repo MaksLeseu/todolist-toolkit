@@ -13,6 +13,7 @@ import {Menu} from "./Menu/Menu";
 import {LogOutButton} from "./LogOutButton/LogOutButton";
 import {BodyMenu} from "./BodyMenu/BodyMenu";
 import s from './Header.module.css'
+import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -65,16 +66,43 @@ export const Header = () => {
                     }
 
                     <div className={s.headerContainer}>
-                        <NavLink className={s.title} to={'/todolist-toolkit'}>
-                            Today
-                        </NavLink>
+                        <Box sx={{
+                            width: '1110px',
+                            height: '60px',
+                            margin: '0 auto',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                        }}>
+                            <Box sx={{width: '101px'}}></Box>
+                            <NavLink className={s.title} to={'/todolist-toolkit'}>
+                                Today
+                            </NavLink>
 
-                        {
-                            isLoggedIn &&
-                            <LogOutButton
-                                handlerLogout={handlerLogout}
-                            />
-                        }
+                            <NavLink className={s.link} to={'/todolist-toolkit/login'}>
+                                <CustomButton
+                                    color={'secondary'}
+                                    label={'Sign in'}
+                                    variant={'contained'}
+                                    sx={{
+                                        width: '101px',
+                                        height: '36px',
+                                        borderRadius: '4px',
+                                        fontSize: '12px',
+                                        fontStyle: 'normal',
+                                        fontWeight: 700,
+                                        lineHeight: '16px',
+                                    }}
+                                />
+                            </NavLink>
+
+                            {
+                                isLoggedIn &&
+                                <LogOutButton
+                                    handlerLogout={handlerLogout}
+                                />
+                            }
+                        </Box>
                     </div>
 
                 </Toolbar>

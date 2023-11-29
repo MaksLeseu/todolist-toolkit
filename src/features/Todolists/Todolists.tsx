@@ -1,11 +1,11 @@
 import React, {FC} from "react";
 import {Navigate, NavLink, useParams} from "react-router-dom";
 import {HomePageTodos} from "./HomePageTodos/HomePageTodos";
-import s from './Todolists.module.css'
 import {Todolist} from "./Todolist/Todolist";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {todolistsSelector} from "./todolists.selector";
 import {TodolistsType} from "./todolists.types";
+import s from './Todolists.module.css'
 
 type Props = {
     onClickLink: boolean

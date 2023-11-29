@@ -1,9 +1,10 @@
 import {createBrowserRouter, Navigate, NavLink, RouterProvider} from "react-router-dom";
-import {Auth} from "../features/Auth/Auth";
 import {Layout} from "../common/components/Layout/Layout";
 import {Todolists} from "../features/Todolists/Todolists";
 import React from "react";
 import {RequireAuth} from "../common/components/RequireAuth/RequireAuth";
+import {StartPage} from "../common/components/StartPage/StartPage";
+import {Auth} from "../features/Auth/Auth";
 
 const privateRoutes = [
     {
@@ -21,6 +22,14 @@ const privateRoutes = [
 ]
 
 const publicRoutes = [
+    {
+        path: '/todolist-toolkit/start',
+        element: (
+            <Layout>
+                <StartPage/>
+            </Layout>
+        )
+    },
     {
         path: '/todolist-toolkit/login',
         element: (
