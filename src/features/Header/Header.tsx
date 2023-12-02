@@ -8,11 +8,12 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
 import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
 import {authThunk} from "../Auth/auth.slice";
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import {Menu} from "./Menu/Menu";
 import {LogOutButton} from "./LogOutButton/LogOutButton";
 import s from './Header.module.css'
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
+import {BodyMenu} from "./BodyMenu/BodyMenu";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -48,36 +49,68 @@ export const Header = () => {
 
     const changeDrawer = () => setIsOpen(!isOpen)
 
+    const {start} = useParams()
+
     return (
-        <Box sx={{display: 'flex', marginBottom: '71px'}}>
+        <Box sx={{marginBottom: '71px', zIndex: 1000}}>
+            <BodyMenu
+                isOpen={isOpen}
+                handleDrawerClose={changeDrawer}
+            />
             <CssBaseline/>
-            <AppBar position="fixed" sx={{backgroundColor: '#EFE3FF', height: '60px', boxShadow: '0'}} open={isOpen}>
+            <AppBar
+                position="fixed"
+                sx={{
+                    width: '100%',
+                    height: '60px',
+                    backgroundColor: '#EFE3FF',
+                    boxShadow: '0'
+                }}
+                open={isOpen}
+            >
                 <Toolbar>
-                    {
-                        isLoggedIn &&
-                        <Menu
-                            sx={{
-                                marginRight: 5,
-                                ...(isOpen && {display: 'none'}),
-                            }}
-                            handleDrawerOpen={changeDrawer}
-                        />
-                    }
-
                     <div className={s.headerContainer}>
-                        <Box sx={{
-                            width: '1110px',
-                            height: '60px',
-                            margin: '0 auto',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between'
-                        }}>
-                            <Box sx={{width: '101px'}}></Box>
-                            <NavLink className={s.title} to={'/todolist-toolkit'}>
-                                Today
-                            </NavLink>
+                        {
+                            isLoggedIn &&
+                            <Menu
+                                sx={{
+                                    width: '24px',
+                                    height: '24px',
+                                    alignSelf: 'center',
+                                    ...(isOpen && {display: 'none'}),
+                                }}
+                                handleDrawerOpen={changeDrawer}
+                            />
+                        }
 
+                        <NavLink className={s.title} to={'/todolist-toolkit'}>
+                            {
+                                !isOpen && 'Today'
+                            }
+                        </NavLink>
+
+                        {
+                            isLoggedIn &&
+                            <LogOutButton
+                                sx={{
+                                    width: '109px',
+                                    height: '36px',
+                                    display: 'flex',
+                                    justifySelf: 'end',
+                                    fontSize: '12px',
+                                    fontWeight: 700,
+                                    lineHeight: '16px',
+                                    fontStyle: 'normal',
+                                    color: '#704ECC',
+                                    borderRadius: 0,
+                                    alignSelf: 'center'
+                                }}
+                                handlerLogout={handlerLogout}
+                            />
+                        }
+
+                        {
+                            start &&
                             <NavLink className={s.link} to={'/todolist-toolkit/login'}>
                                 <CustomButton
                                     color={'secondary'}
@@ -94,23 +127,12 @@ export const Header = () => {
                                     }}
                                 />
                             </NavLink>
-
-                            {
-                                isLoggedIn &&
-                                <LogOutButton
-                                    handlerLogout={handlerLogout}
-                                />
-                            }
-                        </Box>
+                        }
                     </div>
 
                 </Toolbar>
             </AppBar>
-
-            {/*<BodyMenu
-                isOpen={isOpen}
-                handleDrawerClose={changeDrawer}
-            />*/}
         </Box>
     );
 }
+

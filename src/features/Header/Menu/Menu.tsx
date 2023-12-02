@@ -1,8 +1,9 @@
 import React, {FC, MouseEventHandler} from "react";
-import MenuIcon from "@mui/icons-material/Menu";
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material";
+import {MenuIcon} from "../../../common/components/Icons/MenuIcon";
+import Box from "@mui/material/Box";
 
 type Props = {
     sx: SxProps<Theme>
@@ -16,12 +17,19 @@ export const Menu: FC<Props> = (props) => {
         <CustomIconButton
             size={'medium'}
             color={'inherit'}
-            disableRipple={false}
+            disableRipple={true}
             edge="start"
             onClick={handleDrawerOpen}
             sx={sx}
         >
-            <MenuIcon/>
+            <Box
+                sx={{
+                    width: '24px',
+                    height: '24px'
+                }}
+            >
+                <MenuIcon/>
+            </Box>
         </CustomIconButton>
     )
 }

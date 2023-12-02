@@ -4,7 +4,7 @@ import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material/styles";
 
 type Props = {
-    color: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
+    color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
     label: string | undefined
     additionalLabel?: string | undefined | ReactElement
     icon?: ReactElement

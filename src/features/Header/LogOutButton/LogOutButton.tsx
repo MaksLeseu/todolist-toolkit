@@ -1,20 +1,23 @@
 import React, {FC, MouseEventHandler} from "react";
 import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
-import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
+import {SxProps} from "@mui/system";
+import {Theme} from "@mui/material/styles";
+import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
+import {SignOutIcon} from "../../../common/components/Icons/SignOutIcon";
 
 type Props = {
+    sx?: SxProps<Theme>
     handlerLogout: MouseEventHandler
 }
 
-export const LogOutButton: FC<Props> = ({handlerLogout}) => {
+export const LogOutButton: FC<Props> = ({sx, handlerLogout}) => {
     return (
-        <>
-            <CustomButton
-                color={'inherit'}
-                variant={'text'}
-                label={MSG_BTN.LOG_OUT}
-                onClick={handlerLogout}
-            />
-        </>
+        <CustomIconButton
+            sx={sx}
+            disableRipple={false}
+            onClick={handlerLogout}
+        >
+            <SignOutIcon/> {MSG_BTN.LOG_OUT}
+        </CustomIconButton>
     )
 }

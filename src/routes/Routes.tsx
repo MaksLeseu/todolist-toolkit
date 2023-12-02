@@ -23,7 +23,7 @@ const privateRoutes = [
 
 const publicRoutes = [
     {
-        path: '/todolist-toolkit/start',
+        path: '/todolist-toolkit/:start',
         element: (
             <Layout>
                 <StartPage/>

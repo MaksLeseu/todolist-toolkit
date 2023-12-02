@@ -1,19 +1,100 @@
-import React, {FC, MouseEventHandler} from "react";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import Divider from "@mui/material/Divider";
-import List from "@mui/material/List";
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../store/store";
-import {CSSObject, styled, Theme, useTheme} from "@mui/material/styles";
-import MuiDrawer from "@mui/material/Drawer";
-import {CreateTodo} from "./CreateTodo/CreateTodo";
-import {TodosList} from "./TodosList/TodosList";
-import s from '../Header.module.css'
+import React, {FC, useState} from "react";
+import Box from '@mui/material/Box';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
-import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
-import {todolistsThunk} from "../../Todolists/todolists.slice";
+import {PlusIcon} from "../../../common/components/Icons/PlusIcon";
+import {common} from "@mui/material/colors";
+import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
+import {AddTodoModalWindow} from "../../../common/components/AddTodoModalWindow/AddTodoModalWindow";
 
+type Props = {
+    isOpen: boolean
+    handleDrawerClose: () => void
+}
+
+export const BodyMenu: FC<Props> = (props) => {
+    const {isOpen, handleDrawerClose} = props
+
+    const [isOpenTodoModalWindow, setIsOpenTodoModalWindow] = useState<boolean>(false)
+
+    const openOrCloseTodoModalWindow = () => setIsOpenTodoModalWindow(!isOpenTodoModalWindow)
+
+    const list = () => (
+        <Box
+            sx={{
+                width: 420,
+                height: '100%',
+                padding: '18px 18px 18px 165px',
+                background: 'linear-gradient(186deg, #48289B -0.63%, rgba(82, 28, 225, 0.60) 58.84%, #412589 83.63%)',
+            }}
+            role="presentation"
+        >
+            <Box sx={{marginBottom: '72px'}}>
+                <CustomButton
+                    label={'Today'}
+                    variant={'text'}
+                    sx={{
+                        color: common.white,
+                        fontSize: '18px',
+                        fontStyle: 'normal',
+                        fontWeight: '700',
+                        lineHeight: '24px',
+                        textTransform: 'uppercase',
+                        marginLeft: '30px'
+                    }}
+                    onClick={handleDrawerClose}
+                />
+            </Box>
+            <Box>
+                <CustomIconButton
+                    disableRipple={false}
+                    sx={{
+                        width: '162px',
+                        height: '56px',
+                        borderRadius: '8px',
+                        backgroundColor: '#F81',
+                        color: common.white,
+                        fontSize: '22px',
+                        fontStyle: 'normal',
+                        fontWeight: 700,
+                        lineHeight: '24px',
+                    }}
+                    onClick={openOrCloseTodoModalWindow}
+                >
+                    <><Box sx={{marginRight: '8px'}}>Create</Box> <PlusIcon/></>
+                </CustomIconButton>
+            </Box>
+        </Box>
+    );
+
+    return (
+        <Box sx={{zIndex: 1300}}>
+            <React.Fragment>
+                <SwipeableDrawer
+                    open={isOpen}
+                    onClose={() => {
+                    }}
+                    onOpen={handleDrawerClose}
+                    disableDiscovery={true}
+                    ModalProps={{BackdropProps: {invisible: true}}}
+                >
+                    {list()}
+                </SwipeableDrawer>
+            </React.Fragment>
+            <AddTodoModalWindow
+                isOpen={isOpenTodoModalWindow}
+                value={''}
+                changeTodoName={() => {
+                }}
+                closeModalWindow={openOrCloseTodoModalWindow}
+                addTodo={() => {
+                }}
+            />
+        </Box>
+    );
+}
+
+/*
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -118,4 +199,129 @@ export const BodyMenu: FC<Props> = ({isOpen, handleDrawerClose}) => {
             }
         </>
     )
+}*/
+/*import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import MailIcon from '@mui/icons-material/Mail';
+import Toolbar from '@mui/material/Toolbar';
+
+const drawerWidth = 240;
+
+type Props = {
+    isOpen: boolean
+    handleDrawerClose: () => void
+    window?: () => Window;
 }
+
+export const BodyMenu: FC<Props> = (props) => {
+    const {isOpen, handleDrawerClose, window} = props;
+
+    const drawer = (
+        <div>
+            <Toolbar/>
+            <Divider/>
+            <List>
+                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                            </ListItemIcon>
+                            <ListItemText primary={text}/>
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+            <Divider/>
+            <List>
+                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                            </ListItemIcon>
+                            <ListItemText primary={text}/>
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </div>
+    );
+
+    // Remove this const when copying and pasting into your project.
+    const container = window !== undefined ? () => window().document.body : undefined;
+
+    return (
+        <Box sx={{display: 'flex'}}>
+            <CssBaseline/>
+            <Box
+                component="nav"
+                sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}
+                aria-label="mailbox folders"
+            >
+                {/!* The implementation can be swapped with js to avoid SEO duplication of links. *!/}
+                <Drawer
+                    container={container}
+                    variant="temporary"
+                    open={true}
+                    onClose={handleDrawerClose}
+                    ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                    }}
+                    sx={{
+                        display: {xs: 'block', sm: 'none'},
+                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+                    }}
+                >
+                    {drawer}
+                </Drawer>
+                <Drawer
+                    variant="permanent"
+                    sx={{
+                        display: {xs: 'none', sm: 'block'},
+                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+                    }}
+                    open
+                >
+                    {drawer}
+                </Drawer>
+            </Box>
+        </Box>
+    );
+}*/
+// type Props = {
+//     isOpen: boolean
+//     handleDrawerClose: () => void
+// }
+//
+// export const BodyMenu: FC<Props> = (props) => {
+//     const {isOpen, handleDrawerClose} = props
+//
+//     return (
+//         <>
+//             {
+//                 isOpen &&
+//                 <Box
+//                     sx={{
+//                         width: '420px',
+//                         height: '100%',
+//                         backgroundColor: 'red',
+//                         position: 'absolute',
+//                         top: 0,
+//                         left: 0,
+//                     }}
+//                 >
+//
+//                 </Box>
+//             }
+//         </>
+//     )
+// }
