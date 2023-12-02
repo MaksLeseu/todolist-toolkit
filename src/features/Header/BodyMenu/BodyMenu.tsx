@@ -1,11 +1,12 @@
 import React, {FC, useState} from "react";
 import Box from '@mui/material/Box';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 import {PlusIcon} from "../../../common/components/Icons/PlusIcon";
 import {common} from "@mui/material/colors";
 import {CustomButton} from "../../../common/components/CustomButton/CustomButton";
+import Drawer from '@mui/material/Drawer';
 import {AddTodoModalWindow} from "../../../common/components/AddTodoModalWindow/AddTodoModalWindow";
+
 
 type Props = {
     isOpen: boolean
@@ -19,68 +20,60 @@ export const BodyMenu: FC<Props> = (props) => {
 
     const openOrCloseTodoModalWindow = () => setIsOpenTodoModalWindow(!isOpenTodoModalWindow)
 
-    const list = () => (
-        <Box
-            sx={{
-                width: 420,
-                height: '100%',
-                padding: '18px 18px 18px 165px',
-                background: 'linear-gradient(186deg, #48289B -0.63%, rgba(82, 28, 225, 0.60) 58.84%, #412589 83.63%)',
-            }}
-            role="presentation"
-        >
-            <Box sx={{marginBottom: '72px'}}>
-                <CustomButton
-                    label={'Today'}
-                    variant={'text'}
-                    sx={{
-                        color: common.white,
-                        fontSize: '18px',
-                        fontStyle: 'normal',
-                        fontWeight: '700',
-                        lineHeight: '24px',
-                        textTransform: 'uppercase',
-                        marginLeft: '30px'
-                    }}
-                    onClick={handleDrawerClose}
-                />
-            </Box>
-            <Box>
-                <CustomIconButton
-                    disableRipple={false}
-                    sx={{
-                        width: '162px',
-                        height: '56px',
-                        borderRadius: '8px',
-                        backgroundColor: '#F81',
-                        color: common.white,
-                        fontSize: '22px',
-                        fontStyle: 'normal',
-                        fontWeight: 700,
-                        lineHeight: '24px',
-                    }}
-                    onClick={openOrCloseTodoModalWindow}
-                >
-                    <><Box sx={{marginRight: '8px'}}>Create</Box> <PlusIcon/></>
-                </CustomIconButton>
-            </Box>
-        </Box>
-    );
-
     return (
         <Box sx={{zIndex: 1300}}>
-            <React.Fragment>
-                <SwipeableDrawer
-                    open={isOpen}
-                    onClose={() => {
-                    }}
-                    onOpen={handleDrawerClose}
-                    disableDiscovery={true}
-                    ModalProps={{BackdropProps: {invisible: true}}}
-                >
-                    {list()}
-                </SwipeableDrawer>
-            </React.Fragment>
+            <Drawer
+                sx={{
+                    width: 420,
+                    flexShrink: 0,
+                    '& .MuiDrawer-paper': {
+                        width: 420,
+                        zIndex: 1300,
+                        boxSizing: 'border-box',
+                        padding: '18px 18px 18px 165px',
+                        background: 'linear-gradient(186deg, #48289B -0.63%, rgba(82, 28, 225, 0.60) 58.84%, #412589 83.63%)',
+                    },
+                }}
+                variant="persistent"
+                anchor="left"
+                open={isOpen}
+            >
+                <Box sx={{marginBottom: '72px'}}>
+                    <CustomButton
+                        label={'Today'}
+                        variant={'text'}
+                        sx={{
+                            color: common.white,
+                            fontSize: '18px',
+                            fontStyle: 'normal',
+                            fontWeight: '700',
+                            lineHeight: '24px',
+                            textTransform: 'uppercase',
+                            marginLeft: '30px'
+                        }}
+                        onClick={handleDrawerClose}
+                    />
+                </Box>
+                <Box>
+                    <CustomIconButton
+                        disableRipple={false}
+                        sx={{
+                            width: '162px',
+                            height: '56px',
+                            borderRadius: '8px',
+                            backgroundColor: '#F81',
+                            color: common.white,
+                            fontSize: '22px',
+                            fontStyle: 'normal',
+                            fontWeight: 700,
+                            lineHeight: '24px',
+                        }}
+                        onClick={openOrCloseTodoModalWindow}
+                    >
+                        <><Box sx={{marginRight: '8px'}}>Create</Box> <PlusIcon/></>
+                    </CustomIconButton>
+                </Box>
+            </Drawer>
             <AddTodoModalWindow
                 isOpen={isOpenTodoModalWindow}
                 value={''}
@@ -93,6 +86,7 @@ export const BodyMenu: FC<Props> = (props) => {
         </Box>
     );
 }
+
 
 /*
 const drawerWidth = 240;
