@@ -29,7 +29,7 @@ export const CustomModalWindow: FC<Props> = (props) => {
     const style = {
         position: 'absolute' as 'absolute',
         top: '50%',
-        left: '50%',
+        right: '28%',
         transform: 'translate(-50%, -50%)',
         boxShadow: 24,
         ...styleObject

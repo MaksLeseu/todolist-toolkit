@@ -1,10 +1,10 @@
 import React from 'react';
-import s from './StartPage.module.css'
 import {StartPageIcon} from "../Icons/StartPageIcon";
 import {CustomButton} from "../CustomButton/CustomButton";
 import {Navigate, NavLink} from "react-router-dom";
 import {useAppSelector} from "../../utils/hooks/useAppSelector";
 import {isLoggedInSelector} from "../../../features/Auth/auth.selector";
+import s from './StartPage.module.css'
 
 export const StartPage = () => {
     const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)

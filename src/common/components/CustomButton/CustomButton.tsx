@@ -8,6 +8,7 @@ type Props = {
     label: string | undefined
     additionalLabel?: string | undefined | ReactElement
     icon?: ReactElement
+    iconFromTheEnd?: ReactElement
     variant: 'contained' | 'text' | 'outlined'
     type?: 'submit' | 'reset' | 'button'
     size?: 'small' | 'medium' | 'large'
@@ -16,7 +17,7 @@ type Props = {
 }
 
 export const CustomButton: FC<Props> = (props) => {
-    const {label, additionalLabel, color, variant, type, size, icon, sx, onClick} = props
+    const {label, additionalLabel, color, variant, type, size, icon, iconFromTheEnd, sx, onClick} = props
 
     return (
         <Button
@@ -27,7 +28,7 @@ export const CustomButton: FC<Props> = (props) => {
             size={size}
             onClick={onClick}
         >
-            {icon}{label}{additionalLabel}
+            {icon}{label}{additionalLabel}{iconFromTheEnd}
         </Button>
     )
 }

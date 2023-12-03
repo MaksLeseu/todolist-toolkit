@@ -1,6 +1,5 @@
 import React, {FC, ReactNode} from "react";
 import Popover from '@mui/material/Popover';
-import {ListItem} from "@mui/material";
 import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material/styles";
 import {PopoverOrigin} from "@mui/material/Popover/Popover";
@@ -20,7 +19,7 @@ type Props = {
     anchorEl: AnchorElType
     listItemStyles?: SxProps<Theme>
     anchorOrigin?: PopoverOrigin
-    handleClosePopover: (event: React.MouseEvent<HTMLButtonElement>) => void
+    handleClosePopover: any
     children: ReactNode
 }
 
@@ -42,10 +41,15 @@ export const CustomPopover: FC<Props> = (props) => {
                     horizontal: 'left',
                 }
             }
+            PaperProps={{
+                style: {
+                    backgroundColor: 'transparent',
+                    boxShadow: 'none',
+                    transform: 'translate(-43%, -5%)',
+                },
+            }}
         >
-            <ListItem sx={{display: 'flex', flexDirection: 'column', width: '100%', ...listItemStyles}}>
-                {children}
-            </ListItem>
+            {children}
         </Popover>
     )
 }

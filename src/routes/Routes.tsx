@@ -5,6 +5,7 @@ import React from "react";
 import {RequireAuth} from "../common/components/RequireAuth/RequireAuth";
 import {StartPage} from "../common/components/StartPage/StartPage";
 import {Auth} from "../features/Auth/Auth";
+import {CreateTodo} from "../common/components/CreateTodo/CreateTodo";
 
 const privateRoutes = [
     {
@@ -18,6 +19,10 @@ const privateRoutes = [
     {
         path: '/todolist-toolkit/todo/:todo/*',
         element: <Todolists onClickLink={true}/>
+    },
+    {
+        path: '/todolist-toolkit/todo/create-todo',
+        element: <CreateTodo/>
     }
 ]
 

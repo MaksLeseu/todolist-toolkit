@@ -17,7 +17,7 @@ export const Menu: FC<Props> = (props) => {
         <CustomIconButton
             size={'medium'}
             color={'inherit'}
-            disableRipple={true}
+            disableRipple={false}
             edge="start"
             onClick={handleDrawerOpen}
             sx={sx}

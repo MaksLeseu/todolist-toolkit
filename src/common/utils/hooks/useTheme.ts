@@ -5,7 +5,7 @@ export const useTheme = () => {
         palette: {
             common: {
                 white: '#FFF',
-                black: '#000'
+                black: '#000',
             },
             primary: {
                 main: '#EFE3FF',
@@ -35,7 +35,8 @@ export const useTheme = () => {
                 hover: '',
                 disabled: '',
                 focus: '',
-            }
+            },
+            
         },
         typography: {
             allVariants: {

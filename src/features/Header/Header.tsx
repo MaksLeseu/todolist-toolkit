@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
@@ -14,6 +14,7 @@ import {LogOutButton} from "./LogOutButton/LogOutButton";
 import s from './Header.module.css'
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {BodyMenu} from "./BodyMenu/BodyMenu";
+import {ConfirmationModalWindow} from "../../common/components/СonfirmationModalWindow/СonfirmationModalWindow";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -46,13 +47,16 @@ export const Header = () => {
     const handlerLogout = () => dispatch(authThunk.logout({}))
 
     const [isOpen, setIsOpen] = React.useState(false);
+    const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
+    const closeConformation = () => setIsOpenConformation(null)
+    const openConformation = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenConformation(event.currentTarget)
 
     const changeDrawer = () => setIsOpen(!isOpen)
 
     const {start} = useParams()
 
     return (
-        <Box sx={{marginBottom: '71px', zIndex: 1000}}>
+        <Box sx={{marginBottom: '110px', zIndex: 1000}}>
             <BodyMenu
                 isOpen={isOpen}
                 handleDrawerClose={changeDrawer}
@@ -64,7 +68,7 @@ export const Header = () => {
                     width: '100%',
                     height: '60px',
                     backgroundColor: '#EFE3FF',
-                    boxShadow: '0'
+                    boxShadow: '0',
                 }}
                 open={isOpen}
             >
@@ -74,8 +78,8 @@ export const Header = () => {
                             isLoggedIn &&
                             <Menu
                                 sx={{
-                                    width: '24px',
-                                    height: '24px',
+                                    width: '35px',
+                                    height: '35px',
                                     alignSelf: 'center',
                                     ...(isOpen && {display: 'none'}),
                                 }}
@@ -88,7 +92,6 @@ export const Header = () => {
                                 !isOpen && 'Today'
                             }
                         </NavLink>
-
                         {
                             isLoggedIn &&
                             <LogOutButton
@@ -102,10 +105,10 @@ export const Header = () => {
                                     lineHeight: '16px',
                                     fontStyle: 'normal',
                                     color: '#704ECC',
-                                    borderRadius: 0,
-                                    alignSelf: 'center'
+                                    borderRadius: '4px',
+                                    alignSelf: 'center',
                                 }}
-                                handlerLogout={handlerLogout}
+                                handlerLogout={openConformation}
                             />
                         }
 
@@ -129,9 +132,15 @@ export const Header = () => {
                             </NavLink>
                         }
                     </div>
-
                 </Toolbar>
             </AppBar>
+            <ConfirmationModalWindow
+                isOpen={isOpenConformation}
+                title={'Are you sure you want to sign out?'}
+                description={''}
+                actionConfirmation={handlerLogout}
+                closeConfirmation={closeConformation}
+            />
         </Box>
     );
 }

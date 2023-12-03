@@ -1,0 +1,59 @@
+.label {
+    color: var(--main-text-color);
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 54px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+}
+
+.title {
+    color: var(--main-text-color);
+    text-align: center;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 34px;
+    text-transform: uppercase;
+    margin: 0 0 40px 0;
+}
+
+.flexContainer {
+    width: 1015px;
+    margin: 0 auto 120px auto;
+    display: grid;
+    grid-template-columns: 48px 665px 350px;
+}
+
+.textFieldColumn {
+    grid-column: 2;
+}
+
+.textFieldColumn p {
+    width: 200px;
+    color: rgba(0, 0, 0, 0.50);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    margin: 0 0 13px 0;
+    border-bottom: 1px rgba(0, 0, 0, 0.50) solid;
+}
+
+.imageColumn {
+    margin-top: 12px;
+}
+
+.buttonsContainer {
+    width: 586px;
+    margin: 0 auto 80px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttonCancel {
+    width: 190px;
+    height: 50px;
+}

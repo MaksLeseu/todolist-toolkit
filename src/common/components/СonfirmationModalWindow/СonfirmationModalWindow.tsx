@@ -1,53 +1,88 @@
 import React, {FC, MouseEventHandler} from "react";
 import {CustomButton} from "../CustomButton/CustomButton";
-import {CustomModalWindow} from "../CustomModalWindow/CustomModalWindow";
-import s from './ConfirmationModalWindow.module.css'
+import {Typography} from "@mui/material";
+import {CustomPopover} from "../CustomPopover/CustomPopover";
+import {TriangleIcon} from "../Icons/TriangleIcon";
+import Box from "@mui/material/Box";
 
 type Props = {
-    isOpen: boolean
+    isOpen: any
     title: string
     description: string
     actionConfirmation: MouseEventHandler | undefined
     closeConfirmation: MouseEventHandler | undefined
 }
 
-const style = {
-    width: 400,
-    height: 200,
-    bgcolor: 'white',
-    borderRadius: 3,
-}
-
 export const ConfirmationModalWindow: FC<Props> = (props) => {
-    const {isOpen, title, description, actionConfirmation, closeConfirmation} = props
+    const {isOpen, title, closeConfirmation, actionConfirmation} = props
 
     return (
-        <>
-            <CustomModalWindow
-                open={isOpen}
-                title={`Delete ${title}?`}
-                styleObject={style}
-                onClose={closeConfirmation}
-            >
-                <div className={s.confirmation}>
-                    <p>{description}</p>
-                    <div className={s.containerButton}>
-                        <CustomButton
-                            color={'inherit'}
-                            label={'Cancel'}
-                            variant={'contained'}
-                            sx={{marginRight: '10px'}}
-                            onClick={closeConfirmation}
-                        />
-                        <CustomButton
-                            color={'error'}
-                            label={'Delete'}
-                            variant={'contained'}
-                            onClick={actionConfirmation}
-                        />
-                    </div>
-                </div>
-            </CustomModalWindow>
-        </>
-    )
-}
+        <CustomPopover
+            anchorEl={isOpen}
+            handleClosePopover={closeConfirmation}
+        >
+            <>
+                <Box sx={{
+                    transform: 'translate(89%, 27%)',
+                }}>
+                    <TriangleIcon/>
+                </Box>
+                <Box sx={{
+                    backgroundColor: '#EFE3FF',
+                    width: '190px',
+                    height: '110px',
+                    borderRadius: '4px',
+                    paddingTop: '8px',
+                    paddingBottom: '8px',
+                }}>
+                    <Typography sx={{
+                        color: '#704ECC',
+                        textAlign: 'center',
+                        fontSize: '14px',
+                        fontStyle: 'normal',
+                        fontWeight: 400,
+                        lineHeight: '16px',
+                        width: '139px',
+                        margin: '0 auto 8px auto',
+                    }} component="div">{title}</Typography>
+                    <CustomButton
+                        label={'Yes, sure'}
+                        variant={'text'}
+                        sx={{
+                            width: '68px',
+                            height: '24px',
+                            borderRadius: '2px',
+                            fontSize: '12px',
+                            fontStyle: 'normal',
+                            fontWeight: 400,
+                            lineHeight: '16px',
+                            color: 'secondary.main',
+                            padding: 0,
+                            display: 'block',
+                            margin: '0 auto 6px auto'
+                        }}
+                        onClick={actionConfirmation}
+                    />
+                    <CustomButton
+                        label={'No'}
+                        variant={'text'}
+                        sx={{
+                            width: '68px',
+                            height: '24px',
+                            borderRadius: '2px',
+                            fontSize: '12px',
+                            fontStyle: 'normal',
+                            fontWeight: 400,
+                            lineHeight: '16px',
+                            color: 'secondary.main',
+                            display: 'block',
+                            margin: '0 auto',
+                            padding: 0,
+                        }}
+                        onClick={closeConfirmation}
+                    />
+                </Box>
+            </>
+        </CustomPopover>
+    );
+};

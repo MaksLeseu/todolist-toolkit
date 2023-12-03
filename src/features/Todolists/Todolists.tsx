@@ -38,7 +38,7 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
     ))
 
     const returnTodos = (componentName: string) =>
-        componentName === 'todo' ? filterTodos() : returnTodosList()
+        componentName === 'todo' && filterTodos()
 
     return (
         <div className={s.todolists}>
@@ -48,23 +48,25 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
                     <div className={s.notSingleTask}>
                         <p className={s.notSingleTaskLabel}>sorry,</p>
                         <p className={s.notSingleTaskText}>you haven't created any tasks.</p>
-                        <CustomButton
-                            color={'secondary'}
-                            label={'Create new one'}
-                            variant={'contained'}
-                            sx={{
-                                borderRadius: '8px',
-                                width: '255px',
-                                height: '56px',
-                                boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
-                                color: '#FFF',
-                                fontSize: '22px',
-                                fontWeight: 700,
-                                fontStyle: 'normal',
-                                lineHeight: '34px',
-                                marginBottom: '40px',
-                            }}
-                        />
+                        <NavLink className={s.buttonCreateTodo} to={'/todolist-toolkit/todo/create-todo'}>
+                            <CustomButton
+                                color={'secondary'}
+                                label={'Create new one'}
+                                variant={'contained'}
+                                sx={{
+                                    borderRadius: '8px',
+                                    width: '255px',
+                                    height: '56px',
+                                    boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
+                                    color: '#FFF',
+                                    fontSize: '22px',
+                                    fontWeight: 700,
+                                    fontStyle: 'normal',
+                                    lineHeight: '34px',
+                                    marginBottom: '40px',
+                                }}
+                            />
+                        </NavLink>
                         <div className={s.notSingleTaskImageContainer}>
                             <QuestionIcon/>
                         </div>
