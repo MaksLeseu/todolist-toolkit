@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import {styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
@@ -40,18 +40,53 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-export const Header = () => {
+type Props = {
+    isOpen: boolean
+    changeDrawer: () => void
+}
+
+const logOutButtonStyles = {
+    width: '109px',
+    height: '36px',
+    display: 'flex',
+    justifySelf: 'end',
+    fontSize: '12px',
+    fontWeight: 700,
+    lineHeight: '16px',
+    fontStyle: 'normal',
+    color: '#704ECC',
+    borderRadius: '4px',
+    alignSelf: 'center',
+}
+
+const activeLogOutButtonStyles = {
+    width: '109px',
+    height: '36px',
+    display: 'flex',
+    justifySelf: 'end',
+    fontSize: '12px',
+    fontWeight: 700,
+    lineHeight: '16px',
+    fontStyle: 'normal',
+    color: 'common.white',
+    borderRadius: '4px',
+    alignSelf: 'center',
+    backgroundColor: 'secondary.main'
+}
+
+export const Header: FC<Props> = (props) => {
+    const {isOpen, changeDrawer} = props
+
     const dispatch = useAppDispatch()
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
 
     const handlerLogout = () => dispatch(authThunk.logout({}))
 
-    const [isOpen, setIsOpen] = React.useState(false);
+
     const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
     const closeConformation = () => setIsOpenConformation(null)
     const openConformation = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenConformation(event.currentTarget)
 
-    const changeDrawer = () => setIsOpen(!isOpen)
 
     const {start} = useParams()
 
@@ -95,19 +130,8 @@ export const Header = () => {
                         {
                             isLoggedIn &&
                             <LogOutButton
-                                sx={{
-                                    width: '109px',
-                                    height: '36px',
-                                    display: 'flex',
-                                    justifySelf: 'end',
-                                    fontSize: '12px',
-                                    fontWeight: 700,
-                                    lineHeight: '16px',
-                                    fontStyle: 'normal',
-                                    color: '#704ECC',
-                                    borderRadius: '4px',
-                                    alignSelf: 'center',
-                                }}
+                                sx={isOpenConformation ? activeLogOutButtonStyles : logOutButtonStyles}
+                                colorIcon={isOpenConformation ? 'white' : '#704ECC'}
                                 handlerLogout={openConformation}
                             />
                         }

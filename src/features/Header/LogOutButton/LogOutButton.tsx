@@ -1,5 +1,4 @@
 import React, {FC, MouseEventHandler} from "react";
-import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material/styles";
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
@@ -8,17 +7,19 @@ import Box from "@mui/material/Box";
 
 type Props = {
     sx?: SxProps<Theme>
+    colorIcon: '#704ECC' | 'white'
     handlerLogout: MouseEventHandler
 }
 
-export const LogOutButton: FC<Props> = ({sx, handlerLogout}) => {
+export const LogOutButton: FC<Props> = ({sx, colorIcon, handlerLogout}) => {
     return (
         <CustomIconButton
             sx={sx}
             disableRipple={false}
             onClick={handlerLogout}
         >
-            <Box sx={{marginRight: '4px', width: '16px', height: '16px'}}><SignOutIcon/></Box> {MSG_BTN.LOG_OUT}
+            <Box sx={{marginRight: '4px', width: '16px', height: '16px'}}><SignOutIcon
+                color={colorIcon}/></Box> {'Sign Out'}
         </CustomIconButton>
     )
 }

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {FC} from 'react';
 
-export const SignOutIcon = () => {
+type Props = {
+    color: '#704ECC' | 'white'
+}
+
+export const SignOutIcon: FC<Props> = ({color}) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path
                 d="M12.6667 2H3.33333C2.59333 2 2 2.59333 2 3.33333V6H3.33333V3.33333H12.6667V12.6667H3.33333V10H2V12.6667C2 13.0203 2.14048 13.3594 2.39052 13.6095C2.64057 13.8595 2.97971 14 3.33333 14H12.6667C13.0203 14 13.3594 13.8595 13.6095 13.6095C13.8595 13.3594 14 13.0203 14 12.6667V3.33333C14 2.97971 13.8595 2.64057 13.6095 2.39052C13.3594 2.14048 13.0203 2 12.6667 2ZM6.72 10.3867L7.66667 11.3333L11 8L7.66667 4.66667L6.72 5.60667L8.44667 7.33333H2V8.66667H8.44667L6.72 10.3867Z"
-                fill="#704ECC"/>
+                fill={color}/>
         </svg>
     );
 };
