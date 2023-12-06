@@ -17,7 +17,7 @@ import {useMediaQuery} from "@mui/material";
 import {ConfirmationModalWindow} from "../../../common/components/СonfirmationModalWindow/СonfirmationModalWindow";
 import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
 import {authThunk} from "../../Auth/auth.slice";
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import s from './BodyMenu.module.css'
 import {MoreHoriz} from "../../../common/components/MoreHoriz/MoreHoriz";
 
@@ -30,6 +30,8 @@ type Props = {
 export const BodyMenu: FC<Props> = (props) => {
     const {isOpen, handleDrawerClose} = props
     const todos: TodolistsType[] = useAppSelector(todolistsSelector)
+
+    const param = useParams()
 
     const [isOpenTodoModalWindow, setIsOpenTodoModalWindow] = useState<boolean>(false)
 
@@ -142,7 +144,7 @@ export const BodyMenu: FC<Props> = (props) => {
                                             height: '52px',
                                             borderRadius: '4px',
                                             padding: '12px 8px 12px 8px',
-                                            color: 'common.white',
+                                            color: param.todo === todo.id ? 'secondary.main' : 'common.white',
                                             fontSize: '22px',
                                             fontStyle: 'normal',
                                             fontWeight: 500,
@@ -155,26 +157,29 @@ export const BodyMenu: FC<Props> = (props) => {
                                             gridTemplateColumns: '30px 120px 24px',
                                         }}>
                                             <Box sx={{justifySelf: 'start', marginTop: '5px'}}><DocumentIcon
-                                                color={'white'}/></Box>
+                                                color={param.todo === todo.id ? '#704ECC' : 'white'}/></Box>
                                             <Box sx={{alignSelf: 'center', justifySelf: 'start'}}>{todo.title}</Box>
-                                            <CustomIconButton
-                                                disableRipple={false}
-                                                sx={{
-                                                    alignSelf: 'center',
-                                                    width: '24px',
-                                                    height: '24px',
-                                                    objectFit: 'cover',
-                                                    borderRadius: '2px',
-                                                }}
-                                                onClick={openMoreHoriz}
-                                            >
-                                                <Box sx={{
-                                                    width: '24px',
-                                                    height: '24px', objectFit: 'cover'
-                                                }}>
-                                                    <MoreHorizIcon/>
-                                                </Box>
-                                            </CustomIconButton>
+                                            {
+                                                param.todo === todo.id &&
+                                                <CustomIconButton
+                                                    disableRipple={false}
+                                                    sx={{
+                                                        alignSelf: 'center',
+                                                        width: '24px',
+                                                        height: '24px',
+                                                        objectFit: 'cover',
+                                                        borderRadius: '2px',
+                                                    }}
+                                                    onClick={openMoreHoriz}
+                                                >
+                                                    <Box sx={{
+                                                        width: '24px',
+                                                        height: '24px', objectFit: 'cover'
+                                                    }}>
+                                                        <MoreHorizIcon/>
+                                                    </Box>
+                                                </CustomIconButton>
+                                            }
                                         </Box>
                                     </CustomIconButton>
                                     <MoreHoriz
