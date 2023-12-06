@@ -11,12 +11,23 @@ type Props = {
     description?: string
     transformConfirmation?: string
     transformPopover?: string
+    titleStyles?: any
+    conformationStyles?: any
     actionConfirmation: MouseEventHandler | undefined
     closeConfirmation: MouseEventHandler | undefined
 }
 
 export const ConfirmationModalWindow: FC<Props> = (props) => {
-    const {isOpen, title, transformConfirmation, transformPopover, closeConfirmation, actionConfirmation} = props
+    const {
+        isOpen,
+        title,
+        transformConfirmation,
+        transformPopover,
+        titleStyles,
+        conformationStyles,
+        closeConfirmation,
+        actionConfirmation
+    } = props
 
     return (
         <CustomPopover
@@ -37,6 +48,7 @@ export const ConfirmationModalWindow: FC<Props> = (props) => {
                     borderRadius: '4px',
                     paddingTop: '8px',
                     paddingBottom: '8px',
+                    ...conformationStyles
                 }}>
                     <Typography sx={{
                         color: '#704ECC',
@@ -47,6 +59,7 @@ export const ConfirmationModalWindow: FC<Props> = (props) => {
                         lineHeight: '16px',
                         width: '139px',
                         margin: '0 auto 8px auto',
+                        ...titleStyles
                     }} component="div">{title}</Typography>
                     <CustomButton
                         label={'Yes, sure'}

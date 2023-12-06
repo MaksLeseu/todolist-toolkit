@@ -9,7 +9,7 @@ type Props = {
     edge?: false | "start" | "end"
     children: ReactNode
     sx?: SxProps<Theme>
-    onClick: MouseEventHandler | undefined
+    onClick?: MouseEventHandler | undefined
 }
 
 export const CustomIconButton: FC<Props> = (props) => {

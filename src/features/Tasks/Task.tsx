@@ -9,7 +9,6 @@ import {PreviewCompletedTask} from "./PreviewCompletedTask/PreviewCompletedTask"
 import {Dayjs} from "dayjs";
 import {Nullable} from "../../common/utils/types/optional.types";
 import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
-import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
 import {TaskRedactor} from "../../common/components/TaskRedactor/TaskRedactor";
 import {MSG_BTN} from "../../common/utils/constans/app-messages.const";
 import {CustomButtonGroup} from "../../common/components/CustomButtonGroup/CustomButtonGroup";
@@ -184,12 +183,12 @@ export const Task: FC<Props> = (props) => {
                             <div className={s.text}>{taskTitle}</div>
                         </div>
 
-                        <MoreHoriz
+                        {/* <MoreHoriz
                             taskId={taskId}
                             taskTitle={taskTitle}
                             removeTask={removeTask}
                             openTaskRedactor={openTaskRedactor}
-                        />
+                        />*/}
                     </div>
                     {
                         taskDescription && taskStatusNew &&

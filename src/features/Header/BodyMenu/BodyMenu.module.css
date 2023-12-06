@@ -1,0 +1,15 @@
+.pending {
+    width: 190px;
+    height: 52px;
+    border-radius: 4px;
+    display: block;
+}
+
+.active {
+    display: block;
+    width: 190px;
+    height: 52px;
+    border-radius: 4px;
+    background-color: #EFE3FF;
+    margin-bottom: 8px;
+}
