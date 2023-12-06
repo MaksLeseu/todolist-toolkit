@@ -8,22 +8,25 @@ import Box from "@mui/material/Box";
 type Props = {
     isOpen: any
     title: string
-    description: string
+    description?: string
+    transformConfirmation?: string
+    transformPopover?: string
     actionConfirmation: MouseEventHandler | undefined
     closeConfirmation: MouseEventHandler | undefined
 }
 
 export const ConfirmationModalWindow: FC<Props> = (props) => {
-    const {isOpen, title, closeConfirmation, actionConfirmation} = props
+    const {isOpen, title, transformConfirmation, transformPopover, closeConfirmation, actionConfirmation} = props
 
     return (
         <CustomPopover
             anchorEl={isOpen}
+            transformStyle={transformPopover ? transformPopover : 'translate(-43%, -5%)'}
             handleClosePopover={closeConfirmation}
         >
             <>
                 <Box sx={{
-                    transform: 'translate(89%, 27%)',
+                    transform: transformConfirmation ? transformConfirmation : 'translate(89%, 27%)',
                 }}>
                     <TriangleIcon/>
                 </Box>

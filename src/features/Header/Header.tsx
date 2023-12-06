@@ -15,6 +15,7 @@ import s from './Header.module.css'
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {BodyMenu} from "./BodyMenu/BodyMenu";
 import {ConfirmationModalWindow} from "../../common/components/СonfirmationModalWindow/СonfirmationModalWindow";
+import {useMediaQuery} from "@mui/material";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -57,6 +58,9 @@ const logOutButtonStyles = {
     color: '#704ECC',
     borderRadius: '4px',
     alignSelf: 'center',
+    '@media (max-width: 1200px)': {
+        justifySelf: 'center',
+    },
 }
 
 const activeLogOutButtonStyles = {
@@ -71,7 +75,10 @@ const activeLogOutButtonStyles = {
     color: 'common.white',
     borderRadius: '4px',
     alignSelf: 'center',
-    backgroundColor: 'secondary.main'
+    backgroundColor: 'secondary.main',
+    '@media (max-width: 1200px)': {
+        justifySelf: 'center',
+    },
 }
 
 export const Header: FC<Props> = (props) => {
@@ -87,11 +94,17 @@ export const Header: FC<Props> = (props) => {
     const closeConformation = () => setIsOpenConformation(null)
     const openConformation = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenConformation(event.currentTarget)
 
+    const matches = useMediaQuery('(min-width:600px)');
 
     const {start} = useParams()
 
     return (
-        <Box sx={{marginBottom: '110px', zIndex: 1000}}>
+        <Box sx={{
+            marginBottom: '110px', zIndex: 1000,
+            '@media (max-width: 850px)': {
+                marginBottom: '50px'
+            },
+        }}>
             <BodyMenu
                 isOpen={isOpen}
                 handleDrawerClose={changeDrawer}
@@ -117,6 +130,12 @@ export const Header: FC<Props> = (props) => {
                                     height: '35px',
                                     alignSelf: 'center',
                                     ...(isOpen && {display: 'none'}),
+                                    '@media (max-width: 1200px)': {
+                                        justifySelf: 'center',
+                                    },
+                                    '@media (max-width: 600px)': {
+                                        marginTop: '8px'
+                                    },
                                 }}
                                 handleDrawerOpen={changeDrawer}
                             />
@@ -124,11 +143,11 @@ export const Header: FC<Props> = (props) => {
 
                         <NavLink className={s.title} to={'/todolist-toolkit'}>
                             {
-                                !isOpen && 'Today'
+                                !isOpen && matches && 'Today'
                             }
                         </NavLink>
                         {
-                            isLoggedIn &&
+                            isLoggedIn && matches &&
                             <LogOutButton
                                 sx={isOpenConformation ? activeLogOutButtonStyles : logOutButtonStyles}
                                 colorIcon={isOpenConformation ? 'white' : '#704ECC'}
@@ -161,7 +180,6 @@ export const Header: FC<Props> = (props) => {
             <ConfirmationModalWindow
                 isOpen={isOpenConformation}
                 title={'Are you sure you want to sign out?'}
-                description={''}
                 actionConfirmation={handlerLogout}
                 closeConfirmation={closeConformation}
             />

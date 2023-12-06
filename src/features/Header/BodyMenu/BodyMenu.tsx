@@ -12,6 +12,11 @@ import {MoreHorizIcon} from "../../../common/components/Icons/MoreHorizIcon";
 import {DocumentIcon} from "../../../common/components/Icons/DocumentIcon";
 import {ArrowIcon} from "../../../common/components/Icons/ArrowIcon";
 import {CustomSwitch} from "../../../common/components/CustomSwitch/CustomSwitch";
+import {LogOutButton} from "../LogOutButton/LogOutButton";
+import {useMediaQuery} from "@mui/material";
+import {ConfirmationModalWindow} from "../../../common/components/СonfirmationModalWindow/СonfirmationModalWindow";
+import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
+import {authThunk} from "../../Auth/auth.slice";
 
 
 type Props = {
@@ -27,6 +32,15 @@ export const BodyMenu: FC<Props> = (props) => {
 
     const openOrCloseTodoModalWindow = () => setIsOpenTodoModalWindow(!isOpenTodoModalWindow)
 
+    const matches = useMediaQuery('(min-width:600px)');
+
+    const dispatch = useAppDispatch()
+    const handlerLogout = () => dispatch(authThunk.logout({}))
+
+    const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
+    const closeConformation = () => setIsOpenConformation(null)
+    const openConformation = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenConformation(event.currentTarget)
+
     return (
         <Drawer
             sx={{
@@ -39,6 +53,23 @@ export const BodyMenu: FC<Props> = (props) => {
                     boxSizing: 'border-box',
                     padding: '18px 18px 18px 165px',
                     background: 'linear-gradient(186deg, #48289B -0.63%, rgba(82, 28, 225, 0.60) 58.84%, #412589 83.63%)',
+                },
+                '@media (max-width: 1180px)': {
+                    '& .MuiDrawer-paper': {
+                        width: 350,
+                        padding: '18px 18px 18px 95px',
+                    }
+                },
+                '@media (max-width: 1030px)': {
+                    '& .MuiDrawer-paper': {
+                        backgroundColor: 'white'
+                    }
+                },
+                '@media (max-width: 800px)': {
+                    '& .MuiDrawer-paper': {
+                        width: 250,
+                        padding: '18px 18px 18px 45px',
+                    }
                 },
             }}
             variant="persistent"
@@ -126,9 +157,39 @@ export const BodyMenu: FC<Props> = (props) => {
                     }
                 </Box>
             }
-            <Box sx={{height: '80px'}}>
+            <Box sx={{height: '80px', '@media (max-width: 800px)': {height: '120px'}}}>
                 <CustomSwitch/>
+                {
+                    !matches &&
+                    <LogOutButton
+                        sx={{
+                            width: '109px',
+                            height: '36px',
+                            display: 'flex',
+                            justifySelf: 'end',
+                            fontSize: '12px',
+                            fontWeight: 700,
+                            lineHeight: '16px',
+                            fontStyle: 'normal',
+                            color: 'common.white',
+                            borderRadius: '4px',
+                            alignSelf: 'center',
+                            marginTop: '20px',
+                            backgroundColor: '#F81'
+                        }}
+                        colorIcon={'white'}
+                        handlerLogout={openConformation}
+                    />
+                }
             </Box>
+            <ConfirmationModalWindow
+                isOpen={isOpenConformation}
+                title={'Are you sure you want to sign out?'}
+                transformConfirmation={'translate(89%, 60%)'}
+                transformPopover={'translate(-8%, -45%)'}
+                actionConfirmation={handlerLogout}
+                closeConfirmation={closeConformation}
+            />
         </Drawer>
     );
 }

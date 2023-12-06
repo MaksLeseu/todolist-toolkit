@@ -18,13 +18,14 @@ export type AnchorElType = | null
 type Props = {
     anchorEl: AnchorElType
     listItemStyles?: SxProps<Theme>
+    transformStyle?: string
     anchorOrigin?: PopoverOrigin
     handleClosePopover: any
     children: ReactNode
 }
 
 export const CustomPopover: FC<Props> = (props) => {
-    const {anchorEl, children, listItemStyles, anchorOrigin, handleClosePopover} = props
+    const {anchorEl, children, listItemStyles, transformStyle, anchorOrigin, handleClosePopover} = props
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
@@ -45,7 +46,7 @@ export const CustomPopover: FC<Props> = (props) => {
                 style: {
                     backgroundColor: 'transparent',
                     boxShadow: 'none',
-                    transform: 'translate(-43%, -5%)',
+                    transform: transformStyle,
                 },
             }}
         >
