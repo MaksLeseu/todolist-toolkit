@@ -20,6 +20,7 @@ import {authThunk} from "../../Auth/auth.slice";
 import {NavLink, useParams} from "react-router-dom";
 import s from './BodyMenu.module.css'
 import {MoreHoriz} from "../../../common/components/MoreHoriz/MoreHoriz";
+import {todolistsThunk} from "../../Todolists/todolists.slice";
 
 
 type Props = {
@@ -52,6 +53,11 @@ export const BodyMenu: FC<Props> = (props) => {
     const openMoreHoriz = (event: React.MouseEvent<HTMLButtonElement>) => {
         setIsOpenMoreHoriz(event.currentTarget)
         event.preventDefault()
+    }
+
+    const removeTodo = (todoId: string) => {
+        dispatch(todolistsThunk.removeTodolist(todoId))
+        closeMoreHoriz()
     }
 
     return (
@@ -107,26 +113,28 @@ export const BodyMenu: FC<Props> = (props) => {
                 />
             </Box>
             <Box sx={{marginBottom: '50px'}}>
-                <CustomIconButton
-                    disableRipple={false}
-                    sx={{
-                        width: '162px',
-                        height: '56px',
-                        borderRadius: '8px',
-                        backgroundColor: '#F81',
-                        color: common.white,
-                        fontSize: '22px',
-                        fontStyle: 'normal',
-                        fontWeight: 700,
-                        lineHeight: '24px',
-                        '&:hover': {
-                            backgroundColor: 'common.black',
-                        }
-                    }}
-                    onClick={openOrCloseTodoModalWindow}
-                >
-                    <><Box sx={{marginRight: '8px'}}>Create</Box> <PlusIcon/></>
-                </CustomIconButton>
+                <NavLink className={s.link} to={'/todolist-toolkit/todo/create-todo'}>
+                    <CustomIconButton
+                        disableRipple={false}
+                        sx={{
+                            width: '162px',
+                            height: '56px',
+                            borderRadius: '8px',
+                            backgroundColor: '#F81',
+                            color: common.white,
+                            fontSize: '22px',
+                            fontStyle: 'normal',
+                            fontWeight: 700,
+                            lineHeight: '24px',
+                            '&:hover': {
+                                backgroundColor: 'common.black',
+                            }
+                        }}
+                        onClick={openOrCloseTodoModalWindow}
+                    >
+                        <><Box sx={{marginRight: '8px'}}>Create</Box> <PlusIcon/></>
+                    </CustomIconButton>
+                </NavLink>
             </Box>
             {
                 todos &&
@@ -186,8 +194,7 @@ export const BodyMenu: FC<Props> = (props) => {
                                         todoId={todo.id}
                                         todoTitle={todo.title}
                                         isOpen={isOpenMoreHoriz}
-                                        actionMoreHoriz={() => {
-                                        }}
+                                        actionMoreHoriz={removeTodo}
                                         closeMoreHoriz={closeMoreHoriz}
                                     />
                                 </NavLink>
