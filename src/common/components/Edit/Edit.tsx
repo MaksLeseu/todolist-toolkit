@@ -31,70 +31,89 @@ export const Edit: FC<Props> = (props) => {
                     <TriangleIcon/>
                 </Box>
                 <Box sx={{
-                    backgroundColor: '#EFE3FF',
+                    backgroundColor: 'primary.main',
                     width: '203px',
                     height: '102px',
                     borderRadius: '4px',
-                    padding: '12px 17px 16px 17px',
+                    padding: '12px 0 0 0',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
                 }}>
-                    <Typography sx={{
-                        color: 'common.black',
-                        textAlign: 'center',
-                        fontSize: '12px',
-                        fontStyle: 'normal',
-                        fontWeight: 600,
-                        lineHeight: '16px',
-                    }} component="div">{'Enter the name of to do list'}</Typography>
+                    <Typography
+                        component="div"
+                        sx={{
+                            color: 'common.black',
+                            textAlign: 'center',
+                            fontSize: '12px',
+                            fontStyle: 'normal',
+                            fontWeight: 600,
+                            lineHeight: '16px',
+                            width: '173px',
+                            marginBottom: '8px',
+                        }}>
+                        Enter the name of to do list
+                    </Typography>
                     <CustomTextField
                         size={'small'}
-                        label={todoTitle}
+                        value={todoTitle}
+                        sx={{
+                            width: '173px',
+                            borderBottom: '1px solid #704ECC',
+                            marginBottom: '10px',
+                        }}
                         InputProps={{
-                            disableUnderline: false,
+                            disableUnderline: true,
                             sx: {
+                                height: '18px',
                                 fontSize: '12px',
                                 fontStyle: 'normal',
                                 fontWeight: 700,
                                 lineHeight: '18px',
+                                paddingTop: '5px',
                                 color: 'rgba(112, 78, 204, 0.50)',
                             },
                         }}
                         onChange={() => {
                         }}/>
-                    <CustomButton
-                        label={'Save'}
-                        variant={'text'}
-                        sx={{
-                            width: '45px',
-                            height: '18px',
-                            backgroundColor: 'secondary.main',
-                            fontSize: '8px',
-                            fontStyle: 'normal',
-                            fontWeight: 700,
-                            lineHeight: '14px',
-                            color: 'common.white',
-                            textAlign: 'center',
-                            boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
-                            borderRadius: '2px',
-                        }}
-                        onClick={actionEdit}
-                    />
-                    <CustomButton
-                        label={'Cancel'}
-                        variant={'text'}
-                        sx={{
-                            width: '45px',
-                            height: '18px',
-                            borderRadius: '2px',
-                            border: '1px solid #704ECC',
-                            fontSize: '8px',
-                            fontStyle: 'normal',
-                            fontWeight: 700,
-                            lineHeight: '14px',
-                            color: 'secondary.main',
-                        }}
-                        onClick={() => {
-                        }}
-                    />
+                    <Box>
+                        <CustomButton
+                            label={'Save'}
+                            variant={'text'}
+                            sx={{
+                                minWidth: '45px',
+                                height: '18px',
+                                backgroundColor: 'secondary.main',
+                                fontSize: '8px',
+                                fontStyle: 'normal',
+                                fontWeight: 700,
+                                lineHeight: '14px',
+                                color: 'common.white',
+                                textAlign: 'center',
+                                boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
+                                borderRadius: '2px',
+                                marginRight: '2px',
+                            }}
+                            onClick={actionEdit}
+                        />
+                        <CustomButton
+                            label={'Cancel'}
+                            variant={'text'}
+                            sx={{
+                                minWidth: '45px',
+                                height: '18px',
+                                borderRadius: '2px',
+                                border: '1px solid #704ECC',
+                                fontSize: '8px',
+                                fontStyle: 'normal',
+                                fontWeight: 700,
+                                lineHeight: '14px',
+                                color: 'secondary.main',
+                                marginLeft: '2px',
+                            }}
+                            onClick={closeEdit}
+                        />
+                    </Box>
                 </Box>
             </>
         </CustomPopover>
