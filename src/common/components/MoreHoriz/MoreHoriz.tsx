@@ -9,9 +9,11 @@ import {CustomButton} from "../CustomButton/CustomButton";
 import {DeleteIcon} from "../Icons/DeleteIcon";
 import {EditIcon} from "../Icons/EditIcon";
 import {ConfirmationModalWindow} from "../СonfirmationModalWindow/СonfirmationModalWindow";
+import {Edit} from "../Edit/Edit";
 
 type Props = {
     taskId: string
+    todoTitle: string
     isOpen: any
     transformPopover?: string
     transformMoreHoriz?: string
@@ -62,11 +64,15 @@ export const _MoreHoriz: FC<_Props> = (props) => {
 }
 
 export const MoreHoriz: FC<Props> = (props) => {
-    const {isOpen, transformPopover, transformMoreHoriz, actionMoreHoriz, closeMoreHoriz} = props
+    const {isOpen, taskId, todoTitle, transformPopover, transformMoreHoriz, actionMoreHoriz, closeMoreHoriz} = props
 
     const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
     const closeConformation = () => setIsOpenConformation(null)
     const openConformation = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenConformation(event.currentTarget)
+
+    const [isOpenEdit, setIsOpenEdit] = useState<HTMLButtonElement | null>(null)
+    const closeEdit = () => setIsOpenEdit(null)
+    const openEdit = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenEdit(event.currentTarget)
 
     return (
         <CustomPopover
@@ -88,7 +94,7 @@ export const MoreHoriz: FC<Props> = (props) => {
                     padding: '12px 14px 13px 11px',
                 }}>
                     <CustomButton
-                        label={'Edit '}
+                        label={'Edit'}
                         variant={'text'}
                         sx={{
                             width: '65px',
@@ -102,7 +108,7 @@ export const MoreHoriz: FC<Props> = (props) => {
                             margin: '0 auto'
                         }}
                         icon={<Box sx={{marginRight: '4px', marginTop: '4px'}}><EditIcon/></Box>}
-                        onClick={actionMoreHoriz}
+                        onClick={openEdit}
                     />
                     <Box sx={{
                         width: '57px',
@@ -147,6 +153,15 @@ export const MoreHoriz: FC<Props> = (props) => {
                         actionConfirmation={() => {
                         }}
                         closeConfirmation={closeConformation}
+                    />
+                    <Edit
+                        isOpen={isOpenEdit}
+                        todoTitle={todoTitle}
+                        transformPopover={'translate(-58.5%, 23%)'}
+                        transformEdit={'translate(89%, 28%)'}
+                        actionEdit={() => {
+                        }}
+                        closeEdit={closeEdit}
                     />
                 </Box>
             </>
