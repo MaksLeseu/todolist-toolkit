@@ -22,7 +22,7 @@
 
 .flexContainer {
     width: 1015px;
-    margin: 0 auto 120px auto;
+    margin: 0 auto 56px auto;
     display: grid;
     grid-template-columns: 48px 665px 350px;
 }
@@ -50,7 +50,7 @@
     width: 586px;
     margin: 0 auto 80px auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .buttonCancel {

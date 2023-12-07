@@ -1,9 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {CreateTodoIcon} from "../Icons/CreateTodoIcon";
-import {CustomTextField} from "../CustomTextField/CustomTextField";
 import {CustomButton} from "../CustomButton/CustomButton";
-import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
-import {PlusIcon} from "../Icons/PlusIcon";
 import s from './CreateTodo.module.css'
 import {NavLink} from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -11,64 +8,143 @@ import {TodolistsType} from "../../../features/Todolists/todolists.types";
 import {useAppSelector} from "../../utils/hooks/useAppSelector";
 import {todolistsSelector} from "../../../features/Todolists/todolists.selector";
 import {useAppDispatch} from "../../utils/hooks/useAppDispatch";
+import {TodoTaskCreationForm} from "./TodoTaskCreationForm/TodoTaskCreationForm";
 import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
+import {TaskSetItems} from "./TaskSetItems/TaskSetItems";
+import {BaseCalendar} from "../BaseCalendar/BaseCalendar";
+import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
+import ListItemText from "@mui/material/ListItemText";
+import {useOpenCloseCalendar} from "../../utils/hooks/useOpenCloseCalendar";
+import {Priority} from "../Priority/Priority";
+import {useOpenClosePriority} from "../../utils/hooks/useOpenClosePriority";
+
+type TitleType = {
+    todoName: string
+    taskName: string
+    description: string
+}
 
 export const CreateTodo = () => {
     const todos: TodolistsType[] = useAppSelector(todolistsSelector)
     const dispatch = useAppDispatch()
 
-    const [count, setCount] = useState<number>(0)
-    const addCount = () => setCount(count + 1)
+    const {isOpenCalendar, openCloseCalendar} = useOpenCloseCalendar()
+    const {isOpenPriority, openClosePriority} = useOpenClosePriority()
 
-    const [todoName, setTodoName] = useState<string>('')
-    const changeTodoName = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
+    const [title, setTitle] = useState<TitleType>({
+        todoName: '',
+        taskName: '',
+        description: '',
+    })
 
-    const addForms = (num: number) => {
-        const arr = [];
-
-        for (let i = 0; i < num; i++) {
-            arr.push(<Box sx={{
-                marginTop: '24px'
-            }}>
-                <p>Enter the name of task</p>
-                <CustomTextField
-                    size={'medium'}
-                    placeholder={'here'}
-                    sx={{
-                        width: '540px',
-                        height: '43px',
-                        '&& input::placeholder': {
-                            fontSize: '24px',
-                            fontStyle: 'normal',
-                            fontWeight: 600,
-                            lineHeight: '30px',
-                            color: 'rgba(112, 78, 204, 0.50)',
-                        }
-                    }}
-                    InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                            fontSize: '32px',
-                            fontStyle: 'normal',
-                            fontWeight: 700,
-                            lineHeight: '38px',
-                            color: 'secondary.main',
-                            borderBottom: '1px #704ECC solid',
-                        }
-                    }}
-                    onChange={changeTodoName}
-                />
-            </Box>)
+    const changeTitle = (method: 'todo' | 'task' | 'description', e: ChangeEvent<HTMLInputElement>) => {
+        const object = {
+            'todo': () => (
+                setTitle({
+                    todoName: e.currentTarget.value,
+                    taskName: title.taskName,
+                    description: title.description,
+                })
+            ),
+            'task': () => (
+                setTitle({
+                    todoName: title.todoName,
+                    taskName: e.currentTarget.value,
+                    description: title.description,
+                })
+            ),
+            'description': () => (
+                setTitle({
+                    todoName: title.todoName,
+                    taskName: title.taskName,
+                    description: e.currentTarget.value,
+                })
+            ),
         }
-        return arr
+        return object[method]()
     }
+
+    /* const addForms = (num: number) => {
+         const arr = [];
+
+         for (let i = 0; i < num; i++) {
+             arr.push(<Box sx={{
+                 marginTop: '24px'
+             }}>
+                 <p>Enter the name of task</p>
+                 <CustomTextField
+                     size={'medium'}
+                     placeholder={'here'}
+                     sx={{
+                         width: '540px',
+                         height: '43px',
+                         '&& input::placeholder': {
+                             fontSize: '24px',
+                             fontStyle: 'normal',
+                             fontWeight: 600,
+                             lineHeight: '30px',
+                             color: 'rgba(112, 78, 204, 0.50)',
+                         }
+                     }}
+                     InputProps={{
+                         disableUnderline: true,
+                         sx: {
+                             fontSize: '24px',
+                             fontStyle: 'normal',
+                             fontWeight: 600,
+                             lineHeight: '30px',
+                             color: 'secondary.main',
+                             borderBottom: '1px #704ECC solid',
+                         }
+                     }}
+                     onChange={changeTodoName}
+                 />
+             </Box>)
+         }
+         return arr
+     }*/
 
     const addTodo = () => {
-        if (todoName.trim()) {
-            dispatch(todolistsThunk.addTodolist({title: todoName}))
-            setTodoName('')
+        if (title.todoName.trim()) {
+            dispatch(todolistsThunk.addTodolist({title: title.todoName}))
+            setTitle({
+                todoName: '',
+                taskName: title.taskName,
+                description: title.description,
+            })
         }
     }
+
+    const addTask = () => {
+        if (title.taskName.trim()) {
+            /*dispatch(tasksThunk.addTask())*/
+        }
+    }
+
+    const returnChildrenResetButton = (resetDate: () => void) =>
+        (
+            <CustomIconButton
+                disableRipple={true}
+                color={'inherit'}
+                onClick={resetDate}
+            >
+                <ListItemButton
+                    sx={{height: '30px', borderRadius: '3px'}}
+                >
+                    <ListItemIcon
+                        sx={{display: 'flex', alignItems: 'center'}}
+                    >
+                        <DoNotDisturbAltIcon/>
+                        <ListItemText
+                            sx={{color: 'black', marginLeft: '10px'}}
+                            primary={'Reset date.'}
+                        />
+                    </ListItemIcon>
+                </ListItemButton>
+            </CustomIconButton>);
 
     return (
         <Box sx={{marginTop: '30px'}}>
@@ -82,70 +158,101 @@ export const CreateTodo = () => {
             }</p>
             <div className={s.flexContainer}>
                 <div className={s.textFieldColumn}>
-                    <p>Enter the name of to do list</p>
-                    <CustomTextField
-                        size={'medium'}
-                        placeholder={'here'}
-                        value={todoName}
-                        sx={{
-                            width: '540px',
-                            height: '43px',
-                            '&& input::placeholder': {
-                                fontSize: '32px',
-                                fontStyle: 'normal',
-                                fontWeight: 700,
-                                lineHeight: '38px',
-                                color: 'rgba(112, 78, 204, 0.50)',
-                            }
+                    <TodoTaskCreationForm
+                        title={'Enter the name of to do list'}
+                        value={title.todoName}
+                        placeholderStyles={{
+                            fontSize: '32px',
+                            fontStyle: 'normal',
+                            fontWeight: 700,
+                            lineHeight: '38px',
                         }}
-                        InputProps={{
-                            disableUnderline: true,
-                            sx: {
-                                fontSize: '32px',
-                                fontStyle: 'normal',
-                                fontWeight: 700,
-                                lineHeight: '38px',
-                                color: 'secondary.main',
-                                borderBottom: '1px #704ECC solid',
-                            }
+                        textFieldStyles={{
+                            marginBottom: '54px',
                         }}
-                        onChange={changeTodoName}
+                        inputStyles={{
+                            fontSize: '32px',
+                            fontStyle: 'normal',
+                            fontWeight: 700,
+                            lineHeight: '38px',
+                        }}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => changeTitle('todo', e)}
                     />
-                    {
-                        count > 0 &&
-                        <Box sx={{marginTop: '54px'}}>
-                            {
-                                addForms(count).map(el => el)
-                            }
-                        </Box>
-                    }
+                    <TodoTaskCreationForm
+                        title={'Enter the name of the task'}
+                        value={title.taskName}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => changeTitle('task', e)}
+                    />
+
+                    <TodoTaskCreationForm
+                        title={'Enter a description of the task'}
+                        value={title.description}
+                        placeholderStyles={{
+                            fontSize: '18px',
+                            fontStyle: 'normal',
+                            fontWeight: 400,
+                            lineHeight: '24px',
+                        }}
+                        inputStyles={{
+                            fontSize: '18px',
+                            fontStyle: 'normal',
+                            fontWeight: 400,
+                            lineHeight: '24px',
+                        }}
+                        titleStyles={{
+                            width: '219px',
+                        }}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => changeTitle('description', e)}
+                    />
+
+                    <TaskSetItems
+                        title={'Deadline of the task'}
+                        children={
+                            <BaseCalendar
+                                openCalendar={isOpenCalendar.openDeadline}
+                                childrenResetButton={returnChildrenResetButton(() => {
+                                })}
+                                closeCalendar={() => openCloseCalendar('close')}
+                                settingDate={() => {
+                                }}
+                            />
+                        }
+                        handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'deadline', event)}
+                    />
+
+                    <TaskSetItems
+                        title={'StartDate of the task'}
+                        children={
+                            <BaseCalendar
+                                openCalendar={isOpenCalendar.openStartDate}
+                                childrenResetButton={returnChildrenResetButton(() => {
+                                })}
+                                closeCalendar={() => openCloseCalendar('close')}
+                                settingDate={() => {
+                                }}
+                            />
+                        }
+                        handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'startDate', event)}
+                    />
+
+                    <TaskSetItems
+                        title={'Priority of the task'}
+                        children={
+                            <Priority
+                                openPriority={isOpenPriority}
+                                closePriority={() => openClosePriority('close')}
+                                settingPriority={() => {
+                                }}
+                            />
+                        }
+                        handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openClosePriority('open', event)}
+                    />
                 </div>
                 <div className={s.imageColumn}>
                     <CreateTodoIcon/>
                 </div>
             </div>
             <div className={s.buttonsContainer}>
-                <CustomIconButton
-                    disableRipple={false}
-                    sx={{
-                        width: '190px',
-                        height: '50px',
-                        borderRadius: '8px',
-                        backgroundColor: '#F81',
-                        color: '#FFF',
-                        fontSize: '22px',
-                        fontStyle: 'normal',
-                        fontWeight: 700,
-                        lineHeight: '24px',
-
-                    }}
-                    onClick={addCount}
-                >
-                    <>
-                        <p>Add a task</p>
-                        <PlusIcon/>
-                    </>
-                </CustomIconButton>
                 <CustomButton
                     label={'Save'}
                     color={'secondary'}
@@ -159,6 +266,7 @@ export const CreateTodo = () => {
                         fontWeight: 700,
                         lineHeight: '34px',
                         boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
+                        marginRight: '4px',
                     }}
                     variant={'contained'}
                     onClick={addTodo}
@@ -178,6 +286,7 @@ export const CreateTodo = () => {
                             lineHeight: '34px',
                             border: '1px solid #704ECC',
                             boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
+                            marginLeft: '4px',
                         }}
                         variant={'outlined'}
                     />
