@@ -183,7 +183,7 @@ export const BodyMenu: FC<Props> = (props) => {
                                         </Box>
                                     </CustomIconButton>
                                     <MoreHoriz
-                                        taskId={todo.id}
+                                        todoId={todo.id}
                                         todoTitle={todo.title}
                                         isOpen={isOpenMoreHoriz}
                                         actionMoreHoriz={() => {

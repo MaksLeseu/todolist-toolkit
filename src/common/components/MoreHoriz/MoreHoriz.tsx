@@ -10,9 +10,11 @@ import {DeleteIcon} from "../Icons/DeleteIcon";
 import {EditIcon} from "../Icons/EditIcon";
 import {ConfirmationModalWindow} from "../СonfirmationModalWindow/СonfirmationModalWindow";
 import {Edit} from "../Edit/Edit";
+import {useAppDispatch} from "../../utils/hooks/useAppDispatch";
+import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
 
 type Props = {
-    taskId: string
+    todoId: string
     todoTitle: string
     isOpen: any
     transformPopover?: string
@@ -64,7 +66,8 @@ export const _MoreHoriz: FC<_Props> = (props) => {
 }
 
 export const MoreHoriz: FC<Props> = (props) => {
-    const {isOpen, taskId, todoTitle, transformPopover, transformMoreHoriz, actionMoreHoriz, closeMoreHoriz} = props
+    const {isOpen, todoId, todoTitle, transformPopover, transformMoreHoriz, actionMoreHoriz, closeMoreHoriz} = props
+    const dispatch = useAppDispatch()
 
     const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
     const closeConformation = () => setIsOpenConformation(null)
@@ -73,6 +76,10 @@ export const MoreHoriz: FC<Props> = (props) => {
     const [isOpenEdit, setIsOpenEdit] = useState<HTMLButtonElement | null>(null)
     const closeEdit = () => setIsOpenEdit(null)
     const openEdit = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenEdit(event.currentTarget)
+
+    const removeTodo = (todolistId: string) => {
+        dispatch(todolistsThunk.removeTodolist(todolistId))
+    }
 
     return (
         <CustomPopover
@@ -150,8 +157,7 @@ export const MoreHoriz: FC<Props> = (props) => {
                             width: '203px',
                             height: '129px'
                         }}
-                        actionConfirmation={() => {
-                        }}
+                        actionConfirmation={() => removeTodo(todoId)}
                         closeConfirmation={closeConformation}
                     />
                     <Edit
