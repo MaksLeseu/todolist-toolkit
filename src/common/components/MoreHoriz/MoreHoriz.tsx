@@ -88,7 +88,9 @@ export const MoreHoriz: FC<Props> = (props) => {
     const changeTodo = () => {
         if (todoName !== todoTitle) {
             dispatch(todolistsThunk.updateTodolist({todolistId: todoId, title: todoName}))
-            closeEdit()
+                .then((res) => {
+                    setIsOpenEdit(null)
+                })
         }
     }
 
