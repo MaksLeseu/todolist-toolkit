@@ -2,14 +2,13 @@ import React, {ChangeEvent, useState} from 'react';
 import {CreateTodoIcon} from "../Icons/CreateTodoIcon";
 import {CustomButton} from "../CustomButton/CustomButton";
 import s from './CreateTodo.module.css'
-import {NavLink} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import Box from "@mui/material/Box";
 import {TodolistsType} from "../../../features/Todolists/todolists.types";
 import {useAppSelector} from "../../utils/hooks/useAppSelector";
 import {todolistsSelector} from "../../../features/Todolists/todolists.selector";
 import {useAppDispatch} from "../../utils/hooks/useAppDispatch";
 import {TodoTaskCreationForm} from "./TodoTaskCreationForm/TodoTaskCreationForm";
-import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
 import {TaskSetItems} from "./TaskSetItems/TaskSetItems";
 import {BaseCalendar} from "../BaseCalendar/BaseCalendar";
 import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
@@ -20,6 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import {useOpenCloseCalendar} from "../../utils/hooks/useOpenCloseCalendar";
 import {Priority} from "../Priority/Priority";
 import {useOpenClosePriority} from "../../utils/hooks/useOpenClosePriority";
+import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
 
 type TitleType = {
     todoName: string
@@ -110,11 +110,17 @@ export const CreateTodo = () => {
     const addTodo = () => {
         if (title.todoName.trim()) {
             dispatch(todolistsThunk.addTodolist({title: title.todoName}))
-            setTitle({
-                todoName: '',
-                taskName: title.taskName,
-                description: title.description,
-            })
+                .then(() => {
+                    setTitle({
+                        todoName: '',
+                        taskName: title.taskName,
+                        description: title.description,
+                    })
+                    const todoId = todos[0].id
+                    console.log(todoId)
+
+                    return <Navigate to={`/todolist-toolkit/todo/${todoId}`}/>
+                })
         }
     }
 

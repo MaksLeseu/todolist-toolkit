@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useState} from "react";
+import React, {ChangeEvent, FC, useEffect, useState} from "react";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import {AnchorElType, CustomPopover} from "../CustomPopover/CustomPopover";
 import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
@@ -71,8 +71,12 @@ export const MoreHoriz: FC<Props> = (props) => {
     const param = useParams()
     const dispatch = useAppDispatch()
 
-    const [todoName, setTodoName] = useState<string>(todoTitle)
+    const [todoName, setTodoName] = useState<string>('')
     const changeTodoName = (e: ChangeEvent<HTMLInputElement>): void => setTodoName(e.currentTarget.value)
+
+    useEffect(() => {
+        setTodoName(todoTitle)
+    }, [todoTitle])
 
     const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
     const closeConformation = () => setIsOpenConformation(null)
@@ -88,7 +92,7 @@ export const MoreHoriz: FC<Props> = (props) => {
     const changeTodo = () => {
         if (todoName !== todoTitle) {
             dispatch(todolistsThunk.updateTodolist({todolistId: todoId, title: todoName}))
-                .then((res) => {
+                .then(() => {
                     setIsOpenEdit(null)
                 })
         }
@@ -182,7 +186,6 @@ export const MoreHoriz: FC<Props> = (props) => {
                             <Edit
                                 isOpen={isOpenEdit}
                                 value={todoName}
-                                todoTitle={todoTitle}
                                 transformPopover={'translate(-58.5%, 23%)'}
                                 transformEdit={'translate(89%, 28%)'}
                                 actionEdit={changeTodo}

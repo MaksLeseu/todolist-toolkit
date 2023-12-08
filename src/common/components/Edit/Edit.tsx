@@ -10,7 +10,6 @@ import {OutlinedInputProps} from "@mui/material/OutlinedInput";
 type Props = {
     isOpen: any
     value: string
-    todoTitle: string
     transformPopover: string
     transformEdit: string
     actionEdit: () => void
@@ -19,7 +18,7 @@ type Props = {
 }
 
 export const Edit: FC<Props> = (props) => {
-    const {isOpen, value, todoTitle, transformPopover, transformEdit, actionEdit, closeEdit, onChange} = props
+    const {isOpen, value, transformPopover, transformEdit, actionEdit, closeEdit, onChange} = props
 
     return (
         <CustomPopover
