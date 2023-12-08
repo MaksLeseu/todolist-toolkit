@@ -27,6 +27,13 @@ const slice = createSlice({
                 const index = state.findIndex((td) => td.id === action.payload.todolistId)
                 if (index !== -1) state.splice(index, 1)
             })
+            .addCase(updateTodolist.fulfilled, (state, action) => {
+                const todo = state.find(td => td.id === action.payload.todolistId)
+
+                if (todo) {
+                    todo.title = action.payload.title
+                }
+            })
     }
 })
 
@@ -72,6 +79,23 @@ export const removeTodolist = createAppAsyncThunk<{ todolistId: string },
     }
 })
 
+export const updateTodolist = createAppAsyncThunk<{ todolistId: string, title: string }, { todolistId: string, title: string }>
+('todolists/changeTodolist', async (arg, thunkAPI) => {
+    const {rejectWithValue} = thunkAPI
+
+    try {
+        const res = await todolistsApi.changeTodolist(arg.todolistId, arg.title)
+        if (res.data.resultCode === 0) {
+            return {todolistId: arg.todolistId, title: arg.title}
+        } else {
+            return rejectWithValue(null)
+        }
+    } catch (error) {
+        return rejectWithValue(null)
+    }
+})
+
+
 export const todolistsActions = slice.actions
 export const todolistsSlice = slice.reducer
-export const todolistsThunk = {fetchTodolists, addTodolist, removeTodolist}
+export const todolistsThunk = {fetchTodolists, addTodolist, removeTodolist, updateTodolist}

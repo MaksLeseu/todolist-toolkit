@@ -210,8 +210,6 @@ export const CreateTodo = () => {
                         children={
                             <BaseCalendar
                                 openCalendar={isOpenCalendar.openDeadline}
-                                childrenResetButton={returnChildrenResetButton(() => {
-                                })}
                                 closeCalendar={() => openCloseCalendar('close')}
                                 settingDate={() => {
                                 }}
@@ -225,8 +223,6 @@ export const CreateTodo = () => {
                         children={
                             <BaseCalendar
                                 openCalendar={isOpenCalendar.openStartDate}
-                                childrenResetButton={returnChildrenResetButton(() => {
-                                })}
                                 closeCalendar={() => openCloseCalendar('close')}
                                 settingDate={() => {
                                 }}

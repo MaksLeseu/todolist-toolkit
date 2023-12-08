@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {ChangeEvent, FC, useState} from "react";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import {AnchorElType, CustomPopover} from "../CustomPopover/CustomPopover";
 import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
@@ -11,6 +11,8 @@ import {EditIcon} from "../Icons/EditIcon";
 import {ConfirmationModalWindow} from "../СonfirmationModalWindow/СonfirmationModalWindow";
 import {Edit} from "../Edit/Edit";
 import {useParams} from "react-router-dom";
+import {useAppDispatch} from "../../utils/hooks/useAppDispatch";
+import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
 
 type Props = {
     todoId: string
@@ -67,15 +69,28 @@ export const _MoreHoriz: FC<_Props> = (props) => {
 export const MoreHoriz: FC<Props> = (props) => {
     const {isOpen, todoId, todoTitle, transformPopover, transformMoreHoriz, actionMoreHoriz, closeMoreHoriz} = props
     const param = useParams()
+    const dispatch = useAppDispatch()
+
+    const [todoName, setTodoName] = useState<string>(todoTitle)
+    const changeTodoName = (e: ChangeEvent<HTMLInputElement>): void => setTodoName(e.currentTarget.value)
 
     const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
     const closeConformation = () => setIsOpenConformation(null)
     const openConformation = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenConformation(event.currentTarget)
 
     const [isOpenEdit, setIsOpenEdit] = useState<HTMLButtonElement | null>(null)
-    const closeEdit = () => setIsOpenEdit(null)
+    const closeEdit = () => {
+        setIsOpenEdit(null)
+        setTodoName(todoTitle)
+    }
     const openEdit = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenEdit(event.currentTarget)
 
+    const changeTodo = () => {
+        if (todoName !== todoTitle) {
+            dispatch(todolistsThunk.updateTodolist({todolistId: todoId, title: todoName}))
+            closeEdit()
+        }
+    }
 
     return (
         <>
@@ -164,12 +179,13 @@ export const MoreHoriz: FC<Props> = (props) => {
                             />
                             <Edit
                                 isOpen={isOpenEdit}
+                                value={todoName}
                                 todoTitle={todoTitle}
                                 transformPopover={'translate(-58.5%, 23%)'}
                                 transformEdit={'translate(89%, 28%)'}
-                                actionEdit={() => {
-                                }}
+                                actionEdit={changeTodo}
                                 closeEdit={closeEdit}
+                                onChange={changeTodoName}
                             />
                         </Box>
                     </>

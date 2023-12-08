@@ -5,18 +5,21 @@ import {CustomButton} from "../CustomButton/CustomButton";
 import {CustomPopover} from "../CustomPopover/CustomPopover";
 import {Typography} from "@mui/material";
 import {CustomTextField} from "../CustomTextField/CustomTextField";
+import {OutlinedInputProps} from "@mui/material/OutlinedInput";
 
 type Props = {
     isOpen: any
+    value: string
     todoTitle: string
     transformPopover: string
     transformEdit: string
     actionEdit: () => void
     closeEdit: () => void
+    onChange: OutlinedInputProps['onChange']
 }
 
 export const Edit: FC<Props> = (props) => {
-    const {isOpen, todoTitle, transformPopover, transformEdit, actionEdit, closeEdit} = props
+    const {isOpen, value, todoTitle, transformPopover, transformEdit, actionEdit, closeEdit, onChange} = props
 
     return (
         <CustomPopover
@@ -56,7 +59,7 @@ export const Edit: FC<Props> = (props) => {
                     </Typography>
                     <CustomTextField
                         size={'small'}
-                        value={todoTitle}
+                        value={value}
                         sx={{
                             width: '173px',
                             borderBottom: '1px solid #704ECC',
@@ -74,8 +77,8 @@ export const Edit: FC<Props> = (props) => {
                                 color: 'rgba(112, 78, 204, 0.50)',
                             },
                         }}
-                        onChange={() => {
-                        }}/>
+                        onChange={onChange}
+                    />
                     <Box>
                         <CustomButton
                             label={'Save'}
