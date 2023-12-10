@@ -4,7 +4,8 @@ const drawerWidth = 190;
 
 export const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
     open?: boolean;
-}>(({theme, open}) => ({
+    marginLeft?: number;
+}>(({theme, open, marginLeft}) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
@@ -17,7 +18,7 @@ export const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        marginLeft: 0,
+        marginLeft: marginLeft ? marginLeft : 0,
     }),
     '@media (max-width: 680px)': {
         marginLeft: -190, // Замените yourNewWidth на нужное вам значение ширины

@@ -7,7 +7,9 @@ import {todolistsSelector} from "./todolists.selector";
 import {TodolistsType} from "./todolists.types";
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {QuestionIcon} from "../../common/components/Icons/QuestionIcon";
+import {Main} from '../../common/utils/functions/dynamicSetMarginForContentPart/dynamicSetMarginForContentPart'
 import s from './Todolists.module.css'
+import {isOpenMenuSelector} from "../../app/app.selector";
 
 
 type Props = {
@@ -17,6 +19,7 @@ type Props = {
 export const Todolists: FC<Props> = ({onClickLink}) => {
 
     const todos: TodolistsType[] = useAppSelector(todolistsSelector)
+    const isOpenMenu: boolean = useAppSelector(isOpenMenuSelector)
 
     const {todo} = useParams()
     const todolist = todo ? todo : ''
@@ -41,42 +44,44 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
         componentName === 'todo' && filterTodos()
 
     return (
-        <div className={s.todolists}>
-            {
-                onClickLink ? <p className={s.title}>To-do lists</p>
-                    :
-                    <div className={s.notSingleTask}>
-                        <p className={s.notSingleTaskLabel}>sorry,</p>
-                        <p className={s.notSingleTaskText}>you haven't created any tasks.</p>
-                        <NavLink className={s.buttonCreateTodo} to={'/todolist-toolkit/todo/create-todo'}>
-                            <CustomButton
-                                color={'secondary'}
-                                label={'Create new one'}
-                                variant={'contained'}
-                                sx={{
-                                    borderRadius: '8px',
-                                    width: '255px',
-                                    height: '56px',
-                                    boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
-                                    color: '#FFF',
-                                    fontSize: '22px',
-                                    fontWeight: 700,
-                                    fontStyle: 'normal',
-                                    lineHeight: '34px',
-                                    marginBottom: '40px',
-                                }}
-                            />
-                        </NavLink>
-                        <div className={s.notSingleTaskImageContainer}>
-                            <QuestionIcon/>
-                        </div>
-                    </div>
-            }
-            <div className={s.todosList}>
+        <Main open={isOpenMenu}>
+            <div className={s.todolists}>
                 {
-                    onClickLink ? returnTodos('todo') : returnTodos('todoList')
+                    onClickLink ? <p className={s.title}>To-do lists</p>
+                        :
+                        <div className={s.notSingleTask}>
+                            <p className={s.notSingleTaskLabel}>sorry,</p>
+                            <p className={s.notSingleTaskText}>you haven't created any tasks.</p>
+                            <NavLink className={s.buttonCreateTodo} to={'/todolist-toolkit/todo/create-todo'}>
+                                <CustomButton
+                                    color={'secondary'}
+                                    label={'Create new one'}
+                                    variant={'contained'}
+                                    sx={{
+                                        borderRadius: '8px',
+                                        width: '255px',
+                                        height: '56px',
+                                        boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
+                                        color: '#FFF',
+                                        fontSize: '22px',
+                                        fontWeight: 700,
+                                        fontStyle: 'normal',
+                                        lineHeight: '34px',
+                                        marginBottom: '40px',
+                                    }}
+                                />
+                            </NavLink>
+                            <div className={s.notSingleTaskImageContainer}>
+                                <QuestionIcon/>
+                            </div>
+                        </div>
                 }
+                <div className={s.todosList}>
+                    {
+                        onClickLink ? returnTodos('todo') : returnTodos('todoList')
+                    }
+                </div>
             </div>
-        </div>
+        </Main>
     )
 }

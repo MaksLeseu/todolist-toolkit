@@ -170,7 +170,8 @@ export const Task: FC<Props> = (props) => {
         <div key={taskId} className={taskStatusCompleted ? s.taskCompleted : s.task}>
             {
                 !isOpenTaskRedactor &&
-                <div className={s.container} onClick={taskStatusCompleted ? openPreviewCompletedTask : openTaskEditor}>
+                <div className={s.container}
+                     onClick={taskStatusCompleted ? openPreviewCompletedTask : openTaskEditor}>
 
                     <div className={s.flexContainer}>
                         <div className={s.title}>

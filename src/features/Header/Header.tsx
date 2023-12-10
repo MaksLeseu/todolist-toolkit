@@ -16,6 +16,9 @@ import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {BodyMenu} from "./BodyMenu/BodyMenu";
 import {ConfirmationModalWindow} from "../../common/components/СonfirmationModalWindow/СonfirmationModalWindow";
 import {useMediaQuery} from "@mui/material";
+import {appActions} from "../../app/app.slice";
+import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
+import {isOpenMenuSelector} from "../../app/app.selector";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -41,10 +44,7 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-type Props = {
-    isOpen: boolean
-    changeDrawer: () => void
-}
+type Props = {}
 
 const logOutButtonStyles = {
     width: '109px',
@@ -82,13 +82,20 @@ const activeLogOutButtonStyles = {
 }
 
 export const Header: FC<Props> = (props) => {
-    const {isOpen, changeDrawer} = props
+    const isOpen: boolean = useAppSelector(isOpenMenuSelector)
 
     const dispatch = useAppDispatch()
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
 
     const handlerLogout = () => dispatch(authThunk.logout({}))
 
+    const changeDrawer = (type: 'open' | 'close') => {
+        const obj = {
+            'open': () => dispatch(appActions.setIsOpenMenu({isOpenMenu: true})),
+            'close': () => dispatch(appActions.setIsOpenMenu({isOpenMenu: false})),
+        }
+        return obj[type]()
+    }
 
     const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
     const closeConformation = () => setIsOpenConformation(null)
@@ -107,7 +114,7 @@ export const Header: FC<Props> = (props) => {
         }}>
             <BodyMenu
                 isOpen={isOpen}
-                handleDrawerClose={changeDrawer}
+                handleDrawerClose={() => changeDrawer('close')}
             />
             <CssBaseline/>
             <AppBar
@@ -137,7 +144,7 @@ export const Header: FC<Props> = (props) => {
                                         marginTop: '8px'
                                     },
                                 }}
-                                handleDrawerOpen={changeDrawer}
+                                handleDrawerOpen={() => changeDrawer('open')}
                             />
                         }
 
