@@ -13,17 +13,17 @@ type Props = {
 export const Layout: FC<Props> = (props) => {
     const {children} = props
 
-    const [isOpen, setIsOpen] = React.useState(false);
-    const changeDrawer = () => setIsOpen(!isOpen)
+    const [isOpenMenu, setIsOpenMenu] = React.useState(false);
+    const changeDrawer = () => setIsOpenMenu(!isOpenMenu)
 
     return (
         <div className={s.layout}>
             <Header
-                isOpen={isOpen}
+                isOpen={isOpenMenu}
                 changeDrawer={changeDrawer}
             />
             <ErrorSnackbars/>
-            <Main open={isOpen}>
+            <Main open={isOpenMenu}>
                 <div className={s.container}>{children ? children : <Outlet/>}</div>
             </Main>
             <Footer/>

@@ -21,6 +21,5 @@ export const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'
     }),
     '@media (max-width: 680px)': {
         marginLeft: -190, // Замените yourNewWidth на нужное вам значение ширины
-
     },
 }));

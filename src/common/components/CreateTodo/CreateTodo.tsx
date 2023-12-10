@@ -172,15 +172,27 @@ export const CreateTodo = () => {
             </CustomIconButton>);
 
     return (
-        <Box sx={{marginTop: '30px'}}>
-            <p className={s.label}>CREATE</p>
-            <p className={s.title}>{
-                todos.length > 0
-                    ?
-                    'your to do list'
-                    :
-                    'your first to do list'
-            }</p>
+        <Box
+            sx={{
+                marginTop: '30px',
+                display: 'grid',
+                gridTemplateColumns: '48px 665px 350px',
+                gridTemplateRows: '92px 40px 1fr 130px',
+                justifyContent: 'center',
+            }}
+        >
+            <div className={todos.length > 0 ? `${s.banner} ${s.changeMargin}` : s.banner}>
+                <p className={s.label}>CREATE</p>
+                <p className={s.title}>
+                    {
+                        todos.length > 0
+                            ?
+                            'your to do list'
+                            :
+                            'your first to do list'
+                    }
+                </p>
+            </div>
             <div className={s.flexContainer}>
                 <div className={s.textFieldColumn}>
                     <TodoTaskCreationForm
@@ -272,10 +284,13 @@ export const CreateTodo = () => {
                         handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openClosePriority('open', event)}
                     />
                 </div>
-                <div className={s.imageColumn}>
-                    <CreateTodoIcon/>
-                </div>
+
             </div>
+
+            <div className={s.imageColumn}>
+                <CreateTodoIcon/>
+            </div>
+
             <div className={s.buttonsContainer}>
                 <CustomButton
                     label={'Save'}
