@@ -2,15 +2,20 @@ import React, {FC, MouseEventHandler} from 'react';
 import Box from "@mui/material/Box";
 import {CustomIconButton} from "../../CustomIconButton/CustomIconButton";
 import {MenuDownIcon} from "../../Icons/MenuDownIcon";
+import {dateConversionToString} from "../../../utils/functions/dateConversionToString/dateConversionToString";
 
 type Props = {
     title: string
+    value: any
+    isOpen: any
     children: any
     handleOpen: MouseEventHandler | undefined
 }
 
 export const TaskSetItems: FC<Props> = (props) => {
-    const {title, children, handleOpen} = props
+    const {title, value, isOpen, children, handleOpen} = props
+
+    const valueLabel = value ? dateConversionToString(value) : 'no date set'
 
     return (
         <Box sx={{
@@ -32,7 +37,21 @@ export const TaskSetItems: FC<Props> = (props) => {
                 width: '540px',
                 borderBottom: '1px solid #704ECC',
                 paddingBottom: '4px',
+                display: 'flex'
             }}>
+                <Box
+                    sx={{
+                        marginRight: '4px',
+                        color: 'rgba(112, 78, 204, 0.50)',
+                        fontFamily: 'Roboto',
+                        fontSize: '18px',
+                        fontStyle: 'normal',
+                        fontWeight: 400,
+                        lineHeight: '24px',
+                    }}
+                >
+                    {valueLabel}
+                </Box>
                 <CustomIconButton
                     disableRipple={false}
                     sx={{
@@ -45,7 +64,10 @@ export const TaskSetItems: FC<Props> = (props) => {
                 >
                     <Box sx={{
                         width: '24px',
-                        height: '24px', objectFit: 'cover'
+                        height: '24px',
+                        objectFit: 'cover',
+                        borderRadius: '2px',
+                        backgroundColor: isOpen ? '#EFE3FF' : 'none'
                     }}>
                         <MenuDownIcon/>
                     </Box>

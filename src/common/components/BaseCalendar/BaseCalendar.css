@@ -1,0 +1,11 @@
+.MuiDayCalendar-header span {
+    width: 24px;
+    height: 24px;
+    color: #F81;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    font-family: Roboto;
+}

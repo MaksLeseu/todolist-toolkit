@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 import {CreateTodoIcon} from "../Icons/CreateTodoIcon";
 import {CustomButton} from "../CustomButton/CustomButton";
 import s from './CreateTodo.module.css'
-import {Navigate, NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import Box from "@mui/material/Box";
 import {TodolistsType} from "../../../features/Todolists/todolists.types";
 import {useAppSelector} from "../../utils/hooks/useAppSelector";
@@ -20,6 +20,10 @@ import {useOpenCloseCalendar} from "../../utils/hooks/useOpenCloseCalendar";
 import {Priority} from "../Priority/Priority";
 import {useOpenClosePriority} from "../../utils/hooks/useOpenClosePriority";
 import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
+import {useSettingDate} from "../../utils/hooks/useSettingDate";
+import {Nullable} from "../../utils/types/optional.types";
+import {Dayjs} from "dayjs";
+import {useSettingPriority} from "../../utils/hooks/useSettingPriority";
 
 type TitleType = {
     todoName: string
@@ -30,15 +34,31 @@ type TitleType = {
 export const CreateTodo = () => {
     const todos: TodolistsType[] = useAppSelector(todolistsSelector)
     const dispatch = useAppDispatch()
+    const navigate = useNavigate();
 
     const {isOpenCalendar, openCloseCalendar} = useOpenCloseCalendar()
     const {isOpenPriority, openClosePriority} = useOpenClosePriority()
+    const {startDate, deadline, settingDate} = useSettingDate()
+    const {priority, settingPriority} = useSettingPriority()
 
     const [title, setTitle] = useState<TitleType>({
         todoName: '',
         taskName: '',
         description: '',
     })
+
+    const settingStartDateValueHandle = (date: Nullable<Dayjs>) => {
+        settingDate(date, 'startDate')
+    }
+
+    const settingDeadlineValueHandle = (date: Nullable<Dayjs>) => {
+        settingDate(date, 'deadline')
+    }
+
+    const settingPriorityHandle = (priority: number) => {
+        settingPriority(priority)
+        openClosePriority('close')
+    }
 
     const changeTitle = (method: 'todo' | 'task' | 'description', e: ChangeEvent<HTMLInputElement>) => {
         const object = {
@@ -117,9 +137,8 @@ export const CreateTodo = () => {
                         description: title.description,
                     })
                     const todoId = todos[0].id
-                    console.log(todoId)
 
-                    return <Navigate to={`/todolist-toolkit/todo/${todoId}`}/>
+                    return navigate(`/todolist-toolkit/todo/${todoId}`)
                 })
         }
     }
@@ -212,39 +231,42 @@ export const CreateTodo = () => {
                     />
 
                     <TaskSetItems
-                        title={'Deadline of the task'}
-                        children={
-                            <BaseCalendar
-                                openCalendar={isOpenCalendar.openDeadline}
-                                closeCalendar={() => openCloseCalendar('close')}
-                                settingDate={() => {
-                                }}
-                            />
-                        }
-                        handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'deadline', event)}
-                    />
-
-                    <TaskSetItems
                         title={'StartDate of the task'}
+                        value={startDate}
+                        isOpen={isOpenCalendar.openStartDate}
                         children={
                             <BaseCalendar
                                 openCalendar={isOpenCalendar.openStartDate}
                                 closeCalendar={() => openCloseCalendar('close')}
-                                settingDate={() => {
-                                }}
+                                settingDate={settingStartDateValueHandle}
                             />
                         }
                         handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'startDate', event)}
                     />
 
                     <TaskSetItems
+                        title={'Deadline of the task'}
+                        value={deadline}
+                        isOpen={isOpenCalendar.openDeadline}
+                        children={
+                            <BaseCalendar
+                                openCalendar={isOpenCalendar.openDeadline}
+                                closeCalendar={() => openCloseCalendar('close')}
+                                settingDate={settingDeadlineValueHandle}
+                            />
+                        }
+                        handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'deadline', event)}
+                    />
+
+                    <TaskSetItems
                         title={'Priority of the task'}
+                        value={priority}
+                        isOpen={isOpenPriority}
                         children={
                             <Priority
                                 openPriority={isOpenPriority}
                                 closePriority={() => openClosePriority('close')}
-                                settingPriority={() => {
-                                }}
+                                settingPriority={settingPriorityHandle}
                             />
                         }
                         handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openClosePriority('open', event)}
