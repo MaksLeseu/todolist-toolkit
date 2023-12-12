@@ -9,6 +9,10 @@
     margin: 0;
 }
 
+.labelPositionLeft {
+    text-align: start;
+}
+
 .banner {
     grid-column: 2;
     justify-self: end;
@@ -17,6 +21,11 @@
 
 .changeMargin {
     margin-right: 55px;
+}
+
+.bannerPositionLeft {
+    margin-right: 0;
+    justify-self: start;
 }
 
 .title {
@@ -32,8 +41,8 @@
 }
 
 .flexContainer {
-    width: 1015px;
-    margin: 0 auto 56px auto;
+    /*width: 1015px;*/
+    margin-bottom: 56px;
     grid-column: 2;
     grid-row: 3;
     /*display: grid;
@@ -56,13 +65,21 @@
 }
 
 .imageColumn {
+    width: 350px;
+    height: 275px;
     margin-top: 12px;
     grid-row: 3;
     grid-column: 3;
 }
 
+.imagePositionTop {
+    width: 281px;
+    height: 214px;
+    margin-top: 0;
+    grid-row: 1;
+}
+
 .buttonsContainer {
-    width: 586px;
     margin-bottom: 80px;
     grid-row: 4;
     grid-column: 2;
@@ -71,7 +88,28 @@
     margin-left: 70px;
 }
 
+.buttonsContainerPositionLeft {
+    margin-left: 0;
+    justify-content: start;
+}
+
 .buttonCancel {
     width: 190px;
     height: 50px;
+}
+
+@media (max-width: 1520px) {
+    .imageColumn {
+        display: none;
+    }
+
+    .buttonsContainer {
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    .banner {
+        justify-self: center;
+        margin-right: 0;
+    }
 }

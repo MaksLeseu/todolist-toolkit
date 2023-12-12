@@ -51,7 +51,16 @@ export const TodoTaskCreationForm: FC<Props> = (props) => {
                         lineHeight: '30px',
                         ...placeholderStyles,
                         color: 'rgba(112, 78, 204, 0.50)',
-                    }
+                    },
+                    '@media (max-width: 980px)': {
+                        width: '440px',
+                    },
+                    '@media (max-width: 500px)': {
+                        width: '340px',
+                    },
+                    '@media (max-width: 360px)': {
+                        width: '300px',
+                    },
                 }}
                 InputProps={{
                     disableUnderline: true,

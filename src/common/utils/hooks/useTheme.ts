@@ -36,7 +36,7 @@ export const useTheme = () => {
                 disabled: '',
                 focus: '',
             },
-            
+
         },
         typography: {
             allVariants: {

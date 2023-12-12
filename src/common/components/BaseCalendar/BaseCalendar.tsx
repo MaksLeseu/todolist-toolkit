@@ -17,6 +17,9 @@ import {Popper} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
 import './BaseCalendar.css'
+import {ArrowIconLeft} from "../Icons/ArrowIconLeft";
+import {ArrowIconRight} from "../Icons/ArrowIconRight";
+import Box from "@mui/material/Box";
 
 
 type Props = {
@@ -46,8 +49,52 @@ const StyledDay = styled(PickersDay)(({theme}) => ({
     }
 }));
 const StyledCalendarHeader = styled(PickersCalendarHeader)(({theme}) => ({
-    display: 'none',
+    backgroundColor: '#704ECC',
+    borderRadius: '2px',
+    width: '100%',
+    height: '24px',
+    position: 'relative',
+    marginTop: '0px',
+    '&.MuiPickersCalendarHeader-root button': {
+        width: '25px',
+        height: '25px',
+        '&.css-ns7sn0-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button': {
+            position: 'absolute',
+            top: '10%',
+            right: 0,
+        },
+        '&.css-1ygssq1-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button': {
+            position: 'absolute',
+            top: '10%',
+            left: 0,
+        }
+    },
+    '&.MuiPickersCalendarHeader-root div': {
+        color: '#EFE3FF',
+        textAlign: 'center',
+        fontFamily: 'Roboto',
+        fontSize: '12px',
+        fontStyle: 'normal',
+        fontWeight: 400,
+        lineHeight: '20px',
+    },
 }))
+const StyledLeftArrowIcon = styled(ArrowIconLeft)(({theme}) => ({}))
+const StyledRightArrowIcon = styled(ArrowIconRight)(({theme}) => ({}))
+
+const CustomLeftArrowIcon = () => {
+    return (
+        <Box
+            sx={{
+                position: 'absolute',
+                left: '50%,',
+                top: '10%',
+            }}
+        >
+            <ArrowIconLeft/>
+        </Box>
+    )
+}
 
 export const BaseCalendar: FC<Props> = (props) => {
     const {openCalendar, childrenResetButton, closeCalendar, settingDate} = props
@@ -62,6 +109,15 @@ export const BaseCalendar: FC<Props> = (props) => {
     return (
         <CustomPopover
             anchorEl={openCalendar}
+            transformStyle={'translate(-46%, 0%)'}
+            listItemStyles={{
+                width: '208px',
+                maxHeight: '240px',
+                borderRadius: '2px',
+                backgroundColor: '#EFE3FF',
+                padding: '4px 8px 4px 8px',
+                boxShadow: '1px 1px 6px 0px rgba(112, 78, 204, 0.30), 1px 0px 6px 0px rgba(112, 78, 204, 0.30)',
+            }}
             handleClosePopover={closeCalendar}
         >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -70,19 +126,18 @@ export const BaseCalendar: FC<Props> = (props) => {
                     <DateCalendar
                         value={value}
                         sx={{
-                            width: '208px',
-                            maxHeight: '200px',
-                            borderRadius: '2px',
-                            backgroundColor: '#EFE3FF',
+                            width: '100%',
+                            maxHeight: '220px',
                             /*boxShadow: '1px 1px 6px 0px rgba(112, 78, 204, 0.30), 1px 0px 6px 0px rgba(112, 78, 204, 0.30)',*/
-                            padding: '4px 8px 4px 8px',
                         }}
                         slots={{
                             day: StyledDay,
                             calendarHeader: StyledCalendarHeader,
+                            leftArrowIcon: () => <ArrowIconLeft/>,
+                            rightArrowIcon: () => <ArrowIconRight/>,
                         }}
                         slotProps={{
-                            day: {color: 'red'}
+                            leftArrowIcon: {}
                         }}
 
                         onChange={changeDate}

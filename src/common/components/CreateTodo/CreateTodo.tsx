@@ -174,19 +174,34 @@ export const CreateTodo = () => {
                 </ListItemButton>
             </CustomIconButton>);
 
+    const labelPositions = todos.length > 0 ? `${s.banner} ${s.changeMargin}` : s.banner
+    const labelPositionStyles = isOpenMenu ? `${s.banner} ${s.bannerPositionLeft}` : labelPositions
+
     return (
-        <Main open={isOpenMenu} marginLeft={190}>
+        <Main open={isOpenMenu} marginLeft={130}>
             <Box
                 sx={{
                     marginTop: '30px',
                     display: 'grid',
-                    gridTemplateColumns: '48px 665px 350px',
+                    gridTemplateColumns: isOpenMenu ? '48px 540px 350px' : '48px 665px 350px',
                     gridTemplateRows: '92px 40px 1fr 130px',
                     justifyContent: 'center',
+                    '@media (max-width: 1520px)': {
+                        gridTemplateColumns: '0px 540px',
+                    },
+                    '@media (max-width: 980px)': {
+                        gridTemplateColumns: '0px 440px',
+                    },
+                    '@media (max-width: 500px)': {
+                        gridTemplateColumns: '0px 340px',
+                    },
+                    '@media (max-width: 360px)': {
+                        gridTemplateColumns: '0px 300px',
+                    },
                 }}
             >
-                <div className={todos.length > 0 ? `${s.banner} ${s.changeMargin}` : s.banner}>
-                    <p className={s.label}>CREATE</p>
+                <div className={labelPositionStyles}>
+                    <p className={isOpenMenu ? `${s.label} ${s.labelPositionLeft}` : s.label}>CREATE</p>
                     <p className={s.title}>
                         {
                             todos.length > 0
@@ -291,11 +306,12 @@ export const CreateTodo = () => {
 
                 </div>
 
-                <div className={s.imageColumn}>
+                <div className={isOpenMenu ? `${s.imageColumn} ${s.imagePositionTop}` : s.imageColumn}>
                     <CreateTodoIcon/>
                 </div>
 
-                <div className={s.buttonsContainer}>
+                <div
+                    className={isOpenMenu ? `${s.buttonsContainer} ${s.buttonsContainerPositionLeft}` : s.buttonsContainer}>
                     <CustomButton
                         label={'Save'}
                         color={'secondary'}

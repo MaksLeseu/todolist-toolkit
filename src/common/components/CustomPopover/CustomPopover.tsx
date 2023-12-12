@@ -1,7 +1,5 @@
 import React, {FC, ReactNode} from "react";
 import Popover from '@mui/material/Popover';
-import {SxProps} from "@mui/system";
-import {Theme} from "@mui/material/styles";
 import {PopoverOrigin} from "@mui/material/Popover/Popover";
 
 interface PopoverVirtualElement {
@@ -17,7 +15,7 @@ export type AnchorElType = | null
 
 type Props = {
     anchorEl: AnchorElType
-    listItemStyles?: SxProps<Theme>
+    listItemStyles?: any
     transformStyle?: string
     anchorOrigin?: PopoverOrigin
     handleClosePopover: any
@@ -47,6 +45,7 @@ export const CustomPopover: FC<Props> = (props) => {
                     backgroundColor: 'transparent',
                     boxShadow: 'none',
                     transform: transformStyle,
+                    ...listItemStyles
                 },
             }}
         >

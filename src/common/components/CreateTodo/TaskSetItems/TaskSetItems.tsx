@@ -37,7 +37,16 @@ export const TaskSetItems: FC<Props> = (props) => {
                 width: '540px',
                 borderBottom: '1px solid #704ECC',
                 paddingBottom: '4px',
-                display: 'flex'
+                display: 'flex',
+                '@media (max-width: 980px)': {
+                    width: '440px',
+                },
+                '@media (max-width: 500px)': {
+                    width: '340px',
+                },
+                '@media (max-width: 360px)': {
+                    width: '300px',
+                },
             }}>
                 <Box
                     sx={{
