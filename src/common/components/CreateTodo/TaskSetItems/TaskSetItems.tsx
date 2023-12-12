@@ -1,21 +1,30 @@
-import React, {FC, MouseEventHandler} from 'react';
+import React, {FC, MouseEventHandler, ReactNode} from 'react';
 import Box from "@mui/material/Box";
 import {CustomIconButton} from "../../CustomIconButton/CustomIconButton";
 import {MenuDownIcon} from "../../Icons/MenuDownIcon";
 import {dateConversionToString} from "../../../utils/functions/dateConversionToString/dateConversionToString";
+import {Nullable} from "../../../utils/types/optional.types";
+import {Dayjs} from "dayjs";
+import {
+    priorityConversionToString
+} from "../../../utils/functions/priorityConversionToString/priorityConversionToString";
 
 type Props = {
     title: string
-    value: any
+    valueDate?: Nullable<Dayjs>
+    valuePriority?: number
     isOpen: any
-    children: any
+    children: ReactNode
     handleOpen: MouseEventHandler | undefined
 }
 
 export const TaskSetItems: FC<Props> = (props) => {
-    const {title, value, isOpen, children, handleOpen} = props
+    const {title, valueDate, valuePriority, isOpen, children, handleOpen} = props
 
-    const valueLabel = value ? dateConversionToString(value) : 'no date set'
+    const date = valueDate ? dateConversionToString(valueDate) : null
+    const priority = typeof valuePriority === 'number' ? priorityConversionToString(valuePriority) : null
+
+    const valueLabel = date || priority || 'no date set'
 
     return (
         <Box sx={{

@@ -19,7 +19,6 @@ import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
 import './BaseCalendar.css'
 import {ArrowIconLeft} from "../Icons/ArrowIconLeft";
 import {ArrowIconRight} from "../Icons/ArrowIconRight";
-import Box from "@mui/material/Box";
 
 
 type Props = {
@@ -58,6 +57,7 @@ const StyledCalendarHeader = styled(PickersCalendarHeader)(({theme}) => ({
     '&.MuiPickersCalendarHeader-root button': {
         width: '25px',
         height: '25px',
+        color: 'white',
         '&.css-ns7sn0-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button': {
             position: 'absolute',
             top: '10%',
@@ -73,28 +73,12 @@ const StyledCalendarHeader = styled(PickersCalendarHeader)(({theme}) => ({
         color: '#EFE3FF',
         textAlign: 'center',
         fontFamily: 'Roboto',
-        fontSize: '12px',
+        fontSize: '14px',
         fontStyle: 'normal',
         fontWeight: 400,
         lineHeight: '20px',
     },
 }))
-const StyledLeftArrowIcon = styled(ArrowIconLeft)(({theme}) => ({}))
-const StyledRightArrowIcon = styled(ArrowIconRight)(({theme}) => ({}))
-
-const CustomLeftArrowIcon = () => {
-    return (
-        <Box
-            sx={{
-                position: 'absolute',
-                left: '50%,',
-                top: '10%',
-            }}
-        >
-            <ArrowIconLeft/>
-        </Box>
-    )
-}
 
 export const BaseCalendar: FC<Props> = (props) => {
     const {openCalendar, childrenResetButton, closeCalendar, settingDate} = props

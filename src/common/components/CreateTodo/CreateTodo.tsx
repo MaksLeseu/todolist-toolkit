@@ -90,46 +90,6 @@ export const CreateTodo = () => {
         return object[method]()
     }
 
-    /* const addForms = (num: number) => {
-         const arr = [];
-
-         for (let i = 0; i < num; i++) {
-             arr.push(<Box sx={{
-                 marginTop: '24px'
-             }}>
-                 <p>Enter the name of task</p>
-                 <CustomTextField
-                     size={'medium'}
-                     placeholder={'here'}
-                     sx={{
-                         width: '540px',
-                         height: '43px',
-                         '&& input::placeholder': {
-                             fontSize: '24px',
-                             fontStyle: 'normal',
-                             fontWeight: 600,
-                             lineHeight: '30px',
-                             color: 'rgba(112, 78, 204, 0.50)',
-                         }
-                     }}
-                     InputProps={{
-                         disableUnderline: true,
-                         sx: {
-                             fontSize: '24px',
-                             fontStyle: 'normal',
-                             fontWeight: 600,
-                             lineHeight: '30px',
-                             color: 'secondary.main',
-                             borderBottom: '1px #704ECC solid',
-                         }
-                     }}
-                     onChange={changeTodoName}
-                 />
-             </Box>)
-         }
-         return arr
-     }*/
-
     const addTodo = () => {
         if (title.todoName.trim()) {
             dispatch(todolistsThunk.addTodolist({title: title.todoName}))
@@ -263,7 +223,7 @@ export const CreateTodo = () => {
 
                         <TaskSetItems
                             title={'StartDate of the task'}
-                            value={startDate}
+                            valueDate={startDate}
                             isOpen={isOpenCalendar.openStartDate}
                             children={
                                 <BaseCalendar
@@ -277,7 +237,7 @@ export const CreateTodo = () => {
 
                         <TaskSetItems
                             title={'Deadline of the task'}
-                            value={deadline}
+                            valueDate={deadline}
                             isOpen={isOpenCalendar.openDeadline}
                             children={
                                 <BaseCalendar
@@ -291,7 +251,7 @@ export const CreateTodo = () => {
 
                         <TaskSetItems
                             title={'Priority of the task'}
-                            value={priority}
+                            valuePriority={priority as number | undefined}
                             isOpen={isOpenPriority}
                             children={
                                 <Priority
