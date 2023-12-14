@@ -40,44 +40,79 @@ const StyledDay = styled(PickersDay)(({theme}) => ({
     lineHeight: '20px',
     fontFamily: 'Roboto',
     '&.Mui-selected': {
-        backgroundColor: '#704ECC',
+        backgroundColor: theme.palette.secondary.main,
         color: 'white',
     },
     '&:focus.Mui-selected': {
-        backgroundColor: '#704ECC',
+        backgroundColor: theme.palette.secondary.main,
     }
 }));
 const StyledCalendarHeader = styled(PickersCalendarHeader)(({theme}) => ({
-    backgroundColor: '#704ECC',
+    backgroundColor: theme.palette.secondary.main,
     borderRadius: '2px',
     width: '100%',
     height: '24px',
     position: 'relative',
     marginTop: '0px',
-    '&.MuiPickersCalendarHeader-root button': {
-        width: '25px',
-        height: '25px',
-        color: 'white',
-        '&.css-ns7sn0-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button': {
-            position: 'absolute',
-            top: '10%',
-            right: 0,
-        },
-        '&.css-1ygssq1-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button': {
-            position: 'absolute',
-            top: '10%',
-            left: 0,
-        }
-    },
-    '&.MuiPickersCalendarHeader-root div': {
-        color: '#EFE3FF',
+    padding: 0,
+    marginBottom: 0,
+    '& .css-1y9c4c5-MuiPickersCalendarHeader-labelContainer': {
+        color: theme.palette.primary.main,
         textAlign: 'center',
         fontFamily: 'Roboto',
         fontSize: '14px',
         fontStyle: 'normal',
         fontWeight: 400,
         lineHeight: '20px',
+        margin: '0 auto 0 40px',
     },
+
+    //switch button
+    '& .css-oe4e7z-MuiButtonBase-root-MuiIconButton-root-MuiPickersCalendarHeader-switchViewButton': {
+        width: '12px',
+        height: '12px',
+        color: 'white',
+    },
+    //switch icon
+    '& .css-1tkx1wf-MuiSvgIcon-root-MuiPickersCalendarHeader-switchViewIcon': {
+        width: '12px',
+        height: '12px',
+    },
+
+    //right arrow button
+    '& .css-ns7sn0-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button': {
+        position: 'absolute',
+        width: '25px',
+        height: '25px',
+        color: 'white',
+        top: '10%',
+        right: 0,
+        '&.css-ns7sn0-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button svg': {
+            position: 'absolute',
+            right: '4px',
+        }
+    },
+
+    //left arrow button
+    '& .css-1ygssq1-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button': {
+        position: 'absolute',
+        width: '25px',
+        height: '25px',
+        color: 'white',
+        top: '10%',
+        left: 0,
+        '&.css-1ygssq1-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button svg': {
+            position: 'absolute',
+            left: '4px',
+        },
+    },
+
+    '& .css-1vs7z2v-MuiYearCalendar-root': {
+        width: '100%',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr 1fr',
+    }
+
 }))
 
 export const BaseCalendar: FC<Props> = (props) => {
@@ -96,7 +131,6 @@ export const BaseCalendar: FC<Props> = (props) => {
             transformStyle={'translate(-46%, 0%)'}
             listItemStyles={{
                 width: '208px',
-                maxHeight: '240px',
                 borderRadius: '2px',
                 backgroundColor: '#EFE3FF',
                 padding: '4px 8px 4px 8px',
@@ -123,7 +157,7 @@ export const BaseCalendar: FC<Props> = (props) => {
                         slotProps={{
                             leftArrowIcon: {}
                         }}
-
+                        yearsPerRow={4}
                         onChange={changeDate}
                     />
                 </DemoContainer>
