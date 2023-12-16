@@ -3,7 +3,6 @@ import s from './Todolist.module.css'
 import {Tasks} from "../../Tasks/Tasks";
 import {AddTaskButton} from "../../Tasks/AddTaskButton/AddTaskButton";
 import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
-import DescriptionIcon from '@mui/icons-material/Description';
 import {StateTaskType, tasksThunk} from "../../Tasks/tasks.slice";
 import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 import {FormAddTask} from "../../Tasks/FormAddTask/FormAddTask";
@@ -120,11 +119,8 @@ export const Todolist: FC<Props> = (props) => {
 
     return (
         <div>
+            <h2 className={s.title}>{todolistTitle}</h2>
             <div className={s.headerContainer}>
-                <div className={s.titleContainer}>
-                    <DescriptionIcon color={'info'}/>
-                    <h2>{todolistTitle}</h2>
-                </div>
                 <FilterTasks
                     valueTodoFilter={todolist.filter}
                     changeTodolistsFilterHandler={changeTodolistsFilterHandler}

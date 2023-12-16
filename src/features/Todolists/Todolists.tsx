@@ -5,11 +5,11 @@ import {Todolist} from "./Todolist/Todolist";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {todolistsSelector} from "./todolists.selector";
 import {TodolistsType} from "./todolists.types";
-import {CustomButton} from "../../common/components/CustomButton/CustomButton";
-import {QuestionIcon} from "../../common/components/Icons/QuestionIcon";
 import {Main} from '../../common/utils/functions/dynamicSetMarginForContentPart/dynamicSetMarginForContentPart'
 import s from './Todolists.module.css'
 import {isOpenMenuSelector} from "../../app/app.selector";
+import {CustomButton} from "../../common/components/CustomButton/CustomButton";
+import {QuestionIcon} from "../../common/components/Icons/QuestionIcon";
 
 
 type Props = {
@@ -47,7 +47,7 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
         <Main open={isOpenMenu}>
             <div className={s.todolists}>
                 {
-                    onClickLink ? <p className={s.title}>To-do lists</p>
+                    onClickLink ? null
                         :
                         <div className={s.notSingleTask}>
                             <p className={s.notSingleTaskLabel}>sorry,</p>

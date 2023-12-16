@@ -1,10 +1,10 @@
 import React, {FC} from "react";
-import TuneIcon from '@mui/icons-material/Tune';
 import {AnchorElType} from "../../../common/components/CustomPopover/CustomPopover";
-import {DisplayPopover} from "../../../common/components/DisplayPopover/DisplayPopover";
-import {GeneralIconButton} from "../../../common/components/GeneralIconButton/GeneralIconButton";
-import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 import {TodolistFilterType} from "../../Todolists/todolists.types";
+import Box from "@mui/material/Box";
+import {DisplayPopover} from "../../../common/components/DisplayPopover/DisplayPopover";
+import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
+import {FilterIcon} from "../../../common/components/Icons/FilterIcon";
 
 type Props = {
     valueTodoFilter: TodolistFilterType
@@ -12,7 +12,10 @@ type Props = {
 }
 
 export const FilterTasks: FC<Props> = (props) => {
-    const {valueTodoFilter, changeTodolistsFilterHandler} = props
+    const {
+        valueTodoFilter,
+        changeTodolistsFilterHandler,
+    } = props
 
     const [openDisplay, setOpenDisplay] = React.useState<AnchorElType>(null);
 
@@ -22,20 +25,22 @@ export const FilterTasks: FC<Props> = (props) => {
     };
 
     return (
-        <>
-            <GeneralIconButton
-                primary={MSG_BTN.DISPLAY}
-                disableRipple={true}
-                textStyles={{marginLeft: '5px'}}
-                childrenIconFirstPosition={<TuneIcon/>}
+        <Box sx={{marginBottom: '24px'}}>
+            <CustomIconButton
+                disableRipple={false}
+                sx={{}}
                 onClick={handleOpenDisplay}
-            />
+            >
+                <FilterIcon styles={openDisplay ? {backgroundColor: '#EFE3FF', borderRadius: '2px',} : {}}/>
+            </CustomIconButton>
             <DisplayPopover
                 openDisplay={openDisplay}
                 valueTodoFilter={valueTodoFilter}
+                transformMoreHoriz={'translate(87%, 28%)'}
+                transformPopover={'translate(-80%, -25%)'}
                 handleCloseDisplay={handleCloseDisplay}
                 changeTodolistsFilterHandler={changeTodolistsFilterHandler}
             />
-        </>
+        </Box>
     )
 }

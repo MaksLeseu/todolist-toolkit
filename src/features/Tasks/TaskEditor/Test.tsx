@@ -1,16 +1,19 @@
 import React, {ChangeEvent, FC, useEffect, useState} from "react";
 import s from './Task.module.css'
-import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
-import {tasksThunk} from "./tasks.slice";
-import {TasksType} from "./tasks.types";
-import {TaskStatuses} from "../../common/utils/enums";
+import {PreviewCompletedTask} from "../PreviewCompletedTask/PreviewCompletedTask";
+import {TaskRedactor} from "../../../common/components/TaskRedactor/TaskRedactor";
+import {CustomButtonGroup} from "../../../common/components/CustomButtonGroup/CustomButtonGroup";
+import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
+import {TaskEditor} from "./TaskEditor";
 import {Dayjs} from "dayjs";
-import {Nullable} from "../../common/utils/types/optional.types";
-import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
-import Box from "@mui/material/Box";
-import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
-import {MoreHorizIcon} from "../../common/components/Icons/MoreHorizIcon";
-import {CustomIconButton} from "../../common/components/CustomIconButton/CustomIconButton";
+import {SettingsTask} from "../SettingsTask";
+import {TasksType} from "../tasks.types";
+import {useAppDispatch} from "../../../common/utils/hooks/useAppDispatch";
+import {tasksThunk} from "../tasks.slice";
+import {CustomCheckbox} from "../../../common/components/CustomCheckbox/CustomCheckbox";
+import {TaskStatuses} from "../../../common/utils/enums";
+import {Nullable} from "../../../common/utils/types/optional.types";
+
 
 type Props = {
     taskId: string
@@ -38,7 +41,7 @@ export type UpdateTaskParamsType = {
     closeTaskRedactor: () => void
 }
 
-export const Task: FC<Props> = (props) => {
+export const Test: FC<Props> = (props) => {
     const {
         taskId,
         taskTitle,
@@ -164,15 +167,8 @@ export const Task: FC<Props> = (props) => {
         resetAllValues()
     }
 
-    const [isOpenMoreHoriz, setIsOpenMoreHoriz] = useState<HTMLButtonElement | null>(null)
-    const closeMoreHoriz = () => setIsOpenMoreHoriz(null)
-    const openMoreHoriz = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setIsOpenMoreHoriz(event.currentTarget)
-        event.preventDefault()
-    }
-
     return (
-        <div key={taskId} className={/*taskStatusCompleted ? s.taskCompleted : */s.task}>
+        <div key={taskId} className={taskStatusCompleted ? s.taskCompleted : s.task}>
             {
                 !isOpenTaskRedactor &&
                 <div className={s.container}
@@ -180,67 +176,79 @@ export const Task: FC<Props> = (props) => {
 
                     <div className={s.flexContainer}>
                         <div className={s.title}>
-                            <Box sx={{
-                                width: '34px',
-                                height: '34px',
-                                gridColumn: 1,
-                                alignSelf: 'center',
-                                position: 'relative',
-                            }}>
+                            <div>
                                 <CustomCheckbox
-                                    sx={{
-                                        width: '24px',
-                                        height: '24px',
-                                        position: 'absolute',
-                                        top: '13%',
-                                        left: '13%',
-                                        color: '#704ECC',
-                                        '&.Mui-checked': {
-                                            color: '#FF8811',
-                                        },
-                                    }}
-                                    disableRipple={true}
                                     checked={taskStatusCompleted}
                                     onChange={updateCheckbox}
                                 />
-                            </Box>
-                            <div>
-                                <div className={s.text}>{taskTitle}</div>
-                                {
-                                    taskDescription && /*taskStatusNew &&*/
-                                    <div className={s.description}>{taskDescription}</div>
-                                }
                             </div>
-                            <CustomIconButton
-                                disableRipple={false}
-                                sx={{
-                                    alignSelf: 'center',
-                                    width: '24px',
-                                    height: '24px',
-                                    objectFit: 'cover',
-                                    borderRadius: '2px',
-                                }}
-                                onClick={openMoreHoriz}
-                            >
-                                <Box sx={{
-                                    width: '24px',
-                                    height: '24px',
-                                    objectFit: 'cover'
-                                }}>
-                                    <MoreHorizIcon/>
-                                </Box>
-                            </CustomIconButton>
+                            <div className={s.text}>{taskTitle}</div>
                         </div>
+
+                        {/* <MoreHoriz
+                            taskId={taskId}
+                            taskTitle={taskTitle}
+                            removeTask={removeTask}
+                            openTaskRedactor={openTaskRedactor}
+                        />*/}
                     </div>
+                    {
+                        taskDescription && taskStatusNew &&
+                        <div className={s.description}>{taskDescription}</div>
+                    }
                 </div>
             }
-            <MoreHoriz
-                isOpen={isOpenMoreHoriz}
+            <TaskRedactor
+                taskRedactor={isOpenTaskRedactor}
+                valueTask={newTaskTitle}
+                valueDescription={newTaskDescription}
+                childrenGroupSettings={
+                    <div className={s.groupSettingsContainer}>
+                        <SettingsTask
+                            taskStartDate={taskStartDate}
+                            taskDeadline={taskDeadline}
+                            taskPriority={taskPriority}
+                            calenderStyles={{marginRight: '10px', width: '130px'}}
+                            genericSettingFunction={genericSettingFunction}
+                        />
+                    </div>
+                }
+                childrenButtons={
+                    <CustomButtonGroup
+                        firstButtonLabel={MSG_BTN.CANCEL}
+                        secondButtonLabel={MSG_BTN.SAVE}
+                        firstButtonOnClick={closeTaskRedactor}
+                        secondButtonOnClick={updateHandle}
+                    />
+                }
+                changeTitle={updateTitle}
+                changeSpecification={updateDescription}
+            />
+            <TaskEditor
                 taskId={taskId}
-                actionMoreHoriz={removeTask}
-                closeMoreHoriz={closeMoreHoriz}
+                todolistId={todolistId}
+                taskName={taskTitle}
+                taskStatus={taskStatus}
+                taskAddedDate={taskAddedDate}
+                taskDeadline={taskDeadline}
+                taskStartDate={taskStartDate}
+                taskPriority={taskPriority}
+                todolistTitle={todolistTitle}
+                description={taskDescription}
+                taskEditor={taskEditor}
+                closeTaskEditor={closeTaskEditor}
+                updateCheckbox={updateCheckbox}
+                updateTask={updateTask}
+            />
+            <PreviewCompletedTask
+                taskName={taskTitle}
+                taskStatus={taskStatus}
+                todolistTitle={todolistTitle}
+                description={taskDescription}
+                previewCompletedTask={previewCompletedTask}
+                updateCheckbox={updateCheckbox}
+                closePreviewCompletedTask={closePreviewCompletedTask}
             />
         </div>
     );
 }
-

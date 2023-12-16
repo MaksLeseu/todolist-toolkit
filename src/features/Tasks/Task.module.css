@@ -1,16 +1,18 @@
 .task {
     width: 100%;
-    border-bottom: 1px rgba(235, 236, 240, 1.00) solid;
-    transition: 0.5s;
+    height: 56px;
+    margin-bottom: 48px;
+    /*border-bottom: 1px rgba(235, 236, 240, 1.00) solid;
+    transition: 0.5s;*/
     cursor: pointer;
 }
 
-.task:hover {
+/*.task:hover {
     background-color: rgba(235, 236, 240, 1.00);
     box-shadow: 1px 1px 5px black;
     border-radius: 5px;
     transition: 0.5s;
-}
+}*/
 
 .taskCompleted {
     background-color: rgba(235, 236, 240, 1.00);
@@ -21,7 +23,7 @@
 }
 
 .container {
-    padding: 15px;
+    /*padding: 15px;*/
 }
 
 .flexContainer {
@@ -30,13 +32,19 @@
 }
 
 .title {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 50px 803px 24px;
+    height: 56px;
 }
 
 .text {
-    font-size: 16px;
-    font-weight: 500;
+    color: var(--main-text-color);
+    font-family: Roboto, sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    margin-bottom: 8px;
 }
 
 .empty {
@@ -46,8 +54,12 @@
 }
 
 .description {
-    font-size: 13px;
-    margin-left: 42px;
+    color: var(--main-text-color);
+    font-family: Roboto, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
     text-overflow: ellipsis;
     overflow: hidden;
     width: 280px;

@@ -1,61 +1,44 @@
-import React, {FC} from "react";
+import React, {FC, ReactNode} from "react";
 import {AnchorElType, CustomPopover} from "../../CustomPopover/CustomPopover";
-import {MSG_BTN} from "../../../utils/constans/app-messages.const";
-import {GeneralIconButton} from "../../GeneralIconButton/GeneralIconButton";
 import {TodolistFilterType} from "../../../../features/Todolists/todolists.types";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 type Props = {
     openTaskGrouping: AnchorElType
     valueTodoFilter: TodolistFilterType
+    transformPopover?: `translate(${string}%, ${string}%)`
+    children: ReactNode
+    sx?: any
     handleCloseTaskGrouping: () => void
     changeTodolistsFilterHandler: (filter: TodolistFilterType) => void
 }
 
 export const TaskGrouping: FC<Props> = (props) => {
-    const {openTaskGrouping, valueTodoFilter, handleCloseTaskGrouping, changeTodolistsFilterHandler} = props
-
-    const tasksFiltering = (filter: TodolistFilterType) => {
-        changeTodolistsFilterHandler(filter)
-        handleCloseTaskGrouping()
-    }
+    const {
+        openTaskGrouping,
+        valueTodoFilter,
+        transformPopover,
+        children,
+        sx,
+        handleCloseTaskGrouping,
+        changeTodolistsFilterHandler
+    } = props
 
     return (
         <CustomPopover
             anchorEl={openTaskGrouping}
-            listItemStyles={{p: '0'}}
-            anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
+            transformStyle={transformPopover ? transformPopover : 'translate(-0%, -2%)'}
+            listItemStyles={{
+                backgroundColor: '#EFE3FF',
+                width: '164px',
+                height: '100px',
+                borderRadius: '4px',
+                padding: '8px 13px 7px 9px',
+                boxShadow: '2px 2px 6px 0px rgba(0, 0, 0, 0.25), -2px -2px 6px 0px rgba(0, 0, 0, 0.25)',
+                ...sx,
             }}
             handleClosePopover={handleCloseTaskGrouping}
         >
-            <GeneralIconButton
-                size={'small'}
-                color={"default"}
-                disableRipple={true}
-                primary={MSG_BTN.ONLY_COMPLETED_TASKS}
-                childrenIconSecondPosition={valueTodoFilter === 'completed' && <ExpandMoreIcon color={'primary'}/>}
-                onClick={() => tasksFiltering('completed')}
-            />
-            <GeneralIconButton
-                size={'small'}
-                color={"default"}
-                disableRipple={true}
-                sx={{width: '100%'}}
-                primary={MSG_BTN.ONLY_ACTIVE_TASKS}
-                childrenIconSecondPosition={valueTodoFilter === 'active' && <ExpandMoreIcon color={'primary'}/>}
-                onClick={() => tasksFiltering('active')}
-            />
-            <GeneralIconButton
-                size={'small'}
-                color={"default"}
-                disableRipple={true}
-                sx={{width: '100%'}}
-                primary={MSG_BTN.ALL_TASKS}
-                childrenIconSecondPosition={valueTodoFilter === 'all' && <ExpandMoreIcon color={'primary'}/>}
-                onClick={() => tasksFiltering('all')}
-            />
+            {children}
         </CustomPopover>
     )
 }

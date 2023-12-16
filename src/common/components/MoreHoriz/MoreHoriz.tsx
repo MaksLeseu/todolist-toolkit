@@ -1,8 +1,5 @@
 import React, {ChangeEvent, FC, useEffect, useState} from "react";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import {AnchorElType, CustomPopover} from "../CustomPopover/CustomPopover";
-import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
-import {TaskPopover} from "../TaskPopover/TaskPopover";
+import {CustomPopover} from "../CustomPopover/CustomPopover";
 import Box from "@mui/material/Box";
 import {TriangleIcon} from "../Icons/TriangleIcon";
 import {CustomButton} from "../CustomButton/CustomButton";
@@ -15,8 +12,9 @@ import {useAppDispatch} from "../../utils/hooks/useAppDispatch";
 import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
 
 type Props = {
-    todoId: string
-    todoTitle: string
+    todoId?: string
+    taskId?: string
+    todoTitle?: string
     isOpen: any
     transformPopover?: string
     transformMoreHoriz?: string
@@ -30,44 +28,18 @@ type _Props = {
     removeTask: () => void
     openTaskRedactor: () => void
 }
-export const _MoreHoriz: FC<_Props> = (props) => {
-    const {taskId, taskTitle, removeTask, openTaskRedactor} = props
-
-    const [anchorEl, setAnchorEl] = React.useState<AnchorElType>(null);
-
-    const handleClosePopover = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation()
-        setAnchorEl(null);
-    };
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation()
-        setAnchorEl(event.currentTarget);
-    };
-
-    return (
-        <div>
-            <CustomIconButton
-                color={"inherit"}
-                size={'small'}
-                disableRipple={false}
-                onClick={handleClick}
-            >
-                <MoreHorizIcon/>
-            </CustomIconButton>
-            <TaskPopover
-                taskId={taskId}
-                taskTitle={taskTitle}
-                anchorEl={anchorEl}
-                removeTask={removeTask}
-                handleClosePopover={handleClosePopover}
-                openTaskRedactor={openTaskRedactor}
-            />
-        </div>
-    )
-}
 
 export const MoreHoriz: FC<Props> = (props) => {
-    const {isOpen, todoId, todoTitle, transformPopover, transformMoreHoriz, actionMoreHoriz, closeMoreHoriz} = props
+    const {
+        isOpen,
+        todoId,
+        todoTitle,
+        taskId,
+        transformPopover,
+        transformMoreHoriz,
+        actionMoreHoriz,
+        closeMoreHoriz
+    } = props
     const param = useParams()
     const dispatch = useAppDispatch()
 
@@ -75,7 +47,7 @@ export const MoreHoriz: FC<Props> = (props) => {
     const changeTodoName = (e: ChangeEvent<HTMLInputElement>): void => setTodoName(e.currentTarget.value)
 
     useEffect(() => {
-        setTodoName(todoTitle)
+        todoTitle && setTodoName(todoTitle)
     }, [todoTitle])
 
     const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
@@ -85,12 +57,12 @@ export const MoreHoriz: FC<Props> = (props) => {
     const [isOpenEdit, setIsOpenEdit] = useState<HTMLButtonElement | null>(null)
     const closeEdit = () => {
         setIsOpenEdit(null)
-        setTodoName(todoTitle)
+        todoTitle && setTodoName(todoTitle)
     }
     const openEdit = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenEdit(event.currentTarget)
 
     const changeTodo = () => {
-        if (todoName !== todoTitle) {
+        if (todoName !== todoTitle && todoId) {
             dispatch(todolistsThunk.updateTodolist({todolistId: todoId, title: todoName}))
                 .then(() => {
                     setIsOpenEdit(null)
@@ -98,103 +70,110 @@ export const MoreHoriz: FC<Props> = (props) => {
         }
     }
 
+    const returnPopover = () => (
+        <CustomPopover
+            anchorEl={isOpen}
+            transformStyle={transformPopover ? transformPopover : 'translate(-0%, -2%)'}
+            handleClosePopover={closeMoreHoriz}
+        >
+            <>
+                <Box sx={{
+                    transform: transformMoreHoriz ? transformMoreHoriz : 'translate(4%, 28%)',
+                }}>
+                    <TriangleIcon/>
+                </Box>
+                <Box sx={{
+                    backgroundColor: '#EFE3FF',
+                    width: '95px',
+                    height: '82px',
+                    borderRadius: '4px',
+                    padding: '12px 14px 13px 11px',
+                }}>
+                    <CustomButton
+                        label={'Edit'}
+                        variant={'text'}
+                        sx={{
+                            width: '65px',
+                            height: '24px',
+                            fontSize: '12px',
+                            fontStyle: 'normal',
+                            fontWeight: 400,
+                            lineHeight: '16px',
+                            color: 'secondary.main',
+                            padding: '4px 8px 4px 8px',
+                            margin: '0 auto'
+                        }}
+                        icon={<Box sx={{marginRight: '4px', marginTop: '4px'}}><EditIcon/></Box>}
+                        onClick={openEdit}
+                    />
+                    <Box sx={{
+                        width: '57px',
+                        height: '1px',
+                        backgroundColor: 'secondary.main',
+                        marginTop: '4px',
+                        marginBottom: '4px',
+
+                    }}></Box>
+                    <CustomButton
+                        label={'Delete'}
+                        variant={'text'}
+                        sx={{
+                            width: '70px',
+                            height: '24px',
+                            fontSize: '12px',
+                            fontStyle: 'normal',
+                            fontWeight: 400,
+                            lineHeight: '16px',
+                            color: 'secondary.main',
+                            padding: '4px 8px 4px 8px',
+                        }}
+                        icon={<Box sx={{marginRight: '4px', marginTop: '4px'}}><DeleteIcon/></Box>}
+                        onClick={openConformation}
+                    />
+                    <ConfirmationModalWindow
+                        isOpen={isOpenConformation}
+                        title={'Are you sure you want to delete this task?'}
+                        transformConfirmation={'translate(89%, 28%)'}
+                        transformPopover={'translate(-58.5%, -4%)'}
+                        titleStyles={{
+                            fontSize: '12px',
+                            color: 'common.black',
+                            fontWeight: 600,
+                            width: '142px',
+                            textAline: 'center'
+                        }}
+                        conformationStyles={{
+                            width: '203px',
+                            height: '129px'
+                        }}
+                        actionConfirmation={() => {
+                            const id = todoId ? todoId : taskId
+                            actionMoreHoriz(id)
+                            closeConformation()
+                        }}
+                        closeConfirmation={closeConformation}
+                    />
+                    {
+                        todoTitle &&
+                        <Edit
+                            isOpen={isOpenEdit}
+                            value={todoName}
+                            transformPopover={'translate(-58.5%, 23%)'}
+                            transformEdit={'translate(89%, 28%)'}
+                            actionEdit={changeTodo}
+                            closeEdit={closeEdit}
+                            onChange={changeTodoName}
+                        />
+                    }
+                </Box>
+            </>
+        </CustomPopover>
+    )
+
     return (
         <>
             {
-                param.todo === todoId &&
-                <CustomPopover
-                    anchorEl={isOpen}
-                    transformStyle={transformPopover ? transformPopover : 'translate(-0%, -2%)'}
-                    handleClosePopover={closeMoreHoriz}
-                >
-                    <>
-                        <Box sx={{
-                            transform: transformMoreHoriz ? transformMoreHoriz : 'translate(4%, 28%)',
-                        }}>
-                            <TriangleIcon/>
-                        </Box>
-                        <Box sx={{
-                            backgroundColor: '#EFE3FF',
-                            width: '95px',
-                            height: '82px',
-                            borderRadius: '4px',
-                            padding: '12px 14px 13px 11px',
-                        }}>
-                            <CustomButton
-                                label={'Edit'}
-                                variant={'text'}
-                                sx={{
-                                    width: '65px',
-                                    height: '24px',
-                                    fontSize: '12px',
-                                    fontStyle: 'normal',
-                                    fontWeight: 400,
-                                    lineHeight: '16px',
-                                    color: 'secondary.main',
-                                    padding: '4px 8px 4px 8px',
-                                    margin: '0 auto'
-                                }}
-                                icon={<Box sx={{marginRight: '4px', marginTop: '4px'}}><EditIcon/></Box>}
-                                onClick={openEdit}
-                            />
-                            <Box sx={{
-                                width: '57px',
-                                height: '1px',
-                                backgroundColor: 'secondary.main',
-                                marginTop: '4px',
-                                marginBottom: '4px',
-
-                            }}></Box>
-                            <CustomButton
-                                label={'Delete'}
-                                variant={'text'}
-                                sx={{
-                                    width: '70px',
-                                    height: '24px',
-                                    fontSize: '12px',
-                                    fontStyle: 'normal',
-                                    fontWeight: 400,
-                                    lineHeight: '16px',
-                                    color: 'secondary.main',
-                                    padding: '4px 8px 4px 8px',
-                                }}
-                                icon={<Box sx={{marginRight: '4px', marginTop: '4px'}}><DeleteIcon/></Box>}
-                                onClick={openConformation}
-                            />
-                            <ConfirmationModalWindow
-                                isOpen={isOpenConformation}
-                                title={'Are you sure you want to delete this task?'}
-                                transformConfirmation={'translate(89%, 28%)'}
-                                transformPopover={'translate(-58.5%, -4%)'}
-                                titleStyles={{
-                                    fontSize: '12px',
-                                    color: 'common.black',
-                                    fontWeight: 600,
-                                    width: '142px',
-                                    textAline: 'center'
-                                }}
-                                conformationStyles={{
-                                    width: '203px',
-                                    height: '129px'
-                                }}
-                                actionConfirmation={() => {
-                                    actionMoreHoriz(todoId)
-                                    closeConformation()
-                                }}
-                                closeConfirmation={closeConformation}
-                            />
-                            <Edit
-                                isOpen={isOpenEdit}
-                                value={todoName}
-                                transformPopover={'translate(-58.5%, 23%)'}
-                                transformEdit={'translate(89%, 28%)'}
-                                actionEdit={changeTodo}
-                                closeEdit={closeEdit}
-                                onChange={changeTodoName}
-                            />
-                        </Box>
-                    </>
-                </CustomPopover>
+                todoId ? param.todo === todoId && returnPopover() : returnPopover()
             }
         </>
     )

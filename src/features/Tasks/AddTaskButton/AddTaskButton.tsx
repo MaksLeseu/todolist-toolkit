@@ -1,6 +1,6 @@
 import React, {FC, MouseEventHandler} from "react";
-import AddIcon from '@mui/icons-material/Add';
-import {GeneralIconButton} from "../../../common/components/GeneralIconButton/GeneralIconButton";
+import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
+import {PlusIcon} from "../../../common/components/Icons/PlusIcon";
 
 type Props = {
     label: string
@@ -9,16 +9,28 @@ type Props = {
 
 export const AddTaskButton: FC<Props> = ({label, openFormAddTask}) => {
     return (
-        <GeneralIconButton
-            size={'small'}
-            color={"default"}
-            disableRipple={true}
-            primary={label}
-            textStyles={{marginLeft: '5px'}}
-            sx={{marginTop: '10px'}}
-            childrenIconFirstPosition={<AddIcon/>}
+        <CustomIconButton
+            disableRipple={false}
+            sx={{
+                width: '190px',
+                height: '50px',
+                borderRadius: '8px',
+                backgroundColor: '#FF8811',
+                color: 'common.white',
+                textAlign: 'center',
+                fontSize: '22px',
+                fontStyle: 'normal',
+                fontWeight: 700,
+                lineHeight: '24px',
+                '&:hover': {
+                    backgroundColor: 'secondary.main',
+                }
+            }}
             onClick={openFormAddTask}
-        />
+        >
+            Add a task
+            <PlusIcon/>
+        </CustomIconButton>
     )
 }
 

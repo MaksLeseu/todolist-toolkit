@@ -11,11 +11,6 @@ import {useAppDispatch} from "../../utils/hooks/useAppDispatch";
 import {TodoTaskCreationForm} from "./TodoTaskCreationForm/TodoTaskCreationForm";
 import {TaskSetItems} from "./TaskSetItems/TaskSetItems";
 import {BaseCalendar} from "../BaseCalendar/BaseCalendar";
-import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
-import ListItemText from "@mui/material/ListItemText";
 import {useOpenCloseCalendar} from "../../utils/hooks/useOpenCloseCalendar";
 import {Priority} from "../Priority/Priority";
 import {useOpenClosePriority} from "../../utils/hooks/useOpenClosePriority";
@@ -111,28 +106,6 @@ export const CreateTodo = () => {
             /*dispatch(tasksThunk.addTask())*/
         }
     }
-
-    const returnChildrenResetButton = (resetDate: () => void) =>
-        (
-            <CustomIconButton
-                disableRipple={true}
-                color={'inherit'}
-                onClick={resetDate}
-            >
-                <ListItemButton
-                    sx={{height: '30px', borderRadius: '3px'}}
-                >
-                    <ListItemIcon
-                        sx={{display: 'flex', alignItems: 'center'}}
-                    >
-                        <DoNotDisturbAltIcon/>
-                        <ListItemText
-                            sx={{color: 'black', marginLeft: '10px'}}
-                            primary={'Reset date.'}
-                        />
-                    </ListItemIcon>
-                </ListItemButton>
-            </CustomIconButton>);
 
     const labelPositions = todos.length > 0 ? `${s.banner} ${s.changeMargin}` : s.banner
     const labelPositionStyles = isOpenMenu ? `${s.banner} ${s.bannerPositionLeft}` : labelPositions
