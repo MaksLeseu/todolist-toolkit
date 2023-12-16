@@ -171,6 +171,11 @@ export const Task: FC<Props> = (props) => {
         event.preventDefault()
     }
 
+    const activeStylesButtonMoreHoriz: object | null = isOpenMoreHoriz ? {
+        backgroundColor: 'primary.main',
+        boxShadow: '1px 1px 2px 0px rgba(0, 0, 0, 0.25) inset, -1px -1px 2px 0px rgba(0, 0, 0, 0.25) inset',
+    } : null
+
     return (
         <div key={taskId} className={/*taskStatusCompleted ? s.taskCompleted : */s.task}>
             {
@@ -219,6 +224,7 @@ export const Task: FC<Props> = (props) => {
                                     height: '24px',
                                     objectFit: 'cover',
                                     borderRadius: '2px',
+                                    ...activeStylesButtonMoreHoriz,
                                 }}
                                 onClick={openMoreHoriz}
                             >
@@ -237,6 +243,7 @@ export const Task: FC<Props> = (props) => {
             <MoreHoriz
                 isOpen={isOpenMoreHoriz}
                 taskId={taskId}
+                transformPopover={'translate(0%, -15%)'}
                 actionMoreHoriz={removeTask}
                 closeMoreHoriz={closeMoreHoriz}
             />

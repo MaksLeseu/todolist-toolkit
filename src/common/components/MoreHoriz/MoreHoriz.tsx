@@ -22,12 +22,26 @@ type Props = {
     closeMoreHoriz: () => void
 }
 
-type _Props = {
-    taskId: string
-    taskTitle: string
-    removeTask: () => void
-    openTaskRedactor: () => void
+const buttonStyles = {
+    width: '70px',
+    height: '24px',
+    fontSize: '12px',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    lineHeight: '16px',
+    color: 'secondary.main',
+    padding: '4px 8px 4px 8px',
+    borderRadius: '2px',
+    '&:hover': {
+        backgroundColor: 'secondary.main',
+        color: 'primary.main',
+        '& svg path': {
+            fill: '#EFE3FF',
+        },
+    }
 }
+
+const activeButtonStyles = {}
 
 export const MoreHoriz: FC<Props> = (props) => {
     const {
@@ -70,6 +84,26 @@ export const MoreHoriz: FC<Props> = (props) => {
         }
     }
 
+    const setActiveStyles = (params: 'edit' | 'delete') => {
+        const activeStyles = {
+            backgroundColor: 'secondary.main',
+            color: 'primary.main',
+            '& svg path': {
+                fill: '#EFE3FF',
+            },
+        }
+
+        const methodForSetStyles = {
+            ['edit']: () => isOpenEdit ? activeStyles : null,
+            ['delete']: () => isOpenConformation ? activeStyles : null,
+        }
+
+        return methodForSetStyles[params]()
+    }
+
+    const activeStylesButtonEdit: object | null = setActiveStyles('edit')
+    const activeStylesButtonDelete: object | null = setActiveStyles('delete')
+
     const returnPopover = () => (
         <CustomPopover
             anchorEl={isOpen}
@@ -93,39 +127,28 @@ export const MoreHoriz: FC<Props> = (props) => {
                         label={'Edit'}
                         variant={'text'}
                         sx={{
-                            width: '65px',
-                            height: '24px',
-                            fontSize: '12px',
-                            fontStyle: 'normal',
-                            fontWeight: 400,
-                            lineHeight: '16px',
-                            color: 'secondary.main',
-                            padding: '4px 8px 4px 8px',
-                            margin: '0 auto'
+                            ...buttonStyles,
+                            margin: '0 auto',
                         }}
                         icon={<Box sx={{marginRight: '4px', marginTop: '4px'}}><EditIcon/></Box>}
                         onClick={openEdit}
                     />
-                    <Box sx={{
-                        width: '57px',
-                        height: '1px',
-                        backgroundColor: 'secondary.main',
-                        marginTop: '4px',
-                        marginBottom: '4px',
+                    {
+                        <Box sx={{
+                            width: '65px',
+                            height: '1px',
+                            backgroundColor: 'secondary.main',
+                            marginTop: '4px',
+                            marginBottom: '4px',
 
-                    }}></Box>
+                        }}></Box>
+                    }
                     <CustomButton
                         label={'Delete'}
                         variant={'text'}
                         sx={{
-                            width: '70px',
-                            height: '24px',
-                            fontSize: '12px',
-                            fontStyle: 'normal',
-                            fontWeight: 400,
-                            lineHeight: '16px',
-                            color: 'secondary.main',
-                            padding: '4px 8px 4px 8px',
+                            ...buttonStyles,
+                            ...activeStylesButtonDelete,
                         }}
                         icon={<Box sx={{marginRight: '4px', marginTop: '4px'}}><DeleteIcon/></Box>}
                         onClick={openConformation}

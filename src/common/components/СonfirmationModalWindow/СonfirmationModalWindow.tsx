@@ -17,6 +17,24 @@ type Props = {
     closeConfirmation: MouseEventHandler | undefined
 }
 
+const buttonStyles = {
+    width: '68px',
+    height: '24px',
+    borderRadius: '2px',
+    fontSize: '12px',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    lineHeight: '16px',
+    color: 'secondary.main',
+    padding: 0,
+    display: 'block',
+    margin: '0 auto',
+    '&:hover': {
+        backgroundColor: 'secondary.main',
+        color: 'primary.main',
+    }
+}
+
 export const ConfirmationModalWindow: FC<Props> = (props) => {
     const {
         isOpen,
@@ -65,35 +83,16 @@ export const ConfirmationModalWindow: FC<Props> = (props) => {
                         label={'Yes, sure'}
                         variant={'text'}
                         sx={{
-                            width: '68px',
-                            height: '24px',
-                            borderRadius: '2px',
-                            fontSize: '12px',
-                            fontStyle: 'normal',
-                            fontWeight: 400,
-                            lineHeight: '16px',
-                            color: 'secondary.main',
-                            padding: 0,
-                            display: 'block',
+                            ...buttonStyles,
                             margin: '0 auto 6px auto'
                         }}
                         onClick={actionConfirmation}
                     />
                     <CustomButton
-                        label={'No'}
+                        label={'Cancel'}
                         variant={'text'}
                         sx={{
-                            width: '68px',
-                            height: '24px',
-                            borderRadius: '2px',
-                            fontSize: '12px',
-                            fontStyle: 'normal',
-                            fontWeight: 400,
-                            lineHeight: '16px',
-                            color: 'secondary.main',
-                            display: 'block',
-                            margin: '0 auto',
-                            padding: 0,
+                            ...buttonStyles,
                         }}
                         onClick={closeConfirmation}
                     />
