@@ -1,7 +1,18 @@
+.todolistContainer {
+    width: 877px;
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: center;
+}
+
+.todolistContainerActive {
+    grid-template-columns: 100% 0%;
+}
+
 .todolist {
     display: flex;
     flex-direction: column;
-    width: 877px;
+    width: 100%;
 }
 
 .title {
@@ -11,8 +22,12 @@
     font-weight: 700;
     line-height: 54px;
     margin: 0 0 42px 0;
-    display: flex;
-    justify-content: center;
+    justify-self: center;
+}
+
+.titleActive {
+    margin: 0 0 40px 0;
+    justify-self: start;
 }
 
 .titleContainer h2 {
@@ -21,9 +36,36 @@
     font-size: 16px;
 }
 
-.headerContainer {
-    display: flex;
-    justify-content: end;
+.filterTaskContainer {
+    justify-self: end;
+}
+
+.filterTaskContainerActive {
+    margin-top: 10px;
+}
+
+@media (max-width: 1330px) {
+    .todolistContainer {
+        width: 482px;
+    }
+}
+
+@media (max-width: 950px) {
+    .todolistContainer {
+        width: 682px;
+    }
+}
+
+@media (max-width: 730px) {
+    .todolistContainer {
+        width: 482px;
+    }
+}
+
+@media (max-width: 550px) {
+    .todolistContainer {
+        width: 350px;
+    }
 }
 
 

@@ -16,6 +16,9 @@ import {useActions} from "../../../common/utils/hooks/useActions";
 import {todolistsActions} from "../todolists.slice";
 import {Dayjs} from "dayjs";
 import {Nullable} from "../../../common/utils/types/optional.types";
+import {isOpenMenuSelector} from "../../../app/app.selector";
+import {Main} from '../../../common/utils/functions/dynamicSetMarginForContentPart/dynamicSetMarginForContentPart'
+import {useMediaQuery} from "@mui/material";
 
 type Props = {
     todolistId: string
@@ -35,6 +38,7 @@ export const Todolist: FC<Props> = (props) => {
     const {todolistId, todolistTitle, todolist} = props
 
     const dispatch = useAppDispatch()
+    const isOpenMenu = useAppSelector(isOpenMenuSelector)
 
     useEffect(() => {
         dispatch(tasksThunk.fetchTasks({todolistId}))
@@ -115,46 +119,57 @@ export const Todolist: FC<Props> = (props) => {
 
     const addTaskHandle = () => addTask({title: taskName, description, startDate, deadline, priority})
 
+    const matches1520 = useMediaQuery('(max-width:1520px)');
+    const matches1420 = useMediaQuery('(max-width:1420px)');
+
+    const maxWidth1520 = isOpenMenu && matches1520 ? 120 : 20
+    const maxWidth1420 = isOpenMenu && matches1420 ? 220 : maxWidth1520
+    const marginLeft = maxWidth1520 && maxWidth1420
+
     if (task === undefined) return <Preloader/>
 
     return (
-        <div>
-            <h2 className={s.title}>{todolistTitle}</h2>
-            <div className={s.headerContainer}>
-                <FilterTasks
-                    valueTodoFilter={todolist.filter}
-                    changeTodolistsFilterHandler={changeTodolistsFilterHandler}
-                />
-            </div>
-            <div className={s.todolist}>
+        <Main open={isOpenMenu} drawerWidth={'0px'} marginLeft={marginLeft}
+              sx={{display: 'grid', justifyContent: 'center'}}>
+            <div className={isOpenMenu ? `${s.todolistContainer} ${s.todolistContainerActive}` : s.todolistContainer}>
+                <h2 className={isOpenMenu ? `${s.title} ${s.titleActive}` : s.title}>{todolistTitle}</h2>
+                <div
+                    className={isOpenMenu ? `${s.filterTaskContainer} ${s.filterTaskContainerActive}` : s.filterTaskContainer}>
+                    <FilterTasks
+                        valueTodoFilter={todolist.filter}
+                        changeTodolistsFilterHandler={changeTodolistsFilterHandler}
+                    />
+                </div>
 
-                <Tasks
-                    todolistId={todolistId}
-                    todolistTitle={todolistTitle}
-                    todolist={todolist}
-                    visibleLiner={visibleLiner}
-                    setVisibleLiner={setVisibleLiner}
-                />
+                <div className={s.todolist}>
+                    <Tasks
+                        todolistId={todolistId}
+                        todolistTitle={todolistTitle}
+                        todolist={todolist}
+                        visibleLiner={visibleLiner}
+                        setVisibleLiner={setVisibleLiner}
+                    />
 
-                {
-                    formAddTask
-                        ?
-                        <FormAddTask
-                            taskName={taskName}
-                            description={description}
-                            closeFormAddTask={closeFormAddTask}
-                            changeTaskName={changeTaskName}
-                            changeDescription={changeDescription}
-                            addTask={addTaskHandle}
-                            genericSettingFunction={genericSettingFunction}
-                        />
-                        :
-                        <AddTaskButton
-                            label={MSG_BTN.ADD_A_TASK}
-                            openFormAddTask={openFormAddTask}
-                        />
-                }
+                    {
+                        formAddTask
+                            ?
+                            <FormAddTask
+                                taskName={taskName}
+                                description={description}
+                                closeFormAddTask={closeFormAddTask}
+                                changeTaskName={changeTaskName}
+                                changeDescription={changeDescription}
+                                addTask={addTaskHandle}
+                                genericSettingFunction={genericSettingFunction}
+                            />
+                            :
+                            <AddTaskButton
+                                label={MSG_BTN.ADD_A_TASK}
+                                openFormAddTask={openFormAddTask}
+                            />
+                    }
+                </div>
             </div>
-        </div>
+        </Main>
     )
 }

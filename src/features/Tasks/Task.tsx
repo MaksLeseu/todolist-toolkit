@@ -184,59 +184,57 @@ export const Task: FC<Props> = (props) => {
                      onClick={taskStatusCompleted ? openPreviewCompletedTask : openTaskEditor}>
 
                     <div className={s.flexContainer}>
-                        <div className={s.title}>
-                            <Box sx={{
-                                width: '34px',
-                                height: '34px',
-                                gridColumn: 1,
-                                alignSelf: 'center',
-                                position: 'relative',
-                            }}>
-                                <CustomCheckbox
-                                    sx={{
-                                        width: '24px',
-                                        height: '24px',
-                                        position: 'absolute',
-                                        top: '13%',
-                                        left: '13%',
-                                        color: '#704ECC',
-                                        '&.Mui-checked': {
-                                            color: '#FF8811',
-                                        },
-                                    }}
-                                    disableRipple={true}
-                                    checked={taskStatusCompleted}
-                                    onChange={updateCheckbox}
-                                />
-                            </Box>
-                            <div>
-                                <div className={s.text}>{taskTitle}</div>
-                                {
-                                    taskDescription && /*taskStatusNew &&*/
-                                    <div className={s.description}>{taskDescription}</div>
-                                }
-                            </div>
-                            <CustomIconButton
-                                disableRipple={false}
+                        <Box sx={{
+                            width: '34px',
+                            height: '34px',
+                            gridColumn: 1,
+                            alignSelf: 'center',
+                            position: 'relative',
+                        }}>
+                            <CustomCheckbox
                                 sx={{
-                                    alignSelf: 'center',
                                     width: '24px',
                                     height: '24px',
-                                    objectFit: 'cover',
-                                    borderRadius: '2px',
-                                    ...activeStylesButtonMoreHoriz,
+                                    position: 'absolute',
+                                    top: '13%',
+                                    left: '13%',
+                                    color: '#704ECC',
+                                    '&.Mui-checked': {
+                                        color: '#FF8811',
+                                    },
                                 }}
-                                onClick={openMoreHoriz}
-                            >
-                                <Box sx={{
-                                    width: '24px',
-                                    height: '24px',
-                                    objectFit: 'cover'
-                                }}>
-                                    <MoreHorizIcon/>
-                                </Box>
-                            </CustomIconButton>
+                                disableRipple={true}
+                                checked={taskStatusCompleted}
+                                onChange={updateCheckbox}
+                            />
+                        </Box>
+                        <div>
+                            <div className={s.text}>{taskTitle}</div>
+                            {
+                                taskDescription && /*taskStatusNew &&*/
+                                <div className={s.description}>{taskDescription}</div>
+                            }
                         </div>
+                        <CustomIconButton
+                            disableRipple={false}
+                            sx={{
+                                alignSelf: 'center',
+                                width: '24px',
+                                height: '24px',
+                                objectFit: 'cover',
+                                borderRadius: '2px',
+                                ...activeStylesButtonMoreHoriz,
+                            }}
+                            onClick={openMoreHoriz}
+                        >
+                            <Box sx={{
+                                width: '24px',
+                                height: '24px',
+                                objectFit: 'cover'
+                            }}>
+                                <MoreHorizIcon/>
+                            </Box>
+                        </CustomIconButton>
                     </div>
                 </div>
             }

@@ -128,6 +128,7 @@ export const MoreHoriz: FC<Props> = (props) => {
                         variant={'text'}
                         sx={{
                             ...buttonStyles,
+                            ...activeStylesButtonEdit,
                             margin: '0 auto',
                         }}
                         icon={<Box sx={{marginRight: '4px', marginTop: '4px'}}><EditIcon/></Box>}

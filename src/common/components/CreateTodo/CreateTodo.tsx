@@ -110,8 +110,9 @@ export const CreateTodo = () => {
     const labelPositions = todos.length > 0 ? `${s.banner} ${s.changeMargin}` : s.banner
     const labelPositionStyles = isOpenMenu ? `${s.banner} ${s.bannerPositionLeft}` : labelPositions
 
+    /*130*/
     return (
-        <Main open={isOpenMenu} marginLeft={130}>
+        <Main open={isOpenMenu} drawerWidth={'0px'} marginLeft={200}>
             <Box
                 sx={{
                     marginTop: '30px',

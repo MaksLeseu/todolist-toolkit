@@ -44,7 +44,7 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
         componentName === 'todo' && filterTodos()
 
     return (
-        <Main open={isOpenMenu}>
+        <Main open={isOpenMenu} drawerWidth={'0px'} marginLeft={200}>
             <div className={s.todolists}>
                 {
                     onClickLink ? null
