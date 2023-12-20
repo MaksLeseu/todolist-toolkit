@@ -121,20 +121,24 @@ export const Todolist: FC<Props> = (props) => {
 
     const matches1520 = useMediaQuery('(max-width:1520px)');
     const matches1420 = useMediaQuery('(max-width:1420px)');
+    const matches1180 = useMediaQuery('(max-width:1180px)');
+    const matches800 = useMediaQuery('(max-width:800px)');
 
     const maxWidth1520 = isOpenMenu && matches1520 ? 120 : 20
     const maxWidth1420 = isOpenMenu && matches1420 ? 220 : maxWidth1520
-    const marginLeft = maxWidth1520 && maxWidth1420
+    const maxWidth1180 = isOpenMenu && matches1180 ? 80 : maxWidth1420
+    const maxWidth800 = isOpenMenu && matches800 ? 0 : maxWidth1180
+    const marginLeft = maxWidth1520 && maxWidth1420 && maxWidth1180 && maxWidth800
 
     if (task === undefined) return <Preloader/>
 
     return (
         <Main open={isOpenMenu} drawerWidth={'0px'} marginLeft={marginLeft}
               sx={{display: 'grid', justifyContent: 'center'}}>
-            <div className={isOpenMenu ? `${s.todolistContainer} ${s.todolistContainerActive}` : s.todolistContainer}>
+            <div className={isOpenMenu ? `${s.todolistContainerActive}` : s.todolistContainer}>
                 <h2 className={isOpenMenu ? `${s.title} ${s.titleActive}` : s.title}>{todolistTitle}</h2>
                 <div
-                    className={isOpenMenu ? `${s.filterTaskContainer} ${s.filterTaskContainerActive}` : s.filterTaskContainer}>
+                    className={isOpenMenu ? `${s.filterTaskContainerActive}` : s.filterTaskContainer}>
                     <FilterTasks
                         valueTodoFilter={todolist.filter}
                         changeTodolistsFilterHandler={changeTodolistsFilterHandler}

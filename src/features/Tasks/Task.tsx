@@ -11,6 +11,8 @@ import Box from "@mui/material/Box";
 import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
 import {MoreHorizIcon} from "../../common/components/Icons/MoreHorizIcon";
 import {CustomIconButton} from "../../common/components/CustomIconButton/CustomIconButton";
+import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
+import {isOpenMenuSelector} from "../../app/app.selector";
 
 type Props = {
     taskId: string
@@ -57,6 +59,7 @@ export const Task: FC<Props> = (props) => {
     const taskStatusCompleted = taskStatus === TaskStatuses.Completed
 
     const dispatch = useAppDispatch()
+    const isOpenMenu = useAppSelector(isOpenMenuSelector)
 
     const [taskEditor, setTaskEditor] = useState<boolean>(false)
     const [previewCompletedTask, setPreviewCompletedTask] = useState<boolean>(false)
@@ -183,7 +186,7 @@ export const Task: FC<Props> = (props) => {
                 <div className={s.container}
                      onClick={taskStatusCompleted ? openPreviewCompletedTask : openTaskEditor}>
 
-                    <div className={s.flexContainer}>
+                    <div className={isOpenMenu ? s.flexContainerActive : s.flexContainer}>
                         <Box sx={{
                             width: '34px',
                             height: '34px',

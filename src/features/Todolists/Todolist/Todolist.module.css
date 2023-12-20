@@ -6,7 +6,10 @@
 }
 
 .todolistContainerActive {
-    grid-template-columns: 100% 0%;
+    width: 877px;
+    display: grid;
+    grid-template-columns: 96% 4%;
+    justify-items: center;
 }
 
 .todolist {
@@ -44,9 +47,27 @@
     margin-top: 10px;
 }
 
+@media (max-width: 1370px) {
+    .todolistContainerActive {
+        width: 850px;
+    }
+}
+
 @media (max-width: 1330px) {
-    .todolistContainer {
-        width: 482px;
+    .todolistContainerActive {
+        width: 677px;
+    }
+}
+
+@media (max-width: 1130px) {
+    .todolistContainerActive {
+        width: 577px;
+    }
+}
+
+@media (max-width: 1120px) {
+    .todolistContainerActive {
+        width: 477px;
     }
 }
 
@@ -60,11 +81,19 @@
     .todolistContainer {
         width: 482px;
     }
+
+    .todolistContainerActive {
+        width: 400px;
+    }
 }
 
 @media (max-width: 550px) {
     .todolistContainer {
         width: 350px;
+    }
+
+    .todolistContainerActive {
+        width: 330px;
     }
 }
 
