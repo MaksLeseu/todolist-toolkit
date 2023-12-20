@@ -52,17 +52,40 @@ export const Todolist: FC<Props> = (props) => {
     const changeTodolistsFilterHandler = (filter: TodolistFilterType) =>
         changeTodolistFilter({id: todolistId, filter})
 
-    const [taskName, setTaskName] = useState<string>('')
-    const [description, setDescription] = useState<string>('')
+    /*const [taskName, setTaskName] = useState<string>('')
+    const [description, setDescription] = useState<string>('')*/
+
+    const [taskText, setTaskText] = useState<{ taskName: string, description: string }>({
+        taskName: '',
+        description: '',
+    })
+
     const [formAddTask, setFormAddTask] = useState<boolean>(false)
     const [visibleLiner, setVisibleLiner] = useState<boolean>(false)
 
-    const [deadline, setDeadline] = useState<Nullable<Dayjs>>(null)
-    const [startDate, setStartDate] = useState<Nullable<Dayjs>>(null)
+    /*const [deadline, setDeadline] = useState<Nullable<Dayjs>>(null)
+    const [startDate, setStartDate] = useState<Nullable<Dayjs>>(null)*/
     const [priority, setPriority] = useState<number>(1)
 
-    const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => setTaskName(e.currentTarget.value)
-    const changeDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.currentTarget.value)
+    const [date, setDate] = useState<{ deadline: Nullable<Dayjs>, startDate: Nullable<Dayjs> }>({
+        startDate: null,
+        deadline: null,
+    })
+
+    const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => {
+        /*setTaskName(e.currentTarget.value)*/
+        setTaskText({
+            ...taskText,
+            taskName: e.currentTarget.value,
+        })
+    }
+    const changeDescription = (e: ChangeEvent<HTMLInputElement>) => {
+        /*setDescription(e.currentTarget.value)*/
+        setTaskText({
+            ...taskText,
+            description: e.currentTarget.value,
+        })
+    }
 
     const openFormAddTask = () => setFormAddTask(true);
 
@@ -72,12 +95,26 @@ export const Todolist: FC<Props> = (props) => {
     }
 
     const clearingStateTaskNameAndDescription = () => {
-        setTaskName('')
-        description && setDescription('')
+        /*setTaskName('')
+        description && setDescription('')*/
+        setTaskText({
+            taskName: '',
+            description: '',
+        })
     }
 
-    const handleSettingDeadline = (deadline: Nullable<Dayjs>) => setDeadline(deadline)
-    const handleSettingStartDate = (startDate: Nullable<Dayjs>) => setStartDate(startDate)
+    const handleSettingDeadline = (deadline: Nullable<Dayjs>) => {
+        /*setDeadline(deadline)*/
+        setDate({
+            ...date, deadline
+        })
+    }
+    const handleSettingStartDate = (startDate: Nullable<Dayjs>) => {
+        /*setStartDate(startDate)*/
+        setDate({
+            ...date, startDate
+        })
+    }
     const handleSettingPriority = (priority: number) => setPriority(priority)
 
     const genericSettingFunction = (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => {
@@ -110,14 +147,22 @@ export const Todolist: FC<Props> = (props) => {
         }))
             .finally(() => {
                 setVisibleLiner(false)
-                setDeadline(null)
-                setStartDate(null)
+                setDate({
+                    startDate: null,
+                    deadline: null
+                })
                 setPriority(1)
             })
         closeFormAddTask()
     }
 
-    const addTaskHandle = () => addTask({title: taskName, description, startDate, deadline, priority})
+    const addTaskHandle = () => addTask({
+        title: taskText.taskName,
+        description: taskText.description,
+        startDate: date.startDate,
+        deadline: date.deadline,
+        priority
+    })
 
     const matches1520 = useMediaQuery('(max-width:1520px)');
     const matches1420 = useMediaQuery('(max-width:1420px)');
@@ -158,8 +203,8 @@ export const Todolist: FC<Props> = (props) => {
                         formAddTask
                             ?
                             <FormAddTask
-                                taskName={taskName}
-                                description={description}
+                                taskName={taskText.taskName}
+                                description={taskText.description}
                                 closeFormAddTask={closeFormAddTask}
                                 changeTaskName={changeTaskName}
                                 changeDescription={changeDescription}

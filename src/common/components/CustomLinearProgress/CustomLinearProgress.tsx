@@ -12,7 +12,7 @@ export const CustomLinearProgress: FC<Props> = (props) => {
         <>
             {
                 visible &&
-                <Box sx={{width: '100%'}}>
+                <Box sx={{width: '100%', marginBottom: '10px'}}>
                     <LinearProgress color={'inherit'}/>
                 </Box>
             }

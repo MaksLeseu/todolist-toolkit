@@ -40,6 +40,12 @@ export type UpdateTaskParamsType = {
     closeTaskRedactor: () => void
 }
 
+type OpenModalWindowsType = {
+    taskEditor: boolean
+    previewCompletedTask: boolean
+    taskRedactor: boolean
+}
+
 export const Task: FC<Props> = (props) => {
     const {
         taskId,
@@ -61,14 +67,50 @@ export const Task: FC<Props> = (props) => {
     const dispatch = useAppDispatch()
     const isOpenMenu = useAppSelector(isOpenMenuSelector)
 
-    const [taskEditor, setTaskEditor] = useState<boolean>(false)
-    const [previewCompletedTask, setPreviewCompletedTask] = useState<boolean>(false)
+    const [isOpen, setIsOpen] = useState<OpenModalWindowsType>({
+        taskEditor: false,
+        previewCompletedTask: false,
+        taskRedactor: false
+    })
 
-    const openTaskEditor = () => setTaskEditor(true)
-    const closeTaskEditor = () => setTaskEditor(false)
+    const openCloseWindows = (action: 'open' | 'close', params?: 'editor' | 'preview' | 'redactor') => {
+        if (action === 'close') {
+            setIsOpen({
+                taskEditor: false,
+                previewCompletedTask: false,
+                taskRedactor: false
+            })
+        } else if (action === 'open' && params) {
+            const methodForOpen = {
+                'editor': () => {
+                    setIsOpen({
+                        ...isOpen,
+                        taskEditor: true,
+                    })
+                },
+                'preview': () => {
+                    setIsOpen({
+                        ...isOpen,
+                        previewCompletedTask: true,
+                    })
+                },
+                'redactor': () => {
+                    setIsOpen({
+                        ...isOpen,
+                        taskRedactor: true,
+                    })
+                }
+            }
+            return methodForOpen[params]()
+        }
+    }
 
-    const openPreviewCompletedTask = () => setPreviewCompletedTask(true)
-    const closePreviewCompletedTask = () => setPreviewCompletedTask(false)
+    const [isOpenMoreHoriz, setIsOpenMoreHoriz] = useState<HTMLButtonElement | null>(null)
+    const closeMoreHoriz = () => setIsOpenMoreHoriz(null)
+    const openMoreHoriz = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setIsOpenMoreHoriz(event.currentTarget)
+        event.preventDefault()
+    }
 
     const removeTask = (taskId: string) => {
         setVisibleLiner(true)
@@ -84,10 +126,9 @@ export const Task: FC<Props> = (props) => {
             todolistId, taskId,
             domainModel: {status: newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New}
         }))
-            .then(() => closeTaskEditor())
+            .then(() => openCloseWindows('close'))
             .catch(() => console.log('Some mistake!'))
             .finally(() => setVisibleLiner(false))
-        closePreviewCompletedTask()
     }
 
     const updateTask = (params: UpdateTaskParamsType) => {
@@ -105,33 +146,56 @@ export const Task: FC<Props> = (props) => {
         params.closeTaskRedactor()
     }
 
-    const [isOpenTaskRedactor, setIsOpenTaskRedactor] = useState<boolean>(false)
-    const [newTaskTitle, setNewTaskTitle] = useState<string>(taskTitle)
-    const [newTaskDescription, setNewTaskDescription] = useState<string>(taskDescription)
+
+    const [taskText, setTaskText] = useState<{ newTaskTitle: string, newTaskDescription: string }>({
+        newTaskTitle: taskTitle,
+        newTaskDescription: taskDescription
+    })
 
     useEffect(() => {
-        setNewTaskTitle(taskTitle)
-        setNewTaskDescription(taskDescription)
+        setTaskText({
+            newTaskTitle: taskTitle,
+            newTaskDescription: taskDescription
+        })
     }, [taskTitle || taskDescription])
 
-    const updateTitle = (e: ChangeEvent<HTMLInputElement>) => setNewTaskTitle(e.currentTarget.value)
-    const updateDescription = (e: ChangeEvent<HTMLInputElement>) => setNewTaskDescription(e.currentTarget.value)
+    const updateTaskText = (params: 'title' | 'description', e: ChangeEvent<HTMLInputElement>) => {
+        const updateTextMethods = {
+            'title': () => {
+                setTaskText({
+                    ...taskText,
+                    newTaskTitle: e.currentTarget.value
+                })
+            },
+            'description': () => {
+                setTaskText({
+                    ...taskText,
+                    newTaskDescription: e.currentTarget.value
+                })
+            }
+        }
+        return updateTextMethods[params]()
+    }
 
-    const openTaskRedactor = () => setIsOpenTaskRedactor(true)
-    const closeTaskRedactor = () => setIsOpenTaskRedactor(false)
-
-
-    const [deadline, setDeadline] = useState<Nullable<Dayjs>>(null)
-    const [startDate, setStartDate] = useState<Nullable<Dayjs>>(null)
     const [priority, setPriority] = useState<Nullable<number>>(null)
+    const [date, setDate] = useState<{ deadline: Nullable<Dayjs>, startDate: Nullable<Dayjs> }>({
+        deadline: null,
+        startDate: null,
+    })
 
     const genericSettingFunction = (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => {
         const methodsForSettingValues = {
             'startDate': (startDate: Nullable<Dayjs> | number) => {
-                setStartDate(startDate as Nullable<Dayjs>)
+                setDate({
+                    ...date,
+                    startDate: startDate as Nullable<Dayjs>
+                })
             },
             'deadline': (deadline: Nullable<Dayjs> | number) => {
-                setDeadline(deadline as Nullable<Dayjs>)
+                setDate({
+                    ...date,
+                    deadline: deadline as Nullable<Dayjs>
+                })
             },
             'priority': (priority: number | Nullable<Dayjs>) => {
                 setPriority(priority as number)
@@ -141,37 +205,31 @@ export const Task: FC<Props> = (props) => {
     }
 
     const resetAllValues = () => {
-        setStartDate(null)
-        setDeadline(null)
+        setDate({
+            startDate: null, deadline: null
+        })
         setPriority(null)
     }
 
     const updateHandle = () => {
-        let finallyDeadline = deadline
-        let finallyStartDate = startDate
+        let finallyDeadline = date.deadline
+        let finallyStartDate = date.startDate
         let finallyPriority = priority
-        if (deadline === null) finallyDeadline = taskDeadline ? taskDeadline : deadline
-        if (startDate === null) finallyStartDate = taskStartDate ? taskStartDate : startDate
+        if (date.deadline === null) finallyDeadline = taskDeadline ? taskDeadline : date.deadline
+        if (date.startDate === null) finallyStartDate = taskStartDate ? taskStartDate : date.startDate
         if (finallyPriority === null) finallyPriority = taskPriority
 
         updateTask({
             taskId,
             todolistId,
-            title: newTaskTitle,
-            description: newTaskDescription,
+            title: taskText.newTaskTitle,
+            description: taskText.newTaskDescription,
             deadline: finallyDeadline,
             startDate: finallyStartDate,
             priority: finallyPriority,
-            closeTaskRedactor
+            closeTaskRedactor: () => openCloseWindows('close')
         })
         resetAllValues()
-    }
-
-    const [isOpenMoreHoriz, setIsOpenMoreHoriz] = useState<HTMLButtonElement | null>(null)
-    const closeMoreHoriz = () => setIsOpenMoreHoriz(null)
-    const openMoreHoriz = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setIsOpenMoreHoriz(event.currentTarget)
-        event.preventDefault()
     }
 
     const activeStylesButtonMoreHoriz: object | null = isOpenMoreHoriz ? {
@@ -182,9 +240,11 @@ export const Task: FC<Props> = (props) => {
     return (
         <div key={taskId} className={/*taskStatusCompleted ? s.taskCompleted : */s.task}>
             {
-                !isOpenTaskRedactor &&
+                !isOpen.taskRedactor &&
                 <div className={s.container}
-                     onClick={taskStatusCompleted ? openPreviewCompletedTask : openTaskEditor}>
+                     onClick={taskStatusCompleted ?
+                         () => openCloseWindows('open', 'preview') :
+                         () => openCloseWindows('open', 'editor')}>
 
                     <div className={isOpenMenu ? s.flexContainerActive : s.flexContainer}>
                         <Box sx={{
