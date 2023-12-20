@@ -1,6 +1,6 @@
 .startPage {
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     height: 550px;
 }
@@ -9,7 +9,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 190px;
 }
 
 .title {
