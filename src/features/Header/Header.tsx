@@ -87,7 +87,12 @@ export const Header: FC<Props> = (props) => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useSelector((state: AppRootStateType) => state.auth.isLoggedIn)
 
-    const handlerLogout = () => dispatch(authThunk.logout({}))
+    const handlerLogout = () => {
+        dispatch(authThunk.logout({}))
+            .then(() => {
+                changeDrawer('close')
+            })
+    }
 
     const changeDrawer = (type: 'open' | 'close') => {
         const obj = {

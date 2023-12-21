@@ -2,7 +2,6 @@ import React, {FC, useState} from "react";
 import {AnchorElType, CustomPopover} from "../CustomPopover/CustomPopover";
 import {MSG_BTN} from "../../utils/constans/app-messages.const";
 import {CustomButton} from "../CustomButton/CustomButton";
-import {Nullable} from "../../utils/types/optional.types";
 import Box from "@mui/material/Box";
 import {TriangleIcon} from "../Icons/TriangleIcon";
 import Divider from "@mui/material/Divider";
@@ -36,7 +35,7 @@ const buttonsStyles = {
 export const Priority: FC<Props> = (props) => {
     const {openPriority, closePriority, settingPriority} = props
 
-    const [priority, setPriority] = useState<Nullable<number>>(null)
+    const [priority, setPriority] = useState<number>(1)
 
     const setStyles = (priority: number) => {
         settingPriority(priority)
@@ -120,36 +119,6 @@ export const Priority: FC<Props> = (props) => {
                     onClick={() => setStyles(4)}
                 />
             </Box>
-            {/*<GeneralIconButton
-                disableRipple={true}
-                primary={MSG_BTN.LOW}
-                color={'primary'}
-                onClick={() => settingPriority(0)}
-            />
-            <GeneralIconButton
-                disableRipple={true}
-                primary={MSG_BTN.MIDDLE}
-                color={'primary'}
-                onClick={() => settingPriority(1)}
-            />
-            <GeneralIconButton
-                disableRipple={true}
-                primary={MSG_BTN.HIGH}
-                color={'primary'}
-                onClick={() => settingPriority(2)}
-            />
-            <GeneralIconButton
-                disableRipple={true}
-                primary={MSG_BTN.URGENTLY}
-                color={'primary'}
-                onClick={() => settingPriority(3)}
-            />
-            <GeneralIconButton
-                disableRipple={true}
-                primary={MSG_BTN.LATER}
-                color={'primary'}
-                onClick={() => settingPriority(4)}
-            />*/}
         </CustomPopover>
     )
 }
