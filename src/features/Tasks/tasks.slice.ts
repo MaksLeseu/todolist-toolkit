@@ -16,7 +16,8 @@ const slice = createSlice({
                 state[action.payload.todolistId] = action.payload.tasks
             })
             .addCase(addTask.fulfilled, (state, action) => {
-                state[action.payload.todolistId].unshift(action.payload.task)
+                const tasks = state[action.payload.todolistId]
+                if (tasks) tasks.unshift(action.payload.task)
             })
             .addCase(removeTask.fulfilled, (state, action) => {
                 const tasks: any = state[action.payload.todolistId]
@@ -51,7 +52,7 @@ export const fetchTasks = createAppAsyncThunk<{ tasks: TasksType[], todolistId: 
 export const addTask = createAppAsyncThunk<{ todolistId: string, task: TasksType },
     { todolistId: string, title: string, description: string, startDate: Dayjs | null, deadline: Dayjs | null, priority: number }>
 ('tasks/addTask', async (arg, thunkAPI) => {
-    const {rejectWithValue} = thunkAPI
+    const {rejectWithValue, dispatch} = thunkAPI
 
     try {
         const res = await tasksApi.createTask({

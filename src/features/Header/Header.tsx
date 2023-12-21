@@ -148,11 +148,11 @@ export const Header: FC<Props> = (props) => {
                             />
                         }
 
-                        <NavLink className={s.title} to={'/todolist-toolkit'}>
+                        <div className={s.title}>
                             {
                                 !isOpen && matches && 'Today'
                             }
-                        </NavLink>
+                        </div>
                         {
                             isLoggedIn && matches &&
                             <LogOutButton

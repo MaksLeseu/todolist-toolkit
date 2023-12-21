@@ -1,6 +1,5 @@
 import React, {FC} from "react";
 import {Navigate, NavLink, useParams} from "react-router-dom";
-import {HomePageTodos} from "./HomePageTodos/HomePageTodos";
 import {Todolist} from "./Todolist/Todolist";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {todolistsSelector} from "./todolists.selector";
@@ -34,51 +33,50 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
         }
     }
 
-    const returnTodosList = (): JSX.Element[] => todos.map(td => (
-        <NavLink to={`/todolist-toolkit/todo/${td.id}`} key={td.id} className={s.todo}>
-            <HomePageTodos key={td.id} todoTitle={td.title}/>
-        </NavLink>
-    ))
+    const returnInfoPage = () => {
+        return (
+            <div className={s.notSingleTask}>
+                <p className={s.notSingleTaskLabel}>sorry,</p>
+                <p className={s.notSingleTaskText}>you haven't created any tasks.</p>
+                <NavLink className={s.buttonCreateTodo} to={'/todolist-toolkit/todo/create-todo'}>
+                    <CustomButton
+                        color={'secondary'}
+                        label={'Create new one'}
+                        variant={'contained'}
+                        sx={{
+                            borderRadius: '8px',
+                            width: '255px',
+                            height: '56px',
+                            boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
+                            color: '#FFF',
+                            fontSize: '22px',
+                            fontWeight: 700,
+                            fontStyle: 'normal',
+                            lineHeight: '34px',
+                            marginBottom: '40px',
+                        }}
+                    />
+                </NavLink>
+                <div className={s.notSingleTaskImageContainer}>
+                    <QuestionIcon/>
+                </div>
+            </div>
+        )
+    }
 
-    const returnTodos = (componentName: string) =>
-        componentName === 'todo' && filterTodos()
+    const navigateToFirstTodo = () => {
+        const todo = todos[0]
+        return <Navigate to={`/todolist-toolkit/todo/${todo.id}`}/>
+    }
+
+    const test = todos.length > 0 ? navigateToFirstTodo() : returnInfoPage()
 
     return (
         <Main open={isOpenMenu} drawerWidth={'0px'} marginLeft={200}>
             <div className={s.todolists}>
-                {
-                    onClickLink ? null
-                        :
-                        <div className={s.notSingleTask}>
-                            <p className={s.notSingleTaskLabel}>sorry,</p>
-                            <p className={s.notSingleTaskText}>you haven't created any tasks.</p>
-                            <NavLink className={s.buttonCreateTodo} to={'/todolist-toolkit/todo/create-todo'}>
-                                <CustomButton
-                                    color={'secondary'}
-                                    label={'Create new one'}
-                                    variant={'contained'}
-                                    sx={{
-                                        borderRadius: '8px',
-                                        width: '255px',
-                                        height: '56px',
-                                        boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
-                                        color: '#FFF',
-                                        fontSize: '22px',
-                                        fontWeight: 700,
-                                        fontStyle: 'normal',
-                                        lineHeight: '34px',
-                                        marginBottom: '40px',
-                                    }}
-                                />
-                            </NavLink>
-                            <div className={s.notSingleTaskImageContainer}>
-                                <QuestionIcon/>
-                            </div>
-                        </div>
-                }
                 <div className={s.todosList}>
                     {
-                        onClickLink ? returnTodos('todo') : returnTodos('todoList')
+                        onClickLink ? filterTodos() : test
                     }
                 </div>
             </div>

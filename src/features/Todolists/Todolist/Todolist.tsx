@@ -52,9 +52,6 @@ export const Todolist: FC<Props> = (props) => {
     const changeTodolistsFilterHandler = (filter: TodolistFilterType) =>
         changeTodolistFilter({id: todolistId, filter})
 
-    /*const [taskName, setTaskName] = useState<string>('')
-    const [description, setDescription] = useState<string>('')*/
-
     const [taskText, setTaskText] = useState<{ taskName: string, description: string }>({
         taskName: '',
         description: '',
@@ -63,8 +60,6 @@ export const Todolist: FC<Props> = (props) => {
     const [formAddTask, setFormAddTask] = useState<boolean>(false)
     const [visibleLiner, setVisibleLiner] = useState<boolean>(false)
 
-    /*const [deadline, setDeadline] = useState<Nullable<Dayjs>>(null)
-    const [startDate, setStartDate] = useState<Nullable<Dayjs>>(null)*/
     const [priority, setPriority] = useState<number>(1)
 
     const [date, setDate] = useState<{ deadline: Nullable<Dayjs>, startDate: Nullable<Dayjs> }>({
@@ -73,14 +68,12 @@ export const Todolist: FC<Props> = (props) => {
     })
 
     const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => {
-        /*setTaskName(e.currentTarget.value)*/
         setTaskText({
             ...taskText,
             taskName: e.currentTarget.value,
         })
     }
     const changeDescription = (e: ChangeEvent<HTMLInputElement>) => {
-        /*setDescription(e.currentTarget.value)*/
         setTaskText({
             ...taskText,
             description: e.currentTarget.value,
@@ -95,8 +88,6 @@ export const Todolist: FC<Props> = (props) => {
     }
 
     const clearingStateTaskNameAndDescription = () => {
-        /*setTaskName('')
-        description && setDescription('')*/
         setTaskText({
             taskName: '',
             description: '',
@@ -104,13 +95,11 @@ export const Todolist: FC<Props> = (props) => {
     }
 
     const handleSettingDeadline = (deadline: Nullable<Dayjs>) => {
-        /*setDeadline(deadline)*/
         setDate({
             ...date, deadline
         })
     }
     const handleSettingStartDate = (startDate: Nullable<Dayjs>) => {
-        /*setStartDate(startDate)*/
         setDate({
             ...date, startDate
         })

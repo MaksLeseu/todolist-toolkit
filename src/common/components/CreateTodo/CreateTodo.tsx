@@ -14,13 +14,14 @@ import {BaseCalendar} from "../BaseCalendar/BaseCalendar";
 import {useOpenCloseCalendar} from "../../utils/hooks/useOpenCloseCalendar";
 import {Priority} from "../Priority/Priority";
 import {useOpenClosePriority} from "../../utils/hooks/useOpenClosePriority";
-import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
 import {useSettingDate} from "../../utils/hooks/useSettingDate";
 import {Nullable} from "../../utils/types/optional.types";
 import {Dayjs} from "dayjs";
 import {useSettingPriority} from "../../utils/hooks/useSettingPriority";
 import {Main} from '../../utils/functions/dynamicSetMarginForContentPart/dynamicSetMarginForContentPart'
 import {isOpenMenuSelector} from "../../../app/app.selector";
+import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
+import {tasksThunk} from "../../../features/Tasks/tasks.slice";
 
 type TitleType = {
     todoName: string
@@ -62,22 +63,19 @@ export const CreateTodo = () => {
         const object = {
             'todo': () => (
                 setTitle({
+                    ...title,
                     todoName: e.currentTarget.value,
-                    taskName: title.taskName,
-                    description: title.description,
                 })
             ),
             'task': () => (
                 setTitle({
-                    todoName: title.todoName,
+                    ...title,
                     taskName: e.currentTarget.value,
-                    description: title.description,
                 })
             ),
             'description': () => (
                 setTitle({
-                    todoName: title.todoName,
-                    taskName: title.taskName,
+                    ...title,
                     description: e.currentTarget.value,
                 })
             ),
@@ -88,29 +86,44 @@ export const CreateTodo = () => {
     const addTodo = () => {
         if (title.todoName.trim()) {
             dispatch(todolistsThunk.addTodolist({title: title.todoName}))
-                .then(() => {
-                    setTitle({
-                        todoName: '',
-                        taskName: title.taskName,
-                        description: title.description,
-                    })
-                    const todoId = todos[0].id
-
-                    return navigate(`/todolist-toolkit/todo/${todoId}`)
+                .then((res) => {
+                    if (res.payload) {
+                        const todoId = res.payload.todolist.id
+                        addTask(todoId)
+                    }
                 })
         }
     }
 
-    const addTask = () => {
+    const addTask = (todoId: string) => {
         if (title.taskName.trim()) {
-            /*dispatch(tasksThunk.addTask())*/
+            dispatch(tasksThunk.addTask({
+                todolistId: todoId,
+                title: title.taskName,
+                description: title.description,
+                startDate, deadline, priority,
+            }))
+                .finally(() => {
+                    setTitle({
+                        todoName: '',
+                        taskName: '',
+                        description: '',
+                    })
+                    return navigate(`/todolist-toolkit/todo/${todoId}`)
+                })
+        } else {
+            setTitle({
+                todoName: '',
+                taskName: '',
+                description: '',
+            })
+            return navigate(`/todolist-toolkit/todo/${todoId}`)
         }
     }
 
     const labelPositions = todos.length > 0 ? `${s.banner} ${s.changeMargin}` : s.banner
     const labelPositionStyles = isOpenMenu ? `${s.banner} ${s.bannerPositionLeft}` : labelPositions
 
-    /*130*/
     return (
         <Main open={isOpenMenu} drawerWidth={'0px'} marginLeft={200}>
             <Box

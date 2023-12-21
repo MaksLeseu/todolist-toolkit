@@ -1,11 +1,10 @@
 import {useState} from "react";
-import {Nullable} from "../types/optional.types";
 
 export const useSettingPriority = () => {
-    const [priority, setPriority] = useState<Nullable<number>>(null)
+    const [priority, setPriority] = useState<number>(1)
 
-    const settingPriority = (priority: Nullable<number>) => setPriority(priority)
-    const resetPriority = () => setPriority(null)
+    const settingPriority = (priority: number) => setPriority(priority)
+    const resetPriority = () => setPriority(1)
 
     return {priority, settingPriority, resetPriority}
 }
