@@ -13,6 +13,7 @@ import {MoreHorizIcon} from "../../common/components/Icons/MoreHorizIcon";
 import {CustomIconButton} from "../../common/components/CustomIconButton/CustomIconButton";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {isOpenMenuSelector} from "../../app/app.selector";
+import {useMediaQuery} from "@mui/material";
 
 type Props = {
     taskId: string
@@ -237,6 +238,8 @@ export const Task: FC<Props> = (props) => {
         boxShadow: '1px 1px 2px 0px rgba(0, 0, 0, 0.25) inset, -1px -1px 2px 0px rgba(0, 0, 0, 0.25) inset',
     } : null
 
+    const matches1030 = useMediaQuery('(max-width:1030px)');
+
     return (
         <div key={taskId} className={/*taskStatusCompleted ? s.taskCompleted : */s.task}>
             {
@@ -304,7 +307,8 @@ export const Task: FC<Props> = (props) => {
             <MoreHoriz
                 isOpen={isOpenMoreHoriz}
                 taskId={taskId}
-                transformPopover={'translate(0%, -15%)'}
+                transformPopover={matches1030 ? 'translate(-20%, -20%)' : 'translate(0%, -15%)'}
+                transformMoreHoriz={matches1030 ? 'translate(0%, 80%)' : 'translate(4%, 28%)'}
                 actionMoreHoriz={removeTask}
                 closeMoreHoriz={closeMoreHoriz}
             />

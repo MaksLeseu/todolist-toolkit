@@ -164,6 +164,8 @@ export const Todolist: FC<Props> = (props) => {
     const maxWidth800 = isOpenMenu && matches800 ? 0 : maxWidth1180
     const marginLeft = maxWidth1520 && maxWidth1420 && maxWidth1180 && maxWidth800
 
+    const matches1130 = useMediaQuery('(max-width:1130px)');
+
     if (task === undefined) return <Preloader/>
 
     return (
@@ -171,8 +173,7 @@ export const Todolist: FC<Props> = (props) => {
               sx={{display: 'grid', justifyContent: 'center'}}>
             <div className={isOpenMenu ? `${s.todolistContainerActive}` : s.todolistContainer}>
                 <h2 className={isOpenMenu ? `${s.title} ${s.titleActive}` : s.title}>{todolistTitle}</h2>
-                <div
-                    className={isOpenMenu ? `${s.filterTaskContainerActive}` : s.filterTaskContainer}>
+                <div className={isOpenMenu ? `${s.filterTaskContainerActive}` : s.filterTaskContainer}>
                     <FilterTasks
                         valueTodoFilter={todolist.filter}
                         changeTodolistsFilterHandler={changeTodolistsFilterHandler}

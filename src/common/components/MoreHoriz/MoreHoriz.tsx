@@ -10,6 +10,7 @@ import {Edit} from "../Edit/Edit";
 import {useParams} from "react-router-dom";
 import {useAppDispatch} from "../../utils/hooks/useAppDispatch";
 import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
+import {useMediaQuery} from "@mui/material";
 
 type Props = {
     todoId?: string
@@ -40,8 +41,6 @@ const buttonStyles = {
         },
     }
 }
-
-const activeButtonStyles = {}
 
 export const MoreHoriz: FC<Props> = (props) => {
     const {
@@ -104,6 +103,8 @@ export const MoreHoriz: FC<Props> = (props) => {
     const activeStylesButtonEdit: object | null = setActiveStyles('edit')
     const activeStylesButtonDelete: object | null = setActiveStyles('delete')
 
+    const matches1130 = useMediaQuery('(max-width:1130px)');
+
     const returnPopover = () => (
         <CustomPopover
             anchorEl={isOpen}
@@ -158,7 +159,7 @@ export const MoreHoriz: FC<Props> = (props) => {
                         isOpen={isOpenConformation}
                         title={'Are you sure you want to delete this task?'}
                         transformConfirmation={'translate(89%, 28%)'}
-                        transformPopover={'translate(-58.5%, -4%)'}
+                        transformPopover={matches1130 && taskId ? 'translate(-25%, -4%)' : 'translate(-58.5%, -4%)'}
                         titleStyles={{
                             fontSize: '12px',
                             color: 'common.black',

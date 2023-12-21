@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import {DisplayPopover} from "../../../common/components/DisplayPopover/DisplayPopover";
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 import {FilterIcon} from "../../../common/components/Icons/FilterIcon";
+import {useMediaQuery} from "@mui/material";
 
 type Props = {
     valueTodoFilter: TodolistFilterType
@@ -24,6 +25,8 @@ export const FilterTasks: FC<Props> = (props) => {
         setOpenDisplay(event.currentTarget);
     };
 
+    const matches1130 = useMediaQuery('(max-width:1130px)');
+
     return (
         <Box sx={{marginBottom: '24px'}}>
             <CustomIconButton
@@ -36,8 +39,8 @@ export const FilterTasks: FC<Props> = (props) => {
             <DisplayPopover
                 openDisplay={openDisplay}
                 valueTodoFilter={valueTodoFilter}
-                transformMoreHoriz={'translate(87%, 28%)'}
-                transformPopover={'translate(-80%, -25%)'}
+                transformMoreHoriz={matches1130 ? 'translate(0%, 80%)' : 'translate(87%, 28%)'}
+                transformPopover={matches1130 ? 'translate(-20%, -30%)' : 'translate(-80%, -25%)'}
                 handleCloseDisplay={handleCloseDisplay}
                 changeTodolistsFilterHandler={changeTodolistsFilterHandler}
             />

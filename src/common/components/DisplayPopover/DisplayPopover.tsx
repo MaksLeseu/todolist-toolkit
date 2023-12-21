@@ -10,6 +10,7 @@ import {MenuDownIcon} from "../Icons/MenuDownIcon";
 import {TaskGrouping} from "./TaskGrouping/TaskGrouping";
 import {MenuUpIcon} from "../Icons/MenuUpIcon";
 import {MSG_BTN} from "../../utils/constans/app-messages.const";
+import {useMediaQuery} from "@mui/material";
 
 type Props = {
     openDisplay: AnchorElType
@@ -154,6 +155,8 @@ export const DisplayPopover: FC<Props> = (props) => {
         openCloseWindow('close')
     }
 
+    const matches1130 = useMediaQuery('(max-width:1130px)');
+
     return (
         <CustomPopover
             anchorEl={openDisplay}
@@ -222,7 +225,7 @@ export const DisplayPopover: FC<Props> = (props) => {
                 <TaskGrouping
                     openTaskGrouping={isOpenWindow.grouping}
                     valueTodoFilter={valueTodoFilter}
-                    transformPopover={'translate(45%, 0%)'}
+                    transformPopover={matches1130 ? 'translate(-7%, 0%)' : 'translate(45%, 0%)'}
                     children={
                         <>
                             <CustomButton
@@ -263,7 +266,7 @@ export const DisplayPopover: FC<Props> = (props) => {
                 <TaskGrouping
                     openTaskGrouping={isOpenWindow.sorting}
                     valueTodoFilter={valueTodoFilter}
-                    transformPopover={'translate(45%, 0%)'}
+                    transformPopover={matches1130 ? 'translate(-7%, 0%)' : 'translate(45%, 0%)'}
                     sx={{width: '168px', height: '134px',}}
                     children={
                         <>
