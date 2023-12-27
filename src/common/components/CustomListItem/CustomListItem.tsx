@@ -16,7 +16,7 @@ export const CustomListItem: FC<Props> = (props) => {
     const {disablePadding, sx, children, titleTooltip} = props
 
     return (
-        <CustomTooltip title={titleTooltip}>
+        <CustomTooltip title={titleTooltip} bigTextWidth={false} notActiveBox={false}>
             <ListItem
                 disablePadding={disablePadding}
                 sx={sx}

@@ -1,30 +1,57 @@
-import React, {FC, ReactElement} from "react";
-import Tooltip from "@mui/material/Tooltip";
+import React, {FC, ReactElement, useState} from "react";
+import Box from "@mui/material/Box";
 
 type Props = {
     title: React.ReactNode
-    placement?:
-        | 'bottom-end'
-        | 'bottom-start'
-        | 'bottom'
-        | 'left-end'
-        | 'left-start'
-        | 'left'
-        | 'right-end'
-        | 'right-start'
-        | 'right'
-        | 'top-end'
-        | 'top-start'
-        | 'top'
+    bigTextWidth: boolean
+    notActiveBox: boolean
     children: ReactElement
 }
 
 export const CustomTooltip: FC<Props> = (props) => {
-    const {title, placement = 'right-start', children} = props
+    const {title, bigTextWidth, notActiveBox, children} = props
+
+    const [isOpenTooltip, setIsOpenTooltip] = useState<boolean>(false)
+    const openTooltip = () => setIsOpenTooltip(true)
+    const closeTooltip = () => setIsOpenTooltip(false)
 
     return (
-        <Tooltip title={title} placement={placement} arrow>
+        <Box
+            sx={{
+                position: 'relative',
+            }}
+            onMouseOver={openTooltip}
+            onMouseOut={closeTooltip}
+        >
             {children}
-        </Tooltip>
+            {
+                isOpenTooltip && bigTextWidth && notActiveBox &&
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: '75%',
+                        minWidth: '162px',
+                        minHeight: '40px',
+                        backgroundColor: '#EFE3FF',
+                        color: '#704ECC',
+                        fontSize: '18px',
+                        fontStyle: 'normal',
+                        fontWeight: 500,
+                        lineHeight: '28px',
+                        borderRadius: '2px',
+                        padding: '6px 14px 6px 13px',
+                        fontFamily: 'Roboto',
+                        zIndex: 100,
+                        textOverflow: 'ellipsis',
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        maxWidth: '240px',
+                        boxShadow: '2px 2px 6px 0px rgba(0, 0, 0, 0.25), -2px -2px 6px 0px rgba(0, 0, 0, 0.25)',
+                    }}
+                >
+                    {title}
+                </Box>
+            }
+        </Box>
     )
 }

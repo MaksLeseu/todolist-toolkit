@@ -21,6 +21,7 @@ import {NavLink, useParams} from "react-router-dom";
 import s from './BodyMenu.module.css'
 import {MoreHoriz} from "../../../common/components/MoreHoriz/MoreHoriz";
 import {todolistsThunk} from "../../Todolists/todolists.slice";
+import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTooltip";
 
 
 type Props = {
@@ -87,7 +88,7 @@ export const BodyMenu: FC<Props> = (props) => {
                 '@media (max-width: 800px)': {
                     '& .MuiDrawer-paper': {
                         width: 250,
-                        padding: '18px 18px 18px 45px',
+                        padding: '18px 18px 18px 18px',
                     }
                 },
             }}
@@ -138,58 +139,94 @@ export const BodyMenu: FC<Props> = (props) => {
             </Box>
             {
                 todos &&
-                <Box sx={{flexGrow: 1}}>
+                <Box sx={{
+                    flexGrow: 1, overflow: 'auto',
+                    '&::-webkit-scrollbar': {
+                        width: '10px',
+                        backgroundColor: '#704ECC',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                        height: '250px',
+                        backgroundColor: '#EFE3FF',
+                        borderRadius: '100px',
+                    }
+                }}>
                     {
                         todos.map((todo, index) => (
                                 <NavLink to={`/todolist-toolkit/todo/${todo.id}`} key={index}
                                          className={({isActive, isPending}) =>
-                                             isPending ? s.pending : isActive ? s.active : ""
+                                             isPending ? s.pending : isActive ? s.active : s.general
                                          }>
-                                    <CustomIconButton
-                                        disableRipple={false}
-                                        sx={{
-                                            width: '190px',
-                                            height: '52px',
-                                            borderRadius: '4px',
-                                            padding: '12px 8px 12px 8px',
-                                            color: param.todo === todo.id ? 'secondary.main' : 'common.white',
-                                            fontSize: '22px',
-                                            fontStyle: 'normal',
-                                            fontWeight: 500,
-                                            lineHeight: '28px',
-                                            marginBottom: '8px',
-                                        }}
+                                    <CustomTooltip
+                                        title={todo.title}
+                                        bigTextWidth={todo.title.slice(0, 10).length === 10}
+                                        notActiveBox={param.todo !== todo.id}
                                     >
-                                        <Box sx={{
-                                            display: 'grid',
-                                            gridTemplateColumns: '30px 120px 24px',
-                                        }}>
-                                            <Box sx={{justifySelf: 'start', marginTop: '5px'}}><DocumentIcon
-                                                color={param.todo === todo.id ? '#704ECC' : 'white'}/></Box>
-                                            <Box sx={{alignSelf: 'center', justifySelf: 'start'}}>{todo.title}</Box>
-                                            {
-                                                param.todo === todo.id &&
-                                                <CustomIconButton
-                                                    disableRipple={false}
+                                        <CustomIconButton
+                                            disableRipple={false}
+                                            sx={{
+                                                width: '190px',
+                                                height: '52px',
+                                                borderRadius: '4px',
+                                                padding: '12px 8px 12px 8px',
+                                                color: param.todo === todo.id ? 'secondary.main' : 'common.white',
+                                                fontSize: '22px',
+                                                fontStyle: 'normal',
+                                                fontWeight: 500,
+                                                lineHeight: '28px',
+                                                marginBottom: '8px',
+                                                position: 'relative',
+                                            }}
+                                        >
+                                            <Box sx={{
+                                                display: 'grid',
+                                                gridTemplateColumns: '30px 120px 24px',
+                                            }}>
+                                                <Box
+                                                    sx={{
+                                                        justifySelf: 'start',
+                                                        marginTop: '5px'
+                                                    }}
+                                                >
+                                                    <DocumentIcon color={param.todo === todo.id ? '#704ECC' : 'white'}/>
+                                                </Box>
+                                                <Box
                                                     sx={{
                                                         alignSelf: 'center',
-                                                        width: '24px',
-                                                        height: '24px',
-                                                        objectFit: 'cover',
-                                                        borderRadius: '2px',
+                                                        justifySelf: 'start',
+                                                        textOverflow: 'ellipsis',
+                                                        overflow: 'hidden',
+                                                        whiteSpace: 'nowrap',
+                                                        width: '110px',
+                                                        textAlign: 'start',
                                                     }}
-                                                    onClick={openMoreHoriz}
                                                 >
-                                                    <Box sx={{
-                                                        width: '24px',
-                                                        height: '24px', objectFit: 'cover'
-                                                    }}>
-                                                        <MoreHorizIcon/>
-                                                    </Box>
-                                                </CustomIconButton>
-                                            }
-                                        </Box>
-                                    </CustomIconButton>
+                                                    {todo.title}
+                                                </Box>
+                                                {
+                                                    param.todo === todo.id &&
+                                                    <CustomIconButton
+                                                        disableRipple={false}
+                                                        sx={{
+                                                            alignSelf: 'center',
+                                                            width: '24px',
+                                                            height: '24px',
+                                                            objectFit: 'cover',
+                                                            borderRadius: '2px',
+                                                        }}
+                                                        onClick={openMoreHoriz}
+                                                    >
+                                                        <Box sx={{
+                                                            width: '24px',
+                                                            height: '24px', objectFit: 'cover'
+                                                        }}>
+                                                            <MoreHorizIcon/>
+                                                        </Box>
+                                                    </CustomIconButton>
+                                                }
+                                            </Box>
+                                        </CustomIconButton>
+                                    </CustomTooltip>
                                     <MoreHoriz
                                         todoId={todo.id}
                                         todoTitle={todo.title}
@@ -203,7 +240,7 @@ export const BodyMenu: FC<Props> = (props) => {
                     }
                 </Box>
             }
-            <Box sx={{height: '80px', '@media (max-width: 800px)': {height: '120px'}}}>
+            <Box sx={{minHeight: '80px', '@media (max-width: 800px)': {height: '120px'}}}>
                 <CustomSwitch/>
                 {
                     !matches &&

@@ -144,7 +144,8 @@ export const TaskEditor: FC<Props> = (props) => {
 
                             <CustomTooltip
                                 title={!taskRedactor ? '' : 'You can double click on the text to open the task editor.'}
-                                placement={'bottom'}
+                                bigTextWidth={false}
+                                notActiveBox={false}
                             >
                                 <>
                                     {

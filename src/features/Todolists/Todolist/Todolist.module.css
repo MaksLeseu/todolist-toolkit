@@ -26,6 +26,8 @@
     line-height: 54px;
     margin: 0 0 42px 0;
     justify-self: center;
+    word-wrap: break-word;
+    max-width: 100%;
 }
 
 .titleActive {
