@@ -57,6 +57,7 @@ export const SettingsFormAddTask: FC<Props> = (props) => {
                 children={
                     <BaseCalendar
                         openCalendar={isOpenCalendar.openStartDate}
+                        transformStyle={'translate(0%, 0%)'}
                         closeCalendar={() => openCloseCalendar('close')}
                         settingDate={settingStartDateValueHandle}
                     />
@@ -70,6 +71,7 @@ export const SettingsFormAddTask: FC<Props> = (props) => {
                 children={
                     <BaseCalendar
                         openCalendar={isOpenCalendar.openDeadline}
+                        transformStyle={'translate(0%, 0%)'}
                         closeCalendar={() => openCloseCalendar('close')}
                         settingDate={settingDeadlineValueHandle}
                     />

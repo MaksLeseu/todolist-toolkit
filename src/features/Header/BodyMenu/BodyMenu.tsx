@@ -163,7 +163,7 @@ export const BodyMenu: FC<Props> = (props) => {
                                         notActiveBox={param.todo !== todo.id}
                                     >
                                         <CustomIconButton
-                                            disableRipple={false}
+                                            disableRipple={param.todo === todo.id}
                                             sx={{
                                                 width: '190px',
                                                 height: '52px',

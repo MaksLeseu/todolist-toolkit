@@ -23,6 +23,7 @@ import {ArrowIconRight} from "../Icons/ArrowIconRight";
 
 type Props = {
     openCalendar: AnchorElType
+    transformStyle?: string
     childrenResetButton?: ReactNode
     closeCalendar: () => void
     settingDate: (date: Nullable<Dayjs>) => void
@@ -116,7 +117,7 @@ const StyledCalendarHeader = styled(PickersCalendarHeader)(({theme}) => ({
 }))
 
 export const BaseCalendar: FC<Props> = (props) => {
-    const {openCalendar, childrenResetButton, closeCalendar, settingDate} = props
+    const {openCalendar, transformStyle, childrenResetButton, closeCalendar, settingDate} = props
 
     const [value, setValue] = React.useState<Nullable<Dayjs>>(dayjs(new Date()));
 
@@ -128,7 +129,7 @@ export const BaseCalendar: FC<Props> = (props) => {
     return (
         <CustomPopover
             anchorEl={openCalendar}
-            transformStyle={'translate(-46%, 0%)'}
+            transformStyle={transformStyle ? transformStyle : 'translate(-46%, 0%)'}
             listItemStyles={{
                 width: '208px',
                 borderRadius: '2px',

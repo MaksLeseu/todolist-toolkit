@@ -6,6 +6,8 @@ import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 import {Nullable} from "../../../common/utils/types/optional.types";
 import {Dayjs} from "dayjs";
 import {SettingsFormAddTask} from "./SettingsFormAddTask";
+import {useAppSelector} from "../../../common/utils/hooks/useAppSelector";
+import {isOpenMenuSelector} from "../../../app/app.selector";
 
 type Props = {
     taskName: string
@@ -28,6 +30,8 @@ export const FormAddTask: FC<Props> = (props) => {
         genericSettingFunction
     } = props
 
+    const isOpenMenu = useAppSelector(isOpenMenuSelector)
+
     return (
         <div className={s.modalWindow}>
             <CustomTextField
@@ -35,6 +39,16 @@ export const FormAddTask: FC<Props> = (props) => {
                 size={'medium'}
                 multiline={false}
                 value={taskName}
+                sx={{
+                    width: '100%',
+                }}
+                InputProps={{
+                    disableUnderline: true,
+                    sx: {
+                        color: 'secondary.main',
+                        borderBottom: '1px #704ECC solid',
+                    }
+                }}
                 onChange={changeTaskName}
             />
             <CustomTextField
@@ -43,11 +57,18 @@ export const FormAddTask: FC<Props> = (props) => {
                 value={description}
                 multiline={true}
                 sx={{marginBottom: '10px', width: '100%'}}
+                InputProps={{
+                    disableUnderline: true,
+                    sx: {
+                        color: 'secondary.main',
+                        borderBottom: '1px #704ECC solid',
+                    }
+                }}
                 onChange={changeDescription}
             />
-            <div className={s.settings}>
+            <div className={isOpenMenu ? s.settingsOpenMenu : s.settings}>
                 <SettingsFormAddTask
-                    calenderStyles={{marginRight: '10px', width: '130px'}}
+                    calenderStyles={{marginRight: '10px', width: '140px',}}
                     genericSettingFunction={genericSettingFunction}
                 />
             </div>
@@ -56,12 +77,25 @@ export const FormAddTask: FC<Props> = (props) => {
                     color={'inherit'}
                     label={MSG_BTN.CANCEL}
                     variant={'contained'}
-                    sx={{marginRight: '10px'}}
+                    sx={{
+                        marginRight: '10px',
+                        backgroundColor: 'common.white',
+                        color: 'secondary.main',
+                        borderRadius: '8px',
+                        border: '1px solid var(--primary, #704ECC)',
+                        boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
+                    }}
                     onClick={closeFormAddTask}
                 />
                 <CustomButton
-                    color={'primary'}
+                    color={'secondary'}
                     label={MSG_BTN.ADD_A_TASK}
+                    sx={{
+
+                        color: 'common.white',
+                        borderRadius: '8px',
+                        '&:hover': {}
+                    }}
                     variant={'contained'}
                     onClick={addTask}
                 />

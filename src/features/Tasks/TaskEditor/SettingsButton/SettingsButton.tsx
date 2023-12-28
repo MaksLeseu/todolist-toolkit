@@ -20,7 +20,7 @@ export const SettingsButton: FC<Props> = (props) => {
         <div>
             <p className={s.title}>{title}</p>
             <CustomButton
-                color={'inherit'}
+                color={'secondary'}
                 label={label || 'Mistakes'}
                 variant={'contained'}
                 sx={{
