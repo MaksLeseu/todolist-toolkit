@@ -1,20 +1,11 @@
 import React, {FC, ReactNode} from "react";
-import {
-    DateCalendar,
-    DatePickerToolbar,
-    PickersActionBar,
-    PickersCalendarHeader,
-    PickersDay,
-} from "@mui/x-date-pickers";
+import {DateCalendar, PickersCalendarHeader, PickersDay,} from "@mui/x-date-pickers";
 import {AnchorElType, CustomPopover} from "../CustomPopover/CustomPopover";
 import {Nullable} from "../../utils/types/optional.types";
 import dayjs, {Dayjs} from "dayjs";
 import {styled} from "@mui/material/styles";
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
-import {ArrowRight} from "@mui/icons-material";
-import {Popper} from "@mui/material";
-import TextField from "@mui/material/TextField";
 import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
 import './BaseCalendar.css'
 import {ArrowIconLeft} from "../Icons/ArrowIconLeft";
@@ -57,7 +48,18 @@ const StyledCalendarHeader = styled(PickersCalendarHeader)(({theme}) => ({
     marginTop: '0px',
     padding: 0,
     marginBottom: 0,
-    '& .css-1y9c4c5-MuiPickersCalendarHeader-labelContainer': {
+    /*'& .css-1y9c4c5-MuiPickersCalendarHeader-labelContainer': {
+        color: theme.palette.primary.main,
+        textAlign: 'center',
+        fontFamily: 'Roboto',
+        fontSize: '14px',
+        fontStyle: 'normal',
+        fontWeight: 400,
+        lineHeight: '20px',
+        margin: '0 auto 0 40px',
+    },*/
+
+    '& .MuiPickersCalendarHeader-labelContainer': {
         color: theme.palette.primary.main,
         textAlign: 'center',
         fontFamily: 'Roboto',
@@ -69,19 +71,28 @@ const StyledCalendarHeader = styled(PickersCalendarHeader)(({theme}) => ({
     },
 
     //switch button
-    '& .css-oe4e7z-MuiButtonBase-root-MuiIconButton-root-MuiPickersCalendarHeader-switchViewButton': {
+    /*'& .css-oe4e7z-MuiButtonBase-root-MuiIconButton-root-MuiPickersCalendarHeader-switchViewButton': {
+        width: '12px',
+        height: '12px',
+        color: 'white',
+    },*/
+    '& .MuiPickersCalendarHeader-switchViewButton': {
         width: '12px',
         height: '12px',
         color: 'white',
     },
     //switch icon
-    '& .css-1tkx1wf-MuiSvgIcon-root-MuiPickersCalendarHeader-switchViewIcon': {
+    /*'& .css-1tkx1wf-MuiSvgIcon-root-MuiPickersCalendarHeader-switchViewIcon': {
+        width: '12px',
+        height: '12px',
+    },*/
+    '& .MuiPickersCalendarHeader-switchViewIcon': {
         width: '12px',
         height: '12px',
     },
 
     //right arrow button
-    '& .css-ns7sn0-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button': {
+    /*'& .css-ns7sn0-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button': {
         position: 'absolute',
         width: '25px',
         height: '25px',
@@ -106,9 +117,29 @@ const StyledCalendarHeader = styled(PickersCalendarHeader)(({theme}) => ({
             position: 'absolute',
             left: '4px',
         },
+    },*/
+
+    '& .MuiPickersArrowSwitcher-button': {
+        position: 'absolute',
+        width: '25px',
+        height: '25px',
+        color: 'white',
+        top: '10%',
+        '&:first-child': {
+            left: 0,
+        },
+        '&:last-child': {
+            right: 0,
+        },
     },
 
-    '& .css-1vs7z2v-MuiYearCalendar-root': {
+    /*'& .css-1vs7z2v-MuiYearCalendar-root': {
+        width: '100%',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr 1fr',
+    },*/
+
+    '&. MuiYearCalendar-root': {
         width: '100%',
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr 1fr',
@@ -147,7 +178,6 @@ export const BaseCalendar: FC<Props> = (props) => {
                         sx={{
                             width: '100%',
                             maxHeight: '220px',
-                            /*boxShadow: '1px 1px 6px 0px rgba(112, 78, 204, 0.30), 1px 0px 6px 0px rgba(112, 78, 204, 0.30)',*/
                         }}
                         slots={{
                             day: StyledDay,
@@ -166,52 +196,3 @@ export const BaseCalendar: FC<Props> = (props) => {
         </CustomPopover>
     )
 }
-
-
-const StyledActionBar = styled(PickersActionBar)(({theme}) => ({
-    backgroundColor: 'red',
-}))
-const StyledArrowIcon = styled(ArrowRight)(({theme}) => ({
-    display: 'none',
-}))
-const StyledPopper = styled(Popper)(({theme}) => ({
-    width: '184px',
-    height: '152px',
-}))
-const StyledToolbar = styled(DatePickerToolbar)(({theme}) => ({
-    backgroundColor: 'red',
-}))
-const StyledTextField = styled(TextField)(({theme}) => ({
-    backgroundColor: 'red',
-}))
-const StyledDesktopPaper = styled('div')(({theme}) => ({
-    width: '184px',
-    height: '152px',
-    backgroundColor: '#EFE3FF',
-}))
-
-
-/*
-const CustomPicker = () => {
-
-    const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'))
-
-    return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-                value={value}
-                sx={{
-                    backgroundColor: '#EFE3FF',
-                    borderRadius: '2px',
-                }}
-                slots={{
-                    day: StyledDay,
-                    calendarHeader: StyledCalendarHeader,
-                    leftArrowIcon: StyledArrowIcon,
-                    rightArrowIcon: StyledArrowIcon,
-                    desktopPaper: StyledDesktopPaper,
-                }}
-            />
-        </LocalizationProvider>
-    );
-};*/

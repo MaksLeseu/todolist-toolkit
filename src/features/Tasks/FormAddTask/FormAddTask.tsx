@@ -66,7 +66,7 @@ export const FormAddTask: FC<Props> = (props) => {
                 }}
                 onChange={changeDescription}
             />
-            <div className={isOpenMenu ? s.settingsOpenMenu : s.settings}>
+            <div className={isOpenMenu ? `${s.settings} ${s.settingsWhenOpenMenu}` : s.settings}>
                 <SettingsFormAddTask
                     calenderStyles={{marginRight: '10px', width: '140px',}}
                     genericSettingFunction={genericSettingFunction}

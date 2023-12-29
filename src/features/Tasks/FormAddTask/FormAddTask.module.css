@@ -20,18 +20,14 @@
     display: flex;
 }
 
-.settingsOpenMenu {
-    display: flex;
-}
-
-@media (max-width: 550px) {
-    .settings {
+@media (max-width: 730px) {
+    .settingsWhenOpenMenu {
         display: block;
     }
 }
 
-@media (max-width: 730px) {
-    .settingsOpenMenu {
+@media (max-width: 550px) {
+    .settings {
         display: block;
     }
 }
