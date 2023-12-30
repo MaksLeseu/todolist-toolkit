@@ -48,17 +48,6 @@ const StyledCalendarHeader = styled(PickersCalendarHeader)(({theme}) => ({
     marginTop: '0px',
     padding: 0,
     marginBottom: 0,
-    /*'& .css-1y9c4c5-MuiPickersCalendarHeader-labelContainer': {
-        color: theme.palette.primary.main,
-        textAlign: 'center',
-        fontFamily: 'Roboto',
-        fontSize: '14px',
-        fontStyle: 'normal',
-        fontWeight: 400,
-        lineHeight: '20px',
-        margin: '0 auto 0 40px',
-    },*/
-
     '& .MuiPickersCalendarHeader-labelContainer': {
         color: theme.palette.primary.main,
         textAlign: 'center',
@@ -71,54 +60,19 @@ const StyledCalendarHeader = styled(PickersCalendarHeader)(({theme}) => ({
     },
 
     //switch button
-    /*'& .css-oe4e7z-MuiButtonBase-root-MuiIconButton-root-MuiPickersCalendarHeader-switchViewButton': {
-        width: '12px',
-        height: '12px',
-        color: 'white',
-    },*/
     '& .MuiPickersCalendarHeader-switchViewButton': {
         width: '12px',
         height: '12px',
         color: 'white',
     },
+
     //switch icon
-    /*'& .css-1tkx1wf-MuiSvgIcon-root-MuiPickersCalendarHeader-switchViewIcon': {
-        width: '12px',
-        height: '12px',
-    },*/
     '& .MuiPickersCalendarHeader-switchViewIcon': {
         width: '12px',
         height: '12px',
     },
 
-    //right arrow button
-    /*'& .css-ns7sn0-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button': {
-        position: 'absolute',
-        width: '25px',
-        height: '25px',
-        color: 'white',
-        top: '10%',
-        right: 0,
-        '&.css-ns7sn0-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button svg': {
-            position: 'absolute',
-            right: '4px',
-        }
-    },
-
-    //left arrow button
-    '& .css-1ygssq1-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button': {
-        position: 'absolute',
-        width: '25px',
-        height: '25px',
-        color: 'white',
-        top: '10%',
-        left: 0,
-        '&.css-1ygssq1-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button svg': {
-            position: 'absolute',
-            left: '4px',
-        },
-    },*/
-
+    //arrow buttons (left and right)
     '& .MuiPickersArrowSwitcher-button': {
         position: 'absolute',
         width: '25px',
@@ -133,18 +87,11 @@ const StyledCalendarHeader = styled(PickersCalendarHeader)(({theme}) => ({
         },
     },
 
-    /*'& .css-1vs7z2v-MuiYearCalendar-root': {
-        width: '100%',
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr 1fr',
-    },*/
-
     '&. MuiYearCalendar-root': {
         width: '100%',
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr 1fr',
     }
-
 }))
 
 export const BaseCalendar: FC<Props> = (props) => {
@@ -172,7 +119,6 @@ export const BaseCalendar: FC<Props> = (props) => {
         >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DateCalendar', 'DateCalendar']}>
-                    {childrenResetButton}
                     <DateCalendar
                         value={value}
                         sx={{
@@ -191,6 +137,7 @@ export const BaseCalendar: FC<Props> = (props) => {
                         yearsPerRow={4}
                         onChange={changeDate}
                     />
+                    {childrenResetButton}
                 </DemoContainer>
             </LocalizationProvider>
         </CustomPopover>

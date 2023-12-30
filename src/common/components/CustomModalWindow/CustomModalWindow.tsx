@@ -6,17 +6,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import Divider from "@mui/material/Divider";
 import {Box} from "@mui/material";
 
-type StyleObjectType = {
-    width: number
-    height: number
-    bgcolor: string
-    borderRadius: number
-}
-
 type Props = {
     open: boolean
     title: string
-    styleObject: StyleObjectType
+    styleObject: object
     children: ReactElement
     childrenIcon?: ReactNode
     childrenRedactor?: ReactNode
@@ -29,7 +22,7 @@ export const CustomModalWindow: FC<Props> = (props) => {
     const style = {
         position: 'absolute' as 'absolute',
         top: '50%',
-        right: '28%',
+        left: '50%',
         transform: 'translate(-50%, -50%)',
         boxShadow: 24,
         ...styleObject

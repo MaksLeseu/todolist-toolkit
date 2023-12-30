@@ -235,7 +235,7 @@ export const Test: FC<Props> = (props) => {
                 taskPriority={taskPriority}
                 todolistTitle={todolistTitle}
                 description={taskDescription}
-                taskEditor={taskEditor}
+                open={taskEditor}
                 closeTaskEditor={closeTaskEditor}
                 updateCheckbox={updateCheckbox}
                 updateTask={updateTask}

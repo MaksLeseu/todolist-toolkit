@@ -1,7 +1,6 @@
 import React, {ChangeEvent, FC, useEffect, useState} from "react";
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
-import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTooltip";
 import {CustomModalWindow} from "../../../common/components/CustomModalWindow/CustomModalWindow";
 import {Box} from "@mui/material";
 import s from './TaskEditor.module.css'
@@ -18,6 +17,7 @@ import {CustomButtonGroup} from "../../../common/components/CustomButtonGroup/Cu
 import {SettingsTaskEditor} from "./SettingsTaskEditor/SettingsTaskEditor";
 
 type Props = {
+    open: boolean
     taskId: string
     todolistId: string
     taskName: string
@@ -28,7 +28,6 @@ type Props = {
     taskPriority: number
     todolistTitle: string
     description: string
-    taskEditor: boolean
     closeTaskEditor: () => void
     updateCheckbox: (event: ChangeEvent<HTMLInputElement>) => void
     updateTask: (params: UpdateTaskParamsType) => void
@@ -36,13 +35,33 @@ type Props = {
 
 const style = {
     width: 800,
-    height: 500,
+    minHeight: 500,
     bgcolor: 'background.paper',
     borderRadius: 2,
+    '@media (max-width: 840px)': {
+        width: 700,
+    },
+    '@media (max-width: 740px)': {
+        width: 600,
+        minHeight: 400,
+    },
+    '@media (max-width: 640px)': {
+        width: 500,
+        minHeight: 400,
+    },
+    '@media (max-width: 540px)': {
+        width: 400,
+        minHeight: 400,
+    },
+    '@media (max-width: 440px)': {
+        width: 330,
+        minHeight: 400,
+    },
 };
 
 export const TaskEditor: FC<Props> = (props) => {
     const {
+        open,
         taskId,
         todolistId,
         taskName,
@@ -53,7 +72,6 @@ export const TaskEditor: FC<Props> = (props) => {
         taskPriority,
         description,
         todolistTitle,
-        taskEditor,
         closeTaskEditor,
         updateCheckbox,
         updateTask
@@ -115,97 +133,95 @@ export const TaskEditor: FC<Props> = (props) => {
     }
 
     return (
-        <>
-            <CustomModalWindow
-                open={taskEditor}
-                title={todolistTitle}
-                styleObject={style}
-                childrenIcon={<DescriptionIcon color={'info'}/>}
-                childrenRedactor={(
-                    <CustomIconButton
-                        disableRipple={false}
-                        onClick={openTaskRedactor}
-                        color={'primary'}
-                    >
-                        <DrawIcon/>
-                    </CustomIconButton>
-                )}
-                onClose={handleCloseTaskEditor}
-            >
-                <Box sx={{padding: '10px 20px 20px 20px', display: 'flex'}}>
-                    <div className={s.taskBody}>
-                        <div className={s.taskBodyContainer}>
-                            <div>
-                                <CustomCheckbox
-                                    checked={taskStatus === TaskStatuses.Completed}
-                                    onChange={updateCheckbox}
-                                />
-                            </div>
-
-                            <CustomTooltip
-                                title={!taskRedactor ? '' : 'You can double click on the text to open the task editor.'}
-                                bigTextWidth={false}
-                                notActiveBox={false}
-                            >
-                                <>
-                                    {
-                                        !taskRedactor &&
-                                        <div className={s.containerText}>
-                                            <p className={s.taskName}
-                                               onDoubleClick={openTaskRedactor}
-                                            >
-                                                {newTitle}
-                                            </p>
-                                            <p className={s.description}
-                                               onDoubleClick={openTaskRedactor}
-                                            >
-                                                {newDescription}
-                                            </p>
-                                        </div>
-                                    }
-                                </>
-                            </CustomTooltip>
-
-                            <TaskRedactor
-                                taskRedactor={taskRedactor}
-                                valueTask={newTitle}
-                                valueDescription={newDescription}
-                                changeTitle={changeTitle}
-                                changeSpecification={changeSpecification}
+        <CustomModalWindow
+            open={open}
+            title={todolistTitle}
+            styleObject={style}
+            childrenIcon={<DescriptionIcon color={'info'}/>}
+            childrenRedactor={(
+                <CustomIconButton
+                    disableRipple={false}
+                    onClick={openTaskRedactor}
+                    color={'secondary'}
+                >
+                    <DrawIcon/>
+                </CustomIconButton>
+            )}
+            onClose={handleCloseTaskEditor}
+        >
+            <Box sx={{
+                padding: '10px 20px 20px 20px',
+                display: 'flex',
+                '@media (max-width: 640px)': {
+                    display: 'block',
+                },
+            }}>
+                <div className={s.taskBody}>
+                    <div className={s.taskBodyContainer}>
+                        <div className={s.checkboxContainer}>
+                            <CustomCheckbox
+                                checked={taskStatus === TaskStatuses.Completed}
+                                onChange={updateCheckbox}
                             />
-
                         </div>
-                        <div className={s.buttons}>
+
+                        <div>
                             {
-                                taskRedactor &&
-                                <CustomButtonGroup
-                                    firstButtonLabel={MSG_BTN.CANCEL}
-                                    secondButtonLabel={MSG_BTN.SAVE}
-                                    size={'small'}
-                                    firstButtonOnClick={closeTaskRedactor}
-                                    secondButtonOnClick={wrapperUpdateTaskForButtonTaskEditor}
-                                />
+                                !taskRedactor &&
+                                <div className={s.containerText}>
+                                    <p className={s.taskName}
+                                       onDoubleClick={openTaskRedactor}
+                                    >
+                                        {newTitle}
+                                    </p>
+                                    <p className={s.description}
+                                       onDoubleClick={openTaskRedactor}
+                                    >
+                                        {newDescription}
+                                    </p>
+                                </div>
                             }
                         </div>
-                    </div>
-                    <div className={s.settingsTaskEditor}>
-                        <SettingsTaskEditor
-                            taskStartDate={taskStartDate}
-                            taskDeadline={taskDeadline}
-                            taskPriority={taskPriority}
-                            updateTask={wrapperUpdateTaskForGroupSettingsTaskEditor}
+
+                        <TaskRedactor
+                            taskRedactor={taskRedactor}
+                            valueTask={newTitle}
+                            valueDescription={newDescription}
+                            changeTitle={changeTitle}
+                            changeSpecification={changeSpecification}
                         />
-                        <p className={s.dateAdded}>{`Date added: ${taskAddedDate.slice(0, 10)}`}</p>
+
                     </div>
-                    <ConfirmationModalWindow
-                        isOpen={taskConfirmation}
-                        title={'changes'}
-                        description={'Changes will not be saved'}
-                        actionConfirmation={actionConfirmation}
-                        closeConfirmation={closeConfirmation}
+                    <div className={s.buttons}>
+                        {
+                            taskRedactor &&
+                            <CustomButtonGroup
+                                firstButtonLabel={MSG_BTN.CANCEL}
+                                secondButtonLabel={MSG_BTN.SAVE}
+                                size={'small'}
+                                firstButtonOnClick={closeTaskRedactor}
+                                secondButtonOnClick={wrapperUpdateTaskForButtonTaskEditor}
+                            />
+                        }
+                    </div>
+                </div>
+                <div className={s.settingsTaskEditor}>
+                    <SettingsTaskEditor
+                        taskStartDate={taskStartDate}
+                        taskDeadline={taskDeadline}
+                        taskPriority={taskPriority}
+                        updateTask={wrapperUpdateTaskForGroupSettingsTaskEditor}
                     />
-                </Box>
-            </CustomModalWindow>
-        </>
+                    <p className={s.dateAdded}>{`Date added: ${taskAddedDate.slice(0, 10)}`}</p>
+                </div>
+                <ConfirmationModalWindow
+                    isOpen={taskConfirmation}
+                    title={'changes'}
+                    description={'Changes will not be saved'}
+                    actionConfirmation={actionConfirmation}
+                    closeConfirmation={closeConfirmation}
+                />
+            </Box>
+        </CustomModalWindow>
     )
 }

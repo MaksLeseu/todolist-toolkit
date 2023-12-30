@@ -14,6 +14,7 @@ import {CustomIconButton} from "../../common/components/CustomIconButton/CustomI
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {isOpenMenuSelector} from "../../app/app.selector";
 import {useMediaQuery} from "@mui/material";
+import {TaskEditor} from "./TaskEditor/TaskEditor";
 
 type Props = {
     taskId: string
@@ -43,7 +44,6 @@ export type UpdateTaskParamsType = {
 
 type OpenModalWindowsType = {
     taskEditor: boolean
-    previewCompletedTask: boolean
     taskRedactor: boolean
 }
 
@@ -62,7 +62,7 @@ export const Task: FC<Props> = (props) => {
         setVisibleLiner
     } = props
 
-    const taskStatusNew = taskStatus === TaskStatuses.New
+    /*const taskStatusNew = taskStatus === TaskStatuses.New*/
     const taskStatusCompleted = taskStatus === TaskStatuses.Completed
 
     const dispatch = useAppDispatch()
@@ -70,15 +70,13 @@ export const Task: FC<Props> = (props) => {
 
     const [isOpen, setIsOpen] = useState<OpenModalWindowsType>({
         taskEditor: false,
-        previewCompletedTask: false,
         taskRedactor: false
     })
 
-    const openCloseWindows = (action: 'open' | 'close', params?: 'editor' | 'preview' | 'redactor') => {
+    const openCloseWindows = (action: 'open' | 'close', params?: 'editor' | 'redactor') => {
         if (action === 'close') {
             setIsOpen({
                 taskEditor: false,
-                previewCompletedTask: false,
                 taskRedactor: false
             })
         } else if (action === 'open' && params) {
@@ -87,12 +85,6 @@ export const Task: FC<Props> = (props) => {
                     setIsOpen({
                         ...isOpen,
                         taskEditor: true,
-                    })
-                },
-                'preview': () => {
-                    setIsOpen({
-                        ...isOpen,
-                        previewCompletedTask: true,
                     })
                 },
                 'redactor': () => {
@@ -241,13 +233,10 @@ export const Task: FC<Props> = (props) => {
     const matches1030 = useMediaQuery('(max-width:1030px)');
 
     return (
-        <div key={taskId} className={/*taskStatusCompleted ? s.taskCompleted : */s.task}>
+        <div key={taskId} className={s.task}>
             {
-                !isOpen.taskRedactor &&
                 <div className={s.container}
-                     onClick={taskStatusCompleted ?
-                         () => openCloseWindows('open', 'preview') :
-                         () => openCloseWindows('open', 'editor')}>
+                     onClick={() => openCloseWindows('open', 'editor')}>
 
                     <div className={isOpenMenu ? s.flexContainerActive : s.flexContainer}>
                         <Box sx={{
@@ -277,7 +266,7 @@ export const Task: FC<Props> = (props) => {
                         <div>
                             <div className={s.text}>{taskTitle}</div>
                             {
-                                taskDescription && /*taskStatusNew &&*/
+                                taskDescription &&
                                 <div className={s.description}>{taskDescription}</div>
                             }
                         </div>
@@ -311,6 +300,22 @@ export const Task: FC<Props> = (props) => {
                 transformMoreHoriz={matches1030 ? 'translate(0%, 80%)' : 'translate(4%, 28%)'}
                 actionMoreHoriz={removeTask}
                 closeMoreHoriz={closeMoreHoriz}
+            />
+            <TaskEditor
+                open={taskStatusCompleted ? false : isOpen.taskEditor}
+                taskId={taskId}
+                todolistId={todolistId}
+                taskName={taskTitle}
+                taskStatus={taskStatus}
+                taskAddedDate={taskAddedDate}
+                taskDeadline={taskDeadline}
+                taskStartDate={taskStartDate}
+                taskPriority={taskPriority}
+                todolistTitle={todolistTitle}
+                description={taskDescription}
+                closeTaskEditor={() => openCloseWindows('close')}
+                updateCheckbox={updateCheckbox}
+                updateTask={updateTask}
             />
         </div>
     );

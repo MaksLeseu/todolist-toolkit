@@ -33,7 +33,7 @@ export const SettingsButton: FC<Props> = (props) => {
                 }}
                 onClick={handleOpen}
             />
-            <Divider/>
+            <Divider sx={{...sx}}/>
             {children}
         </div>
     )

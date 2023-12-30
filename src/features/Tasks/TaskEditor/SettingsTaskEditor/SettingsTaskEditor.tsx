@@ -19,6 +19,7 @@ import {useSettingDate} from "../../../../common/utils/hooks/useSettingDate";
 import {useOpenCloseCalendar} from "../../../../common/utils/hooks/useOpenCloseCalendar";
 import {useOpenClosePriority} from "../../../../common/utils/hooks/useOpenClosePriority";
 import {useSettingPriority} from "../../../../common/utils/hooks/useSettingPriority";
+import {useMediaQuery} from "@mui/material";
 
 type Props = {
     taskDeadline: Nullable<Dayjs>
@@ -72,18 +73,42 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
             <CustomIconButton
                 disableRipple={true}
                 color={'inherit'}
+                sx={{
+                    width: 130,
+                    height: 30,
+                    borderRadius: '4px',
+                    border: '1px solid var(--primary, #704ECC)',
+                    boxShadow: '1px 1px 3px rgba(140, 97, 255, 0.35)',
+                    margin: '0 auto !important'
+                }}
                 onClick={resetDate}
             >
                 <ListItemButton
-                    sx={{height: '30px', borderRadius: '3px'}}
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        height: 30,
+                    }}
                 >
                     <ListItemIcon
                         sx={{display: 'flex', alignItems: 'center'}}
                     >
-                        <DoNotDisturbAltIcon/>
+                        <DoNotDisturbAltIcon
+                            sx={{
+                                color: 'secondary.main',
+                                width: 14,
+                                height: 14
+                            }}
+                        />
                         <ListItemText
-                            sx={{color: 'black', marginLeft: '10px'}}
-                            primary={'Reset date.'}
+                            sx={{
+                                color: 'secondary.main',
+                                '& .MuiListItemText-primary': {
+                                    fontSize: '14px',
+                                    fontWeight: 500,
+                                }
+                            }}
+                            primary={'Reset date'}
                         />
                     </ListItemIcon>
                 </ListItemButton>
@@ -92,6 +117,8 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
     const deadlineLabel = taskDeadline ? dateConversionToString(dayjs(taskDeadline)) : deadline && dateConversionToString(deadline) || 'Set deadline'
     const startDateLabel = taskStartDate ? dateConversionToString(dayjs(taskStartDate)) : startDate && dateConversionToString(startDate) || 'Set start date'
     const priorityLabel = priority === null ? priorityConversionToString(taskPriority) : priorityConversionToString(priority)
+
+    const matches640 = useMediaQuery('(max-width:640px)');
 
     return (
         <>
@@ -102,6 +129,7 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
                 children={
                     <BaseCalendar
                         openCalendar={isOpenCalendar.openStartDate}
+                        transformStyle={matches640 ? 'translate(20%, 0%)' : ''}
                         childrenResetButton={returnChildrenResetButton(resetStartDateHandle)}
                         closeCalendar={closeStartDateCalendar}
                         settingDate={(date) => settingDate(date, 'startDate')}
@@ -116,6 +144,7 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
                 children={
                     <BaseCalendar
                         openCalendar={isOpenCalendar.openDeadline}
+                        transformStyle={matches640 ? 'translate(20%, 0%)' : ''}
                         childrenResetButton={returnChildrenResetButton(resetDeadlineHandle)}
                         closeCalendar={closeDeadlineCalender}
                         settingDate={(date) => settingDate(date, 'deadline')}

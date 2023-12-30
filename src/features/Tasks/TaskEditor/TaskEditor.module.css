@@ -7,22 +7,17 @@
     margin-bottom: 10px;
 }
 
+.checkboxContainer {
+    min-width: 30px;
+    padding-top: 7px;
+}
+
 .taskRedactor {
     border: 1px #2a3b5a solid;
     border-radius: 10px;
     padding: 7px 10px 10px 10px;
     width: 100%;
 }
-
-/*.taskName {
-    margin: 3px 0 0 0;
-    font-weight: 500;
-}
-
-.description {
-    font-size: 16px;
-    margin: 15px 0 0 0;
-}*/
 
 .containerText {
     display: block;
@@ -39,6 +34,8 @@
     font-size: 16px;
     margin: 15px 0 0 0;
     cursor: pointer;
+    max-height: 340px;
+    overflow: auto;
 }
 
 .buttons {
@@ -54,4 +51,25 @@
 
 .dateAdded {
     margin-top: 210px;
+}
+
+@media (max-width: 740px) {
+    .settingsTaskEditor {
+        min-width: 130px;
+    }
+
+    .dateAdded {
+        margin-top: 100px;
+    }
+}
+
+@media (max-width: 640px) {
+    .description {
+        max-height: 245px;
+        overflow: auto;
+    }
+
+    .dateAdded {
+        margin-top: 10px;
+    }
 }

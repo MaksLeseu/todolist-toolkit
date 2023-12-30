@@ -5,6 +5,11 @@
     cursor: pointer;
 }
 
+.task:hover {
+    border-radius: 4px;
+    box-shadow: 1px 1px 6px 0px rgba(112, 78, 204, 0.30), 1px 0px 6px 0px rgba(112, 78, 204, 0.30);
+}
+
 .taskCompleted {
     background-color: rgba(235, 236, 240, 1.00);
     opacity: 0.5;
@@ -14,6 +19,10 @@
 }
 
 .container {
+}
+
+.checkboxContainer {
+    width: 30px;
 }
 
 .flexContainer {

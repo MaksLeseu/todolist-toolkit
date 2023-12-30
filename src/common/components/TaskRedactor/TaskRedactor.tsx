@@ -41,7 +41,14 @@ export const TaskRedactor: FC<Props> = (props) => {
                         value={valueDescription}
                         size={'small'}
                         multiline={true}
-                        sx={{width: '100%'}}
+                        sx={{
+                            width: '100%',
+                            maxHeight: '340px',
+                            overflow: 'auto',
+                            '@media (max-width: 640px)': {
+                                maxHeight: '230px',
+                            }
+                        }}
                         onChange={changeSpecification}
                     />
                     {childrenGroupSettings}
