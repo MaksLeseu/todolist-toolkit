@@ -20,11 +20,19 @@ type Props = {
     taskDeadline: Nullable<Dayjs>
     taskStartDate: Nullable<Dayjs>
     taskPriority: number
-    genericSettingFunction: (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => void
+    settingPriorityFunction: (priority: number) => void
+    genericSettingFunction: (value: Nullable<Dayjs>, method: 'startDate' | 'deadline') => void
 }
 
 export const SettingsTask: FC<Props> = (props) => {
-    const {calenderStyles, taskDeadline, taskPriority, taskStartDate, genericSettingFunction} = props
+    const {
+        calenderStyles,
+        taskDeadline,
+        taskPriority,
+        taskStartDate,
+        genericSettingFunction,
+        settingPriorityFunction
+    } = props
 
     const {date, settingDate} = useSettingDate()
     const {priority, settingPriority} = useSettingPriority()
@@ -43,7 +51,7 @@ export const SettingsTask: FC<Props> = (props) => {
 
     const settingPriorityHandle = (priority: number) => {
         settingPriority(priority)
-        genericSettingFunction(priority, 'priority')
+        settingPriorityFunction(priority)
         openClosePriority('close')
     }
 
@@ -61,6 +69,8 @@ export const SettingsTask: FC<Props> = (props) => {
                 children={
                     <BaseCalendar
                         openCalendar={isOpenCalendar.openStartDate}
+                        transformStyle={'translate(0%, 0%)'}
+                        currentDate={taskStartDate}
                         closeCalendar={() => openCloseCalendar('close')}
                         settingDate={settingStartDateValueHandle}
                     />
@@ -74,6 +84,8 @@ export const SettingsTask: FC<Props> = (props) => {
                 children={
                     <BaseCalendar
                         openCalendar={isOpenCalendar.openDeadline}
+                        transformStyle={'translate(0%, 0%)'}
+                        currentDate={taskDeadline}
                         closeCalendar={() => openCloseCalendar('close')}
                         settingDate={settingDeadlineValueHandle}
                     />

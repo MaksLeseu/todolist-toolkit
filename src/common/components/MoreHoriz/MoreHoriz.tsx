@@ -20,6 +20,7 @@ type Props = {
     transformPopover?: string
     transformMoreHoriz?: string
     actionMoreHoriz: any
+    secondActionMoreHoriz?: () => void
     closeMoreHoriz: () => void
 }
 
@@ -51,6 +52,7 @@ export const MoreHoriz: FC<Props> = (props) => {
         transformPopover,
         transformMoreHoriz,
         actionMoreHoriz,
+        secondActionMoreHoriz,
         closeMoreHoriz
     } = props
     const param = useParams()
@@ -133,7 +135,7 @@ export const MoreHoriz: FC<Props> = (props) => {
                             margin: '0 auto',
                         }}
                         icon={<Box sx={{marginRight: '4px', marginTop: '4px'}}><EditIcon/></Box>}
-                        onClick={openEdit}
+                        onClick={secondActionMoreHoriz ? secondActionMoreHoriz : openEdit}
                     />
                     {
                         <Box sx={{

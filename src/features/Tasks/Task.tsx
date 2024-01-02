@@ -15,6 +15,12 @@ import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {isOpenMenuSelector} from "../../app/app.selector";
 import {useMediaQuery} from "@mui/material";
 import {TaskEditor} from "./TaskEditor/TaskEditor";
+import {SettingsTask} from "./SettingsTask";
+import {CustomButtonGroup} from "../../common/components/CustomButtonGroup/CustomButtonGroup";
+import {MSG_BTN} from "../../common/utils/constans/app-messages.const";
+import {TaskRedactor} from "../../common/components/TaskRedactor/TaskRedactor";
+import {useSettingDate} from "../../common/utils/hooks/useSettingDate";
+import {useSettingPriority} from "../../common/utils/hooks/useSettingPriority";
 
 type Props = {
     taskId: string
@@ -62,11 +68,13 @@ export const Task: FC<Props> = (props) => {
         setVisibleLiner
     } = props
 
-    /*const taskStatusNew = taskStatus === TaskStatuses.New*/
     const taskStatusCompleted = taskStatus === TaskStatuses.Completed
 
     const dispatch = useAppDispatch()
     const isOpenMenu = useAppSelector(isOpenMenuSelector)
+
+    const {date, settingDate, resetDate} = useSettingDate()
+    const {priority, settingPriority, resetPriority} = useSettingPriority()
 
     const [isOpen, setIsOpen] = useState<OpenModalWindowsType>({
         taskEditor: false,
@@ -103,6 +111,7 @@ export const Task: FC<Props> = (props) => {
     const openMoreHoriz = (event: React.MouseEvent<HTMLButtonElement>) => {
         setIsOpenMoreHoriz(event.currentTarget)
         event.preventDefault()
+        event.stopPropagation()
     }
 
     const removeTask = (taskId: string) => {
@@ -170,38 +179,10 @@ export const Task: FC<Props> = (props) => {
         return updateTextMethods[params]()
     }
 
-    const [priority, setPriority] = useState<Nullable<number>>(null)
-    const [date, setDate] = useState<{ deadline: Nullable<Dayjs>, startDate: Nullable<Dayjs> }>({
-        deadline: null,
-        startDate: null,
-    })
-
-    const genericSettingFunction = (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => {
-        const methodsForSettingValues = {
-            'startDate': (startDate: Nullable<Dayjs> | number) => {
-                setDate({
-                    ...date,
-                    startDate: startDate as Nullable<Dayjs>
-                })
-            },
-            'deadline': (deadline: Nullable<Dayjs> | number) => {
-                setDate({
-                    ...date,
-                    deadline: deadline as Nullable<Dayjs>
-                })
-            },
-            'priority': (priority: number | Nullable<Dayjs>) => {
-                setPriority(priority as number)
-            },
-        }
-        methodsForSettingValues[method](value)
-    }
-
     const resetAllValues = () => {
-        setDate({
-            startDate: null, deadline: null
-        })
-        setPriority(null)
+        resetDate('startDate')
+        resetDate('deadline')
+        resetPriority()
     }
 
     const updateHandle = () => {
@@ -235,63 +216,94 @@ export const Task: FC<Props> = (props) => {
     return (
         <div key={taskId} className={s.task}>
             {
-                <div className={s.container}
-                     onClick={() => openCloseWindows('open', 'editor')}>
+                isOpen.taskRedactor
+                    ?
+                    <TaskRedactor
+                        taskRedactor={isOpen.taskRedactor}
+                        valueTask={taskText.newTaskTitle}
+                        valueDescription={taskText.newTaskDescription}
+                        childrenGroupSettings={
+                            <div
+                                className={isOpenMenu ? `${s.groupSettingsContainer} ${s.groupSettingsContainerActive}` : s.groupSettingsContainer}>
+                                <SettingsTask
+                                    taskStartDate={taskStartDate}
+                                    taskDeadline={taskDeadline}
+                                    taskPriority={taskPriority}
+                                    calenderStyles={{marginRight: '10px', width: '130px', fontSize: '13px'}}
+                                    genericSettingFunction={settingDate}
+                                    settingPriorityFunction={settingPriority}
+                                />
+                            </div>
+                        }
+                        childrenButtons={
+                            <CustomButtonGroup
+                                firstButtonLabel={MSG_BTN.CANCEL}
+                                secondButtonLabel={MSG_BTN.SAVE}
+                                firstButtonOnClick={() => openCloseWindows('close')}
+                                secondButtonOnClick={updateHandle}
+                            />
+                        }
+                        changeTitle={(e) => updateTaskText('title', e)}
+                        changeSpecification={(e) => updateTaskText('description', e)}
+                    />
+                    :
+                    <div className={s.container}
+                         onClick={() => openCloseWindows('open', 'editor')}>
 
-                    <div className={isOpenMenu ? s.flexContainerActive : s.flexContainer}>
-                        <Box sx={{
-                            width: '34px',
-                            height: '34px',
-                            gridColumn: 1,
-                            alignSelf: 'center',
-                            position: 'relative',
-                        }}>
-                            <CustomCheckbox
+                        <div className={isOpenMenu ? s.flexContainerActive : s.flexContainer}>
+                            <Box sx={{
+                                width: '34px',
+                                height: '34px',
+                                gridColumn: 1,
+                                alignSelf: 'center',
+                                position: 'relative',
+                            }}>
+                                <CustomCheckbox
+                                    sx={{
+                                        width: '24px',
+                                        height: '24px',
+                                        position: 'absolute',
+                                        top: '13%',
+                                        left: '13%',
+                                        color: '#704ECC',
+                                        '&.Mui-checked': {
+                                            color: '#FF8811',
+                                        },
+                                    }}
+                                    disableRipple={true}
+                                    checked={taskStatusCompleted}
+                                    onChange={updateCheckbox}
+                                />
+                            </Box>
+                            <div>
+                                <div className={s.text}>{taskTitle}</div>
+                                {
+                                    taskDescription &&
+                                    <div className={s.description}>{taskDescription}</div>
+                                }
+                            </div>
+                            <CustomIconButton
+                                disableRipple={false}
                                 sx={{
+                                    alignSelf: 'center',
                                     width: '24px',
                                     height: '24px',
-                                    position: 'absolute',
-                                    top: '13%',
-                                    left: '13%',
-                                    color: '#704ECC',
-                                    '&.Mui-checked': {
-                                        color: '#FF8811',
-                                    },
+                                    objectFit: 'cover',
+                                    borderRadius: '2px',
+                                    ...activeStylesButtonMoreHoriz,
                                 }}
-                                disableRipple={true}
-                                checked={taskStatusCompleted}
-                                onChange={updateCheckbox}
-                            />
-                        </Box>
-                        <div>
-                            <div className={s.text}>{taskTitle}</div>
-                            {
-                                taskDescription &&
-                                <div className={s.description}>{taskDescription}</div>
-                            }
+                                onClick={openMoreHoriz}
+                            >
+                                <Box sx={{
+                                    width: '24px',
+                                    height: '24px',
+                                    objectFit: 'cover'
+                                }}>
+                                    <MoreHorizIcon/>
+                                </Box>
+                            </CustomIconButton>
                         </div>
-                        <CustomIconButton
-                            disableRipple={false}
-                            sx={{
-                                alignSelf: 'center',
-                                width: '24px',
-                                height: '24px',
-                                objectFit: 'cover',
-                                borderRadius: '2px',
-                                ...activeStylesButtonMoreHoriz,
-                            }}
-                            onClick={openMoreHoriz}
-                        >
-                            <Box sx={{
-                                width: '24px',
-                                height: '24px',
-                                objectFit: 'cover'
-                            }}>
-                                <MoreHorizIcon/>
-                            </Box>
-                        </CustomIconButton>
                     </div>
-                </div>
             }
             <MoreHoriz
                 isOpen={isOpenMoreHoriz}
@@ -299,6 +311,10 @@ export const Task: FC<Props> = (props) => {
                 transformPopover={matches1030 ? 'translate(-20%, -20%)' : 'translate(0%, -15%)'}
                 transformMoreHoriz={matches1030 ? 'translate(0%, 80%)' : 'translate(4%, 28%)'}
                 actionMoreHoriz={removeTask}
+                secondActionMoreHoriz={() => {
+                    openCloseWindows('open', 'redactor')
+                    closeMoreHoriz()
+                }}
                 closeMoreHoriz={closeMoreHoriz}
             />
             <TaskEditor

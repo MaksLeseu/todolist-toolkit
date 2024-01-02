@@ -1,6 +1,6 @@
 .task {
     width: 100%;
-    height: 56px;
+    /*height: 56px;*/
     margin-bottom: 48px;
     cursor: pointer;
 }
@@ -126,6 +126,10 @@
     .description {
         width: 380px;
     }
+
+    .groupSettingsContainerActive {
+        display: block;
+    }
 }
 
 @media (max-width: 550px) {
@@ -143,6 +147,10 @@
 
     .description {
         width: 280px;
+    }
+
+    .groupSettingsContainer {
+        display: block;
     }
 }
 
