@@ -22,9 +22,9 @@ export const TaskSetItems: FC<Props> = (props) => {
     const {title, valueDate, valuePriority, isOpen, children, handleOpen} = props
 
     const date = valueDate ? dateConversionToString(valueDate) : null
-    const priority = typeof valuePriority === 'number' ? priorityConversionToString(valuePriority) : null
+    const priority = valuePriority ? priorityConversionToString(valuePriority) : null
 
-    const valueLabel = date || priority || 'no date set'
+    const valueLabel = priority === null ? date || 'no date set' : priority
 
     return (
         <Box sx={{

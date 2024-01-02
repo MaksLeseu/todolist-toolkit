@@ -45,6 +45,11 @@
     font-weight: 700;
     line-height: 24px;
     margin-bottom: 8px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 380px;
+    height: 1.2em;
+    white-space: nowrap;
 }
 
 .empty {
@@ -62,7 +67,7 @@
     line-height: 24px;
     text-overflow: ellipsis;
     overflow: hidden;
-    width: 280px;
+    width: 680px;
     height: 1.2em;
     white-space: nowrap;
 }
@@ -103,6 +108,10 @@
     .flexContainer {
         grid-template-columns: 7% 88% 5%;
     }
+
+    .description {
+        width: 580px;
+    }
 }
 
 @media (max-width: 730px) {
@@ -113,6 +122,10 @@
     .flexContainerActive {
         grid-template-columns: 8.5% 90.5% 1%;
     }
+
+    .description {
+        width: 380px;
+    }
 }
 
 @media (max-width: 550px) {
@@ -122,6 +135,14 @@
 
     .flexContainerActive {
         grid-template-columns: 10% 89% 1%;
+    }
+
+    .text {
+        width: 280px;
+    }
+
+    .description {
+        width: 280px;
     }
 }
 

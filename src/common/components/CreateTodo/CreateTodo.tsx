@@ -37,8 +37,10 @@ export const CreateTodo = () => {
 
     const {isOpenCalendar, openCloseCalendar} = useOpenCloseCalendar()
     const {isOpenPriority, openClosePriority} = useOpenClosePriority()
-    const {startDate, deadline, settingDate} = useSettingDate()
+    const {date, settingDate} = useSettingDate()
     const {priority, settingPriority} = useSettingPriority()
+
+    const priorityTask: number = priority === null ? 1 : priority
 
     const [title, setTitle] = useState<TitleType>({
         todoName: '',
@@ -101,7 +103,9 @@ export const CreateTodo = () => {
                 todolistId: todoId,
                 title: title.taskName,
                 description: title.description,
-                startDate, deadline, priority,
+                startDate: date.startDate,
+                deadline: date.deadline,
+                priority: priorityTask,
             }))
                 .finally(() => {
                     setTitle({
@@ -210,7 +214,7 @@ export const CreateTodo = () => {
 
                         <TaskSetItems
                             title={'StartDate of the task'}
-                            valueDate={startDate}
+                            valueDate={date.startDate}
                             isOpen={isOpenCalendar.openStartDate}
                             children={
                                 <BaseCalendar
@@ -224,7 +228,7 @@ export const CreateTodo = () => {
 
                         <TaskSetItems
                             title={'Deadline of the task'}
-                            valueDate={deadline}
+                            valueDate={date.deadline}
                             isOpen={isOpenCalendar.openDeadline}
                             children={
                                 <BaseCalendar
@@ -238,7 +242,7 @@ export const CreateTodo = () => {
 
                         <TaskSetItems
                             title={'Priority of the task'}
-                            valuePriority={priority as number | undefined}
+                            valuePriority={priorityTask}
                             isOpen={isOpenPriority}
                             children={
                                 <Priority

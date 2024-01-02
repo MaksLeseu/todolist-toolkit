@@ -21,6 +21,7 @@
 
 .containerText {
     display: block;
+    max-width: 510px;
 }
 
 .taskName {
@@ -28,6 +29,8 @@
     margin: 3px 0 0 0;
     font-weight: 500;
     cursor: pointer;
+    word-wrap: break-word;
+    max-width: 100%;
 }
 
 .description {
@@ -36,6 +39,8 @@
     cursor: pointer;
     max-height: 340px;
     overflow: auto;
+    word-wrap: break-word;
+    max-width: 100%;
 }
 
 .buttons {
@@ -53,9 +58,19 @@
     margin-top: 210px;
 }
 
+@media (max-width: 840px) {
+    .containerText {
+        max-width: 410px;
+    }
+}
+
 @media (max-width: 740px) {
     .settingsTaskEditor {
         min-width: 130px;
+    }
+
+    .containerText {
+        max-width: 384px;
     }
 
     .dateAdded {
@@ -64,6 +79,11 @@
 }
 
 @media (max-width: 640px) {
+    .taskName {
+        max-height: 50px;
+        overflow: auto;
+    }
+
     .description {
         max-height: 245px;
         overflow: auto;
@@ -71,5 +91,17 @@
 
     .dateAdded {
         margin-top: 10px;
+    }
+}
+
+@media (max-width: 540px) {
+    .containerText {
+        max-width: 330px;
+    }
+}
+
+@media (max-width: 440px) {
+    .containerText {
+        max-width: 260px;
     }
 }

@@ -34,18 +34,18 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
         taskPriority, taskDeadline, taskStartDate, calenderStyles, updateTask
     } = props
 
-    const {startDate, deadline, settingDate, resetDate} = useSettingDate()
+    const {date, settingDate, resetDate} = useSettingDate()
     const {priority, settingPriority} = useSettingPriority()
     const {isOpenCalendar, openCloseCalendar} = useOpenCloseCalendar()
     const {isOpenPriority, openClosePriority} = useOpenClosePriority()
 
     const closeDeadlineCalender = () => {
-        deadline && updateTask(taskStartDate, deadline, taskPriority)
+        date.deadline && updateTask(taskStartDate, date.deadline, taskPriority)
         resetDate('deadline')
         openCloseCalendar('close')
     }
     const closeStartDateCalendar = () => {
-        startDate && updateTask(startDate, taskDeadline, taskPriority)
+        date.startDate && updateTask(date.startDate, taskDeadline, taskPriority)
         resetDate('startDate')
         openCloseCalendar('close')
     }
@@ -79,7 +79,7 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
                     borderRadius: '4px',
                     border: '1px solid var(--primary, #704ECC)',
                     boxShadow: '1px 1px 3px rgba(140, 97, 255, 0.35)',
-                    margin: '0 auto !important'
+                    margin: '0 auto 5px auto !important'
                 }}
                 onClick={resetDate}
             >
@@ -114,8 +114,8 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
                 </ListItemButton>
             </CustomIconButton>);
 
-    const deadlineLabel = taskDeadline ? dateConversionToString(dayjs(taskDeadline)) : deadline && dateConversionToString(deadline) || 'Set deadline'
-    const startDateLabel = taskStartDate ? dateConversionToString(dayjs(taskStartDate)) : startDate && dateConversionToString(startDate) || 'Set start date'
+    const deadlineLabel = taskDeadline ? dateConversionToString(dayjs(taskDeadline)) : date.deadline && dateConversionToString(date.deadline) || 'Set deadline'
+    const startDateLabel = taskStartDate ? dateConversionToString(dayjs(taskStartDate)) : date.startDate && dateConversionToString(date.startDate) || 'Set start date'
     const priorityLabel = priority === null ? priorityConversionToString(taskPriority) : priorityConversionToString(priority)
 
     const matches640 = useMediaQuery('(max-width:640px)');
@@ -129,6 +129,7 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
                 children={
                     <BaseCalendar
                         openCalendar={isOpenCalendar.openStartDate}
+                        currentDate={taskStartDate}
                         transformStyle={matches640 ? 'translate(20%, 0%)' : ''}
                         childrenResetButton={returnChildrenResetButton(resetStartDateHandle)}
                         closeCalendar={closeStartDateCalendar}
@@ -144,6 +145,7 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
                 children={
                     <BaseCalendar
                         openCalendar={isOpenCalendar.openDeadline}
+                        currentDate={taskDeadline}
                         transformStyle={matches640 ? 'translate(20%, 0%)' : ''}
                         childrenResetButton={returnChildrenResetButton(resetDeadlineHandle)}
                         closeCalendar={closeDeadlineCalender}

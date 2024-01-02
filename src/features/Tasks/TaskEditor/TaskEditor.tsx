@@ -11,7 +11,6 @@ import {TaskStatuses} from "../../../common/utils/enums";
 import {Dayjs} from "dayjs";
 import {UpdateTaskParamsType} from "../Task";
 import {Nullable} from "../../../common/utils/types/optional.types";
-import {ConfirmationModalWindow} from "../../../common/components/СonfirmationModalWindow/СonfirmationModalWindow";
 import {TaskRedactor} from "../../../common/components/TaskRedactor/TaskRedactor";
 import {CustomButtonGroup} from "../../../common/components/CustomButtonGroup/CustomButtonGroup";
 import {SettingsTaskEditor} from "./SettingsTaskEditor/SettingsTaskEditor";
@@ -77,59 +76,73 @@ export const TaskEditor: FC<Props> = (props) => {
         updateTask
     } = props
 
-    const [taskRedactor, setTaskRedactor] = useState<boolean>(false)
-    const [taskConfirmation, setTaskConfirmation] = useState<boolean>(false)
-
-    const [newTitle, setNewTitle] = useState<string>(taskName)
-    const [newDescription, setNewDescription] = useState<string>(description)
+    const [text, setText] = useState<{ newTitle: string, newDescription: string }>({
+        newTitle: taskName,
+        newDescription: description
+    })
 
     useEffect(() => {
-        setNewTitle(taskName)
-        setNewDescription(description)
+        setText({
+            newTitle: taskName,
+            newDescription: description
+        })
     }, [description || taskName])
 
-    const openTaskRedactor = () => setTaskRedactor(true)
-    const closeTaskRedactor = () => setTaskRedactor(false)
-
-    const closeConfirmation = () => setTaskConfirmation(false)
-    const actionConfirmation = () => {
-        setNewTitle(taskName)
-        setNewDescription(description)
-        closeConfirmation()
-        closeTaskRedactor()
+    const changeText = (params: 'title' | 'description', e: ChangeEvent<HTMLInputElement>) => {
+        const methods = {
+            'title': () => setText({
+                ...text,
+                newTitle: e.currentTarget.value
+            }),
+            'description': () => setText({
+                ...text,
+                newDescription: e.currentTarget.value
+            }),
+        }
+        return methods[params]()
     }
 
-    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
-    const changeSpecification = (e: ChangeEvent<HTMLInputElement>) => setNewDescription(e.currentTarget.value)
+    const [taskRedactor, setTaskRedactor] = useState<boolean>(false)
+    const openTaskRedactor = () => setTaskRedactor(true)
+    const closeTaskRedactor = () => {
+        if (taskName !== text.newTitle || description !== text.newDescription) {
+            setText({
+                newTitle: taskName,
+                newDescription: description
+            })
+        }
+        setTaskRedactor(false)
+    }
 
-    const wrapperUpdateTaskForButtonTaskEditor = () =>
-        updateTask({
-            taskId,
-            todolistId,
-            title: newTitle,
-            description: newDescription,
-            deadline: taskDeadline,
-            startDate: taskStartDate,
-            priority: taskPriority,
-            closeTaskRedactor
-        })
+    const wrapperUpdateTaskForButtonTaskEditor = () => {
+        if (text.newTitle.trim()) {
+            updateTask({
+                taskId,
+                todolistId,
+                title: text.newTitle,
+                description: text.newDescription,
+                deadline: taskDeadline,
+                startDate: taskStartDate,
+                priority: taskPriority,
+                closeTaskRedactor
+            })
+        }
+    }
     const wrapperUpdateTaskForGroupSettingsTaskEditor = (startDate: Nullable<Dayjs>, deadline: Nullable<Dayjs>, priority: number) => {
         return updateTask({
             taskId,
             todolistId,
-            title: newTitle,
-            description: newDescription,
+            title: text.newTitle,
+            description: text.newDescription,
             deadline, startDate, priority, closeTaskRedactor
         })
     }
 
     const handleCloseTaskEditor = () => {
-        if (taskRedactor && taskName !== newTitle || description !== newDescription) {
-            return setTaskConfirmation(true)
+        if (text.newTitle.trim() && !taskRedactor) {
+            closeTaskEditor()
+            closeTaskRedactor()
         }
-
-        closeTaskEditor()
-        closeTaskRedactor()
     }
 
     return (
@@ -172,12 +185,12 @@ export const TaskEditor: FC<Props> = (props) => {
                                     <p className={s.taskName}
                                        onDoubleClick={openTaskRedactor}
                                     >
-                                        {newTitle}
+                                        {text.newTitle}
                                     </p>
                                     <p className={s.description}
                                        onDoubleClick={openTaskRedactor}
                                     >
-                                        {newDescription}
+                                        {text.newDescription}
                                     </p>
                                 </div>
                             }
@@ -185,10 +198,10 @@ export const TaskEditor: FC<Props> = (props) => {
 
                         <TaskRedactor
                             taskRedactor={taskRedactor}
-                            valueTask={newTitle}
-                            valueDescription={newDescription}
-                            changeTitle={changeTitle}
-                            changeSpecification={changeSpecification}
+                            valueTask={text.newTitle}
+                            valueDescription={text.newDescription}
+                            changeTitle={(e) => changeText('title', e)}
+                            changeSpecification={(e) => changeText('description', e)}
                         />
 
                     </div>
@@ -210,17 +223,18 @@ export const TaskEditor: FC<Props> = (props) => {
                         taskStartDate={taskStartDate}
                         taskDeadline={taskDeadline}
                         taskPriority={taskPriority}
+                        calenderStyles={{
+                            '@media (max-width: 740px)': {
+                                fontSize: '12px'
+                            },
+                            '@media (max-width: 640px)': {
+                                fontSize: '14px'
+                            }
+                        }}
                         updateTask={wrapperUpdateTaskForGroupSettingsTaskEditor}
                     />
                     <p className={s.dateAdded}>{`Date added: ${taskAddedDate.slice(0, 10)}`}</p>
                 </div>
-                <ConfirmationModalWindow
-                    isOpen={taskConfirmation}
-                    title={'changes'}
-                    description={'Changes will not be saved'}
-                    actionConfirmation={actionConfirmation}
-                    closeConfirmation={closeConfirmation}
-                />
             </Box>
         </CustomModalWindow>
     )

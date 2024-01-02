@@ -14,6 +14,7 @@ import {ArrowIconRight} from "../Icons/ArrowIconRight";
 
 type Props = {
     openCalendar: AnchorElType
+    currentDate?: Nullable<Dayjs>
     transformStyle?: string
     childrenResetButton?: ReactNode
     closeCalendar: () => void
@@ -36,6 +37,9 @@ const StyledDay = styled(PickersDay)(({theme}) => ({
         color: 'white',
     },
     '&:focus.Mui-selected': {
+        backgroundColor: theme.palette.secondary.main,
+    },
+    '&:hover.Mui-selected': {
         backgroundColor: theme.palette.secondary.main,
     }
 }));
@@ -95,9 +99,10 @@ const StyledCalendarHeader = styled(PickersCalendarHeader)(({theme}) => ({
 }))
 
 export const BaseCalendar: FC<Props> = (props) => {
-    const {openCalendar, transformStyle, childrenResetButton, closeCalendar, settingDate} = props
+    const {openCalendar, currentDate, transformStyle, childrenResetButton, closeCalendar, settingDate} = props
+    const date = currentDate ? dayjs(currentDate) : dayjs(new Date())
 
-    const [value, setValue] = React.useState<Nullable<Dayjs>>(dayjs(new Date()));
+    const [value, setValue] = React.useState<Nullable<Dayjs>>(date);
 
     const changeDate = (newValue: any) => {
         setValue(newValue)

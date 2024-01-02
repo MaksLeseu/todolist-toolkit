@@ -26,7 +26,7 @@ type Props = {
 export const SettingsTask: FC<Props> = (props) => {
     const {calenderStyles, taskDeadline, taskPriority, taskStartDate, genericSettingFunction} = props
 
-    const {startDate, deadline, settingDate} = useSettingDate()
+    const {date, settingDate} = useSettingDate()
     const {priority, settingPriority} = useSettingPriority()
     const {isOpenCalendar, openCloseCalendar} = useOpenCloseCalendar()
     const {isOpenPriority, openClosePriority} = useOpenClosePriority()
@@ -48,8 +48,8 @@ export const SettingsTask: FC<Props> = (props) => {
     }
 
 
-    const deadlineLabel = taskDeadline && deadline === null ? dateConversionToString(dayjs(taskDeadline)) : deadline && dateConversionToString(deadline) || 'Set deadline'
-    const startDateLabel = taskStartDate && startDate === null ? dateConversionToString(dayjs(taskStartDate)) : startDate && dateConversionToString(startDate) || 'Set start date'
+    const deadlineLabel = taskDeadline && date.deadline === null ? dateConversionToString(dayjs(taskDeadline)) : date.deadline && dateConversionToString(date.deadline) || 'Set deadline'
+    const startDateLabel = taskStartDate && date.startDate === null ? dateConversionToString(dayjs(taskStartDate)) : date.startDate && dateConversionToString(date.startDate) || 'Set start date'
     const priorityLabel = priority === null ? priorityConversionToString(taskPriority) : priorityConversionToString(priority)
 
     return (

@@ -2,17 +2,27 @@ import {useState} from "react";
 import {Nullable} from "../types/optional.types";
 import {Dayjs} from "dayjs";
 
+type DatesType = {
+    startDate: Nullable<Dayjs>
+    deadline: Nullable<Dayjs>
+}
+
 export const useSettingDate = () => {
-    const [deadline, setDeadline] = useState<Nullable<Dayjs>>(null)
-    const [startDate, setStartDate] = useState<Nullable<Dayjs>>(null)
+    const [date, setDate] = useState<DatesType>({
+        startDate: null, deadline: null
+    })
 
     const settingDate = (value: Nullable<Dayjs>, method: 'startDate' | 'deadline') => {
         const methodForSettingValue = {
-            'startDate': (date: Nullable<Dayjs> | number) => {
-                date && setStartDate(date as Nullable<Dayjs>)
+            'startDate': (dateValue: Nullable<Dayjs>) => {
+                dateValue && setDate({
+                    ...date, startDate: dateValue
+                })
             },
-            'deadline': (date: Nullable<Dayjs> | number) => {
-                date && setDeadline(date as Nullable<Dayjs>)
+            'deadline': (dateValue: Nullable<Dayjs>) => {
+                dateValue && setDate({
+                    ...date, deadline: dateValue
+                })
             },
         }
         methodForSettingValue[method](value)
@@ -21,10 +31,14 @@ export const useSettingDate = () => {
     const resetDate = (params: 'startDate' | 'deadline') => {
         const reset = {
             'startDate': () => {
-                setStartDate(null)
+                setDate({
+                    ...date, startDate: null
+                })
             },
             'deadline': () => {
-                setDeadline(null)
+                setDate({
+                    ...date, deadline: null
+                })
             },
         }
         reset[params]()
@@ -32,8 +46,7 @@ export const useSettingDate = () => {
 
     return (
         {
-            deadline,
-            startDate,
+            date,
             resetDate,
             settingDate
         }
