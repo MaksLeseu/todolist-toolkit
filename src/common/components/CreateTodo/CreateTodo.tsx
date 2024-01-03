@@ -90,10 +90,11 @@ export const CreateTodo = () => {
             dispatch(todolistsThunk.addTodolist({title: title.todoName}))
                 .then((res) => {
                     if (res.payload) {
-                        const todoId = res.payload.todolist.id
+                        const todoId: string = res.payload.todolist.id
                         addTask(todoId)
                     }
                 })
+                .catch((err) => console.log(err))
         }
     }
 

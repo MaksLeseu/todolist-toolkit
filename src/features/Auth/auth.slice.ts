@@ -5,6 +5,8 @@ import {LoginDataType} from "./auth.types";
 import {todolistsActions, todolistsThunk} from "../Todolists/todolists.slice";
 import {ResultCode} from "../../common/utils/enums";
 import {handleServerAppError} from "../../common/utils/functions/handleServerAppError/handleServerAppError";
+import {handleServerNetworkError} from "../../common/utils/functions/handleServerNetworkError/handleServerNetworkError";
+import {thunkTryCatch} from "../../common/utils/functions/thunkTryCatch/thunkTryCatch";
 
 const slice = createSlice({
     name: 'auth',
@@ -32,6 +34,7 @@ export const authMe = createAppAsyncThunk<{ isLoggedIn: boolean },
             return {isLoggedIn: false}
         }
     } catch (error) {
+        handleServerNetworkError(error, dispatch);
         return rejectWithValue(null)
     }
 })
@@ -41,31 +44,33 @@ export const login = createAppAsyncThunk<void,
 ('auth/login', async (arg, thunkAPI) => {
     const {dispatch, rejectWithValue} = thunkAPI
 
-    const res = await authApi.login(arg.data)
-
-    if (res.data.resultCode === ResultCode.Success) {
-        dispatch(authThunk.authMe({}))
-    } else {
-        const isShowAppError = !res.data.fieldsErrors.length;
-
-        handleServerAppError(res.data, dispatch, isShowAppError)
-        return rejectWithValue(res.data);
-    }
+    return thunkTryCatch(thunkAPI, async () => {
+        const res = await authApi.login(arg.data)
+        if (res.data.resultCode === ResultCode.Success) {
+            dispatch(authThunk.authMe({}))
+        } else {
+            const isShowAppError = !res.data.fieldsErrors.length;
+            handleServerAppError(res.data, dispatch, isShowAppError)
+            return rejectWithValue(res.data);
+        }
+    })
 })
 
 export const logout = createAppAsyncThunk<void,
     {}>
 ('auth/logout', async (arg, thunkAPI) => {
     const {dispatch, rejectWithValue} = thunkAPI
-    try {
+
+    return thunkTryCatch(thunkAPI, async () => {
         const res = await authApi.logout()
         if (res.data.resultCode === ResultCode.Success) {
             dispatch(todolistsActions.clearTodos())
             dispatch(authThunk.authMe({}))
+        } else {
+            handleServerAppError(res.data, dispatch);
+            return rejectWithValue(res.data);
         }
-    } catch (error) {
-        return rejectWithValue(null)
-    }
+    })
 })
 
 export const authSlice = slice.reducer

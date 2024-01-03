@@ -19,6 +19,8 @@ import {Nullable} from "../../../common/utils/types/optional.types";
 import {isOpenMenuSelector} from "../../../app/app.selector";
 import {Main} from '../../../common/utils/functions/dynamicSetMarginForContentPart/dynamicSetMarginForContentPart'
 import {useMediaQuery} from "@mui/material";
+import {useSettingDate} from "../../../common/utils/hooks/useSettingDate";
+import {useSettingPriority} from "../../../common/utils/hooks/useSettingPriority";
 
 type Props = {
     todolistId: string
@@ -60,13 +62,6 @@ export const Todolist: FC<Props> = (props) => {
     const [formAddTask, setFormAddTask] = useState<boolean>(false)
     const [visibleLiner, setVisibleLiner] = useState<boolean>(false)
 
-    const [priority, setPriority] = useState<number>(1)
-
-    const [date, setDate] = useState<{ deadline: Nullable<Dayjs>, startDate: Nullable<Dayjs> }>({
-        startDate: null,
-        deadline: null,
-    })
-
     const changeTaskName = (e: ChangeEvent<HTMLInputElement>) => {
         setTaskText({
             ...taskText,
@@ -94,32 +89,8 @@ export const Todolist: FC<Props> = (props) => {
         })
     }
 
-    const handleSettingDeadline = (deadline: Nullable<Dayjs>) => {
-        setDate({
-            ...date, deadline
-        })
-    }
-    const handleSettingStartDate = (startDate: Nullable<Dayjs>) => {
-        setDate({
-            ...date, startDate
-        })
-    }
-    const handleSettingPriority = (priority: number) => setPriority(priority)
-
-    const genericSettingFunction = (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => {
-        const methodsForSettingValues = {
-            'startDate': (startDate: Nullable<Dayjs> | number) => {
-                handleSettingStartDate(startDate as Nullable<Dayjs>)
-            },
-            'deadline': (deadline: Nullable<Dayjs> | number) => {
-                handleSettingDeadline(deadline as Nullable<Dayjs>)
-            },
-            'priority': (priority: number | Nullable<Dayjs>) => {
-                handleSettingPriority(priority as number)
-            },
-        }
-        methodsForSettingValues[method](value)
-    }
+    const {date, settingDate, resetDate} = useSettingDate()
+    const {priority, settingPriority, resetPriority} = useSettingPriority()
 
 
     const addTask = (params: AddTaskParamsType) => {
@@ -136,11 +107,9 @@ export const Todolist: FC<Props> = (props) => {
         }))
             .finally(() => {
                 setVisibleLiner(false)
-                setDate({
-                    startDate: null,
-                    deadline: null
-                })
-                setPriority(1)
+                resetDate('startDate')
+                resetDate('deadline')
+                resetPriority()
             })
         closeFormAddTask()
     }
@@ -150,7 +119,7 @@ export const Todolist: FC<Props> = (props) => {
         description: taskText.description,
         startDate: date.startDate,
         deadline: date.deadline,
-        priority
+        priority: priority as number
     })
 
     const matches1520 = useMediaQuery('(max-width:1520px)');
@@ -199,7 +168,8 @@ export const Todolist: FC<Props> = (props) => {
                                 changeTaskName={changeTaskName}
                                 changeDescription={changeDescription}
                                 addTask={addTaskHandle}
-                                genericSettingFunction={genericSettingFunction}
+                                prioritySettingFunction={settingPriority}
+                                genericSettingFunction={settingDate}
                             />
                             :
                             <AddTaskButton

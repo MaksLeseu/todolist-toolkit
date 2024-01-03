@@ -17,11 +17,12 @@ import {useOpenClosePriority} from "../../../common/utils/hooks/useOpenClosePrio
 
 type Props = {
     calenderStyles?: SxProps<Theme>
-    genericSettingFunction: (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => void
+    prioritySettingFunction: (priority: number) => void
+    genericSettingFunction: (value: Nullable<Dayjs>, method: 'startDate' | 'deadline') => void
 }
 
 export const SettingsFormAddTask: FC<Props> = (props) => {
-    const {calenderStyles, genericSettingFunction} = props
+    const {calenderStyles, genericSettingFunction, prioritySettingFunction} = props
 
     const {date, settingDate} = useSettingDate()
     const {priority, settingPriority} = useSettingPriority()
@@ -40,7 +41,7 @@ export const SettingsFormAddTask: FC<Props> = (props) => {
 
     const settingPriorityHandle = (priority: number) => {
         settingPriority(priority)
-        genericSettingFunction(priority, 'priority')
+        prioritySettingFunction(priority)
         openClosePriority('close')
     }
 

@@ -16,7 +16,8 @@ type Props = {
     changeTaskName: (e: ChangeEvent<HTMLInputElement>) => void
     changeDescription: (e: ChangeEvent<HTMLInputElement>) => void
     addTask: MouseEventHandler | undefined
-    genericSettingFunction: (value: Nullable<Dayjs> | number, method: 'startDate' | 'deadline' | 'priority') => void
+    prioritySettingFunction: (priority: number) => void
+    genericSettingFunction: (value: Nullable<Dayjs>, method: 'startDate' | 'deadline') => void
 }
 
 export const FormAddTask: FC<Props> = (props) => {
@@ -27,7 +28,8 @@ export const FormAddTask: FC<Props> = (props) => {
         changeTaskName,
         changeDescription,
         addTask,
-        genericSettingFunction
+        genericSettingFunction,
+        prioritySettingFunction
     } = props
 
     const isOpenMenu = useAppSelector(isOpenMenuSelector)
@@ -69,6 +71,7 @@ export const FormAddTask: FC<Props> = (props) => {
             <div className={isOpenMenu ? `${s.settings} ${s.settingsWhenOpenMenu}` : s.settings}>
                 <SettingsFormAddTask
                     calenderStyles={{marginRight: '10px', width: '140px',}}
+                    prioritySettingFunction={prioritySettingFunction}
                     genericSettingFunction={genericSettingFunction}
                 />
             </div>

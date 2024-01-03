@@ -8,4 +8,5 @@ export type BaseResponseType<D = {}> = {
     messages: Array<string>;
     data: D;
     fieldsErrors: FieldErrorType[];
+    todolist: { id: string }
 };
