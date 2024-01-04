@@ -22,6 +22,7 @@ import s from './BodyMenu.module.css'
 import {MoreHoriz} from "../../../common/components/MoreHoriz/MoreHoriz";
 import {todolistsThunk} from "../../Todolists/todolists.slice";
 import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTooltip";
+import {CustomLinearProgress} from "../../../common/components/CustomLinearProgress/CustomLinearProgress";
 
 
 type Props = {
@@ -56,8 +57,12 @@ export const BodyMenu: FC<Props> = (props) => {
         event.preventDefault()
     }
 
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
     const removeTodo = (todoId: string) => {
+        setIsLoading(true)
         dispatch(todolistsThunk.removeTodolist(todoId))
+            .finally(() => setIsLoading(false))
         closeMoreHoriz()
     }
 
@@ -157,6 +162,7 @@ export const BodyMenu: FC<Props> = (props) => {
                                          className={({isActive, isPending}) =>
                                              isPending ? s.pending : isActive ? s.active : s.general
                                          }>
+                                    {param.todo === todo.id && <CustomLinearProgress visible={isLoading}/>}
                                     <CustomTooltip
                                         title={todo.title}
                                         bigTextWidth={todo.title.slice(0, 10).length === 10}
@@ -228,9 +234,10 @@ export const BodyMenu: FC<Props> = (props) => {
                                         </CustomIconButton>
                                     </CustomTooltip>
                                     <MoreHoriz
+                                        isOpen={isOpenMoreHoriz}
                                         todoId={todo.id}
                                         todoTitle={todo.title}
-                                        isOpen={isOpenMoreHoriz}
+                                        setIsLoading={setIsLoading}
                                         actionMoreHoriz={removeTodo}
                                         closeMoreHoriz={closeMoreHoriz}
                                     />

@@ -42,6 +42,10 @@ export const Todolist: FC<Props> = (props) => {
     const dispatch = useAppDispatch()
     const isOpenMenu = useAppSelector(isOpenMenuSelector)
 
+    const {date, settingDate, resetDate} = useSettingDate()
+    const {priority, settingPriority, resetPriority} = useSettingPriority()
+    const priorityValue: number = priority === null ? 1 : priority
+
     useEffect(() => {
         dispatch(tasksThunk.fetchTasks({todolistId}))
     }, [])
@@ -89,10 +93,6 @@ export const Todolist: FC<Props> = (props) => {
         })
     }
 
-    const {date, settingDate, resetDate} = useSettingDate()
-    const {priority, settingPriority, resetPriority} = useSettingPriority()
-
-
     const addTask = (params: AddTaskParamsType) => {
         if (!params.title) return
 
@@ -119,7 +119,7 @@ export const Todolist: FC<Props> = (props) => {
         description: taskText.description,
         startDate: date.startDate,
         deadline: date.deadline,
-        priority: priority as number
+        priority: priorityValue
     })
 
     const matches1520 = useMediaQuery('(max-width:1520px)');

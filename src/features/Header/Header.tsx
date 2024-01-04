@@ -7,7 +7,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
 import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
-import {authThunk} from "../Auth/auth.slice";
 import {NavLink, useParams} from "react-router-dom";
 import {Menu} from "./Menu/Menu";
 import {LogOutButton} from "./LogOutButton/LogOutButton";
@@ -16,9 +15,10 @@ import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {BodyMenu} from "./BodyMenu/BodyMenu";
 import {ConfirmationModalWindow} from "../../common/components/СonfirmationModalWindow/СonfirmationModalWindow";
 import {useMediaQuery} from "@mui/material";
-import {appActions} from "../../app/app.slice";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {isOpenMenuSelector} from "../../app/app.selector";
+import {authThunk} from "../Auth/auth.slice";
+import {appActions} from "../../app/app.slice";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -95,11 +95,11 @@ export const Header: FC<Props> = (props) => {
     }
 
     const changeDrawer = (type: 'open' | 'close') => {
-        const obj = {
+        const methods = {
             'open': () => dispatch(appActions.setIsOpenMenu({isOpenMenu: true})),
             'close': () => dispatch(appActions.setIsOpenMenu({isOpenMenu: false})),
         }
-        return obj[type]()
+        return methods[type]()
     }
 
     const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)

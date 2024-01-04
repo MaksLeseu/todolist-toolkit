@@ -22,6 +22,7 @@ import {Main} from '../../utils/functions/dynamicSetMarginForContentPart/dynamic
 import {isOpenMenuSelector} from "../../../app/app.selector";
 import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
 import {tasksThunk} from "../../../features/Tasks/tasks.slice";
+import {Preloader} from "../Preloader/Preloader";
 
 type TitleType = {
     todoName: string
@@ -47,6 +48,8 @@ export const CreateTodo = () => {
         taskName: '',
         description: '',
     })
+
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const settingStartDateValueHandle = (date: Nullable<Dayjs>) => {
         settingDate(date, 'startDate')
@@ -87,6 +90,7 @@ export const CreateTodo = () => {
 
     const addTodo = () => {
         if (title.todoName.trim()) {
+            setIsLoading(true)
             dispatch(todolistsThunk.addTodolist({title: title.todoName}))
                 .then((res) => {
                     if (res.payload) {
@@ -95,6 +99,9 @@ export const CreateTodo = () => {
                     }
                 })
                 .catch((err) => console.log(err))
+                .finally(() => setTimeout(() => {
+                    setIsLoading(false)
+                }, 1000))
         }
     }
 
@@ -125,6 +132,8 @@ export const CreateTodo = () => {
             return navigate(`/todolist-toolkit/todo/${todoId}`)
         }
     }
+
+    if (isLoading) return <Preloader/>
 
     const labelPositions = todos.length > 0 ? `${s.banner} ${s.changeMargin}` : s.banner
     const labelPositionStyles = isOpenMenu ? `${s.banner} ${s.bannerPositionLeft}` : labelPositions

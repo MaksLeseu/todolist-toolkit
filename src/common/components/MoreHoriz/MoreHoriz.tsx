@@ -13,10 +13,11 @@ import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
 import {useMediaQuery} from "@mui/material";
 
 type Props = {
+    isOpen: any
     todoId?: string
     taskId?: string
     todoTitle?: string
-    isOpen: any
+    setIsLoading?: (value: boolean) => void
     transformPopover?: string
     transformMoreHoriz?: string
     actionMoreHoriz: any
@@ -47,8 +48,9 @@ export const MoreHoriz: FC<Props> = (props) => {
     const {
         isOpen,
         todoId,
-        todoTitle,
         taskId,
+        todoTitle,
+        setIsLoading,
         transformPopover,
         transformMoreHoriz,
         actionMoreHoriz,
@@ -77,11 +79,13 @@ export const MoreHoriz: FC<Props> = (props) => {
     const openEdit = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenEdit(event.currentTarget)
 
     const changeTodo = () => {
-        if (todoName !== todoTitle && todoId) {
+        if (todoName !== todoTitle && todoId && setIsLoading) {
+            setIsLoading(true)
             dispatch(todolistsThunk.updateTodolist({todolistId: todoId, title: todoName}))
                 .then(() => {
                     setIsOpenEdit(null)
                 })
+                .finally(() => setIsLoading(false))
         }
     }
 

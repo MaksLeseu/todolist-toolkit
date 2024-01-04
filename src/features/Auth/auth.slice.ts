@@ -7,6 +7,7 @@ import {ResultCode} from "../../common/utils/enums";
 import {handleServerAppError} from "../../common/utils/functions/handleServerAppError/handleServerAppError";
 import {handleServerNetworkError} from "../../common/utils/functions/handleServerNetworkError/handleServerNetworkError";
 import {thunkTryCatch} from "../../common/utils/functions/thunkTryCatch/thunkTryCatch";
+import {appActions} from "../../app/app.slice";
 
 const slice = createSlice({
     name: 'auth',
@@ -26,15 +27,19 @@ export const authMe = createAppAsyncThunk<{ isLoggedIn: boolean },
 ('auth/authMe', async (arg, thunkAPI) => {
     const {rejectWithValue, dispatch} = thunkAPI
     try {
+        dispatch(appActions.setIsInitialized({isInitialized: true}))
         const res = await authApi.me()
         if (res.data.resultCode === ResultCode.Success) {
             dispatch(todolistsThunk.fetchTodolists())
+                .finally(() => dispatch(appActions.setIsInitialized({isInitialized: false})))
             return {isLoggedIn: true}
         } else {
+            dispatch(appActions.setIsInitialized({isInitialized: false}))
             return {isLoggedIn: false}
         }
     } catch (error) {
         handleServerNetworkError(error, dispatch);
+        dispatch(appActions.setIsInitialized({isInitialized: false}))
         return rejectWithValue(null)
     }
 })
