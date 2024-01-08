@@ -21,6 +21,7 @@ import {Main} from '../../../common/utils/functions/dynamicSetMarginForContentPa
 import {useMediaQuery} from "@mui/material";
 import {useSettingDate} from "../../../common/utils/hooks/useSettingDate";
 import {useSettingPriority} from "../../../common/utils/hooks/useSettingPriority";
+import Box from "@mui/material/Box";
 
 type Props = {
     todolistId: string
@@ -38,9 +39,10 @@ type AddTaskParamsType = {
 
 export const Todolist: FC<Props> = (props) => {
     const {todolistId, todolistTitle, todolist} = props
-
     const dispatch = useAppDispatch()
     const isOpenMenu = useAppSelector(isOpenMenuSelector)
+
+    const titleActive = isOpenMenu ? {margin: '0 0 40px 0', justifySelf: 'start'} : {}
 
     const {date, settingDate, resetDate} = useSettingDate()
     const {priority, settingPriority, resetPriority} = useSettingPriority()
@@ -131,9 +133,7 @@ export const Todolist: FC<Props> = (props) => {
     const maxWidth1420 = isOpenMenu && matches1420 ? 220 : maxWidth1520
     const maxWidth1180 = isOpenMenu && matches1180 ? 80 : maxWidth1420
     const maxWidth800 = isOpenMenu && matches800 ? 0 : maxWidth1180
-    const marginLeft = maxWidth1520 && maxWidth1420 && maxWidth1180 && maxWidth800
-
-    const matches1130 = useMediaQuery('(max-width:1130px)');
+    const marginLeft = maxWidth1520 && maxWidth1420 && maxWidth1180 && maxWidth800;
 
     if (task === undefined) return <Preloader/>
 
@@ -141,7 +141,22 @@ export const Todolist: FC<Props> = (props) => {
         <Main open={isOpenMenu} drawerWidth={'0px'} marginLeft={marginLeft}
               sx={{display: 'grid', justifyContent: 'center'}}>
             <div className={isOpenMenu ? `${s.todolistContainerActive}` : s.todolistContainer}>
-                <h2 className={isOpenMenu ? `${s.title} ${s.titleActive}` : s.title}>{todolistTitle}</h2>
+                <Box
+                    sx={{
+                        color: 'text.primary',
+                        fontSize: '48px',
+                        fontStyle: 'normal',
+                        fontWeight: 700,
+                        lineHeight: '54px',
+                        margin: '0 0 42px 0',
+                        justifySelf: 'center',
+                        wordWrap: 'break-word',
+                        maxWidth: '100%',
+                        ...titleActive,
+                    }}
+                >
+                    {todolistTitle}
+                </Box>
                 <div className={isOpenMenu ? `${s.filterTaskContainerActive}` : s.filterTaskContainer}>
                     <FilterTasks
                         valueTodoFilter={todolist.filter}

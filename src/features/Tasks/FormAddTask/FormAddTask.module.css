@@ -1,15 +1,3 @@
-.modalWindow {
-    width: 100%;
-    min-height: 190px;
-    border-radius: 5px;
-    padding: 10px;
-    /*background-color: rgba(235, 236, 240, 1.00);*/
-    background-color: #EFE3FF;
-    margin-top: 10px;
-    margin-bottom: 50px;
-    box-shadow: 1px 1px 6px 0px rgba(112, 78, 204, 0.30), 1px 0px 6px 0px rgba(112, 78, 204, 0.30);
-}
-
 .buttonGroup {
     display: flex;
     justify-content: flex-end;

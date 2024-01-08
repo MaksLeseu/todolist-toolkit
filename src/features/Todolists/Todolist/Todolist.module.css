@@ -18,7 +18,7 @@
     width: 100%;
 }
 
-.title {
+/*.title {
     color: var(--main-text-color);
     font-size: 48px;
     font-style: normal;
@@ -28,12 +28,12 @@
     justify-self: center;
     word-wrap: break-word;
     max-width: 100%;
-}
+}*/
 
-.titleActive {
+/*.titleActive {
     margin: 0 0 40px 0;
     justify-self: start;
-}
+}*/
 
 .titleContainer h2 {
     color: #2a3b5a;

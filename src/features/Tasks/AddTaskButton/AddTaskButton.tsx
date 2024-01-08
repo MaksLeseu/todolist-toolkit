@@ -16,7 +16,7 @@ export const AddTaskButton: FC<Props> = ({label, openFormAddTask}) => {
                 height: '50px',
                 borderRadius: '8px',
                 backgroundColor: '#FF8811',
-                color: 'common.white',
+                color: 'text.secondary',
                 textAlign: 'center',
                 fontSize: '22px',
                 fontStyle: 'normal',

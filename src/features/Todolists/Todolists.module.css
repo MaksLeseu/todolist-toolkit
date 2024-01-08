@@ -27,28 +27,6 @@
     align-items: center;
 }
 
-.notSingleTaskLabel {
-    color: var(--main-text-color);
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 54px;
-    text-transform: uppercase;
-    margin: 0;
-}
-
-.notSingleTaskText {
-    width: 386px;
-    color: var(--main-text-color);
-    text-align: center;
-    font-size: 28px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 34px;
-    text-transform: uppercase;
-    margin: 0 0 32px 0;
-}
-
 .buttonCreateTodo {
     width: 255px;
     height: 56px;
@@ -70,18 +48,6 @@
 }
 
 @media (max-width: 400px) {
-    .notSingleTaskLabel {
-        font-size: 38px;
-        line-height: 44px;
-    }
-
-    .notSingleTaskText {
-        width: 356px;
-        font-size: 20px;
-        line-height: 24px;
-        margin: 0 0 20px 0;
-    }
-
     .notSingleTaskImageContainer {
         width: 300px;
         height: 250px;

@@ -138,7 +138,7 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                             fontStyle: 'normal',
                                             fontWeight: 500,
                                             lineHeight: '24px',
-                                            color: 'text.secondary',
+                                            color: 'rgba(16, 16, 18, 0.50)',
                                         },
                                         endAdornment: (
                                             <InputAdornment position="end">
@@ -185,7 +185,7 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                             fontStyle: 'normal',
                                             fontWeight: 500,
                                             lineHeight: '24px',
-                                            color: 'text.secondary',
+                                            color: 'rgba(16, 16, 18, 0.50)',
                                         },
                                         endAdornment: (
                                             <InputAdornment position="end">

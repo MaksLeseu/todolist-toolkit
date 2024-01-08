@@ -4,7 +4,8 @@ import {Nullable} from "../common/utils/types/optional.types";
 type InitialStateType = {
     error: Nullable<string>,
     isOpenMenu: boolean,
-    isInitialized: boolean
+    isInitialized: boolean,
+    mode: 'dark' | 'light'
 }
 
 const slice = createSlice({
@@ -13,6 +14,7 @@ const slice = createSlice({
         error: null,
         isOpenMenu: false,
         isInitialized: false,
+        mode: 'light',
     } as InitialStateType,
     reducers: {
         setAppError: (state, action: PayloadAction<{ error: Nullable<string> }>) => {
@@ -23,6 +25,9 @@ const slice = createSlice({
         },
         setIsInitialized: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
             state.isInitialized = action.payload.isInitialized
+        },
+        setMode: (state, action: PayloadAction<{ mode: 'dark' | 'light' }>) => {
+            state.mode = action.payload.mode
         }
     }
 })

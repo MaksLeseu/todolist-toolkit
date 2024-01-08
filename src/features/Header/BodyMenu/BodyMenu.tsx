@@ -23,6 +23,8 @@ import {MoreHoriz} from "../../../common/components/MoreHoriz/MoreHoriz";
 import {todolistsThunk} from "../../Todolists/todolists.slice";
 import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTooltip";
 import {CustomLinearProgress} from "../../../common/components/CustomLinearProgress/CustomLinearProgress";
+import {modeSelector} from "../../../app/app.selector";
+import {appActions} from "../../../app/app.slice";
 
 
 type Props = {
@@ -32,7 +34,9 @@ type Props = {
 
 export const BodyMenu: FC<Props> = (props) => {
     const {isOpen, handleDrawerClose} = props
+    const dispatch = useAppDispatch()
     const todos: TodolistsType[] = useAppSelector(todolistsSelector)
+    const mode = useAppSelector(modeSelector)
 
     const param = useParams()
 
@@ -42,7 +46,6 @@ export const BodyMenu: FC<Props> = (props) => {
 
     const matches = useMediaQuery('(min-width:600px)');
 
-    const dispatch = useAppDispatch()
     const handlerLogout = () => dispatch(authThunk.logout({}))
 
     const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
@@ -66,6 +69,20 @@ export const BodyMenu: FC<Props> = (props) => {
         closeMoreHoriz()
     }
 
+    const switchMode = () => {
+        if (checked) {
+            dispatch(appActions.setMode({mode: 'light'}))
+        } else {
+            dispatch(appActions.setMode({mode: 'dark'}))
+        }
+    }
+
+    const [checked, setChecked] = useState<boolean>(false)
+    const changeChecked = () => {
+        setChecked(!checked)
+        switchMode()
+    }
+
     return (
         <Drawer
             sx={{
@@ -78,6 +95,7 @@ export const BodyMenu: FC<Props> = (props) => {
                     boxSizing: 'border-box',
                     padding: '18px 18px 18px 165px',
                     background: 'linear-gradient(186deg, #48289B -0.63%, rgba(82, 28, 225, 0.60) 58.84%, #412589 83.63%)',
+                    backgroundColor: 'common.white'
                 },
                 '@media (max-width: 1180px)': {
                     '& .MuiDrawer-paper': {
@@ -175,7 +193,7 @@ export const BodyMenu: FC<Props> = (props) => {
                                                 height: '52px',
                                                 borderRadius: '4px',
                                                 padding: '12px 8px 12px 8px',
-                                                color: param.todo === todo.id ? 'secondary.main' : 'common.white',
+                                                color: param.todo === todo.id ? 'secondary.main' : 'text.secondary',
                                                 fontSize: '22px',
                                                 fontStyle: 'normal',
                                                 fontWeight: 500,
@@ -248,7 +266,7 @@ export const BodyMenu: FC<Props> = (props) => {
                 </Box>
             }
             <Box sx={{minHeight: '80px', '@media (max-width: 800px)': {height: '120px'}}}>
-                <CustomSwitch/>
+                <CustomSwitch checked={checked} onClick={changeChecked}/>
                 {
                     !matches &&
                     <LogOutButton

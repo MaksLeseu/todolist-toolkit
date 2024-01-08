@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {FormControlLabel, Switch} from "@mui/material";
 import {styled} from "@mui/material/styles";
 
@@ -50,11 +50,19 @@ const MaterialUISwitch = styled(Switch)(({theme}) => ({
     },
 }));
 
-export const CustomSwitch = () => {
+type Props = {
+    checked: boolean
+    onClick: () => void
+}
+
+export const CustomSwitch: FC<Props> = (props) => {
+    const {checked, onClick} = props
+
     return (
         <FormControlLabel
-            control={<MaterialUISwitch sx={{margin: '20px 10px 0 11px',}} defaultChecked/>}
+            control={<MaterialUISwitch sx={{margin: '20px 10px 0 11px',}} checked={checked}/>}
             label=""
+            onClick={onClick}
         />
     );
 };

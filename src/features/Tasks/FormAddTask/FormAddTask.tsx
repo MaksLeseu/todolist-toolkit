@@ -7,7 +7,8 @@ import {Nullable} from "../../../common/utils/types/optional.types";
 import {Dayjs} from "dayjs";
 import {SettingsFormAddTask} from "./SettingsFormAddTask";
 import {useAppSelector} from "../../../common/utils/hooks/useAppSelector";
-import {isOpenMenuSelector} from "../../../app/app.selector";
+import {isOpenMenuSelector, modeSelector} from "../../../app/app.selector";
+import Box from "@mui/material/Box";
 
 type Props = {
     taskName: string
@@ -33,11 +34,25 @@ export const FormAddTask: FC<Props> = (props) => {
     } = props
 
     const isOpenMenu = useAppSelector(isOpenMenuSelector)
+    const mode = useAppSelector(modeSelector)
 
     return (
-        <div className={s.modalWindow}>
+        <Box
+            sx={{
+                width: '100%',
+                minHeight: '190px',
+                borderRadius: '5px',
+                padding: '10px',
+                backgroundColor: mode === 'dark' ? 'primary.dark' : 'primary.main',
+                marginTop: '10px',
+                marginBottom: '50px',
+                boxShadow: '1px 1px 6px 0px rgba(112, 78, 204, 0.30), 1px 0px 6px 0px rgba(112, 78, 204, 0.30)',
+                background: mode === 'dark' ?
+                    'linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09))' : '',
+            }}
+        >
             <CustomTextField
-                label={'Task name'}
+                placeholder={'Task name'}
                 size={'medium'}
                 multiline={false}
                 value={taskName}
@@ -54,11 +69,14 @@ export const FormAddTask: FC<Props> = (props) => {
                 onChange={changeTaskName}
             />
             <CustomTextField
-                label={'Description'}
-                size={'small'}
+                placeholder={'Description'}
+                size={'medium'}
                 value={description}
                 multiline={true}
-                sx={{marginBottom: '10px', width: '100%'}}
+                sx={{
+                    marginBottom: '10px',
+                    width: '100%',
+                }}
                 InputProps={{
                     disableUnderline: true,
                     sx: {
@@ -103,6 +121,6 @@ export const FormAddTask: FC<Props> = (props) => {
                     onClick={addTask}
                 />
             </div>
-        </div>
+        </Box>
     )
 }

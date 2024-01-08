@@ -37,7 +37,7 @@ const buttonStyles = {
     borderRadius: '2px',
     '&:hover': {
         backgroundColor: 'secondary.main',
-        color: 'primary.main',
+        color: 'text.secondary',
         '& svg path': {
             fill: '#EFE3FF',
         },
@@ -92,7 +92,7 @@ export const MoreHoriz: FC<Props> = (props) => {
     const setActiveStyles = (params: 'edit' | 'delete') => {
         const activeStyles = {
             backgroundColor: 'secondary.main',
-            color: 'primary.main',
+            color: 'text.secondary',
             '& svg path': {
                 fill: '#EFE3FF',
             },
@@ -124,7 +124,7 @@ export const MoreHoriz: FC<Props> = (props) => {
                     <TriangleIcon/>
                 </Box>
                 <Box sx={{
-                    backgroundColor: '#EFE3FF',
+                    backgroundColor: 'primary.main',
                     width: '95px',
                     height: '82px',
                     borderRadius: '4px',

@@ -42,6 +42,7 @@ export const CreateTodo = () => {
     const {priority, settingPriority} = useSettingPriority()
 
     const priorityTask: number = priority === null ? 1 : priority
+    const addStylesLabel = isOpenMenu ? {textAlign: 'start'} : {}
 
     const [title, setTitle] = useState<TitleType>({
         todoName: '',
@@ -162,8 +163,33 @@ export const CreateTodo = () => {
                 }}
             >
                 <div className={labelPositionStyles}>
-                    <p className={isOpenMenu ? `${s.label} ${s.labelPositionLeft}` : s.label}>CREATE</p>
-                    <p className={s.title}>
+                    <Box
+                        sx={{
+                            color: 'text.primary',
+                            textAlign: 'center',
+                            fontSize: '48px',
+                            fontStyle: 'normal',
+                            fontWeight: 700,
+                            lineHeight: '54px',
+                            textTransform: 'uppercase',
+                            margin: 0,
+                            ...addStylesLabel
+                        }}
+                    >
+                        CREATE
+                    </Box>
+                    <Box
+                        sx={{
+                            color: 'text.primary',
+                            textAlign: 'center',
+                            fontSize: '28px',
+                            fontStyle: 'normal',
+                            fontWeight: 700,
+                            lineHeight: '34px',
+                            textTransform: 'uppercase',
+                            margin: 0,
+                        }}
+                    >
                         {
                             todos.length > 0
                                 ?
@@ -171,7 +197,7 @@ export const CreateTodo = () => {
                                 :
                                 'your first to do list'
                         }
-                    </p>
+                    </Box>
                 </div>
                 <div className={s.flexContainer}>
                     <div className={s.textFieldColumn}>

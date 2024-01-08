@@ -1,18 +1,3 @@
-.label {
-    color: var(--main-text-color);
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 54px;
-    text-transform: uppercase;
-    text-align: center;
-    margin: 0;
-}
-
-.labelPositionLeft {
-    text-align: start;
-}
-
 .banner {
     grid-column: 2;
     justify-self: end;
@@ -28,30 +13,11 @@
     justify-self: start;
 }
 
-.title {
-    color: var(--main-text-color);
-    text-align: center;
-    font-size: 28px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 34px;
-    text-transform: uppercase;
-    /*margin: 0 0 40px 0;*/
-    margin: 0;
-}
-
 .flexContainer {
-    /*width: 1015px;*/
     margin-bottom: 56px;
     grid-column: 2;
     grid-row: 3;
-    /*display: grid;
-    grid-template-columns: 48px 665px 350px;*/
 }
-
-/*.textFieldColumn {
-    grid-column: 2;
-}*/
 
 .textFieldColumn p {
     width: 200px;

@@ -14,11 +14,11 @@ const privateRoutes = [
     },
     {
         path: '/todolist-toolkit/todo',
-        element: <Todolists onClickLink={false}/>
+        element: <Todolists isTodoListClickable={false}/>
     },
     {
         path: '/todolist-toolkit/todo/:todo/*',
-        element: <Todolists onClickLink={true}/>
+        element: <Todolists isTodoListClickable={true}/>
     },
     {
         path: '/todolist-toolkit/todo/create-todo',

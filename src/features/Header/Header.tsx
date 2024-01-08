@@ -16,7 +16,7 @@ import {BodyMenu} from "./BodyMenu/BodyMenu";
 import {ConfirmationModalWindow} from "../../common/components/СonfirmationModalWindow/СonfirmationModalWindow";
 import {useMediaQuery} from "@mui/material";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
-import {isOpenMenuSelector} from "../../app/app.selector";
+import {isOpenMenuSelector, modeSelector} from "../../app/app.selector";
 import {authThunk} from "../Auth/auth.slice";
 import {appActions} from "../../app/app.slice";
 
@@ -46,7 +46,7 @@ const AppBar = styled(MuiAppBar, {
 
 type Props = {}
 
-const logOutButtonStyles = {
+const generalStyles = {
     width: '109px',
     height: '36px',
     display: 'flex',
@@ -55,7 +55,6 @@ const logOutButtonStyles = {
     fontWeight: 700,
     lineHeight: '16px',
     fontStyle: 'normal',
-    color: '#704ECC',
     borderRadius: '4px',
     alignSelf: 'center',
     '@media (max-width: 1200px)': {
@@ -63,22 +62,15 @@ const logOutButtonStyles = {
     },
 }
 
+const logOutButtonStyles = {
+    ...generalStyles,
+    color: '#704ECC',
+}
+
 const activeLogOutButtonStyles = {
-    width: '109px',
-    height: '36px',
-    display: 'flex',
-    justifySelf: 'end',
-    fontSize: '12px',
-    fontWeight: 700,
-    lineHeight: '16px',
-    fontStyle: 'normal',
-    color: 'common.white',
-    borderRadius: '4px',
-    alignSelf: 'center',
+    ...generalStyles,
+    color: 'text.secondary',
     backgroundColor: 'secondary.main',
-    '@media (max-width: 1200px)': {
-        justifySelf: 'center',
-    },
 }
 
 export const Header: FC<Props> = (props) => {
@@ -91,6 +83,7 @@ export const Header: FC<Props> = (props) => {
         dispatch(authThunk.logout({}))
             .then(() => {
                 changeDrawer('close')
+                dispatch(appActions.setMode({mode: 'light'}))
             })
     }
 
@@ -109,6 +102,7 @@ export const Header: FC<Props> = (props) => {
     const matches = useMediaQuery('(min-width:600px)');
 
     const {start} = useParams()
+    const mode = useAppSelector(modeSelector)
 
     return (
         <Box sx={{
@@ -127,7 +121,7 @@ export const Header: FC<Props> = (props) => {
                 sx={{
                     width: '100%',
                     height: '60px',
-                    backgroundColor: '#EFE3FF',
+                    backgroundColor: mode === 'dark' ? 'primary.dark' : 'primary.main',
                     boxShadow: '0',
                 }}
                 open={isOpen}

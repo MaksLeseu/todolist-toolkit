@@ -9,13 +9,14 @@ import s from './Todolists.module.css'
 import {isOpenMenuSelector} from "../../app/app.selector";
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {QuestionIcon} from "../../common/components/Icons/QuestionIcon";
+import Box from "@mui/material/Box";
 
 
 type Props = {
-    onClickLink: boolean
+    isTodoListClickable: boolean
 }
 
-export const Todolists: FC<Props> = ({onClickLink}) => {
+export const Todolists: FC<Props> = ({isTodoListClickable}) => {
 
     const todos: TodolistsType[] = useAppSelector(todolistsSelector)
     const isOpenMenu: boolean = useAppSelector(isOpenMenuSelector)
@@ -36,8 +37,44 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
     const returnInfoPage = () => {
         return (
             <div className={s.notSingleTask}>
-                <p className={s.notSingleTaskLabel}>sorry,</p>
-                <p className={s.notSingleTaskText}>you haven't created any tasks.</p>
+                <Box
+                    sx={{
+                        color: 'text.primary',
+                        fontSize: '48px',
+                        fontStyle: 'normal',
+                        fontWeight: 700,
+                        lineHeight: '54px',
+                        textTransform: 'uppercase',
+                        margin: 0,
+                        '@media (max-width: 400px)': {
+                            fontSize: '38px',
+                            lineHeight: '44px',
+                        }
+                    }}
+                >
+                    sorry,
+                </Box>
+                <Box
+                    sx={{
+                        width: '386px',
+                        color: 'text.primary',
+                        textAlign: 'center',
+                        fontSize: '28px',
+                        fontStyle: 'normal',
+                        fontWeight: 700,
+                        lineHeight: '34px',
+                        textTransform: 'uppercase',
+                        margin: '0 0 32px 0',
+                        '@media (max-width: 400px)': {
+                            width: '356px',
+                            fontSize: '20px',
+                            lineHeight: '24px',
+                            margin: '0 0 20px 0',
+                        }
+                    }}
+                >
+                    you haven't created any tasks.
+                </Box>
                 <NavLink className={s.buttonCreateTodo} to={'/todolist-toolkit/todo/create-todo'}>
                     <CustomButton
                         color={'secondary'}
@@ -69,14 +106,14 @@ export const Todolists: FC<Props> = ({onClickLink}) => {
         return <Navigate to={`/todolist-toolkit/todo/${todo.id}`}/>
     }
 
-    const test = todos.length > 0 ? navigateToFirstTodo() : returnInfoPage()
+    const redirectToPage = todos.length > 0 ? navigateToFirstTodo() : returnInfoPage()
 
     return (
         <Main open={isOpenMenu} drawerWidth={'0px'} marginLeft={200}>
             <div className={s.todolists}>
                 <div className={s.todosList}>
                     {
-                        onClickLink ? filterTodos() : test
+                        isTodoListClickable ? filterTodos() : redirectToPage
                     }
                 </div>
             </div>

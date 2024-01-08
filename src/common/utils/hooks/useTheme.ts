@@ -1,16 +1,16 @@
 import {createTheme} from "@mui/material";
 
-export const useTheme = () => {
+export const useTheme = (mode: 'dark' | 'light') => {
     const theme = createTheme({
         palette: {
             common: {
-                white: '#FFF',
+                white: mode === 'dark' ? '#000' : '#FFF',
                 black: '#000',
             },
             primary: {
                 main: '#EFE3FF',
                 light: '#FFF',
-                dark: '#F7F7F8',
+                dark: '#121212',
                 contrastText: '#000'
             },
             secondary: {
@@ -24,8 +24,8 @@ export const useTheme = () => {
                 main: '#26C518'
             },
             text: {
-                primary: '#000000',
-                secondary: 'rgba(16, 16, 18, 0.50)',
+                primary: mode === 'dark' ? '#FFFFFF' : '#000000',
+                secondary: '#FFF',
                 disabled: '#828387',
             },
             grey: {
@@ -36,7 +36,7 @@ export const useTheme = () => {
                 disabled: '',
                 focus: '',
             },
-
+            mode,
         },
         typography: {
             allVariants: {

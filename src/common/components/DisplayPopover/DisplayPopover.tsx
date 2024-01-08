@@ -40,7 +40,7 @@ const buttonStyles = {
     gridTemplateColumns: '20px 92px 16px',
     '&:hover': {
         backgroundColor: 'secondary.main',
-        color: 'common.white',
+        color: 'text.secondary',
         '& svg path': {
             fill: 'white',
         },

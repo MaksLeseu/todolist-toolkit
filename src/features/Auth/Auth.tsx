@@ -112,6 +112,9 @@ export const Auth = () => {
                         marginBottom: '12px',
                         display: 'flex',
                         justifyContent: 'normal',
+                        '&:hover': {
+                            backgroundColor: 'common.white'
+                        }
                     }}
                     onClick={() => openAccount('user')}
                 />
@@ -136,6 +139,9 @@ export const Auth = () => {
                         padding: '16px',
                         display: 'flex',
                         justifyContent: 'normal',
+                        '&:hover': {
+                            backgroundColor: 'common.white'
+                        }
                     }}
                     onClick={() => openAccount('test')}
                 />

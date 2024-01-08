@@ -8,6 +8,8 @@ import {Dayjs} from "dayjs";
 import {
     priorityConversionToString
 } from "../../../utils/functions/priorityConversionToString/priorityConversionToString";
+import {useAppSelector} from "../../../utils/hooks/useAppSelector";
+import {modeSelector} from "../../../../app/app.selector";
 
 type Props = {
     title: string
@@ -20,6 +22,7 @@ type Props = {
 
 export const TaskSetItems: FC<Props> = (props) => {
     const {title, valueDate, valuePriority, isOpen, children, handleOpen} = props
+    const mode = useAppSelector(modeSelector)
 
     const date = valueDate ? dateConversionToString(valueDate) : null
     const priority = valuePriority ? priorityConversionToString(valuePriority) : null
@@ -32,13 +35,13 @@ export const TaskSetItems: FC<Props> = (props) => {
         }}>
             <Box sx={{
                 width: '155px',
-                color: 'rgba(0, 0, 0, 0.50)',
+                color: mode === 'dark' ? 'text.secondary' : 'rgba(0, 0, 0, 0.50)',
                 fontSize: '14px',
                 fontStyle: 'normal',
                 fontWeight: 500,
                 lineHeight: '24px',
                 margin: '0 0 13px 0',
-                borderBottom: '1px rgba(0, 0, 0, 0.50) solid',
+                borderBottom: mode === 'dark' ? '1px #FFF solid' : '1px rgba(0, 0, 0, 0.50) solid',
             }}>
                 {title}
             </Box>

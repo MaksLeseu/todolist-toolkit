@@ -14,6 +14,8 @@ import {Nullable} from "../../../common/utils/types/optional.types";
 import {TaskRedactor} from "../../../common/components/TaskRedactor/TaskRedactor";
 import {CustomButtonGroup} from "../../../common/components/CustomButtonGroup/CustomButtonGroup";
 import {SettingsTaskEditor} from "./SettingsTaskEditor/SettingsTaskEditor";
+import {useAppSelector} from "../../../common/utils/hooks/useAppSelector";
+import {modeSelector} from "../../../app/app.selector";
 
 type Props = {
     open: boolean
@@ -75,6 +77,9 @@ export const TaskEditor: FC<Props> = (props) => {
         updateCheckbox,
         updateTask
     } = props
+
+    const mode = useAppSelector(modeSelector)
+    const addStyles = mode === 'dark' ? {border: '1px #704ECC solid',} : {}
 
     const [text, setText] = useState<{ newTitle: string, newDescription: string }>({
         newTitle: taskName,
@@ -149,7 +154,7 @@ export const TaskEditor: FC<Props> = (props) => {
         <CustomModalWindow
             open={open}
             title={todolistTitle}
-            styleObject={style}
+            styleObject={{...style, ...addStyles}}
             childrenIcon={<DescriptionIcon color={'info'}/>}
             childrenRedactor={(
                 <CustomIconButton

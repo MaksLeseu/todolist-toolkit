@@ -276,10 +276,55 @@ export const Task: FC<Props> = (props) => {
                                 />
                             </Box>
                             <div>
-                                <div className={s.text}>{taskTitle}</div>
+                                <Box
+                                    sx={{
+                                        color: 'text.primary',
+                                        fontFamily: 'Roboto, sans-serif',
+                                        fontSize: '24px',
+                                        fontStyle: 'normal',
+                                        fontWeight: 700,
+                                        lineHeight: '24px',
+                                        marginBottom: '8px',
+                                        textOverflow: 'ellipsis',
+                                        overflow: 'hidden',
+                                        width: '380px',
+                                        height: '1.2em',
+                                        whiteSpace: 'nowrap',
+                                        '@media (max-width: 550px)': {
+                                            width: '280px',
+                                        }
+                                    }}
+                                >
+                                    {taskTitle}
+                                </Box>
                                 {
                                     taskDescription &&
-                                    <div className={s.description}>{taskDescription}</div>
+                                    <Box
+                                        sx={{
+                                            color: 'text.primary',
+                                            fontFamily: 'Roboto, sans-serif',
+                                            fontSize: '18px',
+                                            fontStyle: 'normal',
+                                            fontWeight: 500,
+                                            lineHeight: '24px',
+                                            textOverflow: 'ellipsis',
+                                            overflow: 'hidden',
+                                            width: '680px',
+                                            height: '1.2em',
+                                            whiteSpace: 'nowrap',
+                                            '@media (max-width: 950px)': {
+                                                width: '580px'
+                                            },
+                                            '@media (max-width: 730px)': {
+                                                width: '380px'
+                                            },
+                                            '@media (max-width: 550px)': {
+                                                width: '280px'
+                                            }
+                                        }}
+                                    >
+                                        {taskDescription}
+                                    </Box>
                                 }
                             </div>
                             <CustomIconButton
