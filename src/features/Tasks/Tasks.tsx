@@ -7,6 +7,8 @@ import {CustomLinearProgress} from "../../common/components/CustomLinearProgress
 import {Task} from "./Task";
 import {TaskStatuses} from "../../common/utils/enums";
 import {TodolistsType} from "../Todolists/todolists.types";
+import s from './Task.module.css'
+import {isOpenMenuSelector} from "../../app/app.selector";
 
 type Props = {
     todolistId: string
@@ -20,6 +22,7 @@ export const Tasks: FC<Props> = (props) => {
     const {todolistId, todolistTitle, todolist, visibleLiner, setVisibleLiner} = props
 
     const tasks: StateTaskType = useAppSelector(taskSelector)
+    const isOpenMenu = useAppSelector(isOpenMenuSelector)
     const task: TasksType[] = tasks[todolistId]
 
     let filteredTasks = task
@@ -55,7 +58,9 @@ export const Tasks: FC<Props> = (props) => {
                             setVisibleLiner={setVisibleLiner}
                         />)
                     :
-                    <div className={'s.empty'}>You don't have tasks. Click on button, that create a task !!!</div>
+                    <div className={isOpenMenu ? `${s.emptyOpenMenu} ${s.empty}` : s.empty}>You don't have tasks. Click
+                        on button, that
+                        create a task !!!</div>
             }
         </>
     )
