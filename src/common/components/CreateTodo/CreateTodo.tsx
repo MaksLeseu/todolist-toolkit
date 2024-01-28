@@ -204,8 +204,9 @@ export const CreateTodo = () => {
                 <div className={s.flexContainer}>
                     <div className={s.textFieldColumn}>
                         <TodoTaskCreationForm
-                            title={'Enter the name of to do list'}
+                            title={'To-do list name'}
                             value={title.todoName}
+                            placeholder={'To-do list name'}
                             placeholderStyles={{
                                 fontSize: '32px',
                                 fontStyle: 'normal',
@@ -224,14 +225,16 @@ export const CreateTodo = () => {
                             onChange={(e: ChangeEvent<HTMLInputElement>) => changeTitle('todo', e)}
                         />
                         <TodoTaskCreationForm
-                            title={'Enter the name of the task'}
+                            title={'Task name'}
                             value={title.taskName}
+                            placeholder={'Task name'}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => changeTitle('task', e)}
                         />
 
                         <TodoTaskCreationForm
-                            title={'Enter a description of the task'}
+                            title={'Task description'}
                             value={title.description}
+                            placeholder={'Task description'}
                             placeholderStyles={{
                                 fontSize: '18px',
                                 fontStyle: 'normal',
@@ -243,9 +246,6 @@ export const CreateTodo = () => {
                                 fontStyle: 'normal',
                                 fontWeight: 400,
                                 lineHeight: '24px',
-                            }}
-                            titleStyles={{
-                                width: '219px',
                             }}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => changeTitle('description', e)}
                         />

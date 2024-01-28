@@ -46,7 +46,7 @@ export const TaskSetItems: FC<Props> = (props) => {
                 {title}
             </Box>
             <Box sx={{
-                width: '540px',
+                width: '155px',
                 borderBottom: '1px solid #704ECC',
                 paddingBottom: '4px',
                 display: 'flex',

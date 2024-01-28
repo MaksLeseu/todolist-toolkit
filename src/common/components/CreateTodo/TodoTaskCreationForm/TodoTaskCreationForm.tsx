@@ -14,6 +14,7 @@ type ObjectStyles = {
 type Props = {
     title: string
     value: string
+    placeholder?: string
     textFieldStyles?: { marginBottom: string }
     placeholderStyles?: ObjectStyles
     inputStyles?: ObjectStyles
@@ -22,13 +23,13 @@ type Props = {
 }
 
 export const TodoTaskCreationForm: FC<Props> = (props) => {
-    const {title, value, placeholderStyles, textFieldStyles, inputStyles, titleStyles, onChange} = props
+    const {title, value, placeholder, placeholderStyles, textFieldStyles, inputStyles, titleStyles, onChange} = props
     const mode = useAppSelector(modeSelector)
 
     return (
         <>
             <Box sx={{
-                width: '200px',
+                width: '120px',
                 color: mode === 'dark' ? 'text.secondary' : 'rgba(0, 0, 0, 0.50)',
                 fontSize: '14px',
                 fontStyle: 'normal',
@@ -41,7 +42,8 @@ export const TodoTaskCreationForm: FC<Props> = (props) => {
             <CustomTextField
                 size={'medium'}
                 value={value}
-                placeholder={'here'}
+                variant={'filled'}
+                placeholder={placeholder ? placeholder : 'Here'}
                 sx={{
                     width: '540px',
                     height: '43px',
@@ -66,7 +68,6 @@ export const TodoTaskCreationForm: FC<Props> = (props) => {
                     },
                 }}
                 InputProps={{
-                    disableUnderline: true,
                     sx: {
                         fontSize: '24px',
                         fontStyle: 'normal',
@@ -74,7 +75,6 @@ export const TodoTaskCreationForm: FC<Props> = (props) => {
                         lineHeight: '30px',
                         ...inputStyles,
                         color: 'secondary.main',
-                        borderBottom: '1px #704ECC solid',
                     }
                 }}
                 onChange={onChange}
