@@ -138,7 +138,7 @@ export const BodyMenu: FC<Props> = (props) => {
                 />
             </Box>
             <Box sx={{marginBottom: '50px'}}>
-                <NavLink className={s.link} to={'/todolist-toolkit/todo/create-todo'}>
+                <NavLink to={'/todolist-toolkit/todo/create-todo'}>
                     <CustomIconButton
                         disableRipple={false}
                         sx={{
@@ -164,7 +164,7 @@ export const BodyMenu: FC<Props> = (props) => {
             {
                 todos &&
                 <Box sx={{
-                    flexGrow: 1, overflow: 'auto', margin: '0 auto',
+                    flexGrow: 1, overflow: 'auto', margin: '0 auto', width: '210px',
                     '&::-webkit-scrollbar': {
                         width: '10px',
                         backgroundColor: '#704ECC',
