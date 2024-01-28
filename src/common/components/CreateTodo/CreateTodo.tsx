@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import {CreateTodoIcon} from "../Icons/CreateTodoIcon";
+import {CreateTodoIconLight} from "../Icons/CreateTodoIconLight";
 import {CustomButton} from "../CustomButton/CustomButton";
 import s from './CreateTodo.module.css'
 import {NavLink, useNavigate} from "react-router-dom";
@@ -19,10 +19,11 @@ import {Nullable} from "../../utils/types/optional.types";
 import {Dayjs} from "dayjs";
 import {useSettingPriority} from "../../utils/hooks/useSettingPriority";
 import {Main} from '../../utils/functions/dynamicSetMarginForContentPart/dynamicSetMarginForContentPart'
-import {isOpenMenuSelector} from "../../../app/app.selector";
+import {isOpenMenuSelector, modeSelector} from "../../../app/app.selector";
 import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
 import {tasksThunk} from "../../../features/Tasks/tasks.slice";
 import {Preloader} from "../Preloader/Preloader";
+import {CreateTodoIconDark} from "../Icons/CreateTodoIconDark";
 
 type TitleType = {
     todoName: string
@@ -33,6 +34,7 @@ type TitleType = {
 export const CreateTodo = () => {
     const todos: TodolistsType[] = useAppSelector(todolistsSelector)
     const isOpenMenu = useAppSelector(isOpenMenuSelector)
+    const mode = useAppSelector(modeSelector)
     const dispatch = useAppDispatch()
     const navigate = useNavigate();
 
@@ -294,7 +296,7 @@ export const CreateTodo = () => {
                 </div>
 
                 <div className={isOpenMenu ? `${s.imageColumn} ${s.imagePositionTop}` : s.imageColumn}>
-                    <CreateTodoIcon/>
+                    {mode === 'dark' ? <CreateTodoIconDark/> : <CreateTodoIconLight/>}
                 </div>
 
                 <div

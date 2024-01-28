@@ -6,10 +6,11 @@ import {todolistsSelector} from "./todolists.selector";
 import {TodolistsType} from "./todolists.types";
 import {Main} from '../../common/utils/functions/dynamicSetMarginForContentPart/dynamicSetMarginForContentPart'
 import s from './Todolists.module.css'
-import {isOpenMenuSelector} from "../../app/app.selector";
+import {isOpenMenuSelector, modeSelector} from "../../app/app.selector";
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
-import {QuestionIcon} from "../../common/components/Icons/QuestionIcon";
+import {QuestionIconLight} from "../../common/components/Icons/QuestionIconLight";
 import Box from "@mui/material/Box";
+import {QuestionIconDark} from "../../common/components/Icons/QuestionIconDark";
 
 
 type Props = {
@@ -20,6 +21,7 @@ export const Todolists: FC<Props> = ({isTodoListClickable}) => {
 
     const todos: TodolistsType[] = useAppSelector(todolistsSelector)
     const isOpenMenu: boolean = useAppSelector(isOpenMenuSelector)
+    const mode = useAppSelector(modeSelector)
 
     const {todo} = useParams()
     const todolist = todo ? todo : ''
@@ -95,7 +97,7 @@ export const Todolists: FC<Props> = ({isTodoListClickable}) => {
                     />
                 </NavLink>
                 <div className={s.notSingleTaskImageContainer}>
-                    <QuestionIcon/>
+                    {mode === 'dark' ? <QuestionIconDark/> : <QuestionIconLight/>}
                 </div>
             </div>
         )

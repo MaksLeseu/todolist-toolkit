@@ -87,15 +87,16 @@ export const BodyMenu: FC<Props> = (props) => {
         <Drawer
             sx={{
                 '& .MuiDrawer-paper': {
-                    width: 420,
+                    width: 320,
                     minHeight: '100%',
                     display: 'flex',
                     flexDirection: 'column',
                     zIndex: 1300,
                     boxSizing: 'border-box',
-                    padding: '18px 18px 18px 165px',
+                    padding: '18px 18px 18px 18px',
                     background: 'linear-gradient(186deg, #48289B -0.63%, rgba(82, 28, 225, 0.60) 58.84%, #412589 83.63%)',
-                    backgroundColor: 'common.white'
+                    backgroundColor: 'common.white',
+                    textAlign: 'center'
                 },
                 '@media (max-width: 1180px)': {
                     '& .MuiDrawer-paper': {
@@ -131,7 +132,7 @@ export const BodyMenu: FC<Props> = (props) => {
                         fontWeight: '700',
                         lineHeight: '24px',
                         textTransform: 'uppercase',
-                        marginLeft: '30px'
+                        marginLeft: '30px',
                     }}
                     onClick={handleDrawerClose}
                 />
@@ -163,7 +164,7 @@ export const BodyMenu: FC<Props> = (props) => {
             {
                 todos &&
                 <Box sx={{
-                    flexGrow: 1, overflow: 'auto',
+                    flexGrow: 1, overflow: 'auto', margin: '0 auto',
                     '&::-webkit-scrollbar': {
                         width: '10px',
                         backgroundColor: '#704ECC',
@@ -183,7 +184,7 @@ export const BodyMenu: FC<Props> = (props) => {
                                     {param.todo === todo.id && <CustomLinearProgress visible={isLoading}/>}
                                     <CustomTooltip
                                         title={todo.title}
-                                        bigTextWidth={todo.title.slice(0, 10).length === 10}
+                                        bigTextWidth={todo.title.slice(0, 12).length === 12}
                                         notActiveBox={param.todo !== todo.id}
                                     >
                                         <CustomIconButton
@@ -194,7 +195,7 @@ export const BodyMenu: FC<Props> = (props) => {
                                                 borderRadius: '4px',
                                                 padding: '12px 8px 12px 8px',
                                                 color: param.todo === todo.id ? 'secondary.main' : 'text.secondary',
-                                                fontSize: '22px',
+                                                fontSize: '18px',
                                                 fontStyle: 'normal',
                                                 fontWeight: 500,
                                                 lineHeight: '28px',
@@ -221,7 +222,7 @@ export const BodyMenu: FC<Props> = (props) => {
                                                         textOverflow: 'ellipsis',
                                                         overflow: 'hidden',
                                                         whiteSpace: 'nowrap',
-                                                        width: '110px',
+                                                        width: '130px',
                                                         textAlign: 'start',
                                                     }}
                                                 >
