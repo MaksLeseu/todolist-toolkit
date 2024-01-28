@@ -12,13 +12,10 @@ export const Footer = () => {
                 width: '100%',
                 height: '60px',
                 backgroundColor: 'primary.main',
-                padding: '18px 0 18px 165px',
+                padding: '18px 0 18px 0',
                 background: mode === 'dark' ?
                     'linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09))' : '',
-                '@media (max-width: 975px)': {
-                    padding: '18px 0 18px 0',
-                    display: 'flex',
-                }
+                display: 'flex',
             }}
         >
             <p className={s.container}>2024 The best team. All rights reserved.</p>
