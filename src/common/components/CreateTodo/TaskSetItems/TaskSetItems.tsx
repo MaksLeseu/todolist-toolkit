@@ -36,10 +36,10 @@ export const TaskSetItems: FC<Props> = (props) => {
             <Box sx={{
                 width: '155px',
                 color: mode === 'dark' ? 'text.secondary' : 'rgba(0, 0, 0, 0.50)',
-                fontSize: '14px',
+                fontSize: '12px',
                 fontStyle: 'normal',
-                fontWeight: 500,
-                lineHeight: '24px',
+                fontWeight: 400,
+                lineHeight: '16px',
                 margin: '0 0 13px 0',
                 borderBottom: mode === 'dark' ? '1px #FFF solid' : '1px rgba(0, 0, 0, 0.50) solid',
             }}>
@@ -67,7 +67,7 @@ export const TaskSetItems: FC<Props> = (props) => {
                         fontFamily: 'Roboto',
                         fontSize: '18px',
                         fontStyle: 'normal',
-                        fontWeight: 400,
+                        fontWeight: 500,
                         lineHeight: '24px',
                     }}
                 >

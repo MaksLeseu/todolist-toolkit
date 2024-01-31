@@ -30,9 +30,6 @@ export const TaskRedactor: FC<Props> = (props) => {
         <>
             {
                 taskRedactor &&
-                /*<div className={s.taskRedactor}>
-
-                </div>*/
                 <Box
                     sx={{
                         border: '1px #2a3b5a solid',
@@ -49,6 +46,13 @@ export const TaskRedactor: FC<Props> = (props) => {
                         size={'small'}
                         multiline={false}
                         sx={{width: '100%', marginBottom: '10px'}}
+                        InputProps={{
+                            sx: {
+                                fontSize: '18px',
+                                fontStyle: 'normal',
+                                fontWeight: 500,
+                            }
+                        }}
                         onChange={changeTitle}
                     />
                     <CustomTextField

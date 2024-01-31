@@ -24,11 +24,12 @@ export const SettingsButton: FC<Props> = (props) => {
                 label={label || 'Mistakes'}
                 variant={'contained'}
                 sx={{
-                    width: '100%',
-                    height: '25px',
+                    height: '30px',
                     textTransform: 'none',
                     boxShadow: 'none',
                     marginBottom: '10px',
+                    marginRight: '10px',
+                    minWidth: '140px',
                     ...sx
                 }}
                 onClick={handleOpen}

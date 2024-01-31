@@ -49,6 +49,7 @@ export const FormAddTask: FC<Props> = (props) => {
                 boxShadow: '1px 1px 6px 0px rgba(112, 78, 204, 0.30), 1px 0px 6px 0px rgba(112, 78, 204, 0.30)',
                 background: mode === 'dark' ?
                     'linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09))' : '',
+                transition: 'opacity 0.5s ease-in-out',
             }}
         >
             <CustomTextField
@@ -58,12 +59,22 @@ export const FormAddTask: FC<Props> = (props) => {
                 value={taskName}
                 sx={{
                     width: '100%',
+                    marginBottom: '10px',
+                    fontSize: '18px',
+                    '&& input::placeholder': {
+                        fontSize: '18px',
+                        fontStyle: 'normal',
+                        fontWeight: 500,
+                        lineHeight: '28px',
+                    },
                 }}
                 InputProps={{
-                    disableUnderline: true,
+                    disableUnderline: false,
                     sx: {
                         color: 'secondary.main',
                         borderBottom: '1px #704ECC solid',
+                        fontSize: '18px',
+                        fontWeight: 500,
                     }
                 }}
                 onChange={changeTaskName}
@@ -72,23 +83,32 @@ export const FormAddTask: FC<Props> = (props) => {
                 placeholder={'Description'}
                 size={'medium'}
                 value={description}
-                multiline={true}
+                multiline={false}
                 sx={{
-                    marginBottom: '10px',
+                    marginBottom: '20px',
                     width: '100%',
+                    fontSize: '18px',
+                    '&& input::placeholder': {
+                        fontSize: '18px',
+                        fontStyle: 'normal',
+                        fontWeight: 500,
+                        lineHeight: '28px',
+                    },
                 }}
                 InputProps={{
-                    disableUnderline: true,
+                    disableUnderline: false,
                     sx: {
                         color: 'secondary.main',
                         borderBottom: '1px #704ECC solid',
+                        fontSize: '18px',
+                        fontWeight: 500,
                     }
                 }}
                 onChange={changeDescription}
             />
             <div className={isOpenMenu ? `${s.settings} ${s.settingsWhenOpenMenu}` : s.settings}>
                 <SettingsFormAddTask
-                    calenderStyles={{marginRight: '10px', width: '140px',}}
+                    calenderStyles={{fontSize: '16px', fontWeight: 500}}
                     prioritySettingFunction={prioritySettingFunction}
                     genericSettingFunction={genericSettingFunction}
                 />
@@ -101,6 +121,7 @@ export const FormAddTask: FC<Props> = (props) => {
                     sx={{
                         marginRight: '10px',
                         backgroundColor: 'common.white',
+                        fontSize: '18px',
                         color: 'secondary.main',
                         borderRadius: '8px',
                         border: '1px solid var(--primary, #704ECC)',
@@ -112,9 +133,9 @@ export const FormAddTask: FC<Props> = (props) => {
                     color={'secondary'}
                     label={MSG_BTN.ADD_A_TASK}
                     sx={{
-
                         color: 'common.white',
                         borderRadius: '8px',
+                        fontSize: '18px',
                         '&:hover': {}
                     }}
                     variant={'contained'}

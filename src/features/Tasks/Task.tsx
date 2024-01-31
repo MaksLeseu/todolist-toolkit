@@ -280,7 +280,7 @@ export const Task: FC<Props> = (props) => {
                                     sx={{
                                         color: 'text.primary',
                                         fontFamily: 'Roboto, sans-serif',
-                                        fontSize: '24px',
+                                        fontSize: '18px',
                                         fontStyle: 'normal',
                                         fontWeight: 700,
                                         lineHeight: '24px',
@@ -303,7 +303,7 @@ export const Task: FC<Props> = (props) => {
                                         sx={{
                                             color: 'text.primary',
                                             fontFamily: 'Roboto, sans-serif',
-                                            fontSize: '18px',
+                                            fontSize: '16px',
                                             fontStyle: 'normal',
                                             fontWeight: 500,
                                             lineHeight: '24px',

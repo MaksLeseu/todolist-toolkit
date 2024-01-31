@@ -79,7 +79,7 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
                     borderRadius: '4px',
                     border: '1px solid var(--primary, #704ECC)',
                     boxShadow: '1px 1px 3px rgba(140, 97, 255, 0.35)',
-                    margin: '0 auto 5px auto !important'
+                    margin: '0 auto 5px auto !important',
                 }}
                 onClick={resetDate}
             >

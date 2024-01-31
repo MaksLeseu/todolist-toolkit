@@ -106,7 +106,7 @@ export const Header: FC<Props> = (props) => {
 
     return (
         <Box sx={{
-            marginBottom: '110px', zIndex: 1000,
+            marginBottom: '60px', zIndex: 1000,
             '@media (max-width: 850px)': {
                 marginBottom: '50px'
             },

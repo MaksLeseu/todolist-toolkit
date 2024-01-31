@@ -169,10 +169,10 @@ export const CreateTodo = () => {
                         sx={{
                             color: 'text.primary',
                             textAlign: 'center',
-                            fontSize: '48px',
+                            fontSize: '38px',
                             fontStyle: 'normal',
                             fontWeight: 700,
-                            lineHeight: '54px',
+                            lineHeight: '38px',
                             textTransform: 'uppercase',
                             margin: 0,
                             ...addStylesLabel
@@ -184,10 +184,10 @@ export const CreateTodo = () => {
                         sx={{
                             color: 'text.primary',
                             textAlign: 'center',
-                            fontSize: '28px',
+                            fontSize: '18px',
                             fontStyle: 'normal',
                             fontWeight: 700,
-                            lineHeight: '34px',
+                            lineHeight: '28px',
                             textTransform: 'uppercase',
                             margin: 0,
                         }}
@@ -207,21 +207,6 @@ export const CreateTodo = () => {
                             title={'To-do list name'}
                             value={title.todoName}
                             placeholder={'To-do list name'}
-                            placeholderStyles={{
-                                fontSize: '32px',
-                                fontStyle: 'normal',
-                                fontWeight: 700,
-                                lineHeight: '38px',
-                            }}
-                            textFieldStyles={{
-                                marginBottom: '54px',
-                            }}
-                            inputStyles={{
-                                fontSize: '32px',
-                                fontStyle: 'normal',
-                                fontWeight: 700,
-                                lineHeight: '38px',
-                            }}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => changeTitle('todo', e)}
                         />
                         <TodoTaskCreationForm
@@ -235,62 +220,53 @@ export const CreateTodo = () => {
                             title={'Task description'}
                             value={title.description}
                             placeholder={'Task description'}
-                            placeholderStyles={{
-                                fontSize: '18px',
-                                fontStyle: 'normal',
-                                fontWeight: 400,
-                                lineHeight: '24px',
-                            }}
-                            inputStyles={{
-                                fontSize: '18px',
-                                fontStyle: 'normal',
-                                fontWeight: 400,
-                                lineHeight: '24px',
-                            }}
+                            textFieldStyles={{marginBottom: '40px'}}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => changeTitle('description', e)}
                         />
 
-                        <TaskSetItems
-                            title={'StartDate of the task'}
-                            valueDate={date.startDate}
-                            isOpen={isOpenCalendar.openStartDate}
-                            children={
-                                <BaseCalendar
-                                    openCalendar={isOpenCalendar.openStartDate}
-                                    closeCalendar={() => openCloseCalendar('close')}
-                                    settingDate={settingStartDateValueHandle}
-                                />
-                            }
-                            handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'startDate', event)}
-                        />
+                        <Box sx={{display: 'flex'}}>
+                            <TaskSetItems
+                                title={'StartDate of the task'}
+                                valueDate={date.startDate}
+                                isOpen={isOpenCalendar.openStartDate}
+                                children={
+                                    <BaseCalendar
+                                        openCalendar={isOpenCalendar.openStartDate}
+                                        closeCalendar={() => openCloseCalendar('close')}
+                                        settingDate={settingStartDateValueHandle}
+                                    />
+                                }
+                                handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'startDate', event)}
+                            />
 
-                        <TaskSetItems
-                            title={'Deadline of the task'}
-                            valueDate={date.deadline}
-                            isOpen={isOpenCalendar.openDeadline}
-                            children={
-                                <BaseCalendar
-                                    openCalendar={isOpenCalendar.openDeadline}
-                                    closeCalendar={() => openCloseCalendar('close')}
-                                    settingDate={settingDeadlineValueHandle}
-                                />
-                            }
-                            handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'deadline', event)}
-                        />
+                            <TaskSetItems
+                                title={'Deadline of the task'}
+                                valueDate={date.deadline}
+                                isOpen={isOpenCalendar.openDeadline}
+                                children={
+                                    <BaseCalendar
+                                        openCalendar={isOpenCalendar.openDeadline}
+                                        closeCalendar={() => openCloseCalendar('close')}
+                                        settingDate={settingDeadlineValueHandle}
+                                    />
+                                }
+                                handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'deadline', event)}
+                            />
 
-                        <TaskSetItems
-                            title={'Priority of the task'}
-                            valuePriority={priorityTask}
-                            isOpen={isOpenPriority}
-                            children={
-                                <Priority
-                                    openPriority={isOpenPriority}
-                                    closePriority={() => openClosePriority('close')}
-                                    settingPriority={settingPriorityHandle}
-                                />
-                            }
-                            handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openClosePriority('open', event)}
-                        />
+                            <TaskSetItems
+                                title={'Priority of the task'}
+                                valuePriority={priorityTask}
+                                isOpen={isOpenPriority}
+                                children={
+                                    <Priority
+                                        openPriority={isOpenPriority}
+                                        closePriority={() => openClosePriority('close')}
+                                        settingPriority={settingPriorityHandle}
+                                    />
+                                }
+                                handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openClosePriority('open', event)}
+                            />
+                        </Box>
                     </div>
 
                 </div>
@@ -309,10 +285,10 @@ export const CreateTodo = () => {
                             height: '50px',
                             borderRadius: '8px',
                             color: '#FFF',
-                            fontSize: '22px',
+                            fontSize: '18px',
                             fontStyle: 'normal',
                             fontWeight: 700,
-                            lineHeight: '34px',
+                            lineHeight: '28px',
                             boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                             marginRight: '4px',
                         }}
@@ -328,10 +304,10 @@ export const CreateTodo = () => {
                                 height: '50px',
                                 borderRadius: '8px',
                                 color: '#704ECC',
-                                fontSize: '22px',
+                                fontSize: '18px',
                                 fontStyle: 'normal',
                                 fontWeight: 700,
-                                lineHeight: '34px',
+                                lineHeight: '28px',
                                 border: '1px solid #704ECC',
                                 boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                                 marginLeft: '4px',

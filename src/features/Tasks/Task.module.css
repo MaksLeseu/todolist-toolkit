@@ -1,12 +1,15 @@
 .task {
     width: 100%;
-    margin-bottom: 48px;
     cursor: pointer;
+    transition: all 0.1s;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .task:hover {
+    transition: all 0.8s;
     border-radius: 4px;
-    box-shadow: 1px 1px 6px 0px rgba(112, 78, 204, 0.30), 1px 0px 6px 0px rgba(112, 78, 204, 0.30);
+    box-shadow: 1px 1px 6px 0 rgba(112, 78, 204, 0.30), 1px 0 6px 0 rgba(112, 78, 204, 0.30);
 }
 
 .taskCompleted {

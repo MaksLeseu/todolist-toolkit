@@ -31,10 +31,10 @@ export const TodoTaskCreationForm: FC<Props> = (props) => {
             <Box sx={{
                 width: '120px',
                 color: mode === 'dark' ? 'text.secondary' : 'rgba(0, 0, 0, 0.50)',
-                fontSize: '14px',
+                fontSize: '12px',
                 fontStyle: 'normal',
-                fontWeight: 500,
-                lineHeight: '24px',
+                fontWeight: 400,
+                lineHeight: '16px',
                 margin: '0 0 13px 0',
                 borderBottom: mode === 'dark' ? '1px #FFF solid' : '1px rgba(0, 0, 0, 0.50) solid',
                 ...titleStyles
@@ -50,10 +50,10 @@ export const TodoTaskCreationForm: FC<Props> = (props) => {
                     marginBottom: '24px',
                     ...textFieldStyles,
                     '&& input::placeholder': {
-                        fontSize: '24px',
+                        fontSize: '18px',
                         fontStyle: 'normal',
-                        fontWeight: 600,
-                        lineHeight: '30px',
+                        fontWeight: 500,
+                        lineHeight: '28px',
                         ...placeholderStyles,
                         color: 'rgba(112, 78, 204, 0.50)',
                     },
@@ -69,10 +69,10 @@ export const TodoTaskCreationForm: FC<Props> = (props) => {
                 }}
                 InputProps={{
                     sx: {
-                        fontSize: '24px',
+                        fontSize: '18px',
                         fontStyle: 'normal',
-                        fontWeight: 600,
-                        lineHeight: '30px',
+                        fontWeight: 500,
+                        lineHeight: '28px',
                         ...inputStyles,
                         color: 'secondary.main',
                     }

@@ -144,11 +144,11 @@ export const Todolist: FC<Props> = (props) => {
                 <Box
                     sx={{
                         color: 'text.primary',
-                        fontSize: '48px',
+                        fontSize: '38px',
                         fontStyle: 'normal',
                         fontWeight: 700,
                         lineHeight: '54px',
-                        margin: '0 0 42px 0',
+                        margin: '0 0 20px 0',
                         justifySelf: 'center',
                         wordWrap: 'break-word',
                         maxWidth: '100%',

@@ -9,6 +9,7 @@ import {TaskStatuses} from "../../common/utils/enums";
 import {TodolistsType} from "../Todolists/todolists.types";
 import s from './Task.module.css'
 import {isOpenMenuSelector} from "../../app/app.selector";
+import Divider from "@mui/material/Divider";
 
 type Props = {
     todolistId: string
@@ -42,21 +43,24 @@ export const Tasks: FC<Props> = (props) => {
                 filteredTasks.length > 0
                     ?
                     filteredTasks.map((ts: TasksType) =>
-                        <Task
-                            key={ts.id}
-                            taskId={ts.id}
-                            todolistId={todolistId}
-                            taskStatus={ts.status}
-                            taskTitle={ts.title}
-                            taskDescription={ts.description}
-                            taskAddedDate={ts.addedDate}
-                            taskDeadline={ts.deadline}
-                            taskStartDate={ts.startDate}
-                            taskPriority={ts.priority}
-                            todolistTitle={todolistTitle}
-                            task={ts}
-                            setVisibleLiner={setVisibleLiner}
-                        />)
+                        <>
+                            <Task
+                                key={ts.id}
+                                taskId={ts.id}
+                                todolistId={todolistId}
+                                taskStatus={ts.status}
+                                taskTitle={ts.title}
+                                taskDescription={ts.description}
+                                taskAddedDate={ts.addedDate}
+                                taskDeadline={ts.deadline}
+                                taskStartDate={ts.startDate}
+                                taskPriority={ts.priority}
+                                todolistTitle={todolistTitle}
+                                task={ts}
+                                setVisibleLiner={setVisibleLiner}
+                            />
+                            <Divider sx={{marginBottom: '10px'}}/>
+                        </>)
                     :
                     <div className={isOpenMenu ? `${s.emptyOpenMenu} ${s.empty}` : s.empty}>You don't have tasks. Click
                         on button, that
