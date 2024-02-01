@@ -1,4 +1,4 @@
-import {createBrowserRouter, Navigate, NavLink, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import {Layout} from "../common/components/Layout/Layout";
 import {Todolists} from "../features/Todolists/Todolists";
 import React from "react";
@@ -6,6 +6,9 @@ import {RequireAuth} from "../common/components/RequireAuth/RequireAuth";
 import {StartPage} from "../common/components/StartPage/StartPage";
 import {Auth} from "../features/Auth/Auth";
 import {CreateTodo} from "../common/components/CreateTodo/CreateTodo";
+import {Page404} from "../common/components/Page404/Page404";
+import {Header} from "../features/Header/Header";
+import {Footer} from "../features/Footer/Footer";
 
 const privateRoutes = [
     {
@@ -51,8 +54,9 @@ const publicRoutes = [
         path: '/todolist-toolkit/404',
         element: (
             <div>
-                <p>404 - Page is not found!</p>
-                <NavLink to={'/todolist-toolkit/todo'}>Go to the main age</NavLink>
+                <Header/>
+                <Page404/>
+                <Footer/>
             </div>
         )
     }
