@@ -5,10 +5,11 @@ import React from "react";
 import {RequireAuth} from "../common/components/RequireAuth/RequireAuth";
 import {StartPage} from "../common/components/StartPage/StartPage";
 import {Auth} from "../features/Auth/Auth";
-import {CreateTodo} from "../common/components/CreateTodo/CreateTodo";
 import {Page404} from "../common/components/Page404/Page404";
 import {Header} from "../features/Header/Header";
 import {Footer} from "../features/Footer/Footer";
+import Box from "@mui/material/Box";
+import {CreateTodo} from "../common/components/CreateTodo/CreateTodo";
 
 const privateRoutes = [
     {
@@ -51,13 +52,13 @@ const publicRoutes = [
         element: <Navigate to={'/todolist-toolkit/404'}/>
     },
     {
-        path: '/todolist-toolkit/404',
+        path: '/todolist-toolkit/:404',
         element: (
-            <div>
+            <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100%'}}>
                 <Header/>
                 <Page404/>
                 <Footer/>
-            </div>
+            </Box>
         )
     }
 ]

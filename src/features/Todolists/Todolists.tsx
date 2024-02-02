@@ -42,15 +42,15 @@ export const Todolists: FC<Props> = ({isTodoListClickable}) => {
                 <Box
                     sx={{
                         color: 'text.primary',
-                        fontSize: '48px',
+                        fontSize: '38px',
                         fontStyle: 'normal',
                         fontWeight: 700,
-                        lineHeight: '54px',
+                        lineHeight: '44px',
                         textTransform: 'uppercase',
                         margin: 0,
                         '@media (max-width: 400px)': {
-                            fontSize: '38px',
-                            lineHeight: '44px',
+                            fontSize: '28px',
+                            lineHeight: '34px',
                         }
                     }}
                 >
@@ -58,19 +58,17 @@ export const Todolists: FC<Props> = ({isTodoListClickable}) => {
                 </Box>
                 <Box
                     sx={{
-                        width: '386px',
+                        width: '270px',
                         color: 'text.primary',
                         textAlign: 'center',
-                        fontSize: '28px',
+                        fontSize: '18px',
                         fontStyle: 'normal',
                         fontWeight: 700,
-                        lineHeight: '34px',
+                        lineHeight: '24px',
                         textTransform: 'uppercase',
                         margin: '0 0 32px 0',
                         '@media (max-width: 400px)': {
                             width: '356px',
-                            fontSize: '20px',
-                            lineHeight: '24px',
                             margin: '0 0 20px 0',
                         }
                     }}
@@ -84,15 +82,14 @@ export const Todolists: FC<Props> = ({isTodoListClickable}) => {
                         variant={'contained'}
                         sx={{
                             borderRadius: '8px',
-                            width: '255px',
+                            width: '210px',
                             height: '56px',
                             boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                             color: '#FFF',
-                            fontSize: '22px',
+                            fontSize: '18px',
                             fontWeight: 700,
                             fontStyle: 'normal',
-                            lineHeight: '34px',
-                            marginBottom: '40px',
+                            lineHeight: '24px',
                         }}
                     />
                 </NavLink>

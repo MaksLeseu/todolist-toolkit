@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 100px;
+    flex-grow: 1;
 }
 
 .label {
@@ -28,7 +29,7 @@
 }
 
 .link {
-    width: 289px;
-    height: 56px;
+    width: 239px;
+    height: 50px;
     margin-bottom: 20px;
 }

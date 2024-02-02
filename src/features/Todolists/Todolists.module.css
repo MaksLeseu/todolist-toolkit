@@ -28,29 +28,20 @@
 }
 
 .buttonCreateTodo {
-    width: 255px;
+    width: 210px;
     height: 56px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .notSingleTaskImageContainer {
-    width: 518px;
-    height: 470px;
-    margin-bottom: 133px;
-}
-
-@media (max-width: 850px) {
-    .notSingleTaskImageContainer {
-        width: 350px;
-        height: 300px;
-        margin-bottom: 60px;
-    }
+    width: 350px;
+    height: 300px;
+    margin-bottom: 30px;
 }
 
 @media (max-width: 400px) {
     .notSingleTaskImageContainer {
         width: 300px;
         height: 250px;
-        margin-bottom: 30px;
     }
 }
