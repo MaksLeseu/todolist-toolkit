@@ -4,8 +4,6 @@ import {Typography} from "@mui/material";
 import {CustomPopover} from "../CustomPopover/CustomPopover";
 import {TriangleIcon} from "../Icons/TriangleIcon";
 import Box from "@mui/material/Box";
-import {useAppSelector} from "../../utils/hooks/useAppSelector";
-import {modeSelector} from "../../../app/app.selector";
 
 type Props = {
     isOpen: any
@@ -48,7 +46,6 @@ export const ConfirmationModalWindow: FC<Props> = (props) => {
         closeConfirmation,
         actionConfirmation
     } = props
-    const mode = useAppSelector(modeSelector)
 
     return (
         <CustomPopover
