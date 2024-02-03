@@ -19,6 +19,7 @@ import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {isOpenMenuSelector, modeSelector} from "../../app/app.selector";
 import {authThunk} from "../Auth/auth.slice";
 import {appActions} from "../../app/app.slice";
+import {BASE_ROUTE} from "../../routes/Routes";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -101,7 +102,8 @@ export const Header: FC<Props> = (props) => {
 
     const matches = useMediaQuery('(min-width:600px)');
 
-    const {start} = useParams()
+    const {start, errorCode} = useParams()
+    console.log(errorCode)
     const mode = useAppSelector(modeSelector)
 
     return (
@@ -129,7 +131,7 @@ export const Header: FC<Props> = (props) => {
                 <Toolbar>
                     <div className={s.headerContainer}>
                         {
-                            isLoggedIn &&
+                            isLoggedIn && !errorCode &&
                             <Menu
                                 sx={{
                                     width: '35px',
@@ -153,7 +155,7 @@ export const Header: FC<Props> = (props) => {
                             }
                         </div>
                         {
-                            isLoggedIn && matches &&
+                            isLoggedIn && matches && !errorCode &&
                             <LogOutButton
                                 sx={isOpenConformation ? activeLogOutButtonStyles : logOutButtonStyles}
                                 colorIcon={isOpenConformation ? 'white' : '#704ECC'}
@@ -163,7 +165,7 @@ export const Header: FC<Props> = (props) => {
 
                         {
                             start &&
-                            <NavLink className={s.link} to={'/todolist-toolkit/login'}>
+                            <NavLink className={s.link} to={`${BASE_ROUTE}/login`}>
                                 <CustomButton
                                     color={'secondary'}
                                     label={'Sign in'}

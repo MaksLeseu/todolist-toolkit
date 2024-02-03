@@ -3,6 +3,7 @@ import {CustomButton} from "../CustomButton/CustomButton";
 import {Page404IconLight} from "../Icons/Page404IconLight";
 import {NavLink} from "react-router-dom";
 import s from './Page404.module.css'
+import {BASE_ROUTE} from "../../../routes/Routes";
 
 export const Page404 = () => {
     return (
@@ -12,10 +13,11 @@ export const Page404 = () => {
                 <p className={s.title}>PAGE IS NOT FOUND</p>
             </div>
             <div className={s.containerButton}>
-                <NavLink to={'/todolist-toolkit/todo'} className={s.link}>
+                <NavLink to={`${BASE_ROUTE}/todo`} className={s.link}>
                     <CustomButton
+                        color={'secondary'}
+                        variant={'contained'}
                         label={'Go to the main page'}
-                        variant={'text'}
                         sx={{
                             width: '239px',
                             height: '50px',
@@ -23,7 +25,7 @@ export const Page404 = () => {
                             fontWeight: 700,
                             lineHeight: '24px',
                             color: 'common.white',
-                            backgroundColor: 'secondary.main',
+                            ':hover': {}
                         }}
                     />
                 </NavLink>

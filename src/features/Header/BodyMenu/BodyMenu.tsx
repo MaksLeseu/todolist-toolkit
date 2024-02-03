@@ -25,6 +25,7 @@ import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTool
 import {CustomLinearProgress} from "../../../common/components/CustomLinearProgress/CustomLinearProgress";
 import {modeSelector} from "../../../app/app.selector";
 import {appActions} from "../../../app/app.slice";
+import {BASE_ROUTE} from "../../../routes/Routes";
 
 
 type Props = {
@@ -138,7 +139,7 @@ export const BodyMenu: FC<Props> = (props) => {
                 />
             </Box>
             <Box sx={{marginBottom: '50px'}}>
-                <NavLink to={'/todolist-toolkit/todo/create-todo'}>
+                <NavLink to={`${BASE_ROUTE}/todo/create-todo`}>
                     <CustomIconButton
                         disableRipple={false}
                         sx={{
@@ -177,7 +178,7 @@ export const BodyMenu: FC<Props> = (props) => {
                 }}>
                     {
                         todos.map((todo, index) => (
-                                <NavLink to={`/todolist-toolkit/todo/${todo.id}`} key={index}
+                                <NavLink to={`${BASE_ROUTE}/todo/${todo.id}`} key={index}
                                          className={({isActive, isPending}) =>
                                              isPending ? s.pending : isActive ? s.active : s.general
                                          }>

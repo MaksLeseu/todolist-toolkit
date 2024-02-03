@@ -1,11 +1,11 @@
 .banner {
     grid-column: 2;
     justify-self: end;
-    margin-right: 17px;
+    margin-right: 70px;
 }
 
 .changeMargin {
-    margin-right: 55px;
+    margin-right: 100px;
 }
 
 .bannerPositionLeft {

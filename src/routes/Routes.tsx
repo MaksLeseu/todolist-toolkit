@@ -1,38 +1,43 @@
 import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import {Layout} from "../common/components/Layout/Layout";
-import {Todolists} from "../features/Todolists/Todolists";
 import React from "react";
 import {RequireAuth} from "../common/components/RequireAuth/RequireAuth";
 import {StartPage} from "../common/components/StartPage/StartPage";
 import {Auth} from "../features/Auth/Auth";
 import {Page404} from "../common/components/Page404/Page404";
-import {Header} from "../features/Header/Header";
-import {Footer} from "../features/Footer/Footer";
-import Box from "@mui/material/Box";
+import {Todolists} from "../features/Todolists/Todolists";
 import {CreateTodo} from "../common/components/CreateTodo/CreateTodo";
+
+export const BASE_ROUTE = '/today'
+
+/*todolist-toolkit*/
 
 const privateRoutes = [
     {
-        path: '/todolist-toolkit',
-        element: <Navigate to={'/todolist-toolkit/todo'}/>
+        path: `/`,
+        element: <Navigate to={`${BASE_ROUTE}/todo`}/>
     },
+    /*{
+        path: `${BASE_ROUTE}`,
+        element: <Navigate to={`${BASE_ROUTE}/todo`}/>
+    },*/
     {
-        path: '/todolist-toolkit/todo',
+        path: `${BASE_ROUTE}/todo`,
         element: <Todolists isTodoListClickable={false}/>
     },
     {
-        path: '/todolist-toolkit/todo/:todo/*',
+        path: `${BASE_ROUTE}/todo/:todo/*`,
         element: <Todolists isTodoListClickable={true}/>
     },
     {
-        path: '/todolist-toolkit/todo/create-todo',
+        path: `${BASE_ROUTE}/todo/create-todo`,
         element: <CreateTodo/>
     }
 ]
 
 const publicRoutes = [
     {
-        path: '/todolist-toolkit/:start',
+        path: `${BASE_ROUTE}/:start`,
         element: (
             <Layout>
                 <StartPage/>
@@ -40,7 +45,7 @@ const publicRoutes = [
         )
     },
     {
-        path: '/todolist-toolkit/login',
+        path: `${BASE_ROUTE}/login`,
         element: (
             <Layout>
                 <Auth/>
@@ -49,16 +54,14 @@ const publicRoutes = [
     },
     {
         path: '*',
-        element: <Navigate to={'/todolist-toolkit/404'}/>
+        element: <Navigate to={'/errorCode'}/>
     },
     {
-        path: '/todolist-toolkit/:404',
+        path: '/:errorCode',
         element: (
-            <Box sx={{display: 'flex', flexDirection: 'column', minHeight: '100%'}}>
-                <Header/>
+            <Layout>
                 <Page404/>
-                <Footer/>
-            </Box>
+            </Layout>
         )
     }
 ]

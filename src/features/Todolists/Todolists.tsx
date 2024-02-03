@@ -11,6 +11,7 @@ import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {QuestionIconLight} from "../../common/components/Icons/QuestionIconLight";
 import Box from "@mui/material/Box";
 import {QuestionIconDark} from "../../common/components/Icons/QuestionIconDark";
+import {BASE_ROUTE} from "../../routes/Routes";
 
 
 type Props = {
@@ -30,7 +31,7 @@ export const Todolists: FC<Props> = ({isTodoListClickable}) => {
         const todo = todos.filter(td => td.id === todolist)
 
         if (todo.length <= 0) {
-            return <Navigate to={'/todolist-toolkit'}/>
+            return <Navigate to={'/'}/>
         } else {
             return <Todolist key={todo[0].id} todolistId={todo[0].id} todolistTitle={todo[0].title} todolist={todo[0]}/>
         }
@@ -75,7 +76,7 @@ export const Todolists: FC<Props> = ({isTodoListClickable}) => {
                 >
                     you haven't created any tasks.
                 </Box>
-                <NavLink className={s.buttonCreateTodo} to={'/todolist-toolkit/todo/create-todo'}>
+                <NavLink className={s.buttonCreateTodo} to={`${BASE_ROUTE}/todo/create-todo`}>
                     <CustomButton
                         color={'secondary'}
                         label={'Create new one'}
@@ -102,7 +103,7 @@ export const Todolists: FC<Props> = ({isTodoListClickable}) => {
 
     const navigateToFirstTodo = () => {
         const todo = todos[0]
-        return <Navigate to={`/todolist-toolkit/todo/${todo.id}`}/>
+        return <Navigate to={`${BASE_ROUTE}/todo/${todo.id}`}/>
     }
 
     const redirectToPage = todos.length > 0 ? navigateToFirstTodo() : returnInfoPage()

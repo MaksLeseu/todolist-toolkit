@@ -24,6 +24,7 @@ import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
 import {tasksThunk} from "../../../features/Tasks/tasks.slice";
 import {Preloader} from "../Preloader/Preloader";
 import {CreateTodoIconDark} from "../Icons/CreateTodoIconDark";
+import {BASE_ROUTE} from "../../../routes/Routes";
 
 type TitleType = {
     todoName: string
@@ -295,7 +296,7 @@ export const CreateTodo = () => {
                         variant={'contained'}
                         onClick={addTodo}
                     />
-                    <NavLink className={s.buttonCancel} to={'/todolist-toolkit/todo'}>
+                    <NavLink className={s.buttonCancel} to={`${BASE_ROUTE}/todo`}>
                         <CustomButton
                             label={'Cancel'}
                             color={'primary'}

@@ -5,12 +5,13 @@ import {Navigate, NavLink} from "react-router-dom";
 import {useAppSelector} from "../../utils/hooks/useAppSelector";
 import {isLoggedInSelector} from "../../../features/Auth/auth.selector";
 import s from './StartPage.module.css'
+import {BASE_ROUTE} from "../../../routes/Routes";
 
 export const StartPage = () => {
     const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
 
     if (isLoggedIn) {
-        return <Navigate to={'/todolist-toolkit'}/>
+        return <Navigate to={'/'}/>
     }
 
     return (
@@ -20,7 +21,7 @@ export const StartPage = () => {
                 <p className={s.secondTitle}>TODAY!</p>
                 <p className={s.text}>This is your best assistant
                     in planning your life.</p>
-                <NavLink className={s.link} to={'/todolist-toolkit/login'}>
+                <NavLink className={s.link} to={`${BASE_ROUTE}/login`}>
                     <CustomButton
                         color={'secondary'}
                         label={'Let’s Start!'}

@@ -78,7 +78,7 @@ export const Auth = () => {
     }
 
     if (isLoggedIn) {
-        return <Navigate to={'/todolist-toolkit'}/>
+        return <Navigate to={'/'}/>
     }
 
     const hardcodeParamsForTestAcc = (params: 'login' | 'password'): 'free@samuraijs.com' | 'free' => {
