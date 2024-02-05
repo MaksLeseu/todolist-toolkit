@@ -230,6 +230,7 @@ export const TaskEditor: FC<Props> = (props) => {
                         taskPriority={taskPriority}
                         calenderStyles={{
                             fontSize: '16px',
+                            width: '100%',
                             '@media (max-width: 740px)': {
                                 fontSize: '12px'
                             },

@@ -214,7 +214,7 @@ export const Task: FC<Props> = (props) => {
     const matches1030 = useMediaQuery('(max-width:1030px)');
 
     return (
-        <div key={taskId} className={s.task}>
+        <div key={taskId} className={isOpen.taskRedactor ? s.taskWithRedactor : s.task}>
             {
                 isOpen.taskRedactor
                     ?

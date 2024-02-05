@@ -31,7 +31,9 @@ export const TaskSetItems: FC<Props> = (props) => {
 
     return (
         <Box sx={{
-            marginBottom: '24px',
+            '@media (max-width: 500px)': {
+                marginBottom: '15px'
+            },
         }}>
             <Box sx={{
                 width: '155px',
@@ -42,23 +44,26 @@ export const TaskSetItems: FC<Props> = (props) => {
                 lineHeight: '16px',
                 margin: '0 0 13px 0',
                 borderBottom: mode === 'dark' ? '1px #FFF solid' : '1px rgba(0, 0, 0, 0.50) solid',
+                '@media (max-width: 980px)': {
+                    width: '146.5px',
+                },
             }}>
                 {title}
             </Box>
             <Box sx={{
                 width: '155px',
-                borderBottom: '1px solid #704ECC',
                 paddingBottom: '4px',
                 display: 'flex',
                 '@media (max-width: 980px)': {
-                    width: '440px',
+                    width: '146.5px',
                 },
                 '@media (max-width: 500px)': {
-                    width: '340px',
-                },
+                    width: '150px',
+                    borderBottom: mode === 'dark' ? '1px #FFF solid' : '1px #704ECC solid',
+                },/*
                 '@media (max-width: 360px)': {
-                    width: '300px',
-                },
+                    width: '130px',
+                },*/
             }}>
                 <Box
                     sx={{

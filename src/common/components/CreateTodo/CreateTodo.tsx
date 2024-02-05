@@ -25,6 +25,7 @@ import {tasksThunk} from "../../../features/Tasks/tasks.slice";
 import {Preloader} from "../Preloader/Preloader";
 import {CreateTodoIconDark} from "../Icons/CreateTodoIconDark";
 import {BASE_ROUTE} from "../../../routes/Routes";
+import Divider from "@mui/material/Divider";
 
 type TitleType = {
     todoName: string
@@ -225,48 +226,64 @@ export const CreateTodo = () => {
                             onChange={(e: ChangeEvent<HTMLInputElement>) => changeTitle('description', e)}
                         />
 
-                        <Box sx={{display: 'flex'}}>
-                            <TaskSetItems
-                                title={'StartDate of the task'}
-                                valueDate={date.startDate}
-                                isOpen={isOpenCalendar.openStartDate}
-                                children={
-                                    <BaseCalendar
-                                        openCalendar={isOpenCalendar.openStartDate}
-                                        closeCalendar={() => openCloseCalendar('close')}
-                                        settingDate={settingStartDateValueHandle}
-                                    />
-                                }
-                                handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'startDate', event)}
-                            />
+                        <Box>
+                            <Box sx={{
+                                display: 'flex',
+                                '@media (max-width: 500px)': {
+                                    display: 'block'
+                                },
+                            }}>
+                                <TaskSetItems
+                                    title={'StartDate of the task'}
+                                    valueDate={date.startDate}
+                                    isOpen={isOpenCalendar.openStartDate}
+                                    children={
+                                        <BaseCalendar
+                                            openCalendar={isOpenCalendar.openStartDate}
+                                            closeCalendar={() => openCloseCalendar('close')}
+                                            settingDate={settingStartDateValueHandle}
+                                        />
+                                    }
+                                    handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'startDate', event)}
+                                />
 
-                            <TaskSetItems
-                                title={'Deadline of the task'}
-                                valueDate={date.deadline}
-                                isOpen={isOpenCalendar.openDeadline}
-                                children={
-                                    <BaseCalendar
-                                        openCalendar={isOpenCalendar.openDeadline}
-                                        closeCalendar={() => openCloseCalendar('close')}
-                                        settingDate={settingDeadlineValueHandle}
-                                    />
-                                }
-                                handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'deadline', event)}
-                            />
+                                <TaskSetItems
+                                    title={'Deadline of the task'}
+                                    valueDate={date.deadline}
+                                    isOpen={isOpenCalendar.openDeadline}
+                                    children={
+                                        <BaseCalendar
+                                            openCalendar={isOpenCalendar.openDeadline}
+                                            closeCalendar={() => openCloseCalendar('close')}
+                                            settingDate={settingDeadlineValueHandle}
+                                        />
+                                    }
+                                    handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openCloseCalendar('open', 'deadline', event)}
+                                />
 
-                            <TaskSetItems
-                                title={'Priority of the task'}
-                                valuePriority={priorityTask}
-                                isOpen={isOpenPriority}
-                                children={
-                                    <Priority
-                                        openPriority={isOpenPriority}
-                                        closePriority={() => openClosePriority('close')}
-                                        settingPriority={settingPriorityHandle}
-                                    />
-                                }
-                                handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openClosePriority('open', event)}
-                            />
+                                <TaskSetItems
+                                    title={'Priority of the task'}
+                                    valuePriority={priorityTask}
+                                    isOpen={isOpenPriority}
+                                    children={
+                                        <Priority
+                                            openPriority={isOpenPriority}
+                                            closePriority={() => openClosePriority('close')}
+                                            settingPriority={settingPriorityHandle}
+                                        />
+                                    }
+                                    handleOpen={(event: React.MouseEvent<HTMLButtonElement>) => openClosePriority('open', event)}
+                                />
+                            </Box>
+                            <Divider sx={{
+                                backgroundColor: 'secondary.main', width: '465px',
+                                '@media (max-width: 980px)': {
+                                    width: '440px',
+                                },
+                                '@media (max-width: 500px)': {
+                                    display: 'none'
+                                },
+                            }}/>
                         </Box>
                     </div>
 

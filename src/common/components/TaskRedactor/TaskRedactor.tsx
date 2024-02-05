@@ -45,7 +45,22 @@ export const TaskRedactor: FC<Props> = (props) => {
                         value={valueTask}
                         size={'small'}
                         multiline={false}
-                        sx={{width: '100%', marginBottom: '10px'}}
+                        sx={{
+                            width: '100%',
+                            marginBottom: '10px',
+                            '& .MuiInputLabel-root': {
+                                fontSize: '18px',
+                                fontStyle: 'normal',
+                                color: 'rgba(112, 78, 204, 0.50)',
+                            },
+                            '& .MuiInput-underline:after': {
+                                borderBottomColor: 'secondary.main',
+                            },
+                            // Change styles for the label after focused
+                            '&:focus-within .MuiInputLabel-root': {
+                                color: 'secondary.main'
+                            },
+                        }}
                         InputProps={{
                             sx: {
                                 fontSize: '18px',
@@ -64,8 +79,26 @@ export const TaskRedactor: FC<Props> = (props) => {
                             width: '100%',
                             maxHeight: '340px',
                             overflow: 'auto',
+                            fontSize: '22px',
                             '@media (max-width: 640px)': {
                                 maxHeight: '230px',
+                            },
+                            '& .MuiInputLabel-root': {
+                                fontSize: '18px',
+                                fontStyle: 'normal',
+                                color: 'rgba(112, 78, 204, 0.50)',
+                            },
+                            '& .MuiInput-underline:after': {
+                                borderBottomColor: 'secondary.main',
+                            },
+                            // Change styles for the label after focused
+                            '&:focus-within .MuiInputLabel-root': {
+                                color: 'secondary.main'
+                            },
+                        }}
+                        InputProps={{
+                            sx: {
+                                fontSize: '18px',
                             }
                         }}
                         onChange={changeSpecification}
