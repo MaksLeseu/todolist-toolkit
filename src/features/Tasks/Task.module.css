@@ -1,15 +1,17 @@
 .task {
     width: 100%;
     cursor: pointer;
-    transition: all 0.1s;
+    transition: all 0.8s;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
 .task:hover {
-    transition: all 0.8s;
+    border: 1px #f0f0f0 solid;
     border-radius: 4px;
-    box-shadow: 1px 1px 6px 0 rgba(112, 78, 204, 0.30), 1px 0 6px 0 rgba(112, 78, 204, 0.30);
+    transition: all 0.8s;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .taskCompleted {
