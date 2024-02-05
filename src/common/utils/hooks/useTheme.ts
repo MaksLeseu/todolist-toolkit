@@ -47,12 +47,7 @@ export const useTheme = (mode: 'dark' | 'light') => {
         components: {
             MuiTextField: {
                 defaultProps: {
-                    /*sx: {
-                        backgroundColor: '#6A5ACD',
-                        width: '328px',
-                        height: '56px',
-                        borderRadius: '8px',
-                    },*/
+                    sx: {},
                     variant: "outlined",
                 },
                 styleOverrides: {
@@ -61,7 +56,7 @@ export const useTheme = (mode: 'dark' | 'light') => {
                             border: '2px #704ECC solid'
                         },*/
                         '&:focus': {
-                            border: '2px #704ECC solid',
+                            /*border: '2px #704ECC solid',*/
                         },
                     }
                 }

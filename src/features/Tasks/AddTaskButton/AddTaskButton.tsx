@@ -23,8 +23,10 @@ export const AddTaskButton: FC<Props> = ({label, openFormAddTask}) => {
                 fontWeight: 700,
                 lineHeight: '24px',
                 marginBottom: '50px',
+                transition: 'all 0.6s',
                 '&:hover': {
                     backgroundColor: 'secondary.main',
+                    transition: 'all 0.6s',
                 }
             }}
             onClick={openFormAddTask}

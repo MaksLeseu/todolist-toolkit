@@ -62,9 +62,9 @@ export const Tasks: FC<Props> = (props) => {
                             <Divider sx={{marginBottom: '10px'}}/>
                         </>)
                     :
-                    <div className={isOpenMenu ? `${s.emptyOpenMenu} ${s.empty}` : s.empty}>You don't have tasks. Click
-                        on button, that
-                        create a task !!!</div>
+                    <div className={isOpenMenu ? `${s.emptyOpenMenu} ${s.empty}` : s.empty}>
+                        You don't have tasks. Click on button, that create a task !!!
+                    </div>
             }
         </>
     )

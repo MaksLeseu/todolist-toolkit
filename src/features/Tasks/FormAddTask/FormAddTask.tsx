@@ -43,7 +43,7 @@ export const FormAddTask: FC<Props> = (props) => {
                 minHeight: '190px',
                 borderRadius: '5px',
                 padding: '10px',
-                backgroundColor: mode === 'dark' ? 'primary.dark' : 'primary.main',
+                border: '1px black solid',
                 marginTop: '10px',
                 marginBottom: '50px',
                 boxShadow: '1px 1px 6px 0px rgba(112, 78, 204, 0.30), 1px 0px 6px 0px rgba(112, 78, 204, 0.30)',
@@ -53,26 +53,32 @@ export const FormAddTask: FC<Props> = (props) => {
             }}
         >
             <CustomTextField
-                placeholder={'Task name'}
+                label={'Task name'}
                 size={'medium'}
                 multiline={false}
                 value={taskName}
                 sx={{
                     width: '100%',
-                    marginBottom: '10px',
+                    marginBottom: '5px',
                     fontSize: '18px',
-                    '&& input::placeholder': {
+                    // Styles for the Label
+                    '& .MuiInputLabel-root': {
                         fontSize: '18px',
                         fontStyle: 'normal',
-                        fontWeight: 500,
-                        lineHeight: '28px',
+                        color: 'rgba(112, 78, 204, 0.50)',
+                    },
+                    '& .MuiInput-underline:after': {
+                        borderBottomColor: 'secondary.main',
+                    },
+                    // Change styles for the label after focused
+                    '&:focus-within .MuiInputLabel-root': {
+                        color: 'secondary.main'
                     },
                 }}
                 InputProps={{
                     disableUnderline: false,
                     sx: {
                         color: 'secondary.main',
-                        borderBottom: '1px #704ECC solid',
                         fontSize: '18px',
                         fontWeight: 500,
                     }
@@ -80,26 +86,32 @@ export const FormAddTask: FC<Props> = (props) => {
                 onChange={changeTaskName}
             />
             <CustomTextField
-                placeholder={'Description'}
+                label={'Description'}
                 size={'medium'}
                 value={description}
-                multiline={false}
+                multiline={true}
                 sx={{
                     marginBottom: '20px',
                     width: '100%',
                     fontSize: '18px',
-                    '&& input::placeholder': {
+                    // Styles for the Label
+                    '& .MuiInputLabel-root': {
                         fontSize: '18px',
                         fontStyle: 'normal',
-                        fontWeight: 500,
-                        lineHeight: '28px',
+                        color: 'rgba(112, 78, 204, 0.50)',
+                    },
+                    '& .MuiInput-underline:after': {
+                        borderBottomColor: 'secondary.main',
+                    },
+                    // Change styles for the label after focused
+                    '&:focus-within .MuiInputLabel-root': {
+                        color: 'secondary.main'
                     },
                 }}
                 InputProps={{
                     disableUnderline: false,
                     sx: {
                         color: 'secondary.main',
-                        borderBottom: '1px #704ECC solid',
                         fontSize: '18px',
                         fontWeight: 500,
                     }
