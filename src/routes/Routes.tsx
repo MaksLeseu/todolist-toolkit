@@ -17,10 +17,10 @@ const privateRoutes = [
         path: `/`,
         element: <Navigate to={`${BASE_ROUTE}/todo`}/>
     },
-    /*{
+    {
         path: `${BASE_ROUTE}`,
         element: <Navigate to={`${BASE_ROUTE}/todo`}/>
-    },*/
+    },
     {
         path: `${BASE_ROUTE}/todo`,
         element: <Todolists isTodoListClickable={false}/>

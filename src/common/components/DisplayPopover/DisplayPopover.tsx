@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import {TriangleIcon} from "../Icons/TriangleIcon";
 import {CustomButton} from "../CustomButton/CustomButton";
 import {GroupingIcon} from "../Icons/GroupingIcon";
-import {SortingIcon} from "../Icons/SortingIcon";
 import {MenuDownIcon} from "../Icons/MenuDownIcon";
 import {TaskGrouping} from "./TaskGrouping/TaskGrouping";
 import {MenuUpIcon} from "../Icons/MenuUpIcon";
@@ -71,56 +70,10 @@ export const DisplayPopover: FC<Props> = (props) => {
         changeTodolistsFilterHandler
     } = props
 
-    const [isOpenWindow, setIsOpenWindow] = useState<{ grouping: AnchorElType, sorting: AnchorElType }>({
-        grouping: null,
-        sorting: null,
-    })
+    const [isOpen, setIsOpen] = useState<AnchorElType>(null)
 
-    const openCloseWindow = (action: 'close' | 'open', params?: 'group' | 'sort', event?: React.MouseEvent<Element, MouseEvent>) => {
-        if (action === 'close') {
-            setIsOpenWindow({
-                grouping: null,
-                sorting: null,
-            })
-        } else if (event && params) {
-            const methodForOpen = {
-                ['group']: () => {
-                    setIsOpenWindow({
-                        grouping: event.currentTarget,
-                        sorting: null,
-                    })
-                },
-                ['sort']: () => {
-                    setIsOpenWindow({
-                        grouping: null,
-                        sorting: event.currentTarget,
-                    })
-                }
-            }
-            methodForOpen[params]()
-        }
-    }
-
-    const setActiveStylesButtons = (params: 'group' | 'sort') => {
-        const activeStyles = {
-            backgroundColor: 'secondary.main',
-            color: 'primary.main',
-            '& svg path': {
-                fill: 'white',
-            },
-        }
-
-        const returnStyles = {
-            ['group']: () => {
-                return isOpenWindow.grouping ? activeStyles : null
-            },
-            ['sort']: () => {
-                return isOpenWindow.sorting ? activeStyles : null
-            },
-        }
-
-        return returnStyles[params]()
-    }
+    const openWindow = (event: React.MouseEvent<Element, MouseEvent>) => setIsOpen(event.currentTarget)
+    const closeWindow = () => setIsOpen(null)
 
     const setActiveStylesTaskGrouping = (params: 'all' | 'completed' | 'active') => {
         const activeStyles = {
@@ -143,8 +96,15 @@ export const DisplayPopover: FC<Props> = (props) => {
         return returnStyles[params]()
     }
 
-    const buttonActiveStylesTaskGrouping: object | null = setActiveStylesButtons('group')
-    const buttonActiveStylesTaskSorting: object | null = setActiveStylesButtons('sort')
+    const buttonActiveStylesTaskGrouping: object | null = isOpen ?
+        {
+            backgroundColor: 'secondary.main',
+            color: 'primary.main',
+            '& svg path': {
+                fill: 'white',
+            },
+        }
+        : null
 
     const activeStylesAll: object | null = setActiveStylesTaskGrouping('all')
     const activeStylesCompleted: object | null = setActiveStylesTaskGrouping('completed')
@@ -152,7 +112,7 @@ export const DisplayPopover: FC<Props> = (props) => {
 
     const tasksFiltering = (filter: TodolistFilterType) => {
         changeTodolistsFilterHandler(filter)
-        openCloseWindow('close')
+        closeWindow()
     }
 
     const matches1130 = useMediaQuery('(max-width:1130px)');
@@ -172,7 +132,7 @@ export const DisplayPopover: FC<Props> = (props) => {
                 <Box sx={{
                     backgroundColor: '#EFE3FF',
                     width: '160px',
-                    height: '72px',
+                    height: '100%',
                     borderRadius: '4px',
                     padding: '8px 13px 7px 9px',
                 }}>
@@ -189,7 +149,7 @@ export const DisplayPopover: FC<Props> = (props) => {
                                 sx={{height: '16px'}}
                             >
                                 {
-                                    isOpenWindow.grouping ? <MenuUpIcon styles={{width: 16, height: 16}}/>
+                                    isOpen ? <MenuUpIcon styles={{width: 16, height: 16}}/>
                                         : <MenuDownIcon
                                             styles={{width: 16, height: 16}}
                                         />
@@ -197,33 +157,11 @@ export const DisplayPopover: FC<Props> = (props) => {
 
                             </Box>
                         }
-                        onClick={(event) => openCloseWindow('open', 'group', event)}
-                    />
-                    <CustomButton
-                        label={'Task sorting '}
-                        variant={'text'}
-                        sx={{
-                            ...buttonStyles,
-                            ...buttonActiveStylesTaskSorting,
-                        }}
-                        icon={<Box sx={{height: '16px',}}><SortingIcon/></Box>}
-                        iconFromTheEnd={
-                            <Box
-                                sx={{height: '16px'}}
-                            >
-                                {
-                                    isOpenWindow.sorting ? <MenuUpIcon styles={{width: 16, height: 16}}/>
-                                        : <MenuDownIcon
-                                            styles={{width: 16, height: 16}}
-                                        />
-                                }
-                            </Box>
-                        }
-                        onClick={(event) => openCloseWindow('open', 'sort', event)}
+                        onClick={openWindow}
                     />
                 </Box>
                 <TaskGrouping
-                    openTaskGrouping={isOpenWindow.grouping}
+                    openTaskGrouping={isOpen}
                     valueTodoFilter={valueTodoFilter}
                     transformPopover={matches1130 ? 'translate(-7%, 0%)' : 'translate(45%, 0%)'}
                     children={
@@ -261,64 +199,7 @@ export const DisplayPopover: FC<Props> = (props) => {
                         </>
                     }
                     changeTodolistsFilterHandler={changeTodolistsFilterHandler}
-                    handleCloseTaskGrouping={() => openCloseWindow('close')}
-                />
-                <TaskGrouping
-                    openTaskGrouping={isOpenWindow.sorting}
-                    valueTodoFilter={valueTodoFilter}
-                    transformPopover={matches1130 ? 'translate(-7%, 0%)' : 'translate(45%, 0%)'}
-                    sx={{width: '168px', height: '134px',}}
-                    children={
-                        <>
-                            <CustomButton
-                                label={'Sort by name'}
-                                variant={'outlined'}
-                                sx={{
-                                    ...buttonTaskGroupingStyles,
-                                    width: '152px',
-                                }}
-                                onClick={() => {
-                                }}
-                            />
-
-                            <CustomButton
-                                label={'Sort by creation date'}
-                                variant={'outlined'}
-                                sx={{
-                                    ...buttonTaskGroupingStyles,
-                                    width: '152px',
-                                }}
-                                onClick={() => {
-                                }}
-                            />
-
-                            <CustomButton
-                                label={'Sort by deadline'}
-                                variant={'outlined'}
-                                sx={{
-                                    ...buttonTaskGroupingStyles,
-                                    width: '152px',
-                                }}
-                                onClick={() => {
-                                }}
-                            />
-
-                            <CustomButton
-                                label={'Sort by priority'}
-                                variant={'outlined'}
-                                sx={{
-                                    ...buttonTaskGroupingStyles,
-                                    width: '152px',
-                                    margin: 0,
-                                }}
-                                onClick={() => {
-                                }}
-                            />
-                        </>
-                    }
-                    changeTodolistsFilterHandler={() => {
-                    }}
-                    handleCloseTaskGrouping={() => openCloseWindow('close')}
+                    handleCloseTaskGrouping={closeWindow}
                 />
             </>
         </CustomPopover>
