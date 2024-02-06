@@ -153,6 +153,10 @@ export const Todolist: FC<Props> = (props) => {
                         wordWrap: 'break-word',
                         maxWidth: '100%',
                         ...titleActive,
+                        '@media (max-width: 600px)': {
+                            fontSize: '28px',
+                            lineHeight: '34px',
+                        }
                     }}
                 >
                     {todolistTitle}

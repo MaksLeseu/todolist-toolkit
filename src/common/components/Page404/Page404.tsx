@@ -25,12 +25,13 @@ export const Page404 = () => {
                             fontWeight: 700,
                             lineHeight: '24px',
                             color: 'common.white',
-                            ':hover': {}
                         }}
                     />
                 </NavLink>
             </div>
-            <Page404IconLight/>
+            <div className={s.imgContainer}>
+                <Page404IconLight/>
+            </div>
         </div>
     );
 };

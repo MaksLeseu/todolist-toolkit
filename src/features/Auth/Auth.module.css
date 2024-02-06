@@ -48,7 +48,9 @@
 
 @media (max-width: 438px) {
     .label {
-        margin-bottom: 15px;
+        font-size: 38px;
+        font-weight: 700;
+        line-height: 34px;
     }
 
     .authTitle {

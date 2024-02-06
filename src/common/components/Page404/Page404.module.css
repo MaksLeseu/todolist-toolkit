@@ -32,3 +32,33 @@
     height: 50px;
     margin-bottom: 20px;
 }
+
+.imgContainer {
+    width: 630px;
+    height: 382px;
+}
+
+@media (max-width: 650px) {
+    .imgContainer {
+        width: 530px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 530px) {
+    .imgContainer {
+        width: 430px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 450px) {
+    .imgContainer {
+        width: 330px;
+        height: 300px;
+    }
+
+    .link {
+        margin-bottom: 0;
+    }
+}

@@ -177,7 +177,11 @@ export const CreateTodo = () => {
                             lineHeight: '38px',
                             textTransform: 'uppercase',
                             margin: 0,
-                            ...addStylesLabel
+                            ...addStylesLabel,
+                            '@media (max-width: 450px)': {
+                                fontSize: '28px',
+                                lineHeight: '34px',
+                            }
                         }}
                     >
                         CREATE

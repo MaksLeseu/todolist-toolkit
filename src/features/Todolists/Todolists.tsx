@@ -69,7 +69,6 @@ export const Todolists: FC<Props> = ({isTodoListClickable}) => {
                         textTransform: 'uppercase',
                         margin: '0 0 32px 0',
                         '@media (max-width: 400px)': {
-                            width: '356px',
                             margin: '0 0 20px 0',
                         }
                     }}

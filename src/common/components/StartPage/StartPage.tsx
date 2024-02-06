@@ -36,7 +36,7 @@ export const StartPage = () => {
                             fontWeight: 700,
                             lineHeight: '34px',
                             '@media (max-width: 510px)': {
-                                fontSize: '18px',
+                                fontSize: '16px',
                             },
                         }}
                     />
