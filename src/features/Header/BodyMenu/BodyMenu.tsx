@@ -30,7 +30,7 @@ import {BASE_ROUTE} from "../../../routes/Routes";
 
 type Props = {
     isOpen: boolean
-    handleDrawerClose: () => void
+    handleDrawerClose: (type: 'open' | 'close') => void
 }
 
 export const BodyMenu: FC<Props> = (props) => {
@@ -90,6 +90,8 @@ export const BodyMenu: FC<Props> = (props) => {
         switchMode()
     }
 
+    const matches600 = useMediaQuery('(max-width:600px)');
+
     return (
         <Drawer
             sx={{
@@ -119,9 +121,10 @@ export const BodyMenu: FC<Props> = (props) => {
                     }
                 },
             }}
-            variant="persistent"
+            variant={matches600 ? 'temporary' : 'persistent'}
             anchor="left"
             open={isOpen}
+            onClose={() => handleDrawerClose('close')}
         >
             <Box sx={{marginBottom: '72px'}}>
                 <CustomButton
@@ -137,7 +140,7 @@ export const BodyMenu: FC<Props> = (props) => {
                         textTransform: 'uppercase',
                         marginLeft: '30px',
                     }}
-                    onClick={handleDrawerClose}
+                    onClick={() => handleDrawerClose('close')}
                 />
             </Box>
             <Box sx={{marginBottom: '50px'}}>

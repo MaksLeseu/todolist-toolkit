@@ -74,7 +74,7 @@ const activeLogOutButtonStyles = {
     backgroundColor: 'secondary.main',
 }
 
-export const Header: FC<Props> = (props) => {
+export const Header: FC<Props> = () => {
     const isOpen: boolean = useAppSelector(isOpenMenuSelector)
 
     const dispatch = useAppDispatch()
@@ -103,7 +103,6 @@ export const Header: FC<Props> = (props) => {
     const matches = useMediaQuery('(min-width:600px)');
 
     const {start, errorCode} = useParams()
-    console.log(errorCode)
     const mode = useAppSelector(modeSelector)
 
     return (
