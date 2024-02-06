@@ -212,6 +212,49 @@ export const Task: FC<Props> = (props) => {
     } : null
 
     const matches1030 = useMediaQuery('(max-width:1030px)');
+    const titleStylesForMobile = isOpenMenu ?
+        {
+            '@media (max-width: 730px)': {
+                width: '300px',
+            },
+            '@media (max-width: 550px)': {
+                width: '280px',
+            }
+        }
+        :
+        {
+            '@media (max-width: 550px)': {
+                width: '280px',
+            }
+        }
+    const descriptionStylesForMobile = isOpenMenu ?
+        {
+            '@media (max-width: 1330px)': {
+                width: '540px'
+            },
+            '@media (max-width: 1130px)': {
+                width: '420px'
+            },
+            '@media (max-width: 950px)': {
+                width: '380px'
+            },
+            '@media (max-width: 730px)': {
+                width: '280px'
+            },
+        }
+        :
+        {
+            '@media (max-width: 950px)': {
+                width: '580px'
+            },
+            '@media (max-width: 730px)': {
+                width: '380px'
+            },
+            '@media (max-width: 550px)': {
+                width: '280px'
+            }
+        }
+
 
     return (
         <div key={taskId} className={isOpen.taskRedactor ? s.taskWithRedactor : s.task}>
@@ -290,9 +333,7 @@ export const Task: FC<Props> = (props) => {
                                         width: '380px',
                                         height: '1.2em',
                                         whiteSpace: 'nowrap',
-                                        '@media (max-width: 550px)': {
-                                            width: '280px',
-                                        }
+                                        ...titleStylesForMobile
                                     }}
                                 >
                                     {taskTitle}
@@ -312,15 +353,7 @@ export const Task: FC<Props> = (props) => {
                                             width: '680px',
                                             height: '1.2em',
                                             whiteSpace: 'nowrap',
-                                            '@media (max-width: 950px)': {
-                                                width: '580px'
-                                            },
-                                            '@media (max-width: 730px)': {
-                                                width: '380px'
-                                            },
-                                            '@media (max-width: 550px)': {
-                                                width: '280px'
-                                            }
+                                            ...descriptionStylesForMobile
                                         }}
                                     >
                                         {taskDescription}

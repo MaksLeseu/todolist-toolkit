@@ -101,19 +101,15 @@ export const BodyMenu: FC<Props> = (props) => {
                 },
                 '@media (max-width: 1180px)': {
                     '& .MuiDrawer-paper': {
-                        width: 350,
-                        padding: '18px 18px 18px 95px',
+                        width: 320,
                     }
                 },
                 '@media (max-width: 1030px)': {
-                    '& .MuiDrawer-paper': {
-                        backgroundColor: 'white'
-                    }
+                    '& .MuiDrawer-paper': {}
                 },
                 '@media (max-width: 800px)': {
                     '& .MuiDrawer-paper': {
                         width: 250,
-                        padding: '18px 18px 18px 18px',
                     }
                 },
             }}
@@ -281,7 +277,7 @@ export const BodyMenu: FC<Props> = (props) => {
                             fontWeight: 700,
                             lineHeight: '16px',
                             fontStyle: 'normal',
-                            color: 'common.white',
+                            color: 'text.secondary',
                             borderRadius: '4px',
                             alignSelf: 'center',
                             marginTop: '20px',
