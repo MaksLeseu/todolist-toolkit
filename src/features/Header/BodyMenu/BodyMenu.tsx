@@ -47,7 +47,13 @@ export const BodyMenu: FC<Props> = (props) => {
 
     const matches = useMediaQuery('(min-width:600px)');
 
-    const handlerLogout = () => dispatch(authThunk.logout({}))
+    const handlerLogout = () => {
+        dispatch(authThunk.logout({}))
+            .then(() => {
+                dispatch(appActions.setIsOpenMenu({isOpenMenu: false}))
+                dispatch(appActions.setMode({mode: 'light'}))
+            })
+    }
 
     const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
     const closeConformation = () => setIsOpenConformation(null)
