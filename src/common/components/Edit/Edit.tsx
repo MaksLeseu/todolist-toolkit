@@ -34,7 +34,7 @@ export const Edit: FC<Props> = (props) => {
                 </Box>
                 <Box sx={{
                     backgroundColor: 'primary.main',
-                    width: '203px',
+                    width: '210px',
                     height: '102px',
                     borderRadius: '4px',
                     padding: '12px 0 0 0',

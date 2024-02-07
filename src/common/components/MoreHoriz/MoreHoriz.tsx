@@ -138,7 +138,11 @@ export const MoreHoriz: FC<Props> = (props) => {
                             ...activeStylesButtonEdit,
                             margin: '0 auto',
                         }}
-                        icon={<Box sx={{marginRight: '4px', marginTop: '4px'}}><EditIcon/></Box>}
+                        icon={<Box
+                            sx={{
+                                marginTop: '4px',
+                                transform: 'translate(-5px, 0)'
+                            }}><EditIcon/></Box>}
                         onClick={secondActionMoreHoriz ? secondActionMoreHoriz : openEdit}
                     />
                     {
