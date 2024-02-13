@@ -1,27 +1,48 @@
 .task {
     width: 100%;
     cursor: pointer;
-    transition: all 0.8s;
+    transition: all 0.7s;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
-.task:hover {
-    transition: all 0.8s;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.taskWithRedactor {
-
+.openTaskRedactorStyles {
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.7s;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .taskCompleted {
-    background-color: rgba(235, 236, 240, 1.00);
-    opacity: 0.5;
-    border-radius: 5px;
-    margin-bottom: 5px;
+    width: 100%;
     cursor: pointer;
+    transition: all 0.7s;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    opacity: 0.5;
+    border-radius: 4px;
+}
+
+.taskCompletedDark {
+    background-color: rgba(255, 255, 255, 0.09);
+}
+
+.taskCompletedLight {
+    background-color: rgba(235, 236, 240, 1.00);
+}
+
+.task:hover {
+    transition: all 0.7s;
+    background-color: rgba(244, 245, 246, 1.00);
+    border-radius: 4px;
+    box-shadow: 1px 1px 5px 0 black;
+}
+
+.taskDarkMode:hover {
+    transition: all 0.7s;
+    background-color: rgba(255, 255, 255, 0.09);
+    border-radius: 4px;
 }
 
 .checkboxContainer {

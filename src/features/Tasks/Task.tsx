@@ -12,7 +12,7 @@ import {MoreHoriz} from "../../common/components/MoreHoriz/MoreHoriz";
 import {MoreHorizIcon} from "../../common/components/Icons/MoreHorizIcon";
 import {CustomIconButton} from "../../common/components/CustomIconButton/CustomIconButton";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
-import {isOpenMenuSelector} from "../../app/app.selector";
+import {isOpenMenuSelector, modeSelector} from "../../app/app.selector";
 import {useMediaQuery} from "@mui/material";
 import {TaskEditor} from "./TaskEditor/TaskEditor";
 import {SettingsTask} from "./SettingsTask";
@@ -72,6 +72,7 @@ export const Task: FC<Props> = (props) => {
 
     const dispatch = useAppDispatch()
     const isOpenMenu = useAppSelector(isOpenMenuSelector)
+    const mode = useAppSelector(modeSelector)
 
     const {date, settingDate, resetDate} = useSettingDate()
     const {priority, settingPriority, resetPriority} = useSettingPriority()
@@ -255,9 +256,12 @@ export const Task: FC<Props> = (props) => {
             }
         }
 
+    const taskStyles = mode === 'dark' ? `${s.taskDarkMode} ${s.task}` : s.task
+    const taskCompletedDarkMode = mode === 'dark' ? `${s.taskCompletedDark} ${s.taskCompleted}` : `${s.taskCompletedLight} ${s.taskCompleted}`
+    const taskCompleteStyles = taskStatusCompleted ? taskCompletedDarkMode : taskStyles
 
     return (
-        <div key={taskId} className={isOpen.taskRedactor ? s.taskWithRedactor : s.task}>
+        <div key={taskId} className={isOpen.taskRedactor ? s.openTaskRedactorStyles : taskCompleteStyles}>
             {
                 isOpen.taskRedactor
                     ?
