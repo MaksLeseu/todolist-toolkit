@@ -38,7 +38,13 @@ export const Tasks: FC<Props> = (props) => {
 
     return (
         <>
-            <CustomLinearProgress visible={visibleLiner} sx={{marginBottom: '10px'}}/>
+            <CustomLinearProgress
+                visible={visibleLiner}
+                sx={{
+                    position: 'absolute',
+                    top: -10,
+                }}
+            />
             {
                 filteredTasks.length > 0
                     ?
