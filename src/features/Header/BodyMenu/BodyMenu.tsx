@@ -126,7 +126,12 @@ export const BodyMenu: FC<Props> = (props) => {
             open={isOpen}
             onClose={() => handleDrawerClose('close')}
         >
-            <Box sx={{marginBottom: '72px'}}>
+            <Box sx={{
+                marginBottom: '72px',
+                '@media (max-width: 600px)': {
+                    marginBottom: '40px',
+                },
+            }}>
                 <CustomButton
                     label={'Today'}
                     variant={'text'}
@@ -143,7 +148,12 @@ export const BodyMenu: FC<Props> = (props) => {
                     onClick={() => handleDrawerClose('close')}
                 />
             </Box>
-            <Box sx={{marginBottom: '50px'}}>
+            <Box sx={{
+                marginBottom: '50px',
+                '@media (max-width: 600px)': {
+                    marginBottom: '30px',
+                },
+            }}>
                 <NavLink to={`${BASE_ROUTE}/todo/create-todo`}>
                     <CustomIconButton
                         disableRipple={false}
@@ -179,7 +189,10 @@ export const BodyMenu: FC<Props> = (props) => {
                         height: '250px',
                         backgroundColor: '#EFE3FF',
                         borderRadius: '100px',
-                    }
+                    },
+                    '@media (max-width: 600px)': {
+                        height: '300px',
+                    },
                 }}>
                     {
                         todos.map((todo, index) => (
