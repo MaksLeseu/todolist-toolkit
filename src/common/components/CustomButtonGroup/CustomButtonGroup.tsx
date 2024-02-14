@@ -26,6 +26,10 @@ export const CustomButtonGroup: FC<Props> = (props) => {
                     boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                     backgroundColor: 'common.white',
                     color: 'secondary.main',
+                    fontSize: '16px',
+                    '@media (max-width: 740px)': {
+                        fontSize: '14px'
+                    },
                 }}
                 onClick={firstButtonOnClick}
             />
@@ -34,7 +38,12 @@ export const CustomButtonGroup: FC<Props> = (props) => {
                 label={secondButtonLabel}
                 variant={'contained'}
                 size={size}
-                sx={{marginLeft: '10px', borderRadius: '8px',}}
+                sx={{
+                    marginLeft: '10px', borderRadius: '8px', fontSize: '16px',
+                    '@media (max-width: 740px)': {
+                        fontSize: '14px'
+                    },
+                }}
                 onClick={secondButtonOnClick}
             />
         </div>

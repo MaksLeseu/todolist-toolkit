@@ -120,7 +120,16 @@ export const FormAddTask: FC<Props> = (props) => {
             />
             <div className={isOpenMenu ? `${s.settings} ${s.settingsWhenOpenMenu}` : s.settings}>
                 <SettingsFormAddTask
-                    calenderStyles={{fontSize: '16px', fontWeight: 500}}
+                    calenderStyles={{
+                        fontSize: '16px', fontWeight: 500,
+                        '@media (max-width: 740px)': {
+                            fontSize: '12px'
+                        },
+                        '@media (max-width: 550px)': {
+                            fontSize: '14px',
+                            width: '100%',
+                        }
+                    }}
                     prioritySettingFunction={prioritySettingFunction}
                     genericSettingFunction={genericSettingFunction}
                 />
@@ -138,6 +147,9 @@ export const FormAddTask: FC<Props> = (props) => {
                         borderRadius: '8px',
                         border: '1px solid var(--primary, #704ECC)',
                         boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
+                        '@media (max-width: 730px)': {
+                            fontSize: '14px',
+                        },
                     }}
                     onClick={closeFormAddTask}
                 />
@@ -148,7 +160,9 @@ export const FormAddTask: FC<Props> = (props) => {
                         color: 'text.secondary',
                         borderRadius: '8px',
                         fontSize: '18px',
-                        '&:hover': {}
+                        '@media (max-width: 730px)': {
+                            fontSize: '14px',
+                        },
                     }}
                     variant={'contained'}
                     onClick={addTask}

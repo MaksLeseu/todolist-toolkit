@@ -276,7 +276,12 @@ export const Task: FC<Props> = (props) => {
                                     taskStartDate={taskStartDate}
                                     taskDeadline={taskDeadline}
                                     taskPriority={taskPriority}
-                                    calenderStyles={{marginRight: '10px', width: '130px', fontSize: '13px'}}
+                                    calenderStyles={{
+                                        marginRight: '10px', width: '130px', fontSize: '16px',
+                                        '@media (max-width: 740px)': {
+                                            fontSize: '14px'
+                                        },
+                                    }}
                                     genericSettingFunction={settingDate}
                                     settingPriorityFunction={settingPriority}
                                 />
