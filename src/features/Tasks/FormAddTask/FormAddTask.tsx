@@ -145,7 +145,7 @@ export const FormAddTask: FC<Props> = (props) => {
                     color={'secondary'}
                     label={MSG_BTN.ADD_A_TASK}
                     sx={{
-                        color: 'common.white',
+                        color: 'text.secondary',
                         borderRadius: '8px',
                         fontSize: '18px',
                         '&:hover': {}

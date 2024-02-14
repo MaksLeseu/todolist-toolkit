@@ -6,6 +6,7 @@ import {CustomPopover} from "../CustomPopover/CustomPopover";
 import {Typography} from "@mui/material";
 import {CustomTextField} from "../CustomTextField/CustomTextField";
 import {OutlinedInputProps} from "@mui/material/OutlinedInput";
+import {MSG_BTN} from "../../utils/constans/app-messages.const";
 
 type Props = {
     isOpen: any
@@ -80,17 +81,17 @@ export const Edit: FC<Props> = (props) => {
                     />
                     <Box>
                         <CustomButton
-                            label={'Save'}
-                            variant={'text'}
+                            label={MSG_BTN.SAVE}
+                            variant={'contained'}
+                            color={'secondary'}
                             sx={{
                                 minWidth: '45px',
                                 height: '18px',
-                                backgroundColor: 'secondary.main',
-                                fontSize: '8px',
+                                fontSize: '12px',
                                 fontStyle: 'normal',
-                                fontWeight: 700,
+                                fontWeight: 500,
                                 lineHeight: '14px',
-                                color: 'common.white',
+                                color: 'text.secondary',
                                 textAlign: 'center',
                                 boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                                 borderRadius: '2px',
@@ -99,16 +100,16 @@ export const Edit: FC<Props> = (props) => {
                             onClick={actionEdit}
                         />
                         <CustomButton
-                            label={'Cancel'}
+                            label={MSG_BTN.CANCEL}
                             variant={'text'}
                             sx={{
                                 minWidth: '45px',
                                 height: '18px',
                                 borderRadius: '2px',
                                 border: '1px solid #704ECC',
-                                fontSize: '8px',
+                                fontSize: '12px',
                                 fontStyle: 'normal',
-                                fontWeight: 700,
+                                fontWeight: 500,
                                 lineHeight: '14px',
                                 color: 'secondary.main',
                                 marginLeft: '2px',
