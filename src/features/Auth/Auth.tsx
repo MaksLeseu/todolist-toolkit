@@ -7,7 +7,6 @@ import {Navigate} from "react-router-dom";
 import {EmailIcon} from "../../common/components/Icons/EmailIcon";
 import {InputFieldsForAuth} from "./InputFieldsForAuth/InputFieldsForAuth";
 import React, {useState} from "react";
-import {TestAccIcon} from "../../common/components/Icons/TestAccIcon";
 import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
 import {Link} from "@mui/material";
 import {authThunk} from "./auth.slice";
@@ -51,42 +50,16 @@ export const Auth = () => {
 
     const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
 
-    const [account, setAccount] = useState({
-        test: false,
-        user: false
-    })
-    const [visibleButtons, setVisibleButtons] = useState<'testAcc' | 'nothing' | 'email'>('nothing')
+    const [account, setAccount] = useState<boolean>(false)
+    const [visibleButtons, setVisibleButtons] = useState<boolean>(true)
 
-    const openAccount = (params: 'test' | 'user') => {
-        const account = {
-            'test': () => {
-                setAccount({
-                    test: true,
-                    user: false
-                })
-                setVisibleButtons('testAcc')
-            },
-            'user': () => {
-                setAccount({
-                    test: false,
-                    user: true
-                })
-                setVisibleButtons('email')
-            }
-        }
-        return account[params]()
+    const openAccount = () => {
+        setAccount(true)
+        setVisibleButtons(false)
     }
 
     if (isLoggedIn) {
         return <Navigate to={'/'}/>
-    }
-
-    const hardcodeParamsForTestAcc = (params: 'login' | 'password'): 'free@samuraijs.com' | 'free' => {
-        const hardcode = {
-            'login': (): 'free@samuraijs.com' => formik.values.email = 'free@samuraijs.com',
-            'password': (): 'free' => formik.values.password = 'free',
-        }
-        return hardcode[params]()
     }
 
     return (
@@ -94,7 +67,7 @@ export const Auth = () => {
             <h2 className={s.label}>CHOOSE</h2>
             <p className={s.authTitle}>the way you want to enter, please</p>
             {
-                visibleButtons === 'email' ||
+                visibleButtons &&
                 <CustomButton
                     color={'primary'}
                     label={'Continue with email'}
@@ -116,38 +89,11 @@ export const Auth = () => {
                             backgroundColor: 'common.white'
                         }
                     }}
-                    onClick={() => openAccount('user')}
-                />
-            }
-            {
-                visibleButtons === 'testAcc' ||
-                <CustomButton
-                    color={'primary'}
-                    label={'Use a test account'}
-                    icon={<div className={s.icon}><TestAccIcon/></div>}
-                    variant={'contained'}
-                    sx={{
-                        width: '328px',
-                        height: '56px',
-                        fontSize: '16px',
-                        textTransform: 'none',
-                        fontWeight: 500,
-                        borderRadius: '8px',
-                        boxShadow: '0',
-                        lineHeight: '24px',
-                        marginBottom: '32px',
-                        padding: '16px',
-                        display: 'flex',
-                        justifyContent: 'normal',
-                        '&:hover': {
-                            backgroundColor: 'common.white'
-                        }
-                    }}
-                    onClick={() => openAccount('test')}
+                    onClick={openAccount}
                 />
             }
             <InputFieldsForAuth
-                isOpen={account.user}
+                isOpen={account}
                 label={'Continue with email'}
                 loginValue={formik.values.email}
                 passwordValue={formik.values.password}
@@ -170,27 +116,6 @@ export const Auth = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 onSubmit={formik.handleSubmit}
-            />
-            <InputFieldsForAuth
-                isOpen={account.test}
-                label={'Use a test account'}
-                loginValue={formik.values.email}
-                passwordValue={formik.values.password}
-                touchedLogin={formik.touched.email}
-                touchedPassword={formik.touched.password}
-                errorsLogin={formik.errors.email}
-                errorsPassword={formik.errors.password}
-                sx={{
-                    marginTop: '28px'
-                }}
-                testAccChildren={<>
-                    <p>Email: free@samuraijs.com</p>
-                    <p>Password: free</p>
-                </>}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                onSubmit={formik.handleSubmit}
-                hardcodeParamsForTestAcc={hardcodeParamsForTestAcc}
             />
             <Link
                 href={'https://social-network.samuraijs.com/signUp'}
