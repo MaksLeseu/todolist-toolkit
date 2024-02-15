@@ -3,6 +3,7 @@ import {CustomTextField} from "../../CustomTextField/CustomTextField";
 import Box from "@mui/material/Box";
 import {useAppSelector} from "../../../utils/hooks/useAppSelector";
 import {modeSelector} from "../../../../app/app.selector";
+import {Mistake} from "../../Mistake/Mistake";
 
 type ObjectStyles = {
     fontSize: string
@@ -15,6 +16,8 @@ type Props = {
     title: string
     value: string
     placeholder?: string
+    mistakeTextField?: boolean
+    mistakeTextFieldTitle?: string
     textFieldStyles?: { marginBottom: string }
     placeholderStyles?: ObjectStyles
     inputStyles?: ObjectStyles
@@ -23,7 +26,18 @@ type Props = {
 }
 
 export const TodoTaskCreationForm: FC<Props> = (props) => {
-    const {title, value, placeholder, placeholderStyles, textFieldStyles, inputStyles, titleStyles, onChange} = props
+    const {
+        title,
+        value,
+        placeholder,
+        mistakeTextField,
+        mistakeTextFieldTitle,
+        placeholderStyles,
+        textFieldStyles,
+        inputStyles,
+        titleStyles,
+        onChange
+    } = props
     const mode = useAppSelector(modeSelector)
 
     return (
@@ -39,6 +53,7 @@ export const TodoTaskCreationForm: FC<Props> = (props) => {
                 borderBottom: mode === 'dark' ? '1px #FFF solid' : '1px rgba(0, 0, 0, 0.50) solid',
                 ...titleStyles
             }}>{title}</Box>
+            <Mistake isOpen={!!mistakeTextField} errorTitle={mistakeTextFieldTitle}/>
             <CustomTextField
                 size={'medium'}
                 value={value}
@@ -75,6 +90,7 @@ export const TodoTaskCreationForm: FC<Props> = (props) => {
                         lineHeight: '28px',
                         ...inputStyles,
                         color: 'secondary.main',
+                        borderBottom: mistakeTextField ? '1px solid #EB2525' : '1px solid #704ECC',
                     }
                 }}
                 onChange={onChange}

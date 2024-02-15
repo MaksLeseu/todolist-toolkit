@@ -150,6 +150,8 @@ export const TaskEditor: FC<Props> = (props) => {
         }
     }
 
+    const isMistakeTextField = !!text.newTitle && text.newTitle.trim().length >= 100
+
     return (
         <CustomModalWindow
             open={open}
@@ -205,6 +207,7 @@ export const TaskEditor: FC<Props> = (props) => {
                             taskRedactor={taskRedactor}
                             valueTask={text.newTitle}
                             valueDescription={text.newDescription}
+                            mistakeTextField={isMistakeTextField}
                             changeTitle={(e) => changeText('title', e)}
                             changeSpecification={(e) => changeText('description', e)}
                         />
@@ -217,6 +220,7 @@ export const TaskEditor: FC<Props> = (props) => {
                                 firstButtonLabel={MSG_BTN.CANCEL}
                                 secondButtonLabel={MSG_BTN.SAVE}
                                 size={'small'}
+                                mistakeTextField={isMistakeTextField}
                                 firstButtonOnClick={closeTaskRedactor}
                                 secondButtonOnClick={wrapperUpdateTaskForButtonTaskEditor}
                             />

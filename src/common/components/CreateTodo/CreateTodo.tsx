@@ -143,6 +143,9 @@ export const CreateTodo = () => {
     const labelPositions = todos.length > 0 ? `${s.banner} ${s.changeMargin}` : s.banner
     const labelPositionStyles = isOpenMenu ? `${s.banner} ${s.bannerPositionLeft}` : labelPositions
 
+    const isMistakeTextFieldForTodoName = !!title.todoName && title.todoName.trim().length >= 100
+    const isMistakeTextFieldForTaskName = !!title.taskName && title.taskName.trim().length >= 100
+
     return (
         <Main open={isOpenMenu} drawerWidth={'0px'} marginLeft={200}>
             <Box
@@ -213,12 +216,16 @@ export const CreateTodo = () => {
                             title={'To-do list name'}
                             value={title.todoName}
                             placeholder={'To-do list name'}
+                            mistakeTextField={isMistakeTextFieldForTodoName}
+                            mistakeTextFieldTitle={'Todo name is more than 100 characters.'}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => changeTitle('todo', e)}
                         />
                         <TodoTaskCreationForm
                             title={'Task name'}
                             value={title.taskName}
                             placeholder={'Task name'}
+                            mistakeTextField={isMistakeTextFieldForTaskName}
+                            mistakeTextFieldTitle={'Task name is more than 100 characters.'}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => changeTitle('task', e)}
                         />
 
@@ -302,6 +309,7 @@ export const CreateTodo = () => {
                     <CustomButton
                         label={'Save'}
                         color={'secondary'}
+                        disabled={isMistakeTextFieldForTodoName || isMistakeTextFieldForTaskName}
                         sx={{
                             width: '190px',
                             height: '50px',

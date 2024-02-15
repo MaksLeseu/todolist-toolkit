@@ -12,12 +12,13 @@ type Props = {
     variant: 'contained' | 'text' | 'outlined'
     type?: 'submit' | 'reset' | 'button'
     size?: 'small' | 'medium' | 'large'
+    disabled?: boolean
     sx?: SxProps<Theme>
     onClick?: MouseEventHandler | undefined
 }
 
 export const CustomButton: FC<Props> = (props) => {
-    const {label, additionalLabel, color, variant, type, size, icon, iconFromTheEnd, sx, onClick} = props
+    const {label, additionalLabel, color, variant, type, size, icon, iconFromTheEnd, disabled, sx, onClick} = props
 
     return (
         <Button
@@ -26,6 +27,7 @@ export const CustomButton: FC<Props> = (props) => {
             type={type}
             sx={sx}
             size={size}
+            disabled={disabled}
             onClick={onClick}
         >
             {icon}{label}{additionalLabel}{iconFromTheEnd}

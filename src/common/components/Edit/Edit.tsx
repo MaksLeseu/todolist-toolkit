@@ -7,10 +7,12 @@ import {Typography} from "@mui/material";
 import {CustomTextField} from "../CustomTextField/CustomTextField";
 import {OutlinedInputProps} from "@mui/material/OutlinedInput";
 import {MSG_BTN} from "../../utils/constans/app-messages.const";
+import {Mistake} from "../Mistake/Mistake";
 
 type Props = {
     isOpen: any
     value: string
+    mistakeTextField: boolean
     transformPopover: string
     transformEdit: string
     actionEdit: () => void
@@ -19,7 +21,7 @@ type Props = {
 }
 
 export const Edit: FC<Props> = (props) => {
-    const {isOpen, value, transformPopover, transformEdit, actionEdit, closeEdit, onChange} = props
+    const {isOpen, value, mistakeTextField, transformPopover, transformEdit, actionEdit, closeEdit, onChange} = props
 
     return (
         <CustomPopover
@@ -36,9 +38,9 @@ export const Edit: FC<Props> = (props) => {
                 <Box sx={{
                     backgroundColor: 'primary.main',
                     width: '210px',
-                    height: '102px',
+                    minHeight: '102px',
                     borderRadius: '4px',
-                    padding: '12px 0 0 0',
+                    padding: '12px 0 12px 0',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -57,12 +59,15 @@ export const Edit: FC<Props> = (props) => {
                         }}>
                         Enter the name of to do list
                     </Typography>
+                    <Mistake
+                        isOpen={mistakeTextField}
+                    />
                     <CustomTextField
                         size={'small'}
                         value={value}
                         sx={{
                             width: '173px',
-                            borderBottom: '1px solid #704ECC',
+                            borderBottom: mistakeTextField ? '1px solid #EB2525' : '1px solid #704ECC',
                             marginBottom: '10px',
                         }}
                         InputProps={{
@@ -84,6 +89,7 @@ export const Edit: FC<Props> = (props) => {
                             label={MSG_BTN.SAVE}
                             variant={'contained'}
                             color={'secondary'}
+                            disabled={mistakeTextField}
                             sx={{
                                 minWidth: '45px',
                                 height: '18px',

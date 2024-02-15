@@ -6,12 +6,20 @@ type Props = {
     firstButtonLabel: string
     secondButtonLabel: string
     size?: 'small' | 'medium' | 'large'
+    mistakeTextField?: boolean
     firstButtonOnClick: MouseEventHandler | undefined
     secondButtonOnClick: MouseEventHandler | undefined
 }
 //Double buttons
 export const CustomButtonGroup: FC<Props> = (props) => {
-    const {firstButtonLabel, secondButtonLabel, size = 'medium', firstButtonOnClick, secondButtonOnClick} = props
+    const {
+        firstButtonLabel,
+        secondButtonLabel,
+        size = 'medium',
+        mistakeTextField,
+        firstButtonOnClick,
+        secondButtonOnClick
+    } = props
 
     return (
         <div className={s.group}>
@@ -38,6 +46,7 @@ export const CustomButtonGroup: FC<Props> = (props) => {
                 label={secondButtonLabel}
                 variant={'contained'}
                 size={size}
+                disabled={mistakeTextField}
                 sx={{
                     marginLeft: '10px', borderRadius: '8px', fontSize: '16px',
                     '@media (max-width: 740px)': {

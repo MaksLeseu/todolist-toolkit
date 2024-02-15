@@ -193,6 +193,7 @@ export const MoreHoriz: FC<Props> = (props) => {
                         <Edit
                             isOpen={isOpenEdit}
                             value={todoName}
+                            mistakeTextField={!!todoName && todoName.trim().length >= 100}
                             transformPopover={'translate(-58.5%, 23%)'}
                             transformEdit={'translate(89%, 28%)'}
                             actionEdit={changeTodo}

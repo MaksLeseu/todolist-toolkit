@@ -260,6 +260,8 @@ export const Task: FC<Props> = (props) => {
     const taskCompletedDarkMode = mode === 'dark' ? `${s.taskCompletedDark} ${s.taskCompleted}` : `${s.taskCompletedLight} ${s.taskCompleted}`
     const taskCompleteStyles = taskStatusCompleted ? taskCompletedDarkMode : taskStyles
 
+    const isMistakeTextField = !!taskText.newTaskTitle && taskText.newTaskTitle.trim().length >= 100
+
     return (
         <div key={taskId} className={isOpen.taskRedactor ? s.openTaskRedactorStyles : taskCompleteStyles}>
             {
@@ -269,6 +271,7 @@ export const Task: FC<Props> = (props) => {
                         taskRedactor={isOpen.taskRedactor}
                         valueTask={taskText.newTaskTitle}
                         valueDescription={taskText.newTaskDescription}
+                        mistakeTextField={isMistakeTextField}
                         childrenGroupSettings={
                             <div
                                 className={isOpenMenu ? `${s.groupSettingsContainer} ${s.groupSettingsContainerActive}` : s.groupSettingsContainer}>
@@ -291,6 +294,7 @@ export const Task: FC<Props> = (props) => {
                             <CustomButtonGroup
                                 firstButtonLabel={MSG_BTN.CANCEL}
                                 secondButtonLabel={MSG_BTN.SAVE}
+                                mistakeTextField={isMistakeTextField}
                                 firstButtonOnClick={() => openCloseWindows('close')}
                                 secondButtonOnClick={updateHandle}
                             />

@@ -9,10 +9,12 @@ import {SettingsFormAddTask} from "./SettingsFormAddTask";
 import {useAppSelector} from "../../../common/utils/hooks/useAppSelector";
 import {isOpenMenuSelector, modeSelector} from "../../../app/app.selector";
 import Box from "@mui/material/Box";
+import {Mistake} from "../../../common/components/Mistake/Mistake";
 
 type Props = {
     taskName: string
     description: string
+    mistakeTextField: boolean
     closeFormAddTask: MouseEventHandler | undefined
     changeTaskName: (e: ChangeEvent<HTMLInputElement>) => void
     changeDescription: (e: ChangeEvent<HTMLInputElement>) => void
@@ -25,6 +27,7 @@ export const FormAddTask: FC<Props> = (props) => {
     const {
         taskName,
         description,
+        mistakeTextField,
         closeFormAddTask,
         changeTaskName,
         changeDescription,
@@ -52,6 +55,7 @@ export const FormAddTask: FC<Props> = (props) => {
                 transition: 'opacity 0.5s ease-in-out',
             }}
         >
+            <Mistake isOpen={mistakeTextField} errorTitle={'Task name is more than 100 characters.'}/>
             <CustomTextField
                 label={'Task name'}
                 size={'medium'}
@@ -61,6 +65,7 @@ export const FormAddTask: FC<Props> = (props) => {
                     width: '100%',
                     marginBottom: '5px',
                     fontSize: '18px',
+                    borderBottom: mistakeTextField ? '1px solid #EB2525' : '',
                     // Styles for the Label
                     '& .MuiInputLabel-root': {
                         fontSize: '18px',
@@ -68,7 +73,7 @@ export const FormAddTask: FC<Props> = (props) => {
                         color: 'rgba(112, 78, 204, 0.50)',
                     },
                     '& .MuiInput-underline:after': {
-                        borderBottomColor: 'secondary.main',
+                        borderBottomColor: mistakeTextField ? '1px solid #EB2525' : 'secondary.main',
                     },
                     // Change styles for the label after focused
                     '&:focus-within .MuiInputLabel-root': {
@@ -156,6 +161,7 @@ export const FormAddTask: FC<Props> = (props) => {
                 <CustomButton
                     color={'secondary'}
                     label={MSG_BTN.ADD_A_TASK}
+                    disabled={mistakeTextField}
                     sx={{
                         color: 'text.secondary',
                         borderRadius: '8px',

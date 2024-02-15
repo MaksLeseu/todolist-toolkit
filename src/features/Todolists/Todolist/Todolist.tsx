@@ -183,6 +183,7 @@ export const Todolist: FC<Props> = (props) => {
                             <FormAddTask
                                 taskName={taskText.taskName}
                                 description={taskText.description}
+                                mistakeTextField={!!taskText.taskName && taskText.taskName.trim().length >= 100}
                                 closeFormAddTask={closeFormAddTask}
                                 changeTaskName={changeTaskName}
                                 changeDescription={changeDescription}
