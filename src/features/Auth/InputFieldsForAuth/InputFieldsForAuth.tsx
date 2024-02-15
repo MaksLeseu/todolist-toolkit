@@ -9,8 +9,8 @@ import {VisibilityIcon} from "../../../common/components/Icons/VisibilityIcon";
 import Box from "@mui/material/Box";
 import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material/styles";
-import {MistakeIcon} from "../../../common/components/Icons/MistakeIcon";
 import {SuccessIcon} from "../../../common/components/Icons/SuccessIcon";
+import {Mistake} from "../../../common/components/Mistake/Mistake";
 
 type Props = {
     isOpen: boolean
@@ -103,13 +103,10 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                         <div className={s.flexContainer}>
                             <div className={s.inputFields}>
                                 <div>
-                                    {
-                                        touchedLogin && errorsLogin &&
-                                        <div className={s.errorsContainer}>
-                                            <MistakeIcon/>
-                                            <p className={s.error}>{errorsLogin}</p>
-                                        </div>
-                                    }
+                                    <Mistake
+                                        isOpen={!!touchedLogin && !!errorsLogin}
+                                        errorTitle={errorsLogin}
+                                    />
                                 </div>
                                 <CustomTextField
                                     size={'small'}
@@ -151,13 +148,10 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                     onFocus={() => focusing('login')}
                                 />
                                 <div>
-                                    {
-                                        touchedPassword && errorsPassword &&
-                                        <div className={s.errorsContainer}>
-                                            <MistakeIcon/>
-                                            <p className={s.error}>{errorsPassword}</p>
-                                        </div>
-                                    }
+                                    <Mistake
+                                        isOpen={!!touchedPassword && !!errorsPassword}
+                                        errorTitle={errorsPassword}
+                                    />
                                 </div>
                                 <CustomTextField
                                     size={'small'}
