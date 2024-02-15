@@ -4,19 +4,19 @@ import {styled} from '@mui/material/styles';
 
 export const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
     open?: boolean;
-    marginLeft?: number;
+    marginleft?: number;
     display?: string;
     justifyContent?: string;
     sx?: any;
-    drawerWidth: string;
-}>(({theme, open, drawerWidth, display, justifyContent, sx, marginLeft}) => ({
+    drawerwidth: string;
+}>(({theme, open, drawerwidth, display, justifyContent, sx, marginleft}) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: drawerWidth,
+    marginLeft: drawerwidth,
     display: display && 'grid',
     justifyContent: justifyContent && 'center',
     ...sx,
@@ -25,7 +25,7 @@ export const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        marginLeft: marginLeft ? marginLeft : 0,
+        marginLeft: marginleft ? marginleft : 0,
     }),
     '@media (max-width: 680px)': {
         /*marginLeft: -190,*/

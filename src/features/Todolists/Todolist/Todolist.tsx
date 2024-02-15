@@ -138,7 +138,7 @@ export const Todolist: FC<Props> = (props) => {
     if (task === undefined) return <Preloader/>
 
     return (
-        <Main open={isOpenMenu} drawerWidth={'0px'} marginLeft={marginLeft}
+        <Main open={isOpenMenu} drawerwidth={'0px'} marginleft={marginLeft}
               sx={{display: 'grid', justifyContent: 'center'}}>
             <div className={isOpenMenu ? `${s.todolistContainerActive}` : s.todolistContainer}>
                 <Box

@@ -147,7 +147,7 @@ export const CreateTodo = () => {
     const isMistakeTextFieldForTaskName = !!title.taskName && title.taskName.trim().length >= 100
 
     return (
-        <Main open={isOpenMenu} drawerWidth={'0px'} marginLeft={200}>
+        <Main open={isOpenMenu} drawerwidth={'0px'} marginleft={200}>
             <Box
                 sx={{
                     marginTop: '30px',

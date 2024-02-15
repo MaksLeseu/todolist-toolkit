@@ -108,7 +108,7 @@ export const Todolists: FC<Props> = ({isTodoListClickable}) => {
     const redirectToPage = todos.length > 0 ? navigateToFirstTodo() : returnInfoPage()
 
     return (
-        <Main open={isOpenMenu} drawerWidth={'0px'} marginLeft={200}>
+        <Main open={isOpenMenu} drawerwidth={'0px'} marginleft={200}>
             <div className={s.todolists}>
                 <div className={s.todosList}>
                     {

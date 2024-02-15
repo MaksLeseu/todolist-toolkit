@@ -8,7 +8,6 @@ import Drawer from '@mui/material/Drawer';
 import {TodolistsType} from "../../Todolists/todolists.types";
 import {useAppSelector} from "../../../common/utils/hooks/useAppSelector";
 import {todolistsSelector} from "../../Todolists/todolists.selector";
-import {MoreHorizIcon} from "../../../common/components/Icons/MoreHorizIcon";
 import {DocumentIcon} from "../../../common/components/Icons/DocumentIcon";
 import {ArrowIcon} from "../../../common/components/Icons/ArrowIcon";
 import {CustomSwitch} from "../../../common/components/CustomSwitch/CustomSwitch";
@@ -26,6 +25,7 @@ import {CustomLinearProgress} from "../../../common/components/CustomLinearProgr
 import {modeSelector} from "../../../app/app.selector";
 import {appActions} from "../../../app/app.slice";
 import {BASE_ROUTE} from "../../../routes/Routes";
+import {MoreHorizIcon} from "../../../common/components/Icons/MoreHorizIcon";
 
 
 type Props = {

@@ -49,7 +49,7 @@ export const Tasks: FC<Props> = (props) => {
                 filteredTasks.length > 0
                     ?
                     filteredTasks.map((ts: TasksType) =>
-                        <>
+                        <React.Fragment key={ts.id}>
                             <Task
                                 key={ts.id}
                                 taskId={ts.id}
@@ -66,7 +66,7 @@ export const Tasks: FC<Props> = (props) => {
                                 setVisibleLiner={setVisibleLiner}
                             />
                             <Divider sx={{marginBottom: '10px'}}/>
-                        </>)
+                        </React.Fragment>)
                     :
                     <div className={isOpenMenu ? `${s.emptyOpenMenu} ${s.empty}` : s.empty}>
                         You don't have tasks. Click on button, that create a task !!!
