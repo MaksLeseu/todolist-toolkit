@@ -81,7 +81,19 @@ export const Todolist: FC<Props> = (props) => {
         })
     }
 
-    const openFormAddTask = () => setFormAddTask(true);
+    const scrollToBottom = () => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    };
+
+    const openFormAddTask = () => {
+        setFormAddTask(true);
+        setTimeout(() => {
+            scrollToBottom()
+        }, 0)
+    }
 
     const closeFormAddTask = () => {
         setFormAddTask(false)
