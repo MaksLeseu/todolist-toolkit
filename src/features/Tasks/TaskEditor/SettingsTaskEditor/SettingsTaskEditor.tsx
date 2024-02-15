@@ -114,8 +114,8 @@ export const SettingsTaskEditor: FC<Props> = (props) => {
                 </ListItemButton>
             </CustomIconButton>);
 
-    const deadlineLabel = taskDeadline ? dateConversionToString(dayjs(taskDeadline)) : date.deadline && dateConversionToString(date.deadline) || 'Set deadline'
-    const startDateLabel = taskStartDate ? dateConversionToString(dayjs(taskStartDate)) : date.startDate && dateConversionToString(date.startDate) || 'Set start date'
+    const deadlineLabel = taskDeadline ? dateConversionToString(dayjs(taskDeadline)) : 'Set deadline'
+    const startDateLabel = taskStartDate ? dateConversionToString(dayjs(taskStartDate)) : 'Set start date'
     const priorityLabel = priority === null ? priorityConversionToString(taskPriority) : priorityConversionToString(priority)
 
     const matches640 = useMediaQuery('(max-width:640px)');
