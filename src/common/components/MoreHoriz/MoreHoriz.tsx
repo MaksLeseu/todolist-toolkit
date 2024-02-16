@@ -114,6 +114,7 @@ export const MoreHoriz: FC<Props> = (props) => {
     const returnPopover = () => (
         <CustomPopover
             anchorEl={isOpen}
+            listItemStyles={{background: 'none',}}
             transformStyle={transformPopover ? transformPopover : 'translate(-0%, -2%)'}
             handleClosePopover={closeMoreHoriz}
         >

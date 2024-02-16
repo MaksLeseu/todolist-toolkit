@@ -120,6 +120,7 @@ export const DisplayPopover: FC<Props> = (props) => {
     return (
         <CustomPopover
             anchorEl={openDisplay}
+            listItemStyles={{background: 'none',}}
             transformStyle={transformPopover ? transformPopover : 'translate(-0%, -2%)'}
             handleClosePopover={handleCloseDisplay}
         >

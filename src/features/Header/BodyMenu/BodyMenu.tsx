@@ -62,8 +62,8 @@ export const BodyMenu: FC<Props> = (props) => {
 
     const [isOpenMoreHoriz, setIsOpenMoreHoriz] = useState<HTMLButtonElement | null>(null)
     const closeMoreHoriz = () => setIsOpenMoreHoriz(null)
-    const openMoreHoriz = (event: any) => {
-        setIsOpenMoreHoriz(event.currentTarget)
+    const openMoreHoriz = (event: React.MouseEvent) => {
+        setIsOpenMoreHoriz(event.currentTarget as HTMLButtonElement)
         event.preventDefault()
     }
 

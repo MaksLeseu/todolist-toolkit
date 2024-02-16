@@ -46,7 +46,8 @@ export const Priority: FC<Props> = (props) => {
         <CustomPopover
             anchorEl={openPriority}
             listItemStyles={{
-                transform: 'translate(0%, -10%)'
+                transform: 'translate(0%, -10%)',
+                background: 'none',
             }}
             handleClosePopover={closePriority}
         >

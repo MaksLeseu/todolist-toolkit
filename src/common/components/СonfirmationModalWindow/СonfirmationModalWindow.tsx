@@ -50,6 +50,7 @@ export const ConfirmationModalWindow: FC<Props> = (props) => {
     return (
         <CustomPopover
             anchorEl={isOpen}
+            listItemStyles={{background: 'none',}}
             transformStyle={transformPopover ? transformPopover : 'translate(-43%, -5%)'}
             handleClosePopover={closeConfirmation}
         >

@@ -26,6 +26,7 @@ export const Edit: FC<Props> = (props) => {
     return (
         <CustomPopover
             anchorEl={isOpen}
+            listItemStyles={{background: 'none',}}
             transformStyle={transformPopover ? transformPopover : 'translate(-0%, -2%)'}
             handleClosePopover={closeEdit}
         >
