@@ -144,7 +144,7 @@ export const TaskEditor: FC<Props> = (props) => {
     }
 
     const handleCloseTaskEditor = () => {
-        if (text.newTitle.trim() && !taskRedactor) {
+        if (text.newTitle.trim()) {
             closeTaskEditor()
             closeTaskRedactor()
         }

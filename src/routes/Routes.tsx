@@ -8,9 +8,7 @@ import {Page404} from "../common/components/Page404/Page404";
 import {Todolists} from "../features/Todolists/Todolists";
 import {CreateTodo} from "../common/components/CreateTodo/CreateTodo";
 
-export const BASE_ROUTE = '/todolist-toolkit'
-
-/*todolist-toolkit*/
+export const BASE_ROUTE = '/todolist-toolkit';
 
 const privateRoutes = [
     {
