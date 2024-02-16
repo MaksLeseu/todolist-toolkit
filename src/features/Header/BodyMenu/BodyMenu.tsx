@@ -62,10 +62,15 @@ export const BodyMenu: FC<Props> = (props) => {
 
     const [isOpenMoreHoriz, setIsOpenMoreHoriz] = useState<HTMLButtonElement | null>(null)
     const closeMoreHoriz = () => setIsOpenMoreHoriz(null)
-    const openMoreHoriz = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const openMoreHoriz = (event: any) => {
         setIsOpenMoreHoriz(event.currentTarget)
         event.preventDefault()
     }
+
+    const activeStylesButtonMoreHoriz: object | null = isOpenMoreHoriz ? {
+        transition: 'all 0.3s',
+        boxShadow: '1px 1px 2px 0px rgba(0, 0, 0, 0.25) inset, -1px -1px 2px 0px rgba(0, 0, 0, 0.25) inset',
+    } : null
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -218,8 +223,8 @@ export const BodyMenu: FC<Props> = (props) => {
                                                 fontStyle: 'normal',
                                                 fontWeight: 500,
                                                 lineHeight: '28px',
-                                                marginBottom: '8px',
                                                 position: 'relative',
+                                                marginBottom: '8px',
                                             }}
                                         >
                                             <Box sx={{
@@ -249,14 +254,15 @@ export const BodyMenu: FC<Props> = (props) => {
                                                 </Box>
                                                 {
                                                     param.todo === todo.id &&
-                                                    <CustomIconButton
-                                                        disableRipple={false}
+                                                    <Box
                                                         sx={{
                                                             alignSelf: 'center',
                                                             width: '24px',
                                                             height: '24px',
                                                             objectFit: 'cover',
                                                             borderRadius: '2px',
+                                                            transition: 'all 0.3s',
+                                                            ...activeStylesButtonMoreHoriz
                                                         }}
                                                         onClick={openMoreHoriz}
                                                     >
@@ -266,7 +272,7 @@ export const BodyMenu: FC<Props> = (props) => {
                                                         }}>
                                                             <MoreHorizIcon/>
                                                         </Box>
-                                                    </CustomIconButton>
+                                                    </Box>
                                                 }
                                             </Box>
                                         </CustomIconButton>
