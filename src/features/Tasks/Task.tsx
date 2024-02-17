@@ -213,6 +213,14 @@ export const Task: FC<Props> = (props) => {
     } : null
 
     const matches1030 = useMediaQuery('(max-width:1030px)');
+
+    const titleStylesWithoutDescription = taskDescription ? {} :
+        {
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center'
+        }
+
     const titleStylesForMobile = isOpenMenu ?
         {
             '@media (max-width: 730px)': {
@@ -359,6 +367,7 @@ export const Task: FC<Props> = (props) => {
                                         width: '380px',
                                         height: '1.2em',
                                         whiteSpace: 'nowrap',
+                                        ...titleStylesWithoutDescription,
                                         ...titleStylesForMobile
                                     }}
                                 >

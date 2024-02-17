@@ -31,11 +31,6 @@ export const useTheme = (mode: 'dark' | 'light') => {
             grey: {
                 A100: '#F7F7F8'
             },
-            action: {
-                hover: '',
-                disabled: '',
-                focus: '',
-            },
             mode,
         },
         typography: {
@@ -47,24 +42,10 @@ export const useTheme = (mode: 'dark' | 'light') => {
         components: {
             MuiTextField: {
                 defaultProps: {
-                    sx: {},
                     variant: "outlined",
                 },
-                styleOverrides: {
-                    root: {
-                        /*'&:hover, &.Mui-focused': {
-                            border: '2px #704ECC solid'
-                        },*/
-                        '&:focus': {
-                            /*border: '2px #704ECC solid',*/
-                        },
-                    }
-                }
             },
             MuiInputBase: {
-                defaultProps: {
-                    sx: {}
-                },
                 styleOverrides: {
                     input: {
                         '&::placeholder': {
@@ -89,11 +70,6 @@ export const useTheme = (mode: 'dark' | 'light') => {
                     }
                 },
             },
-            MuiButtonBase: {
-                defaultProps: {
-                    sx: {}
-                }
-            }
         },
     });
 

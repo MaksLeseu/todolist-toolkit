@@ -16,7 +16,7 @@
 
 .taskCompleted {
     width: 100%;
-    cursor: pointer;
+    cursor: auto;
     transition: all 0.7s;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -111,6 +111,14 @@
 }
 
 @media (max-width: 730px) {
+    .task {
+        cursor: auto;
+    }
+
+    .openTaskRedactorStyles {
+        cursor: auto;
+    }
+    
     .flexContainer {
         grid-template-columns: 8.5% 85% 6.5%;
     }
