@@ -93,3 +93,13 @@
     }
 }
 
+@media (max-width: 370px) {
+    .todolistContainer {
+        width: 270px;
+    }
+
+    .todolistContainerActive {
+        width: 270px;
+    }
+}
+

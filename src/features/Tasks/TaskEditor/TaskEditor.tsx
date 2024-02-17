@@ -58,6 +58,10 @@ const style = {
         width: 330,
         minHeight: 400,
     },
+    '@media (max-width: 350px)': {
+        width: 320,
+        minHeight: 380,
+    },
 };
 
 export const TaskEditor: FC<Props> = (props) => {

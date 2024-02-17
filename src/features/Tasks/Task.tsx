@@ -220,12 +220,18 @@ export const Task: FC<Props> = (props) => {
             },
             '@media (max-width: 550px)': {
                 width: '280px',
+            },
+            '@media (max-width: 370px)': {
+                width: '200px',
             }
         }
         :
         {
             '@media (max-width: 550px)': {
                 width: '280px',
+            },
+            '@media (max-width: 370px)': {
+                width: '200px',
             }
         }
     const descriptionStylesForMobile = isOpenMenu ?
@@ -242,6 +248,9 @@ export const Task: FC<Props> = (props) => {
             '@media (max-width: 730px)': {
                 width: '280px'
             },
+            '@media (max-width: 370px)': {
+                width: '200px'
+            }
         }
         :
         {
@@ -253,6 +262,9 @@ export const Task: FC<Props> = (props) => {
             },
             '@media (max-width: 550px)': {
                 width: '280px'
+            },
+            '@media (max-width: 370px)': {
+                width: '200px'
             }
         }
 
@@ -332,7 +344,7 @@ export const Task: FC<Props> = (props) => {
                                     onChange={updateCheckbox}
                                 />
                             </Box>
-                            <div>
+                            <div className={s.taskContainer}>
                                 <Box
                                     sx={{
                                         color: 'text.primary',

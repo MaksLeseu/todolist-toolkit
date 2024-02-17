@@ -108,3 +108,13 @@
     margin: 0;
 }
 
+
+@media (max-width: 340px) {
+    .mediumFont {
+        font-size: 11px;
+    }
+
+    .boldFont {
+        font-size: 11px;
+    }
+}

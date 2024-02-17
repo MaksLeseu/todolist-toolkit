@@ -138,3 +138,15 @@
     }
 }
 
+@media (max-width: 370px) {
+    .flexContainer {
+        grid-template-columns: 14% 85% 1%;
+    }
+
+    .flexContainerActive {
+        grid-template-columns: 14% 85% 1%;
+    }
+}
+
+
+

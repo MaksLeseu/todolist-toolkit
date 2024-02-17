@@ -94,6 +94,9 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                 &&
                 <Box sx={{
                     width: '350px',
+                    '@media (max-width: 340px)': {
+                        width: '300px'
+                    },
                     ...sx
                 }}>
                     <h2 className={s.label}>{label}</h2>
@@ -122,7 +125,10 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                         marginBottom: '16px',
                                         ...focusLogin,
                                         ...showErrorsLogin,
-                                        ...successLogin
+                                        ...successLogin,
+                                        '@media (max-width: 340px)': {
+                                            width: '300px'
+                                        },
                                     }}
                                     InputProps={{
                                         disableUnderline: true,
@@ -166,7 +172,10 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                         backgroundColor: 'grey.A100',
                                         ...focusPassword,
                                         ...showErrorsPassword,
-                                        ...successPassword
+                                        ...successPassword,
+                                        '@media (max-width: 340px)': {
+                                            width: '300px'
+                                        },
                                     }}
                                     InputProps={{
                                         disableUnderline: true,
@@ -217,6 +226,9 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                     boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                                     lineHeight: '34px',
                                     marginTop: '16px',
+                                    '@media (max-width: 340px)': {
+                                        width: '300px'
+                                    },
                                 }}
                             />
                             <div className={s.textPolicy}>

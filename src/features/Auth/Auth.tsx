@@ -87,7 +87,10 @@ export const Auth = () => {
                         justifyContent: 'normal',
                         '&:hover': {
                             backgroundColor: 'common.white'
-                        }
+                        },
+                        '@media (max-width: 340px)': {
+                            width: '300px'
+                        },
                     }}
                     onClick={openAccount}
                 />
@@ -103,7 +106,7 @@ export const Auth = () => {
                 errorsLogin={formik.errors.email}
                 errorsPassword={formik.errors.password}
                 sx={{
-                    marginTop: '8px'
+                    marginTop: '8px',
                 }}
                 rememberMeChildren={
                     <CustomCheckbox
@@ -123,6 +126,9 @@ export const Auth = () => {
                     width: '328px',
                     height: '56px',
                     marginBottom: '47px',
+                    '@media (max-width: 340px)': {
+                        width: '300px',
+                    },
                 }}
                 target="_blank"
             >
@@ -142,6 +148,9 @@ export const Auth = () => {
                         boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                         lineHeight: '34px',
                         marginBottom: '108px',
+                        '@media (max-width: 340px)': {
+                            width: '300px',
+                        },
                     }}
                 />
             </Link>
