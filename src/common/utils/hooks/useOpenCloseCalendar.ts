@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {AnchorElType} from "../../components/CustomPopover/CustomPopover";
+import {CalendarValues} from "../enums";
 
 
 export const useOpenCloseCalendar = () => {
@@ -16,13 +17,13 @@ export const useOpenCloseCalendar = () => {
             })
         } else if (event && params) {
             const methodForOpen = {
-                ['startDate']: () => {
+                [CalendarValues.StartDate]: () => {
                     setIsOpenCalendar({
                         openStartDate: event.currentTarget,
                         openDeadline: null,
                     })
                 },
-                ['deadline']: () => {
+                [CalendarValues.Deadline]: () => {
                     setIsOpenCalendar({
                         openStartDate: null,
                         openDeadline: event.currentTarget,

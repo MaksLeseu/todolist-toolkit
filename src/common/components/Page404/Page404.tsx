@@ -4,6 +4,7 @@ import {Page404IconLight} from "../Icons/Page404IconLight";
 import {NavLink} from "react-router-dom";
 import s from './Page404.module.css'
 import {BASE_ROUTE} from "../../../routes/Routes";
+import {MSG_BTN} from "../../utils/constans/app-messages.const";
 
 export const Page404 = () => {
     return (
@@ -17,7 +18,7 @@ export const Page404 = () => {
                     <CustomButton
                         color={'secondary'}
                         variant={'contained'}
-                        label={'Go to the main page'}
+                        label={MSG_BTN.GO_TO_THE_MAIN_PAGE}
                         sx={{
                             width: '239px',
                             height: '50px',

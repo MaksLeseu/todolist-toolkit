@@ -1,15 +1,15 @@
 import React, {FC, MouseEventHandler, ReactNode} from 'react';
 import Box from "@mui/material/Box";
-import {CustomIconButton} from "../../CustomIconButton/CustomIconButton";
-import {MenuDownIcon} from "../../Icons/MenuDownIcon";
-import {dateConversionToString} from "../../../utils/functions/dateConversionToString/dateConversionToString";
-import {Nullable} from "../../../utils/types/optional.types";
+import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
+import {MenuDownIcon} from "../../../common/components/Icons/MenuDownIcon";
+import {dateConversionToString} from "../../../common/utils/functions/dateConversionToString/dateConversionToString";
+import {Nullable} from "../../../common/utils/types/optional.types";
 import {Dayjs} from "dayjs";
 import {
     priorityConversionToString
-} from "../../../utils/functions/priorityConversionToString/priorityConversionToString";
-import {useAppSelector} from "../../../utils/hooks/useAppSelector";
-import {modeSelector} from "../../../../app/app.selector";
+} from "../../../common/utils/functions/priorityConversionToString/priorityConversionToString";
+import {useAppSelector} from "../../../common/utils/hooks/useAppSelector";
+import {modeSelector} from "../../../app/app.selector";
 
 type Props = {
     title: string
@@ -60,10 +60,7 @@ export const TaskSetItems: FC<Props> = (props) => {
                 '@media (max-width: 500px)': {
                     width: '150px',
                     borderBottom: mode === 'dark' ? '1px #FFF solid' : '1px #704ECC solid',
-                },/*
-                '@media (max-width: 360px)': {
-                    width: '130px',
-                },*/
+                },
             }}>
                 <Box
                     sx={{

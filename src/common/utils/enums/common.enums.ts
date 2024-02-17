@@ -11,10 +11,7 @@ export const TaskStatuses = {
     Draft: 3,
 } as const;
 
-export const TaskPriorities = {
-    Low: 0,
-    Middle: 1,
-    Hi: 2,
-    Urgently: 3,
-    Later: 4,
-} as const;
+export const CalendarValues = {
+    StartDate: 'startDate',
+    Deadline: 'deadline'
+}

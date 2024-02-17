@@ -11,6 +11,7 @@ import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material/styles";
 import {SuccessIcon} from "../../../common/components/Icons/SuccessIcon";
 import {Mistake} from "../../../common/components/Mistake/Mistake";
+import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 
 type Props = {
     isOpen: boolean
@@ -214,7 +215,7 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                             <CustomButton
                                 type={'submit'}
                                 color={'secondary'}
-                                label={'Sign in'}
+                                label={MSG_BTN.SIGN_IN}
                                 variant={'contained'}
                                 sx={{
                                     width: '328px',

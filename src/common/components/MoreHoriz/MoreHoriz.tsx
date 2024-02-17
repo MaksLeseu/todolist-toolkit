@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, useEffect, useState} from "react";
-import {CustomPopover} from "../CustomPopover/CustomPopover";
+import {AnchorElType, CustomPopover} from "../CustomPopover/CustomPopover";
 import Box from "@mui/material/Box";
 import {TriangleIcon} from "../Icons/TriangleIcon";
 import {CustomButton} from "../CustomButton/CustomButton";
@@ -11,9 +11,11 @@ import {useParams} from "react-router-dom";
 import {useAppDispatch} from "../../utils/hooks/useAppDispatch";
 import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
 import {useMediaQuery} from "@mui/material";
+import {Nullable} from "../../utils/types/optional.types";
+import {MSG_BTN} from "../../utils/constans/app-messages.const";
 
 type Props = {
-    isOpen: any
+    isOpen: AnchorElType
     todoId?: string
     taskId?: string
     todoTitle?: string
@@ -67,11 +69,11 @@ export const MoreHoriz: FC<Props> = (props) => {
         todoTitle && setTodoName(todoTitle)
     }, [todoTitle])
 
-    const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
+    const [isOpenConformation, setIsOpenConformation] = useState<Nullable<HTMLButtonElement>>(null)
     const closeConformation = () => setIsOpenConformation(null)
     const openConformation = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenConformation(event.currentTarget)
 
-    const [isOpenEdit, setIsOpenEdit] = useState<HTMLButtonElement | null>(null)
+    const [isOpenEdit, setIsOpenEdit] = useState<Nullable<HTMLButtonElement>>(null)
     const closeEdit = () => {
         setIsOpenEdit(null)
         todoTitle && setTodoName(todoTitle)
@@ -106,8 +108,8 @@ export const MoreHoriz: FC<Props> = (props) => {
         return methodForSetStyles[params]()
     }
 
-    const activeStylesButtonEdit: object | null = setActiveStyles('edit')
-    const activeStylesButtonDelete: object | null = setActiveStyles('delete')
+    const activeStylesButtonEdit: Nullable<object> = setActiveStyles('edit')
+    const activeStylesButtonDelete: Nullable<object> = setActiveStyles('delete')
 
     const matches1130 = useMediaQuery('(max-width:1130px)');
 
@@ -132,7 +134,7 @@ export const MoreHoriz: FC<Props> = (props) => {
                     padding: '12px 14px 13px 11px',
                 }}>
                     <CustomButton
-                        label={'Edit'}
+                        label={MSG_BTN.EDIT}
                         variant={'text'}
                         sx={{
                             ...buttonStyles,
@@ -157,7 +159,7 @@ export const MoreHoriz: FC<Props> = (props) => {
                         }}></Box>
                     }
                     <CustomButton
-                        label={'Delete'}
+                        label={MSG_BTN.DELETE}
                         variant={'text'}
                         sx={{
                             ...buttonStyles,

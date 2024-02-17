@@ -4,6 +4,7 @@ import {Theme} from "@mui/material/styles";
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 import {SignOutIcon} from "../../../common/components/Icons/SignOutIcon";
 import Box from "@mui/material/Box";
+import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 
 type Props = {
     sx?: SxProps<Theme>
@@ -19,7 +20,7 @@ export const LogOutButton: FC<Props> = ({sx, colorIcon, handlerLogout}) => {
             onClick={handlerLogout}
         >
             <Box sx={{marginRight: '4px', width: '16px', height: '16px'}}><SignOutIcon
-                color={colorIcon}/></Box> {'Sign Out'}
+                color={colorIcon}/></Box> {MSG_BTN.SIGN_OUT}
         </CustomIconButton>
     )
 }

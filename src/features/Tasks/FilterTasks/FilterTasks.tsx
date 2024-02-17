@@ -31,7 +31,6 @@ export const FilterTasks: FC<Props> = (props) => {
         <Box sx={{marginBottom: '24px'}}>
             <CustomIconButton
                 disableRipple={false}
-                sx={{}}
                 onClick={handleOpenDisplay}
             >
                 <FilterIcon styles={openDisplay ? {backgroundColor: '#EFE3FF', borderRadius: '2px',} : {}}/>

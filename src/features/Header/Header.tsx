@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {useState} from 'react';
 import {styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
@@ -20,12 +20,14 @@ import {isOpenMenuSelector, modeSelector} from "../../app/app.selector";
 import {authThunk} from "../Auth/auth.slice";
 import {appActions} from "../../app/app.slice";
 import {BASE_ROUTE} from "../../routes/Routes";
+import {Nullable} from "../../common/utils/types/optional.types";
+import {MSG_BTN} from "../../common/utils/constans/app-messages.const";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
 }
 
-const drawerWidth = 240;
+const drawerWidth: number = 240;
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -44,8 +46,6 @@ const AppBar = styled(MuiAppBar, {
         }),
     }),
 }));
-
-type Props = {}
 
 const generalStyles = {
     width: '109px',
@@ -74,7 +74,7 @@ const activeLogOutButtonStyles = {
     backgroundColor: 'secondary.main',
 }
 
-export const Header: FC<Props> = () => {
+export const Header = () => {
     const isOpen: boolean = useAppSelector(isOpenMenuSelector)
 
     const dispatch = useAppDispatch()
@@ -96,7 +96,7 @@ export const Header: FC<Props> = () => {
         return methods[type]()
     }
 
-    const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
+    const [isOpenConformation, setIsOpenConformation] = useState<Nullable<HTMLButtonElement>>(null)
     const closeConformation = () => setIsOpenConformation(null)
     const openConformation = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenConformation(event.currentTarget)
 
@@ -167,7 +167,7 @@ export const Header: FC<Props> = () => {
                             <NavLink className={s.link} to={`${BASE_ROUTE}/login`}>
                                 <CustomButton
                                     color={'secondary'}
-                                    label={'Sign in'}
+                                    label={MSG_BTN.SIGN_IN}
                                     variant={'contained'}
                                     sx={{
                                         width: '101px',

@@ -1,7 +1,5 @@
 import {styled} from '@mui/material/styles';
 
-/*const drawerWidth = 190;*/
-
 export const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
     open?: boolean;
     marginleft?: number;
@@ -28,9 +26,7 @@ export const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'
         marginLeft: marginleft ? marginleft : 0,
     }),
     '@media (max-width: 680px)': {
-        /*marginLeft: -190,*/
         marginLeft: 0,
     },
 }));
 
-/*`$-{drawerWidth}px`,*/

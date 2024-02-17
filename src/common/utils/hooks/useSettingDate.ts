@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {Nullable} from "../types/optional.types";
 import {Dayjs} from "dayjs";
+import {CalendarValues} from "../enums";
 
 type DatesType = {
     startDate: Nullable<Dayjs>
@@ -14,12 +15,12 @@ export const useSettingDate = () => {
 
     const settingDate = (value: Nullable<Dayjs>, method: 'startDate' | 'deadline') => {
         const methodForSettingValue = {
-            'startDate': (dateValue: Nullable<Dayjs>) => {
+            [CalendarValues.StartDate]: (dateValue: Nullable<Dayjs>) => {
                 dateValue && setDate({
                     ...date, startDate: dateValue
                 })
             },
-            'deadline': (dateValue: Nullable<Dayjs>) => {
+            [CalendarValues.Deadline]: (dateValue: Nullable<Dayjs>) => {
                 dateValue && setDate({
                     ...date, deadline: dateValue
                 })
@@ -30,12 +31,12 @@ export const useSettingDate = () => {
 
     const resetDate = (params: 'startDate' | 'deadline') => {
         const reset = {
-            'startDate': () => {
+            [CalendarValues.StartDate]: () => {
                 setDate({
                     ...date, startDate: null
                 })
             },
-            'deadline': () => {
+            [CalendarValues.Deadline]: () => {
                 setDate({
                     ...date, deadline: null
                 })

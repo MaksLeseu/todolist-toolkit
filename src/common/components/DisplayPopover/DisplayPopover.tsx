@@ -10,6 +10,7 @@ import {TaskGrouping} from "./TaskGrouping/TaskGrouping";
 import {MenuUpIcon} from "../Icons/MenuUpIcon";
 import {MSG_BTN} from "../../utils/constans/app-messages.const";
 import {useMediaQuery} from "@mui/material";
+import {Nullable} from "../../utils/types/optional.types";
 
 type Props = {
     openDisplay: AnchorElType
@@ -96,7 +97,7 @@ export const DisplayPopover: FC<Props> = (props) => {
         return returnStyles[params]()
     }
 
-    const buttonActiveStylesTaskGrouping: object | null = isOpen ?
+    const buttonActiveStylesTaskGrouping: Nullable<object> = isOpen ?
         {
             backgroundColor: 'secondary.main',
             color: 'primary.main',
@@ -106,9 +107,9 @@ export const DisplayPopover: FC<Props> = (props) => {
         }
         : null
 
-    const activeStylesAll: object | null = setActiveStylesTaskGrouping('all')
-    const activeStylesCompleted: object | null = setActiveStylesTaskGrouping('completed')
-    const activeStylesActive: object | null = setActiveStylesTaskGrouping('active')
+    const activeStylesAll: Nullable<object> = setActiveStylesTaskGrouping('all')
+    const activeStylesCompleted: Nullable<object> = setActiveStylesTaskGrouping('completed')
+    const activeStylesActive: Nullable<object> = setActiveStylesTaskGrouping('active')
 
     const tasksFiltering = (filter: TodolistFilterType) => {
         changeTodolistsFilterHandler(filter)
@@ -138,7 +139,7 @@ export const DisplayPopover: FC<Props> = (props) => {
                     padding: '8px 13px 7px 9px',
                 }}>
                     <CustomButton
-                        label={'Task grouping'}
+                        label={MSG_BTN.TASK_GROUPING}
                         variant={'text'}
                         sx={{
                             ...buttonStyles,
@@ -163,7 +164,6 @@ export const DisplayPopover: FC<Props> = (props) => {
                 </Box>
                 <TaskGrouping
                     openTaskGrouping={isOpen}
-                    valueTodoFilter={valueTodoFilter}
                     transformPopover={matches1130 ? 'translate(-7%, 0%)' : 'translate(45%, 0%)'}
                     children={
                         <>
@@ -199,7 +199,6 @@ export const DisplayPopover: FC<Props> = (props) => {
                             />
                         </>
                     }
-                    changeTodolistsFilterHandler={changeTodolistsFilterHandler}
                     handleCloseTaskGrouping={closeWindow}
                 />
             </>

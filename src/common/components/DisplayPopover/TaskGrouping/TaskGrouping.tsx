@@ -1,26 +1,23 @@
 import React, {FC, ReactNode} from "react";
 import {AnchorElType, CustomPopover} from "../../CustomPopover/CustomPopover";
-import {TodolistFilterType} from "../../../../features/Todolists/todolists.types";
+import {SxProps} from "@mui/system";
+import {Theme} from "@mui/material/styles";
 
 type Props = {
     openTaskGrouping: AnchorElType
-    valueTodoFilter: TodolistFilterType
     transformPopover?: `translate(${string}%, ${string}%)`
     children: ReactNode
-    sx?: any
+    sx?: SxProps<Theme>
     handleCloseTaskGrouping: () => void
-    changeTodolistsFilterHandler: (filter: TodolistFilterType) => void
 }
 
 export const TaskGrouping: FC<Props> = (props) => {
     const {
         openTaskGrouping,
-        valueTodoFilter,
         transformPopover,
         children,
         sx,
         handleCloseTaskGrouping,
-        changeTodolistsFilterHandler
     } = props
 
     return (

@@ -10,12 +10,6 @@ import {Link} from "@mui/material";
 import s from './Auth.module.css'
 import {useAuth} from "../../common/utils/hooks/useAuth";
 
-type FormikErrorType = {
-    email?: string;
-    password?: string;
-    rememberMe?: boolean;
-};
-
 export const Auth = () => {
     const {formik} = useAuth()
 

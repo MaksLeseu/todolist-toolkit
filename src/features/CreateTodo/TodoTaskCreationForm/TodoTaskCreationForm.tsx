@@ -1,9 +1,9 @@
-import React, {FC} from 'react';
-import {CustomTextField} from "../../CustomTextField/CustomTextField";
+import React, {ChangeEventHandler, FC} from 'react';
+import {CustomTextField} from "../../../common/components/CustomTextField/CustomTextField";
 import Box from "@mui/material/Box";
-import {useAppSelector} from "../../../utils/hooks/useAppSelector";
-import {modeSelector} from "../../../../app/app.selector";
-import {Mistake} from "../../Mistake/Mistake";
+import {useAppSelector} from "../../../common/utils/hooks/useAppSelector";
+import {modeSelector} from "../../../app/app.selector";
+import {Mistake} from "../../../common/components/Mistake/Mistake";
 
 type ObjectStyles = {
     fontSize: string
@@ -22,7 +22,7 @@ type Props = {
     placeholderStyles?: ObjectStyles
     inputStyles?: ObjectStyles
     titleStyles?: { width: string }
-    onChange: any
+    onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
 }
 
 export const TodoTaskCreationForm: FC<Props> = (props) => {

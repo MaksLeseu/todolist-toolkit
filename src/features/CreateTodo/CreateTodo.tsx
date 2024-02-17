@@ -1,31 +1,32 @@
 import React, {ChangeEvent, useState} from 'react';
-import {CreateTodoIconLight} from "../Icons/CreateTodoIconLight";
-import {CustomButton} from "../CustomButton/CustomButton";
+import {CreateTodoIconLight} from "../../common/components/Icons/CreateTodoIconLight";
+import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import s from './CreateTodo.module.css'
 import {NavLink, useNavigate} from "react-router-dom";
 import Box from "@mui/material/Box";
-import {TodolistsType} from "../../../features/Todolists/todolists.types";
-import {useAppSelector} from "../../utils/hooks/useAppSelector";
-import {todolistsSelector} from "../../../features/Todolists/todolists.selector";
-import {useAppDispatch} from "../../utils/hooks/useAppDispatch";
-import {TodoTaskCreationForm} from "./TodoTaskCreationForm/TodoTaskCreationForm";
+import {TodolistsType} from "../Todolists/todolists.types";
+import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
+import {todolistsSelector} from "../Todolists/todolists.selector";
+import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
 import {TaskSetItems} from "./TaskSetItems/TaskSetItems";
-import {BaseCalendar} from "../BaseCalendar/BaseCalendar";
-import {useOpenCloseCalendar} from "../../utils/hooks/useOpenCloseCalendar";
-import {Priority} from "../Priority/Priority";
-import {useOpenClosePriority} from "../../utils/hooks/useOpenClosePriority";
-import {useSettingDate} from "../../utils/hooks/useSettingDate";
-import {Nullable} from "../../utils/types/optional.types";
+import {BaseCalendar} from "../../common/components/BaseCalendar/BaseCalendar";
+import {useOpenCloseCalendar} from "../../common/utils/hooks/useOpenCloseCalendar";
+import {Priority} from "../../common/components/Priority/Priority";
+import {useOpenClosePriority} from "../../common/utils/hooks/useOpenClosePriority";
+import {useSettingDate} from "../../common/utils/hooks/useSettingDate";
+import {Nullable} from "../../common/utils/types/optional.types";
 import {Dayjs} from "dayjs";
-import {useSettingPriority} from "../../utils/hooks/useSettingPriority";
-import {Main} from '../../utils/functions/dynamicSetMarginForContentPart/dynamicSetMarginForContentPart'
-import {isOpenMenuSelector, modeSelector} from "../../../app/app.selector";
-import {todolistsThunk} from "../../../features/Todolists/todolists.slice";
-import {tasksThunk} from "../../../features/Tasks/tasks.slice";
-import {Preloader} from "../Preloader/Preloader";
-import {CreateTodoIconDark} from "../Icons/CreateTodoIconDark";
-import {BASE_ROUTE} from "../../../routes/Routes";
+import {useSettingPriority} from "../../common/utils/hooks/useSettingPriority";
+import {Main} from '../../common/utils/functions/dynamicSetMarginForContentPart/dynamicSetMarginForContentPart'
+import {isOpenMenuSelector, modeSelector} from "../../app/app.selector";
+import {todolistsThunk} from "../Todolists/todolists.slice";
+import {tasksThunk} from "../Tasks/tasks.slice";
+import {Preloader} from "../../common/components/Preloader/Preloader";
+import {CreateTodoIconDark} from "../../common/components/Icons/CreateTodoIconDark";
+import {BASE_ROUTE} from "../../routes/Routes";
 import Divider from "@mui/material/Divider";
+import {MSG_BTN} from "../../common/utils/constans/app-messages.const";
+import {TodoTaskCreationForm} from "./TodoTaskCreationForm/TodoTaskCreationForm";
 
 type TitleType = {
     todoName: string
@@ -126,7 +127,7 @@ export const CreateTodo = () => {
                         taskName: '',
                         description: '',
                     })
-                    return navigate(`/todolist-toolkit/todo/${todoId}`)
+                    return navigate(`${BASE_ROUTE}/todo/${todoId}`)
                 })
         } else {
             setTitle({
@@ -134,7 +135,7 @@ export const CreateTodo = () => {
                 taskName: '',
                 description: '',
             })
-            return navigate(`/todolist-toolkit/todo/${todoId}`)
+            return navigate(`${BASE_ROUTE}/todo/${todoId}`)
         }
     }
 
@@ -307,7 +308,7 @@ export const CreateTodo = () => {
                 <div
                     className={isOpenMenu ? `${s.buttonsContainer} ${s.buttonsContainerPositionLeft}` : s.buttonsContainer}>
                     <CustomButton
-                        label={'Save'}
+                        label={MSG_BTN.SAVE}
                         color={'secondary'}
                         disabled={isMistakeTextFieldForTodoName || isMistakeTextFieldForTaskName}
                         sx={{
@@ -327,7 +328,7 @@ export const CreateTodo = () => {
                     />
                     <NavLink className={s.buttonCancel} to={`${BASE_ROUTE}/todo`}>
                         <CustomButton
-                            label={'Cancel'}
+                            label={MSG_BTN.CANCEL}
                             color={'primary'}
                             sx={{
                                 width: '190px',

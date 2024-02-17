@@ -5,6 +5,7 @@ import {CustomIconButton} from "../CustomIconButton/CustomIconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Divider from "@mui/material/Divider";
 import {Box} from "@mui/material";
+import {Optional} from "../../utils/types/optional.types";
 
 type Props = {
     open: boolean
@@ -13,7 +14,7 @@ type Props = {
     children: ReactElement
     childrenIcon?: ReactNode
     childrenRedactor?: ReactNode
-    onClose: MouseEventHandler | undefined
+    onClose: Optional<MouseEventHandler>
 }
 
 export const CustomModalWindow: FC<Props> = (props) => {

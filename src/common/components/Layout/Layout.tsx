@@ -19,7 +19,7 @@ export const Layout: FC<Props> = (props) => {
         <div className={s.layout}>
             <Header/>
             <ErrorSnackbars/>
-            <div className={isLoggedIn ? s.container : s.containerTwo}>{children ? children : <Outlet/>}</div>
+            <div className={isLoggedIn ? s.container : s.secondContainer}>{children ? children : <Outlet/>}</div>
             <Footer/>
         </div>
     )

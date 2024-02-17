@@ -1,6 +1,7 @@
 import React, {FC, ReactNode} from "react";
 import Popover from '@mui/material/Popover';
 import {PopoverOrigin} from "@mui/material/Popover/Popover";
+import {Optional} from "../../utils/types/optional.types";
 
 interface PopoverVirtualElement {
     getBoundingClientRect: () => DOMRect;
@@ -26,7 +27,7 @@ export const CustomPopover: FC<Props> = (props) => {
     const {anchorEl, children, listItemStyles, transformStyle, anchorOrigin, handleClosePopover} = props
 
     const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
+    const id: Optional<string> = open ? 'simple-popover' : undefined;
 
     return (
         <Popover

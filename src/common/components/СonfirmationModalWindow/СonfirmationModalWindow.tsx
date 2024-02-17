@@ -4,6 +4,8 @@ import {Typography} from "@mui/material";
 import {CustomPopover} from "../CustomPopover/CustomPopover";
 import {TriangleIcon} from "../Icons/TriangleIcon";
 import Box from "@mui/material/Box";
+import {Optional} from "../../utils/types/optional.types";
+import {MSG_BTN} from "../../utils/constans/app-messages.const";
 
 type Props = {
     isOpen: any
@@ -11,10 +13,10 @@ type Props = {
     description?: string
     transformConfirmation?: string
     transformPopover?: string
-    titleStyles?: any
-    conformationStyles?: any
-    actionConfirmation: MouseEventHandler | undefined
-    closeConfirmation: MouseEventHandler | undefined
+    titleStyles?: Object
+    conformationStyles?: Object
+    actionConfirmation: Optional<MouseEventHandler>
+    closeConfirmation: Optional<MouseEventHandler>
 }
 
 const buttonStyles = {
@@ -81,7 +83,7 @@ export const ConfirmationModalWindow: FC<Props> = (props) => {
                         ...titleStyles
                     }} component="div">{title}</Typography>
                     <CustomButton
-                        label={'Yes, sure'}
+                        label={MSG_BTN.YES_SURE}
                         variant={'text'}
                         sx={{
                             ...buttonStyles,
@@ -90,7 +92,7 @@ export const ConfirmationModalWindow: FC<Props> = (props) => {
                         onClick={actionConfirmation}
                     />
                     <CustomButton
-                        label={'Cancel'}
+                        label={MSG_BTN.CANCEL}
                         variant={'text'}
                         sx={{
                             ...buttonStyles,

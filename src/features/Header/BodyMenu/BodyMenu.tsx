@@ -22,10 +22,11 @@ import {MoreHoriz} from "../../../common/components/MoreHoriz/MoreHoriz";
 import {todolistsThunk} from "../../Todolists/todolists.slice";
 import {CustomTooltip} from "../../../common/components/CustomTooltip/CustomTooltip";
 import {CustomLinearProgress} from "../../../common/components/CustomLinearProgress/CustomLinearProgress";
-import {modeSelector} from "../../../app/app.selector";
 import {appActions} from "../../../app/app.slice";
 import {BASE_ROUTE} from "../../../routes/Routes";
 import {MoreHorizIcon} from "../../../common/components/Icons/MoreHorizIcon";
+import {Nullable} from "../../../common/utils/types/optional.types";
+import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 
 
 type Props = {
@@ -37,7 +38,6 @@ export const BodyMenu: FC<Props> = (props) => {
     const {isOpen, handleDrawerClose} = props
     const dispatch = useAppDispatch()
     const todos: TodolistsType[] = useAppSelector(todolistsSelector)
-    const mode = useAppSelector(modeSelector)
 
     const param = useParams()
 
@@ -55,19 +55,19 @@ export const BodyMenu: FC<Props> = (props) => {
             })
     }
 
-    const [isOpenConformation, setIsOpenConformation] = useState<HTMLButtonElement | null>(null)
+    const [isOpenConformation, setIsOpenConformation] = useState<Nullable<HTMLButtonElement>>(null)
     const closeConformation = () => setIsOpenConformation(null)
     const openConformation = (event: React.MouseEvent<HTMLButtonElement>) => setIsOpenConformation(event.currentTarget)
 
 
-    const [isOpenMoreHoriz, setIsOpenMoreHoriz] = useState<HTMLButtonElement | null>(null)
+    const [isOpenMoreHoriz, setIsOpenMoreHoriz] = useState<Nullable<HTMLButtonElement>>(null)
     const closeMoreHoriz = () => setIsOpenMoreHoriz(null)
     const openMoreHoriz = (event: React.MouseEvent) => {
         setIsOpenMoreHoriz(event.currentTarget as HTMLButtonElement)
         event.preventDefault()
     }
 
-    const activeStylesButtonMoreHoriz: object | null = isOpenMoreHoriz ? {
+    const activeStylesButtonMoreHoriz: Nullable<object> = isOpenMoreHoriz ? {
         transition: 'all 0.3s',
         boxShadow: '1px 1px 2px 0px rgba(0, 0, 0, 0.25) inset, -1px -1px 2px 0px rgba(0, 0, 0, 0.25) inset',
     } : null
@@ -138,7 +138,7 @@ export const BodyMenu: FC<Props> = (props) => {
                 },
             }}>
                 <CustomButton
-                    label={'Today'}
+                    label={MSG_BTN.TODAY}
                     variant={'text'}
                     iconFromTheEnd={<Box sx={{marginLeft: '4px', width: '24px', height: '24px'}}><ArrowIcon/></Box>}
                     sx={{

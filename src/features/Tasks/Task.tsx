@@ -68,7 +68,7 @@ export const Task: FC<Props> = (props) => {
         setVisibleLiner
     } = props
 
-    const taskStatusCompleted = taskStatus === TaskStatuses.Completed
+    const taskStatusCompleted: boolean = taskStatus === TaskStatuses.Completed
 
     const dispatch = useAppDispatch()
     const isOpenMenu = useAppSelector(isOpenMenuSelector)
@@ -107,7 +107,7 @@ export const Task: FC<Props> = (props) => {
         }
     }
 
-    const [isOpenMoreHoriz, setIsOpenMoreHoriz] = useState<HTMLButtonElement | null>(null)
+    const [isOpenMoreHoriz, setIsOpenMoreHoriz] = useState<Nullable<HTMLButtonElement>>(null)
     const closeMoreHoriz = () => setIsOpenMoreHoriz(null)
     const openMoreHoriz = (event: React.MouseEvent<HTMLButtonElement>) => {
         setIsOpenMoreHoriz(event.currentTarget)
@@ -207,7 +207,7 @@ export const Task: FC<Props> = (props) => {
         resetAllValues()
     }
 
-    const activeStylesButtonMoreHoriz: object | null = isOpenMoreHoriz ? {
+    const activeStylesButtonMoreHoriz: Nullable<object> = isOpenMoreHoriz ? {
         backgroundColor: 'primary.main',
         boxShadow: '1px 1px 2px 0px rgba(0, 0, 0, 0.25) inset, -1px -1px 2px 0px rgba(0, 0, 0, 0.25) inset',
     } : null

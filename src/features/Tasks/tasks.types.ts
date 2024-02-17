@@ -1,4 +1,5 @@
 import {Dayjs} from "dayjs";
+import {Nullable} from "../../common/utils/types/optional.types";
 
 export type TasksType = {
     description: string
@@ -19,15 +20,9 @@ export type AddTaskArgType = {
     todolistId: string
     title: string
     description: string
-    startDate: Dayjs | null
-    deadline: Dayjs | null
+    startDate: Nullable<Dayjs>
+    deadline: Nullable<Dayjs>
     priority: number
-}
-
-export type AddDescriptionArgType = {
-    todolistId: string
-    taskId: string
-    description: TasksType
 }
 
 export type UpdateDomainTaskModelType = {
@@ -35,8 +30,8 @@ export type UpdateDomainTaskModelType = {
     description?: string;
     status?: number;
     priority?: number;
-    startDate?: Dayjs | null;
-    deadline?: Dayjs | null;
+    startDate?: Nullable<Dayjs>
+    deadline?: Nullable<Dayjs>
 };
 
 export type UpdateTaskArgType = {
@@ -50,6 +45,6 @@ export type UpdateTaskModelType = {
     description: string;
     status: number;
     priority: number;
-    startDate: Dayjs | null;
-    deadline: Dayjs | null;
+    startDate: Nullable<Dayjs>
+    deadline: Nullable<Dayjs>
 };

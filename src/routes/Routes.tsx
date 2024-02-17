@@ -2,11 +2,11 @@ import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import {Layout} from "../common/components/Layout/Layout";
 import React from "react";
 import {RequireAuth} from "../common/components/RequireAuth/RequireAuth";
-import {StartPage} from "../common/components/StartPage/StartPage";
+import {StartPage} from "../features/StartPage/StartPage";
 import {Auth} from "../features/Auth/Auth";
 import {Page404} from "../common/components/Page404/Page404";
 import {Todolists} from "../features/Todolists/Todolists";
-import {CreateTodo} from "../common/components/CreateTodo/CreateTodo";
+import {CreateTodo} from "../features/CreateTodo/CreateTodo";
 
 export const BASE_ROUTE = '/todolist-toolkit';
 

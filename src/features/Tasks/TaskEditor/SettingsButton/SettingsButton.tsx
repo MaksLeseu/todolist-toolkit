@@ -4,6 +4,7 @@ import {CustomButton} from "../../../../common/components/CustomButton/CustomBut
 import Divider from "@mui/material/Divider";
 import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material/styles";
+import {MSG_BTN} from "../../../../common/utils/constans/app-messages.const";
 
 type Props = {
     title: string
@@ -21,7 +22,7 @@ export const SettingsButton: FC<Props> = (props) => {
             <p className={s.title}>{title}</p>
             <CustomButton
                 color={'secondary'}
-                label={label || 'Mistakes'}
+                label={label || MSG_BTN.MISTAKES}
                 variant={'contained'}
                 sx={{
                     height: '30px',

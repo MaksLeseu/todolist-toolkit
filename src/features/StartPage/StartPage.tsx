@@ -1,11 +1,12 @@
 import React from 'react';
-import {StartPageIcon} from "../Icons/StartPageIcon";
-import {CustomButton} from "../CustomButton/CustomButton";
+import {StartPageIcon} from "../../common/components/Icons/StartPageIcon";
+import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {Navigate, NavLink} from "react-router-dom";
-import {useAppSelector} from "../../utils/hooks/useAppSelector";
-import {isLoggedInSelector} from "../../../features/Auth/auth.selector";
+import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
+import {isLoggedInSelector} from "../Auth/auth.selector";
 import s from './StartPage.module.css'
-import {BASE_ROUTE} from "../../../routes/Routes";
+import {BASE_ROUTE} from "../../routes/Routes";
+import {MSG_BTN} from "../../common/utils/constans/app-messages.const";
 
 export const StartPage = () => {
     const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
@@ -24,7 +25,7 @@ export const StartPage = () => {
                 <NavLink className={s.link} to={`${BASE_ROUTE}/login`}>
                     <CustomButton
                         color={'secondary'}
-                        label={'Let’s Start!'}
+                        label={MSG_BTN.LETS_START}
                         variant={'contained'}
                         sx={{
                             width: '100%',

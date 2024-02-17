@@ -1,13 +1,14 @@
 import React, {FC, MouseEventHandler} from "react";
 import {CustomIconButton} from "../../../common/components/CustomIconButton/CustomIconButton";
 import {PlusIcon} from "../../../common/components/Icons/PlusIcon";
+import {MSG_BTN} from "../../../common/utils/constans/app-messages.const";
 
 type Props = {
     label: string
     openFormAddTask: MouseEventHandler | undefined
 }
 
-export const AddTaskButton: FC<Props> = ({label, openFormAddTask}) => {
+export const AddTaskButton: FC<Props> = ({openFormAddTask}) => {
     return (
         <CustomIconButton
             disableRipple={false}
@@ -31,7 +32,7 @@ export const AddTaskButton: FC<Props> = ({label, openFormAddTask}) => {
             }}
             onClick={openFormAddTask}
         >
-            Add a task
+            {MSG_BTN.ADD_A_TASK}
             <PlusIcon/>
         </CustomIconButton>
     )
