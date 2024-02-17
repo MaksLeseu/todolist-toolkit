@@ -1,5 +1,3 @@
-import {useFormik} from "formik";
-import {useAppDispatch} from "../../common/utils/hooks/useAppDispatch";
 import {CustomButton} from "../../common/components/CustomButton/CustomButton";
 import {useAppSelector} from "../../common/utils/hooks/useAppSelector";
 import {isLoggedInSelector} from "./auth.selector";
@@ -9,8 +7,8 @@ import {InputFieldsForAuth} from "./InputFieldsForAuth/InputFieldsForAuth";
 import React, {useState} from "react";
 import {CustomCheckbox} from "../../common/components/CustomCheckbox/CustomCheckbox";
 import {Link} from "@mui/material";
-import {authThunk} from "./auth.slice";
 import s from './Auth.module.css'
+import {useAuth} from "../../common/utils/hooks/useAuth";
 
 type FormikErrorType = {
     email?: string;
@@ -19,34 +17,7 @@ type FormikErrorType = {
 };
 
 export const Auth = () => {
-    const dispatch = useAppDispatch()
-
-    const formik = useFormik({
-        validate: (values) => {
-            const errors: FormikErrorType = {};
-            if (!values.email) {
-                errors.email = "Email is required";
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = "Invalid email address";
-            }
-
-            if (!values.password) {
-                errors.password = "Required";
-            } else if (values.password.length < 3) {
-                errors.password = "Must be 3 characters or more";
-            }
-
-            return errors;
-        },
-        initialValues: {
-            email: '',
-            password: '',
-            rememberMe: false
-        },
-        onSubmit: values => {
-            dispatch(authThunk.login({data: values}))
-        },
-    })
+    const {formik} = useAuth()
 
     const isLoggedIn: boolean = useAppSelector(isLoggedInSelector)
 

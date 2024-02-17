@@ -118,7 +118,7 @@ export const BaseCalendar: FC<Props> = (props) => {
                 borderRadius: '2px',
                 backgroundColor: '#EFE3FF',
                 padding: '4px 8px 4px 8px',
-                boxShadow: '1px 1px 6px 0px rgba(112, 78, 204, 0.30), 1px 0px 6px 0px rgba(112, 78, 204, 0.30)',
+                boxShadow: '1px 1px 6px 0px rgba(112, 78, 204, 0.30)',
             }}
             handleClosePopover={closeCalendar}
         >
