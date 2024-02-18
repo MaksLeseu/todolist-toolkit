@@ -10,7 +10,7 @@ export const useTheme = (mode: 'dark' | 'light') => {
             primary: {
                 main: '#EFE3FF',
                 light: '#FFF',
-                dark: '#121212',
+                dark: '#704ECC',
                 contrastText: '#000'
             },
             secondary: {

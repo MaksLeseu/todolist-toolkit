@@ -122,7 +122,7 @@ export const Header = () => {
                 sx={{
                     width: '100%',
                     height: '60px',
-                    backgroundColor: mode === 'dark' ? 'primary.dark' : 'primary.main',
+                    backgroundColor: mode === 'dark' ? '#121212' : 'primary.main',
                     boxShadow: '0',
                 }}
                 open={isOpen}
