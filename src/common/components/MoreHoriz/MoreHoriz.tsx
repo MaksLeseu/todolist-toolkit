@@ -37,12 +37,20 @@ const buttonStyles = {
     color: 'secondary.main',
     padding: '4px 8px 4px 8px',
     borderRadius: '2px',
+    transition: 'all 0.6s',
     '&:hover': {
+        transition: 'all 0.6s',
         backgroundColor: 'secondary.main',
         color: 'text.secondary',
         '& svg path': {
             fill: '#EFE3FF',
         },
+    },
+    '@media (max-width: 1024px)': {
+        transition: 'none',
+        '&:hover': {
+            transition: 'none',
+        }
     }
 }
 

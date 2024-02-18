@@ -177,6 +177,11 @@ export const Header = () => {
                                         fontStyle: 'normal',
                                         fontWeight: 700,
                                         lineHeight: '16px',
+                                        transition: 'all 0.6s',
+                                        '&:hover': {
+                                            transition: 'all 0.6s',
+                                            transform: 'scale(1.05)',
+                                        },
                                     }}
                                 />
                             </NavLink>

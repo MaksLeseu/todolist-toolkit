@@ -103,6 +103,11 @@ export const Edit: FC<Props> = (props) => {
                                 boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                                 borderRadius: '2px',
                                 marginRight: '2px',
+                                transition: 'all 0.6s',
+                                '&:hover': {
+                                    transition: 'all 0.6s',
+                                    transform: 'scale(1.05)',
+                                },
                             }}
                             onClick={actionEdit}
                         />
@@ -120,6 +125,11 @@ export const Edit: FC<Props> = (props) => {
                                 lineHeight: '14px',
                                 color: 'secondary.main',
                                 marginLeft: '2px',
+                                transition: 'all 0.6s',
+                                '&:hover': {
+                                    transition: 'all 0.6s',
+                                    transform: 'scale(1.05)',
+                                },
                             }}
                             onClick={closeEdit}
                         />

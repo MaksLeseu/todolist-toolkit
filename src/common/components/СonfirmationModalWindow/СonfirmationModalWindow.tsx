@@ -31,7 +31,9 @@ const buttonStyles = {
     padding: 0,
     display: 'block',
     margin: '0 auto',
+    transition: 'all 0.6s',
     '&:hover': {
+        transition: 'all 0.6s',
         backgroundColor: 'secondary.main',
         color: 'text.secondary',
     }

@@ -227,6 +227,11 @@ export const InputFieldsForAuth: FC<Props> = (props) => {
                                     boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                                     lineHeight: '34px',
                                     marginTop: '16px',
+                                    transition: 'all 0.6s',
+                                    '&:hover': {
+                                        transition: 'all 0.6s',
+                                        transform: 'scale(1.05)',
+                                    },
                                     '@media (max-width: 340px)': {
                                         width: '300px'
                                     },

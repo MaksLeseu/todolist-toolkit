@@ -36,6 +36,11 @@ export const StartPage = () => {
                             fontStyle: 'normal',
                             fontWeight: 700,
                             lineHeight: '34px',
+                            transition: 'all 0.6s',
+                            '&:hover': {
+                                transition: 'all 0.6s',
+                                transform: 'scale(1.05)',
+                            },
                             '@media (max-width: 510px)': {
                                 fontSize: '16px',
                             },

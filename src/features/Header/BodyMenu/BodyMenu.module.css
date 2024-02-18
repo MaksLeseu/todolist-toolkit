@@ -19,4 +19,16 @@
     display: block;
     width: 190px;
     height: 52px;
+    transition: all 0.6s;
+}
+
+.general:hover {
+    transition: all 0.6s;
+    transform: translate(10px);
+}
+
+@media (max-width: 1024px) {
+    .general:hover {
+        transform: none;
+    }
 }

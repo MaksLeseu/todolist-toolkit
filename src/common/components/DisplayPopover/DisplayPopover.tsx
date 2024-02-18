@@ -38,7 +38,9 @@ const buttonStyles = {
     textAlign: 'center',
     display: 'grid',
     gridTemplateColumns: '20px 92px 16px',
+    transition: 'all 0.6s',
     '&:hover': {
+        transition: 'all 0.6s',
         backgroundColor: 'secondary.main',
         color: 'text.secondary',
         '& svg path': {
@@ -54,7 +56,9 @@ const buttonTaskGroupingStyles = {
     display: 'flex',
     justifyContent: 'start',
     marginBottom: '2px',
+    transition: 'all 0.6s',
     '&:hover': {
+        transition: 'all 0.6s',
         backgroundColor: 'secondary.main',
         color: 'primary.main'
     },
