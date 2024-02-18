@@ -90,6 +90,11 @@ export const Todolists: FC<Props> = ({isTodoListClickable}) => {
                             fontWeight: 700,
                             fontStyle: 'normal',
                             lineHeight: '24px',
+                            transition: 'all 0.6s',
+                            '&:hover': {
+                                transition: 'all 0.6s',
+                                transform: 'scale(1.05)',
+                            },
                         }}
                     />
                 </NavLink>

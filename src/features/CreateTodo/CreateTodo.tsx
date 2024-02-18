@@ -322,6 +322,11 @@ export const CreateTodo = () => {
                             lineHeight: '28px',
                             boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                             marginRight: '4px',
+                            transition: 'all 0.6s',
+                            '&:hover': {
+                                transition: 'all 0.6s',
+                                transform: 'scale(1.05)',
+                            }
                         }}
                         variant={'contained'}
                         onClick={addTodo}
@@ -342,6 +347,11 @@ export const CreateTodo = () => {
                                 border: '1px solid #704ECC',
                                 boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
                                 marginLeft: '4px',
+                                transition: 'all 0.6s',
+                                '&:hover': {
+                                    transition: 'all 0.6s',
+                                    transform: 'scale(1.05)',
+                                }
                             }}
                             variant={'outlined'}
                         />

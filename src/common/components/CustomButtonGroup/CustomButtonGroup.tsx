@@ -35,6 +35,11 @@ export const CustomButtonGroup: FC<Props> = (props) => {
                     backgroundColor: 'common.white',
                     color: 'secondary.main',
                     fontSize: '16px',
+                    transition: 'all 0.6s',
+                    '&:hover': {
+                        transition: 'all 0.6s',
+                        transform: 'scale(1.05)',
+                    },
                     '@media (max-width: 740px)': {
                         fontSize: '14px'
                     },
@@ -49,6 +54,11 @@ export const CustomButtonGroup: FC<Props> = (props) => {
                 disabled={mistakeTextField}
                 sx={{
                     marginLeft: '10px', borderRadius: '8px', fontSize: '16px',
+                    transition: 'all 0.6s',
+                    '&:hover': {
+                        transition: 'all 0.6s',
+                        transform: 'scale(1.05)',
+                    },
                     '@media (max-width: 740px)': {
                         fontSize: '14px'
                     },

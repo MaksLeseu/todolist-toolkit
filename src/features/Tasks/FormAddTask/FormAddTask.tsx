@@ -152,6 +152,11 @@ export const FormAddTask: FC<Props> = (props) => {
                         borderRadius: '8px',
                         border: '1px solid var(--primary, #704ECC)',
                         boxShadow: '0px 4px 18px 0px rgba(140, 97, 255, 0.35)',
+                        transition: 'all 0.6s',
+                        '&:hover': {
+                            transition: 'all 0.6s',
+                            transform: 'scale(1.05)',
+                        },
                         '@media (max-width: 730px)': {
                             fontSize: '14px',
                         },
@@ -166,6 +171,11 @@ export const FormAddTask: FC<Props> = (props) => {
                         color: 'text.secondary',
                         borderRadius: '8px',
                         fontSize: '18px',
+                        transition: 'all 0.6s',
+                        '&:hover': {
+                            transition: 'all 0.6s',
+                            transform: 'scale(1.05)',
+                        },
                         '@media (max-width: 730px)': {
                             fontSize: '14px',
                         },

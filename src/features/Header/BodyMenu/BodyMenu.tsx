@@ -172,8 +172,11 @@ export const BodyMenu: FC<Props> = (props) => {
                             fontStyle: 'normal',
                             fontWeight: 700,
                             lineHeight: '24px',
+                            transition: 'all 0.6s',
                             '&:hover': {
-                                backgroundColor: 'common.black',
+                                transition: 'all 0.6s',
+                                transform: 'scale(1.05)',
+                                backgroundColor: '#F81',
                             }
                         }}
                         onClick={openOrCloseTodoModalWindow}
