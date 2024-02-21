@@ -1,5 +1,7 @@
 # Today
 
+<a href="https://maksleseu.github.io/todolist-toolkit/">Application link.</a>
+
 ---
 
 ## Description
@@ -37,6 +39,8 @@ Application functionality: <br/>
 <img align="left" alt="JavaScript" width="50px" style="padding-right: 15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg"/>
 <img align="left" alt="JavaScript" width="50px" style="padding-right: 15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg"/>
 <div style="margin-bottom: 40px"></div>
+<br/>
+
 <br/>
 
 - **react**
