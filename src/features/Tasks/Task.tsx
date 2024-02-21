@@ -386,7 +386,6 @@ export const Task: FC<Props> = (props) => {
                                             textOverflow: 'ellipsis',
                                             overflow: 'hidden',
                                             width: '680px',
-                                            height: '1.2em',
                                             whiteSpace: 'nowrap',
                                             ...descriptionStylesForMobile
                                         }}

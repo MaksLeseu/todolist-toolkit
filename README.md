@@ -8,12 +8,13 @@ This project allows users to create, delete to-do lists and modify to-do lists. 
 Users can create tasks within a to-do list, set deadlines, start dates, and priorities, as well as delete tasks <br/>
 or change task names and filter tasks. <br/>
 This project is designed to be useful, as it allows users to efficiently plan both work tasks and personal life. <br/>
-<br/>
-I was collaborating on this project with a designer who is responsible for the design aspect. <br/>
-About the team: <a href="https://github.com/MaksLeseu">Maxim Lesev</a> and... <br/>
-To create tasks we've used Jira and had daily scrum meetings to communicate and catch up with the team.<br/>
 
 <img width="800px" src="./src/common/utils/image/todo_page.png">
+
+I was collaborating on this project with a designer who is responsible for the design aspect. <br/>
+About the team: <a href="https://www.linkedin.com/in/maxim-lesev-frontend/">Maxim Lesev</a>
+, <a href="https://www.linkedin.com/in/olga-zamaro-a24b031b1/">Olga Zamaro</a>. <br/>
+To create tasks we've used Jira and had daily scrum meetings to communicate and catch up with the team.<br/>
 
 Application functionality: <br/>
 
@@ -37,7 +38,30 @@ Application functionality: <br/>
 <img align="left" alt="JavaScript" width="50px" style="padding-right: 15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg"/>
 <div style="margin-bottom: 40px"></div>
 <br/>
-<br/>
+
+- **react**
+
+- **typescript**
+
+- **redux-toolkit**
+
+- **react-router-dom**
+
+- **material-ui**
+
+- **axios**
+
+- **formik**
+
+- **dayjs**
+
+- **cross-browser compatibility**
+
+- **CSS**
+
+- **HTML**
+  <br/>
+  <br/>
 
 [//]: # '___'
 
@@ -60,35 +84,11 @@ its creation.
 
 <img width="800px" src="./src/common/utils/image/create_todo_page.png">
 
-The following libraries are installed in this project:
+## Important!
 
-- **typescript**
-
-- **react** and **@types/react**
-
-- **react-dom** and **@types/react-dom**
-
-- **react-redux** and **@types/react-redux**
-
-- **react-router-dom** and **@types/react-router-dom**
-
-- **react-scripts**
-
-- **redux**
-
-- **redux-thunk**
-
-- **material-ui**
-
-- **axios**
-
-- **formik**
-
-- **dayjs**
-
-- **jest**
-
-- **gh-pages**
+I have deployed the application to GitHub. When updating the application, a 404 error may occur due to an issue with
+GitHub itself, and the server does not allow me to deploy the application elsewhere (CORS errors may appear).
+To update the page, you need to enter the following URL: "https://maksleseu.github.io/todolist-toolkit/"
 
 ## How to start a project
 
