@@ -39,10 +39,14 @@ export const BodyMenu: FC<Props> = (props) => {
     const todos: TodolistsType[] = useAppSelector(todolistsSelector)
 
     const param = useParams()
+    const matches600 = useMediaQuery('(max-width:600px)');
 
     const [isOpenTodoModalWindow, setIsOpenTodoModalWindow] = useState<boolean>(false)
 
-    const openOrCloseTodoModalWindow = () => setIsOpenTodoModalWindow(!isOpenTodoModalWindow)
+    const openOrCloseTodoModalWindow = () => {
+        setIsOpenTodoModalWindow(!isOpenTodoModalWindow)
+        matches600 && handleDrawerClose('close')
+    }
 
     const matches = useMediaQuery('(min-width:600px)');
 
@@ -93,8 +97,6 @@ export const BodyMenu: FC<Props> = (props) => {
         setChecked(!checked)
         switchMode()
     }
-
-    const matches600 = useMediaQuery('(max-width:600px)');
 
     return (
         <Drawer
